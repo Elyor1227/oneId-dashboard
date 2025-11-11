@@ -849,7 +849,7 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 import React, { useState, useEffect } from 'react';
-import { Calendar, BookOpen, TrendingUp, Award, Clock, CheckCircle, Target, BarChart3, GraduationCap, DollarSign, FileCheck, Send, X, Sparkles, MessageCircle } from 'lucide-react';
+import { Calendar, BookOpen, TrendingUp, Award, Clock, CheckCircle, Target, GraduationCap, DollarSign, FileCheck, Send, X, Sparkles, MessageCircle } from 'lucide-react';
 
 export default function HemisDashboard() {
   const [selectedSemester, setSelectedSemester] = useState('2-semestr');
