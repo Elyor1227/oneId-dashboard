@@ -1287,40 +1287,40 @@ function FinanceBadge({ children }) {
   );
 }
 
-function FinanceCard({ details, fallbackList }) {
-  if (!details) {
-    return <DescriptionList items={fallbackList} />;
-  }
-  return (
-    <div className="divide-y divide-slate-100">
-      <div className="py-1">
-        <FinanceRow label="Kontrakt (umumiy)" value={details.contractTotal} />
-        <FinanceRow label="To'langan" value={details.contractPaid} tone="good" />
-        <FinanceRow label="Kontrakt qolgan" value={details.contractRemaining} tone="bad" />
-      </div>
-      <div className="py-1">
-        <FinanceRow label="TTJ (umumiy)" value={details.ttjTotal} />
-        <FinanceRow label="TTJ to'langan" value={details.ttjPaid} tone="good" />
-        <FinanceRow label="TTJ qolgan" value={details.ttjRemaining} tone="bad" />
-      </div>
-      <div className="py-1">
-        <FinanceRow label="Kredit (umumiy)" value={details.creditTotal} />
-        <FinanceRow label="Kredit to'langan" value={details.creditPaid} tone="good" />
-        <FinanceRow label="Kredit qolgan" value={details.creditRemaining} tone="bad" />
-      </div>
-      <div className="pt-2 space-y-2">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-slate-600">Ijara holati</span>
-          <FinanceBadge>{details.rentStatus || "-"}</FinanceBadge>
-        </div>
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-slate-600">Stipendiya</span>
-          <span className="text-slate-700 font-medium">{details.stipend || "-"}</span>
-        </div>
-      </div>
-    </div>
-  );
-}
+// function FinanceCard({ details, fallbackList }) {
+//   if (!details) {
+//     return <DescriptionList items={fallbackList} />;
+//   }
+//   return (
+//     <div className="divide-y divide-slate-100">
+//       <div className="py-1">
+//         <FinanceRow label="Kontrakt (umumiy)" value={details.contractTotal} />
+//         <FinanceRow label="To'langan" value={details.contractPaid} tone="good" />
+//         <FinanceRow label="Kontrakt qolgan" value={details.contractRemaining} tone="bad" />
+//       </div>
+//       <div className="py-1">
+//         <FinanceRow label="TTJ (umumiy)" value={details.ttjTotal} />
+//         <FinanceRow label="TTJ to'langan" value={details.ttjPaid} tone="good" />
+//         <FinanceRow label="TTJ qolgan" value={details.ttjRemaining} tone="bad" />
+//       </div>
+//       <div className="py-1">
+//         <FinanceRow label="Kredit (umumiy)" value={details.creditTotal} />
+//         <FinanceRow label="Kredit to'langan" value={details.creditPaid} tone="good" />
+//         <FinanceRow label="Kredit qolgan" value={details.creditRemaining} tone="bad" />
+//       </div>
+//       <div className="pt-2 space-y-2">
+//         <div className="flex items-center justify-between text-sm">
+//           <span className="text-slate-600">Ijara holati</span>
+//           <FinanceBadge>{details.rentStatus || "-"}</FinanceBadge>
+//         </div>
+//         <div className="flex items-center justify-between text-sm">
+//           <span className="text-slate-600">Stipendiya</span>
+//           <span className="text-slate-700 font-medium">{details.stipend || "-"}</span>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 // Compact Talaba card: only remaining + rent status
 function FinanceCardCompact({ details, fallbackList }) {
