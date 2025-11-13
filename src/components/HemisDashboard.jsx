@@ -1073,7 +1073,10 @@ import {
   Building2, CreditCard, 
   Menu, X,
   UserCheck, 
-  MapPin, 
+  MapPin,
+  Upload,
+  CheckCircle,
+  Send, 
 } from 'lucide-react';
 import { BarChart, Bar, PieChart as  XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
 
@@ -1206,6 +1209,11 @@ const HemisDashboard = () => {
     { date: '15.01.2025', day: 'Seshanba', subject: 'Matematika', time: '09:00', room: '305', teacher: 'Mamadaliyev A.', groups: ['CS-101', 'CS-102'] },
     { date: '17.01.2025', day: 'Payshanba', subject: 'Fizika', time: '09:00', room: '201', teacher: 'Qosimov B.', groups: ['CS-101', 'CS-102'] },
     { date: '20.01.2025', day: 'Yakshanba', subject: 'Dasturlash', time: '10:00', room: '401', teacher: 'Karimova S.', groups: ['CS-101', 'CS-102'] }
+  ];
+  const documents = [
+    { id: 1, name: 'Enrollment Form 2024', date: '2024-11-10', status: 'Signed', type: 'PDF' },
+    { id: 2, name: 'Transcript Request', date: '2024-11-12', status: 'Pending', type: 'PDF' },
+    { id: 3, name: 'Scholarship Agreement', date: '2024-11-08', status: 'Verified', type: 'DOCX' }
   ];
 
   // Statistika hisoblash
