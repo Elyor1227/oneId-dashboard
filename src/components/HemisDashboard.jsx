@@ -1073,10 +1073,11 @@ import {
   Building2, CreditCard, 
   Menu, X,
   UserCheck, 
-  MapPin,
   Upload,
   CheckCircle,
-  Send, 
+  Send,
+  Download,
+  AlertCircle, 
 } from 'lucide-react';
 import { BarChart, Bar, PieChart as  XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
 
@@ -1085,7 +1086,6 @@ const HemisDashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedGroup, setSelectedGroup] = useState('all');
-  const [selectedSubject, setSelectedSubject] = useState('all');
 
   // Guruh rahbari ma'lumotlari
   const groupLeaderInfo = {
@@ -1542,72 +1542,77 @@ const HemisDashboard = () => {
         );
 
       case 'academic':
-        return (
+         return (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">O'quv jarayoni</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Oquv jarayoni</h2>
               
-              {/* Dars jadvali */}
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Haftalik dars jadvali</h3>
-                <div className="space-y-4">
-                  {weekSchedule.map(day => (
-                    <div key={day.day} className="border border-gray-200 rounded-xl overflow-hidden">
-                      <div className="bg-gray-50 px-6 py-3 border-b border-gray-200">
-                        <h4 className="font-bold text-gray-900">{day.day}</h4>
-                      </div>
-                      <div className="divide-y divide-gray-100">
-                        {day.lessons.map((lesson, index) => (
-                          <div key={index} className="px-6 py-4 hover:bg-gray-50 transition-colors">
-                            <div className="flex items-center justify-between">
-                              <div className="flex-1">
-                                <p className="font-medium text-gray-900">{lesson.subject}</p>
-                                <p className="text-sm text-gray-500">{lesson.teacher}</p>
+              <div className="space-y-4">
+                {weekSchedule.map((day, idx) => (
+                  <div key={idx} className="border border-gray-200 rounded-xl overflow-hidden">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3">
+                      <h3 className="text-lg font-bold text-white">{day.day}</h3>
+                    </div>
+                    <div className="p-4">
+                      <div className="grid gap-3">
+                        {day.lessons.map((lesson, lessonIdx) => (
+                          <div key={lessonIdx} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div className="flex items-center gap-4">
+                              <div className="text-center">
+                                <p className="text-sm font-semibold text-blue-600">{lesson.time}</p>
                               </div>
+                              <div className="w-px h-12 bg-gray-300"></div>
+                              <div>
+                                <p className="font-bold text-gray-900">{lesson.subject}</p>
+                                <p className="text-sm text-gray-600">{lesson.teacher}</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4">
                               <div className="text-right">
-                                <p className="font-medium text-gray-900">{lesson.time}</p>
-                                <p className="text-sm text-gray-500">{lesson.room} • {lesson.group}</p>
+                                <p className="text-sm font-medium text-gray-700">Xona: {lesson.room}</p>
+                                <p className="text-sm text-gray-500">{lesson.group}</p>
                               </div>
                             </div>
                           </div>
                         ))}
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Imtihon jadvali */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Nazorat jadvali</h3>
-                <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+              <div className="mt-8">
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Imtihonlar jadvali</h3>
+                <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead className="bg-gray-50">
                       <tr>
-                        <th className="text-left py-3 px-6 font-semibold text-gray-700">Sana</th>
+                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Sana</th>
+                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Kun</th>
                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Fan</th>
                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Vaqt</th>
                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Xona</th>
+                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Oqituvchi</th>
                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Guruhlar</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {examSchedule.map((exam, index) => (
-                        <tr key={index} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                          <td className="py-4 px-6">
-                            <p className="font-medium text-gray-900">{exam.date}</p>
-                            <p className="text-sm text-gray-500">{exam.day}</p>
-                          </td>
-                          <td className="py-4 px-4">
-                            <p className="font-medium text-gray-900">{exam.subject}</p>
-                            <p className="text-sm text-gray-500">{exam.teacher}</p>
-                          </td>
-                          <td className="py-4 px-4 text-gray-700">{exam.time}</td>
-                          <td className="py-4 px-4 text-gray-700">{exam.room}</td>
-                          <td className="py-4 px-4">
-                            <span className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm">
-                              {exam.groups.join(', ')}
-                            </span>
+                      {examSchedule.map((exam, idx) => (
+                        <tr key={idx} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                          <td className="py-3 px-4 font-medium text-gray-900">{exam.date}</td>
+                          <td className="py-3 px-4 text-gray-700">{exam.day}</td>
+                          <td className="py-3 px-4 font-semibold text-blue-600">{exam.subject}</td>
+                          <td className="py-3 px-4 text-gray-700">{exam.time}</td>
+                          <td className="py-3 px-4 text-gray-700">{exam.room}</td>
+                          <td className="py-3 px-4 text-gray-700">{exam.teacher}</td>
+                          <td className="py-3 px-4">
+                            <div className="flex gap-1">
+                              {exam.groups.map((g, gIdx) => (
+                                <span key={gIdx} className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+                                  {g}
+                                </span>
+                              ))}
+                            </div>
                           </td>
                         </tr>
                       ))}
@@ -1623,127 +1628,121 @@ const HemisDashboard = () => {
         return (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Davomat hisoboti</h2>
-              
-              {/* Fan filter */}
-              <div className="flex gap-3 mb-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Davomat hisoboti</h2>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
+                  <Download className="w-4 h-4" />
+                  Yuklab olish
+                </button>
+              </div>
+
+              <div className="mb-6">
                 <select 
-                  value={selectedSubject}
-                  onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="px-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  value={selectedGroup}
+                  onChange={(e) => setSelectedGroup(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="all">Barcha fanlar</option>
-                  <option value="Matematika">Matematika</option>
-                  <option value="Fizika">Fizika</option>
-                  <option value="Dasturlash">Dasturlash</option>
+                  <option value="all">Barcha guruhlar</option>
+                  {groupLeaderInfo.groups.map(group => (
+                    <option key={group} value={group}>{group}</option>
+                  ))}
                 </select>
               </div>
 
-              {/* Guruhlar bo'yicha davomat */}
-              <div className="space-y-6">
-                {groupLeaderInfo.groups.map(group => {
-                  const groupStudents = students.filter(s => s.group === group);
-                  return (
-                    <div key={group} className="border border-gray-200 rounded-xl overflow-hidden">
-                      <div className="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4">
-                        <h3 className="text-xl font-bold text-white">{group} guruh</h3>
-                        <p className="text-green-100 text-sm">
-                          O'rtacha davomat: {
-                            (groupStudents.reduce((sum, student) => {
-                              const subjectAttendance = selectedSubject === 'all' 
-                                ? student.subjects.reduce((subSum, sub) => subSum + sub.attendance, 0) / student.subjects.length
-                                : student.subjects.find(sub => sub.name === selectedSubject)?.attendance || 0;
-                              return sum + subjectAttendance;
-                            }, 0) / groupStudents.length).toFixed(1)
-                          }%
-                        </p>
-                      </div>
-                      
-                      <div className="overflow-x-auto">
-                        <table className="w-full">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
-                              {selectedSubject === 'all' ? (
-                                students[0]?.subjects.map(subject => (
-                                  <th key={subject.name} className="text-center py-3 px-4 font-semibold text-gray-700">
-                                    {subject.name}
-                                  </th>
-                                ))
-                              ) : (
-                                <>
-                                  <th className="text-center py-3 px-4 font-semibold text-gray-700">Davomat</th>
-                                  <th className="text-center py-3 px-4 font-semibold text-gray-700">Qoldirgan soat</th>
-                                  <th className="text-center py-3 px-4 font-semibold text-gray-700">Sababi</th>
-                                </>
-                              )}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {groupStudents.map(student => (
-                              <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                                <td className="py-4 px-6">
-                                  <div className="flex items-center gap-3">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                      student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
-                                    }`}>
-                                      <User className={`w-5 h-5 ${
-                                        student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
-                                      }`} />
-                                    </div>
-                                    <div>
-                                      <p className="font-medium text-gray-900">{student.name}</p>
-                                      <p className="text-sm text-gray-500">{student.group}</p>
-                                    </div>
-                                  </div>
-                                </td>
-                                
-                                {selectedSubject === 'all' ? (
-                                  student.subjects.map(subject => (
-                                    <td key={subject.name} className="py-4 px-4 text-center">
-                                      <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
-                                        subject.attendance >= 90 ? 'bg-green-100 text-green-700' :
-                                        subject.attendance >= 80 ? 'bg-yellow-100 text-yellow-700' :
-                                        'bg-red-100 text-red-700'
-                                      }`}>
-                                        {subject.attendance}%
-                                      </div>
-                                    </td>
-                                  ))
-                                ) : (
-                                  <>
-                                    <td className="py-4 px-4 text-center">
-                                      <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
-                                        student.subjects.find(s => s.name === selectedSubject)?.attendance >= 90 ? 'bg-green-100 text-green-700' :
-                                        student.subjects.find(s => s.name === selectedSubject)?.attendance >= 80 ? 'bg-yellow-100 text-yellow-700' :
-                                        'bg-red-100 text-red-700'
-                                      }`}>
-                                        {student.subjects.find(s => s.name === selectedSubject)?.attendance || 0}%
-                                      </div>
-                                    </td>
-                                    <td className="py-4 px-4 text-center text-gray-700">
-                                      {student.subjects.find(s => s.name === selectedSubject)?.missed || 0} soat
-                                    </td>
-                                    <td className="py-4 px-4 text-center">
-                                      <span className={`px-3 py-1 rounded-full text-sm ${
-                                        student.subjects.find(s => s.name === selectedSubject)?.reason === 'Sababli' 
-                                          ? 'bg-blue-100 text-blue-700' 
-                                          : 'bg-red-100 text-red-700'
-                                      }`}>
-                                        {student.subjects.find(s => s.name === selectedSubject)?.reason || 'Sababsiz'}
-                                      </span>
-                                    </td>
-                                  </>
-                                )}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
+              {groupLeaderInfo.groups.map(group => {
+                if (selectedGroup !== 'all' && selectedGroup !== group) return null;
+                const groupStudents = students.filter(s => s.group === group);
+                
+                return (
+                  <div key={group} className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+                      <h3 className="text-xl font-bold text-white">{group} guruh - Davomat</h3>
                     </div>
-                  );
-                })}
-              </div>
+                    
+                    {groupStudents.map(student => (
+                      <div key={student.id} className="border-t border-gray-200">
+                        <div className="bg-gray-50 px-6 py-3 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                              student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+                            }`}>
+                              <User className={`w-5 h-5 ${
+                                student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+                              }`} />
+                            </div>
+                            <div>
+                              <p className="font-bold text-gray-900">{student.name}</p>
+                              <p className="text-sm text-gray-500">GPA: {student.gpa}</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="p-6">
+                          <div className="overflow-x-auto">
+                            <table className="w-full">
+                              <thead className="bg-gray-100">
+                                <tr>
+                                  <th className="text-left py-2 px-4 font-semibold text-gray-700">Fan nomi</th>
+                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Umumiy soat</th>
+                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Qoldirilgan</th>
+                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Sabab</th>
+                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Davomat %</th>
+                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Holat</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {student.subjects.map((subject, idx) => {
+                                  const isRed = subject.attendance < 75;
+                                  return (
+                                    <tr key={idx} className={`border-t border-gray-100 ${isRed ? 'bg-red-50' : ''}`}>
+                                      <td className="py-3 px-4 font-medium text-gray-900">{subject.name}</td>
+                                      <td className="py-3 px-4 text-center text-gray-700">{subject.hours}</td>
+                                      <td className="py-3 px-4 text-center font-semibold text-red-600">{subject.missed}</td>
+                                      <td className="py-3 px-4 text-center">
+                                        <span className={`px-2 py-1 rounded-full text-xs ${
+                                          subject.reason === 'Sababli' 
+                                            ? 'bg-blue-100 text-blue-700' 
+                                            : 'bg-red-100 text-red-700'
+                                        }`}>
+                                          {subject.reason}
+                                        </span>
+                                      </td>
+                                      <td className="py-3 px-4 text-center">
+                                        <div className="flex items-center justify-center gap-2">
+                                          <div className="w-24 bg-gray-200 rounded-full h-2">
+                                            <div 
+                                              className={`h-2 rounded-full ${isRed ? 'bg-red-500' : 'bg-green-500'}`}
+                                              style={{width: `${subject.attendance}%`}}
+                                            />
+                                          </div>
+                                          <span className={`font-bold ${isRed ? 'text-red-600' : 'text-green-600'}`}>
+                                            {subject.attendance}%
+                                          </span>
+                                        </div>
+                                      </td>
+                                      <td className="py-3 px-4 text-center">
+                                        {isRed ? (
+                                          <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+                                            Qizil
+                                          </span>
+                                        ) : (
+                                          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                                            Yaxshi
+                                          </span>
+                                        )}
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
@@ -1752,239 +1751,281 @@ const HemisDashboard = () => {
         return (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Talabalar o'zlashtirishi</h2>
-              
-              {/* Akademik qarzdorlar */}
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Akademik qarzdor talabalar</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {students.filter(s => s.debts.length > 0).map(student => (
-                    <div key={student.id} className="border border-red-200 rounded-xl p-4 bg-red-50">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
-                          <User className="w-6 h-6 text-red-600" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-gray-900">{student.name}</p>
-                          <p className="text-sm text-gray-600">{student.group}</p>
-                        </div>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Ozlashtirish va Baholash</h2>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
+                  <Download className="w-4 h-4" />
+                  Hisobot
+                </button>
+              </div>
+
+              <div className="mb-6">
+                <select 
+                  value={selectedGroup}
+                  onChange={(e) => setSelectedGroup(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">Barcha guruhlar</option>
+                  {groupLeaderInfo.groups.map(group => (
+                    <option key={group} value={group}>{group}</option>
+                  ))}
+                </select>
+              </div>
+
+              {groupLeaderInfo.groups.map(group => {
+                if (selectedGroup !== 'all' && selectedGroup !== group) return null;
+                const groupStudents = students.filter(s => s.group === group);
+                const debtorStudents = groupStudents.filter(s => s.debts.length > 0);
+                
+                return (
+                  <div key={group} className="mb-8 space-y-6">
+                    <div className="border border-gray-200 rounded-xl overflow-hidden">
+                      <div className="bg-gradient-to-r from-purple-500 to-purple-600 px-6 py-4">
+                        <h3 className="text-xl font-bold text-white">{group} guruh - Ozlashtirish</h3>
                       </div>
-                      <div className="space-y-2">
-                        <p className="text-sm font-medium text-red-700">Qarzdor fanlar:</p>
-                        <div className="flex flex-wrap gap-1">
-                          {student.debts.map((debt, index) => (
-                            <span key={index} className="px-2 py-1 bg-red-200 text-red-800 rounded text-xs">
-                              {debt}
-                            </span>
+                      
+                      {groupStudents.map(student => (
+                        <div key={student.id} className="border-t border-gray-200">
+                          <div className="bg-gray-50 px-6 py-4 flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                                student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+                              }`}>
+                                <User className={`w-6 h-6 ${
+                                  student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+                                }`} />
+                              </div>
+                              <div>
+                                <p className="font-bold text-gray-900 text-lg">{student.name}</p>
+                                <p className="text-sm text-gray-500">{student.group} - {student.course}-kurs</p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-6">
+                              <div className="text-center">
+                                <p className="text-sm text-gray-500">GPA</p>
+                                <p className="text-2xl font-bold text-purple-600">{student.gpa}</p>
+                              </div>
+                              {student.debts.length > 0 && (
+                                <div className="flex items-center gap-2 px-4 py-2 bg-red-100 rounded-xl">
+                                  <AlertCircle className="w-5 h-5 text-red-600" />
+                                  <span className="font-medium text-red-700">{student.debts.length} ta qarzdorlik</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          
+                          <div className="p-6">
+                            <h4 className="font-semibold text-gray-900 mb-4">Fanlar boyicha baholash:</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                              {student.subjects.map((subject, idx) => (
+                                <div key={idx} className="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <p className="font-medium text-gray-900">{subject.name}</p>
+                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                                      subject.grade === 5 ? 'bg-green-100' :
+                                      subject.grade === 4 ? 'bg-blue-100' :
+                                      subject.grade === 3 ? 'bg-yellow-100' : 'bg-red-100'
+                                    }`}>
+                                      <span className={`text-xl font-bold ${
+                                        subject.grade === 5 ? 'text-green-600' :
+                                        subject.grade === 4 ? 'text-blue-600' :
+                                        subject.grade === 3 ? 'text-yellow-600' : 'text-red-600'
+                                      }`}>
+                                        {subject.grade}
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div className="flex items-center justify-between text-sm text-gray-600">
+                                    <span>Davomat:</span>
+                                    <span className={`font-semibold ${
+                                      subject.attendance >= 85 ? 'text-green-600' :
+                                      subject.attendance >= 75 ? 'text-yellow-600' : 'text-red-600'
+                                    }`}>
+                                      {subject.attendance}%
+                                    </span>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+
+                            {student.debts.length > 0 && (
+                              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <AlertCircle className="w-5 h-5 text-red-600" />
+                                  <p className="font-semibold text-red-900">Akademik qarzdorliklar:</p>
+                                </div>
+                                <div className="flex flex-wrap gap-2">
+                                  {student.debts.map((debt, idx) => (
+                                    <span key={idx} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+                                      {debt}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {debtorStudents.length > 0 && (
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+                        <h4 className="text-lg font-bold text-red-900 mb-4 flex items-center gap-2">
+                          <AlertCircle className="w-6 h-6" />
+                          Akademik qarzdor talabalar ({debtorStudents.length})
+                        </h4>
+                        <div className="space-y-3">
+                          {debtorStudents.map(student => (
+                            <div key={student.id} className="flex items-center justify-between p-4 bg-white rounded-xl">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                                  <User className="w-5 h-5 text-red-600" />
+                                </div>
+                                <div>
+                                  <p className="font-medium text-gray-900">{student.name}</p>
+                                  <p className="text-sm text-gray-500">GPA: {student.gpa}</p>
+                                </div>
+                              </div>
+                              <div className="flex flex-wrap gap-2">
+                                {student.debts.map((debt, idx) => (
+                                  <span key={idx} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">
+                                    {debt}
+                                  </span>
+                                ))}
+                              </div>
+                            </div>
                           ))}
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Fanlar bo'yicha baholar */}
-              <div className="space-y-6">
-                {groupLeaderInfo.groups.map(group => {
-                  const groupStudents = students.filter(s => s.group === group);
-                  return (
-                    <div key={group} className="border border-gray-200 rounded-xl overflow-hidden">
-                      <div className="bg-gradient-to-r from-purple-500 to-purple-600 px-6 py-4">
-                        <h3 className="text-xl font-bold text-white">{group} guruh</h3>
-                        <p className="text-purple-100 text-sm">
-                          O'rtacha GPA: {
-                            (groupStudents.reduce((sum, student) => sum + student.gpa, 0) / groupStudents.length).toFixed(2)
-                          }
-                        </p>
-                      </div>
-                      
-                      <div className="overflow-x-auto">
-                        <table className="w-full">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
-                              <th className="text-center py-3 px-4 font-semibold text-gray-700">GPA</th>
-                              {students[0]?.subjects.map(subject => (
-                                <th key={subject.name} className="text-center py-3 px-4 font-semibold text-gray-700">
-                                  {subject.name}
-                                </th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {groupStudents.map(student => (
-                              <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                                <td className="py-4 px-6">
-                                  <div className="flex items-center gap-3">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                      student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
-                                    }`}>
-                                      <User className={`w-5 h-5 ${
-                                        student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
-                                      }`} />
-                                    </div>
-                                    <div>
-                                      <p className="font-medium text-gray-900">{student.name}</p>
-                                      <p className="text-sm text-gray-500">{student.group}</p>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td className="py-4 px-4 text-center">
-                                  <span className={`text-lg font-bold ${
-                                    student.gpa >= 3.5 ? 'text-green-600' : 
-                                    student.gpa >= 3.0 ? 'text-yellow-600' : 'text-red-600'
-                                  }`}>
-                                    {student.gpa}
-                                  </span>
-                                </td>
-                                {student.subjects.map(subject => (
-                                  <td key={subject.name} className="py-4 px-4 text-center">
-                                    <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${
-                                      subject.grade === 5 ? 'bg-green-100 text-green-700' :
-                                      subject.grade === 4 ? 'bg-blue-100 text-blue-700' :
-                                      subject.grade === 3 ? 'bg-yellow-100 text-yellow-700' :
-                                      'bg-red-100 text-red-700'
-                                    }`}>
-                                      {subject.grade}
-                                    </span>
-                                  </td>
-                                ))}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
 
       case 'financial':
-        return (
+           return (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Moliyaviy faoliyat</h2>
-              
-              {/* Kontrakt to'lovlari */}
-              <div className="mb-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Kontrakt to'lovlari</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Guruh</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Kontrakt summasi</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">To'langan</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Qarzdorlik</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Holati</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {students.filter(s => s.paymentType === 'Kontrakt').map(student => (
-                        <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                          <td className="py-4 px-6">
-                            <div className="flex items-center gap-3">
-                              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
-                              }`}>
-                                <User className={`w-5 h-5 ${
-                                  student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
-                                }`} />
-                              </div>
-                              <div>
-                                <p className="font-medium text-gray-900">{student.name}</p>
-                                <p className="text-sm text-gray-500">{student.educationType}</p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="py-4 px-4 text-gray-700">{student.group}</td>
-                          <td className="py-4 px-4">
-                            <p className="font-medium text-gray-900">
-                              {student.contractAmount?.toLocaleString('uz-UZ')} so'm
-                            </p>
-                            <p className="text-sm text-gray-500">{student.contract} chegirma</p>
-                          </td>
-                          <td className="py-4 px-4">
-                            <p className="font-medium text-gray-900">
-                              {student.paid?.toLocaleString('uz-UZ')} so'm
-                            </p>
-                          </td>
-                          <td className="py-4 px-4">
-                            <p className={`font-medium ${
-                              student.debt > 0 ? 'text-red-600' : 'text-green-600'
-                            }`}>
-                              {student.debt?.toLocaleString('uz-UZ')} so'm
-                            </p>
-                          </td>
-                          <td className="py-4 px-4">
-                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                              student.debt === 0 
-                                ? 'bg-green-100 text-green-700' 
-                                : 'bg-red-100 text-red-700'
-                            }`}>
-                              {student.debt === 0 ? 'To\'langan' : 'Qarzdor'}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">Moliyaviy faoliyat</h2>
+                <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
+                  <Download className="w-4 h-4" />
+                  Moliyaviy hisobot
+                </button>
               </div>
 
-              {/* Turar joy shartnomalari */}
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Turar joy ma'lumotlari</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {students.map(student => (
-                    <div key={student.id} className="border border-gray-200 rounded-xl p-4 hover:shadow-md transition-shadow">
-                      <div className="flex items-center gap-3 mb-3">
-                        <div className={`p-2 rounded-lg ${
-                          student.residence === 'Yotoqxona' ? 'bg-green-100 text-green-600' :
-                          student.residence === 'O\'z uyi' ? 'bg-blue-100 text-blue-600' :
-                          student.residence === 'Ijara' ? 'bg-orange-100 text-orange-600' :
-                          'bg-purple-100 text-purple-600'
-                        }`}>
-                          <MapPin className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-gray-900">{student.name}</p>
-                          <p className="text-sm text-gray-600">{student.group}</p>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">Turar joy:</span>
-                          <span className="font-medium">{student.residence}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-gray-600">To'lov turi:</span>
-                          <span className="font-medium">{student.paymentType}</span>
-                        </div>
-                        {student.residence === 'Ijara' && (
-                          <div className="p-2 bg-orange-50 rounded text-sm text-orange-700">
-                            Ijara shartnomasi mavjud
-                          </div>
-                        )}
-                        {student.residence === 'Yotoqxona' && (
-                          <div className="p-2 bg-green-50 rounded text-sm text-green-700">
-                            Yotoqxona shartnomasi mavjud
-                          </div>
-                        )}
-                      </div>
-                    </div>
+              <div className="mb-6">
+                <select 
+                  value={selectedGroup}
+                  onChange={(e) => setSelectedGroup(e.target.value)}
+                  className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="all">Barcha guruhlar</option>
+                  {groupLeaderInfo.groups.map(group => (
+                    <option key={group} value={group}>{group}</option>
                   ))}
-                </div>
+                </select>
               </div>
+
+              {groupLeaderInfo.groups.map(group => {
+                if (selectedGroup !== 'all' && selectedGroup !== group) return null;
+                const groupStudents = students.filter(s => s.group === group);
+                
+                return (
+                  <div key={group} className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
+                    <div className="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4">
+                      <h3 className="text-xl font-bold text-white">{group} guruh - Moliyaviy malumotlar</h3>
+                    </div>
+                    
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
+                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Tolov turi</th>
+                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Chegirma</th>
+                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Kontrakt summasi</th>
+                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Tolangan</th>
+                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Qarz</th>
+                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Turar joy</th>
+                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Holat</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {groupStudents.map(student => (
+                            <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                              <td className="py-4 px-6">
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                                    student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+                                  }`}>
+                                    <User className={`w-5 h-5 ${
+                                      student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+                                    }`} />
+                                  </div>
+                                  <div>
+                                    <p className="font-medium text-gray-900">{student.name}</p>
+                                    <p className="text-sm text-gray-500">{student.age} yosh</p>
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="py-4 px-4">
+                                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                                  student.paymentType === 'Grant' 
+                                    ? 'bg-green-100 text-green-700' 
+                                    : 'bg-blue-100 text-blue-700'
+                                }`}>
+                                  {student.paymentType}
+                                </span>
+                              </td>
+                              <td className="py-4 px-4 font-semibold text-gray-900">{student.contract}</td>
+                              <td className="py-4 px-4 text-gray-700">
+                                {student.contractAmount ? `${(student.contractAmount / 1000000).toFixed(1)} mln` : '-'}
+                              </td>
+                              <td className="py-4 px-4 font-semibold text-green-600">
+                                {student.paid ? `${(student.paid / 1000000).toFixed(1)} mln` : '-'}
+                              </td>
+                              <td className="py-4 px-4">
+                                {student.debt > 0 ? (
+                                  <span className="font-semibold text-red-600">{(student.debt / 1000000).toFixed(1)} mln</span>
+                                ) : (
+                                  <span className="text-gray-400">-</span>
+                                )}
+                              </td>
+                              <td className="py-4 px-4">
+                                <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+                                  {student.residence}
+                                </span>
+                              </td>
+                              <td className="py-4 px-4">
+                                {student.debt > 0 ? (
+                                  <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+                                    Qarz bor
+                                  </span>
+                                ) : student.paymentType === 'Grant' ? (
+                                  <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                                    Grant
+                                  </span>
+                                ) : (
+                                  <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                                    Tolangan
+                                  </span>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         );
-
       // Qolgan bo'limlar...
       case 'documents': return (
           <div className="space-y-6">
