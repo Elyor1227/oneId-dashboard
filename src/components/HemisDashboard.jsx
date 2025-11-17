@@ -1064,30 +1064,1199 @@
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+// import React, { useState } from 'react';
+// import { 
+//   FileText, Users, Activity, Calendar, ClipboardCheck, 
+//   TrendingUp, DollarSign, BarChart3, MessageSquare, 
+//   Settings, Home, Search, Bell, User, 
+//  Award, BookOpen,
+//   Building2, CreditCard, 
+//   Menu, X,
+//   UserCheck, 
+//   Upload,
+//   CheckCircle,
+//   Send,
+//   Download,
+//   AlertCircle, 
+// } from 'lucide-react';
+// import { BarChart, Bar, PieChart as  XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
+
+// const HemisDashboard = () => {
+//   const [activeTab, setActiveTab] = useState('home');
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [sidebarOpen, setSidebarOpen] = useState(true);
+//   const [selectedGroup, setSelectedGroup] = useState('all');
+
+//   // Guruh rahbari ma'lumotlari
+//   const groupLeaderInfo = {
+//     name: "Aliyev Sardor Karimovich",
+//     position: "Guruh rahbari",
+//     faculty: "Axborot texnologiyalari fakulteti",
+//     groups: ["CS-101", "CS-102"]
+//   };
+
+//   // Talabalar ma'lumotlari
+//   const students = [
+//     { 
+//       id: 1, 
+//       name: 'Abdullayev Ali', 
+//       group: 'CS-101', 
+//       gender: 'Erkak',
+//       age: 19,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol', 
+//       gpa: 3.8,
+//       residence: 'Yotoqxona',
+//       paymentType: 'Grant',
+//       contract: '100%',
+//       subjects: [
+//         { name: 'Matematika', grade: 5, attendance: 92, hours: 60, missed: 5, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 4, attendance: 88, hours: 60, missed: 7, reason: 'Sababsiz' },
+//         { name: 'Dasturlash', grade: 5, attendance: 95, hours: 80, missed: 4, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     },
+//     { 
+//       id: 2, 
+//       name: 'Karimova Malika', 
+//       group: 'CS-101', 
+//       gender: 'Ayol',
+//       age: 18,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol',
+//       gpa: 3.9,
+//       residence: 'O\'z uyi',
+//       paymentType: 'Grant',
+//       contract: '100%',
+//       subjects: [
+//         { name: 'Matematika', grade: 5, attendance: 96, hours: 60, missed: 2, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 5, attendance: 94, hours: 60, missed: 3, reason: 'Sababli' },
+//         { name: 'Dasturlash', grade: 5, attendance: 98, hours: 80, missed: 1, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     },
+//     { 
+//       id: 3, 
+//       name: 'Rahimov Jamshid', 
+//       group: 'CS-102', 
+//       gender: 'Erkak',
+//       age: 20,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Akademik qarzdor',
+//       gpa: 2.8,
+//       residence: 'Ijara',
+//       paymentType: 'Kontrakt',
+//       contract: '50%',
+//       contractAmount: 12000000,
+//       paid: 6000000,
+//       debt: 6000000,
+//       subjects: [
+//         { name: 'Matematika', grade: 3, attendance: 75, hours: 60, missed: 15, reason: 'Sababsiz' },
+//         { name: 'Fizika', grade: 2, attendance: 70, hours: 60, missed: 18, reason: 'Sababsiz' },
+//         { name: 'Dasturlash', grade: 4, attendance: 85, hours: 80, missed: 12, reason: 'Sababli' }
+//       ],
+//       debts: ['Fizika', 'Ingliz tili']
+//     },
+//     { 
+//       id: 4, 
+//       name: 'Tursunova Dilnoza', 
+//       group: 'CS-102', 
+//       gender: 'Ayol',
+//       age: 19,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol',
+//       gpa: 3.5,
+//       residence: 'Qarindosh uyi',
+//       paymentType: 'Kontrakt',
+//       contract: '30%',
+//       contractAmount: 15000000,
+//       paid: 15000000,
+//       debt: 0,
+//       subjects: [
+//         { name: 'Matematika', grade: 4, attendance: 90, hours: 60, missed: 6, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 4, attendance: 88, hours: 60, missed: 7, reason: 'Sababli' },
+//         { name: 'Dasturlash', grade: 5, attendance: 93, hours: 80, missed: 5, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     }
+//   ];
+
+//   // Dars jadvali (Haftalik)
+//   const weekSchedule = [
+//     { day: 'Dushanba', lessons: [
+//       { time: '08:30-10:00', subject: 'Matematika', room: '305', teacher: 'Mamadaliyev A.', group: 'CS-101' },
+//       { time: '10:10-11:40', subject: 'Fizika', room: '201', teacher: 'Qosimov B.', group: 'CS-101' },
+//       { time: '12:00-13:30', subject: 'Dasturlash', room: '401', teacher: 'Karimova S.', group: 'CS-102' }
+//     ]},
+//     { day: 'Seshanba', lessons: [
+//       { time: '08:30-10:00', subject: 'Ingliz tili', room: '105', teacher: 'Rashidova M.', group: 'CS-101' },
+//       { time: '10:10-11:40', subject: 'Dasturlash', room: '401', teacher: 'Karimova S.', group: 'CS-101' },
+//       { time: '12:00-13:30', subject: 'Matematika', room: '305', teacher: 'Mamadaliyev A.', group: 'CS-102' }
+//     ]},
+//     { day: 'Chorshanba', lessons: [
+//       { time: '08:30-10:00', subject: 'Ma\'lumotlar bazasi', room: '402', teacher: 'Tursunov J.', group: 'CS-101' },
+//       { time: '10:10-11:40', subject: 'Fizika', room: '201', teacher: 'Qosimov B.', group: 'CS-102' },
+//       { time: '12:00-13:30', subject: 'Ingliz tili', room: '105', teacher: 'Rashidova M.', group: 'CS-102' }
+//     ]}
+//   ];
+
+//   // Imtihon jadvali
+//   const examSchedule = [
+//     { date: '15.01.2025', day: 'Seshanba', subject: 'Matematika', time: '09:00', room: '305', teacher: 'Mamadaliyev A.', groups: ['CS-101', 'CS-102'] },
+//     { date: '17.01.2025', day: 'Payshanba', subject: 'Fizika', time: '09:00', room: '201', teacher: 'Qosimov B.', groups: ['CS-101', 'CS-102'] },
+//     { date: '20.01.2025', day: 'Yakshanba', subject: 'Dasturlash', time: '10:00', room: '401', teacher: 'Karimova S.', groups: ['CS-101', 'CS-102'] }
+//   ];
+//   const documents = [
+//     { id: 1, name: 'Enrollment Form 2024', date: '2024-11-10', status: 'Signed', type: 'PDF' },
+//     { id: 2, name: 'Transcript Request', date: '2024-11-12', status: 'Pending', type: 'PDF' },
+//     { id: 3, name: 'Scholarship Agreement', date: '2024-11-08', status: 'Verified', type: 'DOCX' }
+//   ];
+
+//   // Statistika hisoblash
+//   const filteredStudents = selectedGroup === 'all' 
+//     ? students 
+//     : students.filter(s => s.group === selectedGroup);
+
+//   const stats = {
+//     total: filteredStudents.length,
+//     male: filteredStudents.filter(s => s.gender === 'Erkak').length,
+//     female: filteredStudents.filter(s => s.gender === 'Ayol').length,
+//     dormitory: filteredStudents.filter(s => s.residence === 'Yotoqxona').length,
+//     ownHome: filteredStudents.filter(s => s.residence === 'O\'z uyi').length,
+//     rental: filteredStudents.filter(s => s.residence === 'Ijara').length,
+//     relative: filteredStudents.filter(s => s.residence === 'Qarindosh uyi').length,
+//     contract: filteredStudents.filter(s => s.paymentType === 'Kontrakt').length,
+//     grant: filteredStudents.filter(s => s.paymentType === 'Grant').length,
+//     active: filteredStudents.filter(s => s.status === 'Faol').length,
+//     debtors: filteredStudents.filter(s => s.status === 'Akademik qarzdor').length,
+//     avgGpa: filteredStudents.length > 0 ? (filteredStudents.reduce((sum, s) => sum + s.gpa, 0) / filteredStudents.length).toFixed(2) : '0.00'
+//   };
+
+//   // Yosh kesimi
+//   const ageDistribution = [
+//     { age: '18', count: filteredStudents.filter(s => s.age === 18).length },
+//     { age: '19', count: filteredStudents.filter(s => s.age === 19).length },
+//     { age: '20', count: filteredStudents.filter(s => s.age === 20).length },
+//     { age: '21+', count: filteredStudents.filter(s => s.age >= 21).length }
+//   ];
+
+//   const navigationItems = [
+//     { id: 'home', icon: Home, label: 'Bosh sahifa' },
+//     { id: 'documents', icon: FileText, label: 'E-Hujjatlar' },
+//     { id: 'students', icon: Users, label: 'Talabalar' },
+//     { id: 'activity', icon: Activity, label: 'Talaba faoliyati' },
+//     { id: 'academic', icon: Calendar, label: 'O\'quv jarayoni' },
+//     { id: 'attendance', icon: ClipboardCheck, label: 'Davomat' },
+//     { id: 'performance', icon: TrendingUp, label: 'O\'zlashtirish' },
+//     { id: 'financial', icon: DollarSign, label: 'Moliyaviy faoliyat' },
+//     { id: 'statistics', icon: BarChart3, label: 'Statistika' },
+//     { id: 'messages', icon: MessageSquare, label: 'Xabarlar' },
+//     { id: 'settings', icon: Settings, label: 'Sozlamalar' }
+//   ];
+
+//   const StatCard = ({ icon: Icon, title, value, subtitle, color, percentage }) => (
+//     <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+//       <div className="flex items-start justify-between mb-4">
+//         <div className={`p-3 rounded-xl bg-gradient-to-br ${color}`}>
+//           <Icon className="w-6 h-6 text-white" />
+//         </div>
+//         {percentage && (
+//           <span className="text-2xl font-bold text-gray-900">{percentage}%</span>
+//         )}
+//       </div>
+//       <h3 className="text-gray-500 text-sm font-medium mb-1">{title}</h3>
+//       <p className="text-3xl font-bold text-gray-900 mb-1">{value}</p>
+//       {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
+//     </div>
+//   );
+
+//   const HomeIcon = ({ className = "w-4 h-4" }) => (
+//     <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+//       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+//     </svg>
+//   );
+
+//   const renderContent = () => {
+//     switch(activeTab) {
+//       case 'home':
+//         return (
+//           <div className="space-y-6">
+//             {/* Guruh rahbari info */}
+//             <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+//               <div className="flex items-center gap-4">
+//                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+//                   <User className="w-8 h-8" />
+//                 </div>
+//                 <div>
+//                   <h2 className="text-2xl font-bold">{groupLeaderInfo.name}</h2>
+//                   <p className="text-blue-100">{groupLeaderInfo.position} • {groupLeaderInfo.faculty}</p>
+//                   <p className="text-blue-100 text-sm mt-1">Guruhlar: {groupLeaderInfo.groups.join(', ')}</p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Guruh filter */}
+//             <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+//               <div className="flex gap-3">
+//                 <button 
+//                   onClick={() => setSelectedGroup('all')}
+//                   className={`px-6 py-2 rounded-xl font-medium transition-all ${
+//                     selectedGroup === 'all' 
+//                       ? 'bg-blue-500 text-white shadow-md' 
+//                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+//                   }`}
+//                 >
+//                   Barcha guruhlar
+//                 </button>
+//                 {groupLeaderInfo.groups.map(group => (
+//                   <button 
+//                     key={group}
+//                     onClick={() => setSelectedGroup(group)}
+//                     className={`px-6 py-2 rounded-xl font-medium transition-all ${
+//                       selectedGroup === group 
+//                         ? 'bg-blue-500 text-white shadow-md' 
+//                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+//                     }`}
+//                   >
+//                     {group}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+
+//             {/* Asosiy statistika */}
+//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+//               <StatCard 
+//                 icon={Users} 
+//                 title="Jami talabalar" 
+//                 value={stats.total}
+//                 color="from-blue-500 to-blue-600"
+//               />
+//               <StatCard 
+//                 icon={UserCheck} 
+//                 title="Faol talabalar" 
+//                 value={stats.active}
+//                 subtitle={`${stats.debtors} nafar qarzdor`}
+//                 color="from-green-500 to-green-600"
+//               />
+//               <StatCard 
+//                 icon={Award} 
+//                 title="O'rtacha GPA" 
+//                 value={stats.avgGpa}
+//                 color="from-purple-500 to-purple-600"
+//               />
+//               <StatCard 
+//                 icon={BookOpen} 
+//                 title="Grant talabalar" 
+//                 value={stats.grant}
+//                 subtitle={`${stats.contract} nafar kontrakt`}
+//                 color="from-orange-500 to-orange-600"
+//               />
+//             </div>
+
+//             {/* Jins kesimi va Turar joy */}
+//             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-6">Jins kesimi</h3>
+//                 <div className="space-y-4">
+//                   <div className="flex items-center justify-between p-4 bg-blue-50 rounded-xl">
+//                     <span className="font-medium text-gray-700">Erkaklar</span>
+//                     <div className="flex items-center gap-3">
+//                       <div className="w-32 bg-gray-200 rounded-full h-2">
+//                         <div 
+//                           className="bg-blue-500 h-2 rounded-full transition-all duration-500" 
+//                           style={{width: `${(stats.male/stats.total)*100}%`}}
+//                         />
+//                       </div>
+//                       <span className="text-xl font-bold text-blue-600 w-12 text-right">{stats.male}</span>
+//                     </div>
+//                   </div>
+//                   <div className="flex items-center justify-between p-4 bg-pink-50 rounded-xl">
+//                     <span className="font-medium text-gray-700">Qizlar</span>
+//                     <div className="flex items-center gap-3">
+//                       <div className="w-32 bg-gray-200 rounded-full h-2">
+//                         <div 
+//                           className="bg-pink-500 h-2 rounded-full transition-all duration-500" 
+//                           style={{width: `${(stats.female/stats.total)*100}%`}}
+//                         />
+//                       </div>
+//                       <span className="text-xl font-bold text-pink-600 w-12 text-right">{stats.female}</span>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-6">Turar joy kesimi</h3>
+//                 <div className="grid grid-cols-2 gap-3">
+//                   <div className="p-4 bg-green-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <Building2 className="w-4 h-4 text-green-600" />
+//                       <span className="text-sm text-gray-600">Yotoqxona</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-green-600">{stats.dormitory}</p>
+//                   </div>
+//                   <div className="p-4 bg-blue-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <HomeIcon className="w-4 h-4 text-blue-600" />
+//                       <span className="text-sm text-gray-600">O'z uyi</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-blue-600">{stats.ownHome}</p>
+//                   </div>
+//                   <div className="p-4 bg-orange-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <CreditCard className="w-4 h-4 text-orange-600" />
+//                       <span className="text-sm text-gray-600">Ijara</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-orange-600">{stats.rental}</p>
+//                   </div>
+//                   <div className="p-4 bg-purple-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <Users className="w-4 h-4 text-purple-600" />
+//                       <span className="text-sm text-gray-600">Qarindosh</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-purple-600">{stats.relative}</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Yosh va To'lov kesimi */}
+//             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-4">Yosh kesimi</h3>
+//                 <ResponsiveContainer width="100%" height={250}>
+//                   <BarChart data={ageDistribution}>
+//                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+//                     <XAxis dataKey="age" stroke="#9ca3af" />
+//                     <YAxis stroke="#9ca3af" />
+//                     <Tooltip />
+//                     <Bar dataKey="count" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
+//                   </BarChart>
+//                 </ResponsiveContainer>
+//               </div>
+
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-6">To'lov turi kesimi</h3>
+//                 <div className="space-y-4">
+//                   <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl">
+//                     <div>
+//                       <span className="font-medium text-gray-700">Grant asosida</span>
+//                       <p className="text-sm text-gray-500 mt-1">100% chegirma</p>
+//                     </div>
+//                     <span className="text-3xl font-bold text-green-600">{stats.grant}</span>
+//                   </div>
+//                   <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
+//                     <div>
+//                       <span className="font-medium text-gray-700">Kontrakt asosida</span>
+//                       <p className="text-sm text-gray-500 mt-1">To'lov shartnomasi</p>
+//                     </div>
+//                     <span className="text-3xl font-bold text-blue-600">{stats.contract}</span>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         );
+
+//       case 'activity':
+//         return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <h2 className="text-2xl font-bold text-gray-900 mb-6">Talaba faoliyati</h2>
+              
+//               {/* Guruhlar bo'yicha */}
+//               <div className="space-y-6">
+//                 {groupLeaderInfo.groups.map(group => {
+//                   const groupStudents = students.filter(s => s.group === group);
+//                   return (
+//                     <div key={group} className="border border-gray-200 rounded-xl overflow-hidden">
+//                       <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+//                         <h3 className="text-xl font-bold text-white">{group} guruh</h3>
+//                         <p className="text-blue-100 text-sm">{groupStudents.length} ta talaba</p>
+//                       </div>
+                      
+//                       <div className="overflow-x-auto">
+//                         <table className="w-full">
+//                           <thead className="bg-gray-50">
+//                             <tr>
+//                               <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Ta'lim turi</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Kurs</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Talaba holati</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">GPA</th>
+//                             </tr>
+//                           </thead>
+//                           <tbody>
+//                             {groupStudents.map(student => (
+//                               <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+//                                 <td className="py-4 px-6">
+//                                   <div className="flex items-center gap-3">
+//                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+//                                       student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+//                                     }`}>
+//                                       <User className={`w-5 h-5 ${
+//                                         student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+//                                       }`} />
+//                                     </div>
+//                                     <div>
+//                                       <p className="font-medium text-gray-900">{student.name}</p>
+//                                       <p className="text-sm text-gray-500">{student.gender} • {student.age} yosh</p>
+//                                     </div>
+//                                   </div>
+//                                 </td>
+//                                 <td className="py-4 px-4 text-gray-700">{student.educationType}</td>
+//                                 <td className="py-4 px-4 text-gray-700">{student.course}-kurs</td>
+//                                 <td className="py-4 px-4">
+//                                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+//                                     student.status === 'Faol' 
+//                                       ? 'bg-green-100 text-green-700' 
+//                                       : 'bg-red-100 text-red-700'
+//                                   }`}>
+//                                     {student.status}
+//                                   </span>
+//                                 </td>
+//                                 <td className="py-4 px-4">
+//                                   <span className={`text-lg font-bold ${
+//                                     student.gpa >= 3.5 ? 'text-green-600' : 
+//                                     student.gpa >= 3.0 ? 'text-yellow-600' : 'text-red-600'
+//                                   }`}>
+//                                     {student.gpa}
+//                                   </span>
+//                                 </td>
+//                               </tr>
+//                             ))}
+//                           </tbody>
+//                         </table>
+//                       </div>
+//                     </div>
+//                   );
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         );
+
+//       case 'academic':
+//          return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <h2 className="text-2xl font-bold text-gray-900 mb-6">Oquv jarayoni</h2>
+              
+//               <div className="space-y-4">
+//                 {weekSchedule.map((day, idx) => (
+//                   <div key={idx} className="border border-gray-200 rounded-xl overflow-hidden">
+//                     <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3">
+//                       <h3 className="text-lg font-bold text-white">{day.day}</h3>
+//                     </div>
+//                     <div className="p-4">
+//                       <div className="grid gap-3">
+//                         {day.lessons.map((lesson, lessonIdx) => (
+//                           <div key={lessonIdx} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+//                             <div className="flex items-center gap-4">
+//                               <div className="text-center">
+//                                 <p className="text-sm font-semibold text-blue-600">{lesson.time}</p>
+//                               </div>
+//                               <div className="w-px h-12 bg-gray-300"></div>
+//                               <div>
+//                                 <p className="font-bold text-gray-900">{lesson.subject}</p>
+//                                 <p className="text-sm text-gray-600">{lesson.teacher}</p>
+//                               </div>
+//                             </div>
+//                             <div className="flex items-center gap-4">
+//                               <div className="text-right">
+//                                 <p className="text-sm font-medium text-gray-700">Xona: {lesson.room}</p>
+//                                 <p className="text-sm text-gray-500">{lesson.group}</p>
+//                               </div>
+//                             </div>
+//                           </div>
+//                         ))}
+//                       </div>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+
+//               <div className="mt-8">
+//                 <h3 className="text-xl font-bold text-gray-900 mb-4">Imtihonlar jadvali</h3>
+//                 <div className="overflow-x-auto">
+//                   <table className="w-full">
+//                     <thead className="bg-gray-50">
+//                       <tr>
+//                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Sana</th>
+//                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Kun</th>
+//                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Fan</th>
+//                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Vaqt</th>
+//                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Xona</th>
+//                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Oqituvchi</th>
+//                         <th className="text-left py-3 px-4 font-semibold text-gray-700">Guruhlar</th>
+//                       </tr>
+//                     </thead>
+//                     <tbody>
+//                       {examSchedule.map((exam, idx) => (
+//                         <tr key={idx} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+//                           <td className="py-3 px-4 font-medium text-gray-900">{exam.date}</td>
+//                           <td className="py-3 px-4 text-gray-700">{exam.day}</td>
+//                           <td className="py-3 px-4 font-semibold text-blue-600">{exam.subject}</td>
+//                           <td className="py-3 px-4 text-gray-700">{exam.time}</td>
+//                           <td className="py-3 px-4 text-gray-700">{exam.room}</td>
+//                           <td className="py-3 px-4 text-gray-700">{exam.teacher}</td>
+//                           <td className="py-3 px-4">
+//                             <div className="flex gap-1">
+//                               {exam.groups.map((g, gIdx) => (
+//                                 <span key={gIdx} className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+//                                   {g}
+//                                 </span>
+//                               ))}
+//                             </div>
+//                           </td>
+//                         </tr>
+//                       ))}
+//                     </tbody>
+//                   </table>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         );
+
+//       case 'attendance':
+//         return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <div className="flex justify-between items-center mb-6">
+//                 <h2 className="text-2xl font-bold text-gray-900">Davomat hisoboti</h2>
+//                 <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
+//                   <Download className="w-4 h-4" />
+//                   Yuklab olish
+//                 </button>
+//               </div>
+
+//               <div className="mb-6">
+//                 <select 
+//                   value={selectedGroup}
+//                   onChange={(e) => setSelectedGroup(e.target.value)}
+//                   className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 >
+//                   <option value="all">Barcha guruhlar</option>
+//                   {groupLeaderInfo.groups.map(group => (
+//                     <option key={group} value={group}>{group}</option>
+//                   ))}
+//                 </select>
+//               </div>
+
+//               {groupLeaderInfo.groups.map(group => {
+//                 if (selectedGroup !== 'all' && selectedGroup !== group) return null;
+//                 const groupStudents = students.filter(s => s.group === group);
+                
+//                 return (
+//                   <div key={group} className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
+//                     <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+//                       <h3 className="text-xl font-bold text-white">{group} guruh - Davomat</h3>
+//                     </div>
+                    
+//                     {groupStudents.map(student => (
+//                       <div key={student.id} className="border-t border-gray-200">
+//                         <div className="bg-gray-50 px-6 py-3 flex items-center justify-between">
+//                           <div className="flex items-center gap-3">
+//                             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+//                               student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+//                             }`}>
+//                               <User className={`w-5 h-5 ${
+//                                 student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+//                               }`} />
+//                             </div>
+//                             <div>
+//                               <p className="font-bold text-gray-900">{student.name}</p>
+//                               <p className="text-sm text-gray-500">GPA: {student.gpa}</p>
+//                             </div>
+//                           </div>
+//                         </div>
+                        
+//                         <div className="p-6">
+//                           <div className="overflow-x-auto">
+//                             <table className="w-full">
+//                               <thead className="bg-gray-100">
+//                                 <tr>
+//                                   <th className="text-left py-2 px-4 font-semibold text-gray-700">Fan nomi</th>
+//                                   <th className="text-center py-2 px-4 font-semibold text-gray-700">Umumiy soat</th>
+//                                   <th className="text-center py-2 px-4 font-semibold text-gray-700">Qoldirilgan</th>
+//                                   <th className="text-center py-2 px-4 font-semibold text-gray-700">Sabab</th>
+//                                   <th className="text-center py-2 px-4 font-semibold text-gray-700">Davomat %</th>
+//                                   <th className="text-center py-2 px-4 font-semibold text-gray-700">Holat</th>
+//                                 </tr>
+//                               </thead>
+//                               <tbody>
+//                                 {student.subjects.map((subject, idx) => {
+//                                   const isRed = subject.attendance < 75;
+//                                   return (
+//                                     <tr key={idx} className={`border-t border-gray-100 ${isRed ? 'bg-red-50' : ''}`}>
+//                                       <td className="py-3 px-4 font-medium text-gray-900">{subject.name}</td>
+//                                       <td className="py-3 px-4 text-center text-gray-700">{subject.hours}</td>
+//                                       <td className="py-3 px-4 text-center font-semibold text-red-600">{subject.missed}</td>
+//                                       <td className="py-3 px-4 text-center">
+//                                         <span className={`px-2 py-1 rounded-full text-xs ${
+//                                           subject.reason === 'Sababli' 
+//                                             ? 'bg-blue-100 text-blue-700' 
+//                                             : 'bg-red-100 text-red-700'
+//                                         }`}>
+//                                           {subject.reason}
+//                                         </span>
+//                                       </td>
+//                                       <td className="py-3 px-4 text-center">
+//                                         <div className="flex items-center justify-center gap-2">
+//                                           <div className="w-24 bg-gray-200 rounded-full h-2">
+//                                             <div 
+//                                               className={`h-2 rounded-full ${isRed ? 'bg-red-500' : 'bg-green-500'}`}
+//                                               style={{width: `${subject.attendance}%`}}
+//                                             />
+//                                           </div>
+//                                           <span className={`font-bold ${isRed ? 'text-red-600' : 'text-green-600'}`}>
+//                                             {subject.attendance}%
+//                                           </span>
+//                                         </div>
+//                                       </td>
+//                                       <td className="py-3 px-4 text-center">
+//                                         {isRed ? (
+//                                           <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+//                                             Qizil
+//                                           </span>
+//                                         ) : (
+//                                           <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+//                                             Yaxshi
+//                                           </span>
+//                                         )}
+//                                       </td>
+//                                     </tr>
+//                                   );
+//                                 })}
+//                               </tbody>
+//                             </table>
+//                           </div>
+//                         </div>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         );
+
+//       case 'performance':
+//         return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <div className="flex justify-between items-center mb-6">
+//                 <h2 className="text-2xl font-bold text-gray-900">Ozlashtirish va Baholash</h2>
+//                 <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
+//                   <Download className="w-4 h-4" />
+//                   Hisobot
+//                 </button>
+//               </div>
+
+//               <div className="mb-6">
+//                 <select 
+//                   value={selectedGroup}
+//                   onChange={(e) => setSelectedGroup(e.target.value)}
+//                   className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 >
+//                   <option value="all">Barcha guruhlar</option>
+//                   {groupLeaderInfo.groups.map(group => (
+//                     <option key={group} value={group}>{group}</option>
+//                   ))}
+//                 </select>
+//               </div>
+              
+//               {groupLeaderInfo.groups.map(group => {
+//                 if (selectedGroup !== 'all' && selectedGroup !== group) return null;
+//                 const groupStudents = students.filter(s => s.group === group);
+//                 const debtorStudents = groupStudents.filter(s => s.debts.length > 0);
+                
+//                 return (
+//                   <div key={group} className="mb-8 space-y-6">
+//                     <div className="border border-gray-200 rounded-xl overflow-hidden">
+//                       <div className="bg-gradient-to-r from-purple-500 to-purple-600 px-6 py-4">
+//                         <h3 className="text-xl font-bold text-white">{group} guruh - Ozlashtirish</h3>
+//                       </div>
+                      
+//                       {groupStudents.map(student => (
+//                         <div key={student.id} className="border-t border-gray-200">
+//                           <div className="bg-gray-50 px-6 py-4 flex items-center justify-between">
+//                             <div className="flex items-center gap-4">
+//                               <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+//                                 student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+//                               }`}>
+//                                 <User className={`w-6 h-6 ${
+//                                   student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+//                                 }`} />
+//                               </div>
+//                               <div>
+//                                 <p className="font-bold text-gray-900 text-lg">{student.name}</p>
+//                                 <p className="text-sm text-gray-500">{student.group} - {student.course}-kurs</p>
+//                               </div>
+//                             </div>
+//                             <div className="flex items-center gap-6">
+//                               <div className="text-center">
+//                                 <p className="text-sm text-gray-500">GPA</p>
+//                                 <p className="text-2xl font-bold text-purple-600">{student.gpa}</p>
+//                               </div>
+//                               {student.debts.length > 0 && (
+//                                 <div className="flex items-center gap-2 px-4 py-2 bg-red-100 rounded-xl">
+//                                   <AlertCircle className="w-5 h-5 text-red-600" />
+//                                   <span className="font-medium text-red-700">{student.debts.length} ta qarzdorlik</span>
+//                                 </div>
+//                               )}
+//                             </div>
+//                           </div>
+                          
+//                           <div className="p-6">
+//                             <h4 className="font-semibold text-gray-900 mb-4">Fanlar boyicha baholash:</h4>
+//                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+//                               {student.subjects.map((subject, idx) => (
+//                                 <div key={idx} className="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
+//                                   <div className="flex items-center justify-between mb-2">
+//                                     <p className="font-medium text-gray-900">{subject.name}</p>
+//                                     <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+//                                       subject.grade === 5 ? 'bg-green-100' :
+//                                       subject.grade === 4 ? 'bg-blue-100' :
+//                                       subject.grade === 3 ? 'bg-yellow-100' : 'bg-red-100'
+//                                     }`}>
+//                                       <span className={`text-xl font-bold ${
+//                                         subject.grade === 5 ? 'text-green-600' :
+//                                         subject.grade === 4 ? 'text-blue-600' :
+//                                         subject.grade === 3 ? 'text-yellow-600' : 'text-red-600'
+//                                       }`}>
+//                                         {subject.grade}
+//                                       </span>
+//                                     </div>
+//                                   </div>
+//                                   <div className="flex items-center justify-between text-sm text-gray-600">
+//                                     <span>Davomat:</span>
+//                                     <span className={`font-semibold ${
+//                                       subject.attendance >= 85 ? 'text-green-600' :
+//                                       subject.attendance >= 75 ? 'text-yellow-600' : 'text-red-600'
+//                                     }`}>
+//                                       {subject.attendance}%
+//                                     </span>
+//                                   </div>
+//                                 </div>
+//                               ))}
+//                             </div>
+
+//                             {student.debts.length > 0 && (
+//                               <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
+//                                 <div className="flex items-center gap-2 mb-2">
+//                                   <AlertCircle className="w-5 h-5 text-red-600" />
+//                                   <p className="font-semibold text-red-900">Akademik qarzdorliklar:</p>
+//                                 </div>
+//                                 <div className="flex flex-wrap gap-2">
+//                                   {student.debts.map((debt, idx) => (
+//                                     <span key={idx} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+//                                       {debt}
+//                                     </span>
+//                                   ))}
+//                                 </div>
+//                               </div>
+//                             )}
+//                           </div>
+//                         </div>
+//                       ))}
+//                     </div>
+
+//                     {debtorStudents.length > 0 && (
+//                       <div className="bg-red-50 border border-red-200 rounded-xl p-6">
+//                         <h4 className="text-lg font-bold text-red-900 mb-4 flex items-center gap-2">
+//                           <AlertCircle className="w-6 h-6" />
+//                           Akademik qarzdor talabalar ({debtorStudents.length})
+//                         </h4>
+//                         <div className="space-y-3">
+//                           {debtorStudents.map(student => (
+//                             <div key={student.id} className="flex items-center justify-between p-4 bg-white rounded-xl">
+//                               <div className="flex items-center gap-3">
+//                                 <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+//                                   <User className="w-5 h-5 text-red-600" />
+//                                 </div>
+//                                 <div>
+//                                   <p className="font-medium text-gray-900">{student.name}</p>
+//                                   <p className="text-sm text-gray-500">GPA: {student.gpa}</p>
+//                                 </div>
+//                               </div>
+//                               <div className="flex flex-wrap gap-2">
+//                                 {student.debts.map((debt, idx) => (
+//                                   <span key={idx} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">
+//                                     {debt}
+//                                   </span>
+//                                 ))}
+//                               </div>
+//                             </div>
+//                           ))}
+//                         </div>
+//                       </div>
+//                     )}
+//                   </div>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         );
+
+//       case 'financial':
+//            return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <div className="flex justify-between items-center mb-6">
+//                 <h2 className="text-2xl font-bold text-gray-900">Moliyaviy faoliyat</h2>
+//                 <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
+//                   <Download className="w-4 h-4" />
+//                   Moliyaviy hisobot
+//                 </button>
+//               </div>
+
+//               <div className="mb-6">
+//                 <select 
+//                   value={selectedGroup}
+//                   onChange={(e) => setSelectedGroup(e.target.value)}
+//                   className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 >
+//                   <option value="all">Barcha guruhlar</option>
+//                   {groupLeaderInfo.groups.map(group => (
+//                     <option key={group} value={group}>{group}</option>
+//                   ))}
+//                 </select>
+//               </div>
+
+//               {groupLeaderInfo.groups.map(group => {
+//                 if (selectedGroup !== 'all' && selectedGroup !== group) return null;
+//                 const groupStudents = students.filter(s => s.group === group);
+                
+//                 return (
+//                   <div key={group} className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
+//                     <div className="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4">
+//                       <h3 className="text-xl font-bold text-white">{group} guruh - Moliyaviy malumotlar</h3>
+//                     </div>
+                    
+//                     <div className="overflow-x-auto">
+//                       <table className="w-full">
+//                         <thead className="bg-gray-50">
+//                           <tr>
+//                             <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
+//                             <th className="text-left py-3 px-4 font-semibold text-gray-700">Tolov turi</th>
+//                             <th className="text-left py-3 px-4 font-semibold text-gray-700">Chegirma</th>
+//                             <th className="text-left py-3 px-4 font-semibold text-gray-700">Kontrakt summasi</th>
+//                             <th className="text-left py-3 px-4 font-semibold text-gray-700">Tolangan</th>
+//                             <th className="text-left py-3 px-4 font-semibold text-gray-700">Qarz</th>
+//                             <th className="text-left py-3 px-4 font-semibold text-gray-700">Turar joy</th>
+//                             <th className="text-left py-3 px-4 font-semibold text-gray-700">Holat</th>
+//                           </tr>
+//                         </thead>
+//                         <tbody>
+//                           {groupStudents.map(student => (
+//                             <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+//                               <td className="py-4 px-6">
+//                                 <div className="flex items-center gap-3">
+//                                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+//                                     student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+//                                   }`}>
+//                                     <User className={`w-5 h-5 ${
+//                                       student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+//                                     }`} />
+//                                   </div>
+//                                   <div>
+//                                     <p className="font-medium text-gray-900">{student.name}</p>
+//                                     <p className="text-sm text-gray-500">{student.age} yosh</p>
+//                                   </div>
+//                                 </div>
+//                               </td>
+//                               <td className="py-4 px-4">
+//                                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+//                                   student.paymentType === 'Grant' 
+//                                     ? 'bg-green-100 text-green-700' 
+//                                     : 'bg-blue-100 text-blue-700'
+//                                 }`}>
+//                                   {student.paymentType}
+//                                 </span>
+//                               </td>
+//                               <td className="py-4 px-4 font-semibold text-gray-900">{student.contract}</td>
+//                               <td className="py-4 px-4 text-gray-700">
+//                                 {student.contractAmount ? `${(student.contractAmount / 1000000).toFixed(1)} mln` : '-'}
+//                               </td>
+//                               <td className="py-4 px-4 font-semibold text-green-600">
+//                                 {student.paid ? `${(student.paid / 1000000).toFixed(1)} mln` : '-'}
+//                               </td>
+//                               <td className="py-4 px-4">
+//                                 {student.debt > 0 ? (
+//                                   <span className="font-semibold text-red-600">{(student.debt / 1000000).toFixed(1)} mln</span>
+//                                 ) : (
+//                                   <span className="text-gray-400">-</span>
+//                                 )}
+//                               </td>
+//                               <td className="py-4 px-4">
+//                                 <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+//                                   {student.residence}
+//                                 </span>
+//                               </td>
+//                               <td className="py-4 px-4">
+//                                 {student.debt > 0 ? (
+//                                   <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+//                                     Qarz bor
+//                                   </span>
+//                                 ) : student.paymentType === 'Grant' ? (
+//                                   <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+//                                     Grant
+//                                   </span>
+//                                 ) : (
+//                                   <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+//                                     Tolangan
+//                                   </span>
+//                                 )}
+//                               </td>
+//                             </tr>
+//                           ))}
+//                         </tbody>
+//                       </table>
+//                     </div>
+//                   </div>
+//                 );
+//               })}
+//             </div>
+//           </div>
+//         );
+//       // Qolgan bo'limlar...
+//       case 'documents': return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <div className="flex justify-between items-center mb-6">
+//                 <h2 className="text-2xl font-bold text-gray-900">E-Documents</h2>
+//                 <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+//                   <Upload className="w-4 h-4" />
+//                   Upload Document
+//                 </button>
+//               </div>
+
+//               <div className="overflow-x-auto">
+//                 <table className="w-full">
+//                   <thead>
+//                     <tr className="border-b border-gray-200">
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Document Name</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Type</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Actions</th>
+//                     </tr>
+//                   </thead>
+//                   <tbody>
+//                     {documents.map(doc => (
+//                       <tr key={doc.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+//                         <td className="py-3 px-4 font-medium text-gray-900">{doc.name}</td>
+//                         <td className="py-3 px-4 text-gray-600">{doc.date}</td>
+//                         <td className="py-3 px-4">
+//                           <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">{doc.type}</span>
+//                         </td>
+//                         <td className="py-3 px-4">
+//                           <span className={`px-3 py-1 rounded-full text-sm ${
+//                             doc.status === 'Signed' ? 'bg-green-100 text-green-700' :
+//                             doc.status === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
+//                             'bg-blue-100 text-blue-700'
+//                           }`}>
+//                             {doc.status}
+//                           </span>
+//                         </td>
+//                         <td className="py-3 px-4">
+//                           <div className="flex gap-2">
+//                             <button className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+//                               <CheckCircle className="w-4 h-4 text-green-600" />
+//                             </button>
+//                             <button className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+//                               <FileText className="w-4 h-4 text-blue-600" />
+//                             </button>
+//                           </div>
+//                         </td>
+//                       </tr>
+//                     ))}
+//                   </tbody>
+//                 </table>
+//               </div>
+//             </div>
+//           </div>
+//         );
+//       case 'students':  return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <h2 className="text-2xl font-bold text-gray-900 mb-6">Student Management</h2>
+              
+//               <div className="overflow-x-auto">
+//                 <table className="w-full">
+//                   <thead>
+//                     <tr className="border-b border-gray-200">
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Name</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Group</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">GPA</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
+//                     </tr>
+//                   </thead>
+//                   <tbody>
+//                     {students.map(student => (
+//                       <tr key={student.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+//                         <td className="py-3 px-4 font-medium text-gray-900">{student.name}</td>
+//                         <td className="py-3 px-4 text-gray-600">{student.group}</td>
+//                         <td className="py-3 px-4 text-gray-900">{student.gpa}</td>
+//                         <td className="py-3 px-4">
+//                           <span className={`px-3 py-1 rounded-full text-sm ${
+//                             student.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+//                           }`}>
+//                             {student.status}
+//                           </span>
+//                         </td>
+//                       </tr>
+//                     ))}
+//                   </tbody>
+//                 </table>
+//               </div>
+//             </div>
+//           </div>
+//         );
+//       case 'statistics':
+//       case 'messages': return (
+//           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//             <h2 className="text-2xl font-bold text-gray-900 mb-6">Messages</h2>
+//             <div className="space-y-4">
+//               <input 
+//                 type="text" 
+//                 placeholder="To: Student name or email" 
+//                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//               />
+//               <input 
+//                 type="text" 
+//                 placeholder="Subject" 
+//                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//               />
+//               <textarea 
+//                 placeholder="Message content..." 
+//                 rows="6" 
+//                 className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//               />
+//               <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+//                 <Send className="w-4 h-4" />
+//                 Send Message
+//               </button>
+//             </div>
+//           </div>
+//         );
+//       case 'settings':
+//       default:
+//         return (
+//           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//             <h2 className="text-2xl font-bold text-gray-900 mb-4">{navigationItems.find(item => item.id === activeTab)?.label}</h2>
+//             <p className="text-gray-600">Ushbu bo'lim hozirda ishlab chiqilmoqda. Tez orada foydalanishga tayyor bo'ladi.</p>
+//           </div>
+//         );
+//     }
+//   };
+
+//   return (
+//     <div className="flex h-screen bg-gray-50 font-sans">
+//       {/* Sidebar */}
+//       <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}>
+//         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+//           {sidebarOpen && <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">UniManage</h1>}
+//           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+//             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+//           </button>
+//         </div>
+
+//         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+//           {navigationItems.map(item => (
+//             <button
+//               key={item.id}
+//               onClick={() => setActiveTab(item.id)}
+//               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+//                 activeTab === item.id
+//                   ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg'
+//                   : 'text-gray-600 hover:bg-gray-100'
+//               }`}
+//             >
+//               <item.icon className="w-5 h-5" />
+//               {sidebarOpen && <span className="font-medium">{item.label}</span>}
+//             </button>
+//           ))}
+//         </nav>
+//       </div>
+
+//       {/* Main Content */}
+//       <div className="flex-1 flex flex-col overflow-hidden">
+//         {/* Header */}
+//         <header className="bg-white border-b border-gray-200 px-8 py-4">
+//           <div className="flex items-center justify-between">
+//             <div className="flex items-center gap-4 flex-1">
+//               <div className="relative flex-1 max-w-md">
+//                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+//                 <input
+//                   type="text"
+//                   placeholder="Talabalar, hujjatlar, fanlar bo'yicha qidirish..."
+//                   value={searchQuery}
+//                   onChange={(e) => setSearchQuery(e.target.value)}
+//                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 />
+//               </div>
+//             </div>
+
+//             <div className="flex items-center gap-4">
+//               <button className="relative p-2 hover:bg-gray-100 rounded-xl transition-colors">
+//                 <Bell className="w-6 h-6 text-gray-600" />
+//                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+//               </button>
+//               <div className="flex items-center gap-3">
+//                 <div className="text-right">
+//                   <p className="font-medium text-gray-900 text-sm">{groupLeaderInfo.name}</p>
+//                   <p className="text-gray-500 text-xs">{groupLeaderInfo.position}</p>
+//                 </div>
+//                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+//                   <User className="w-5 h-5 text-white" />
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </header>
+
+//         {/* Content Area */}
+//         <main className="flex-1 overflow-y-auto p-8">
+//           {renderContent()}
+//         </main>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default HemisDashboard;
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import React, { useState } from 'react';
 import { 
   FileText, Users, Activity, Calendar, ClipboardCheck, 
-  TrendingUp, DollarSign, BarChart3, MessageSquare, 
-  Settings, Home, Search, Bell, User, 
- Award, BookOpen,
-  Building2, CreditCard, 
-  Menu, X,
-  UserCheck, 
-  Upload,
-  CheckCircle,
-  Send,
-  Download,
-  AlertCircle, 
+  TrendingUp,  BarChart3, MessageSquare, 
+  Settings, Home, Search, Bell, User,  
+     Award, BookOpen,
+  Building2, CreditCard,   
+  Menu, X, ChevronDown, ChevronRight, AlertCircle,
+  UserCheck,    FileCheck,
+  ListChecks, School, Wallet,  
+  HelpCircle
 } from 'lucide-react';
-import { BarChart, Bar, PieChart as  XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
+import {   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
 
 const HemisDashboard = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [selectedGroup, setSelectedGroup] = useState('all');
+  const [expandedMenus, setExpandedMenus] = useState({});
 
-  // Guruh rahbari ma'lumotlari
   const groupLeaderInfo = {
     name: "Aliyev Sardor Karimovich",
     position: "Guruh rahbari",
@@ -1095,7 +2264,6 @@ const HemisDashboard = () => {
     groups: ["CS-101", "CS-102"]
   };
 
-  // Talabalar ma'lumotlari
   const students = [
     { 
       id: 1, 
@@ -1110,6 +2278,9 @@ const HemisDashboard = () => {
       residence: 'Yotoqxona',
       paymentType: 'Grant',
       contract: '100%',
+      contractAmount: 0,
+      paid: 0,
+      debt: 0,
       subjects: [
         { name: 'Matematika', grade: 5, attendance: 92, hours: 60, missed: 5, reason: 'Sababli' },
         { name: 'Fizika', grade: 4, attendance: 88, hours: 60, missed: 7, reason: 'Sababsiz' },
@@ -1127,9 +2298,12 @@ const HemisDashboard = () => {
       course: 2,
       status: 'Faol',
       gpa: 3.9,
-      residence: 'O\'z uyi',
+      residence: 'Oz uyi',
       paymentType: 'Grant',
       contract: '100%',
+      contractAmount: 0,
+      paid: 0,
+      debt: 0,
       subjects: [
         { name: 'Matematika', grade: 5, attendance: 96, hours: 60, missed: 2, reason: 'Sababli' },
         { name: 'Fizika', grade: 5, attendance: 94, hours: 60, missed: 3, reason: 'Sababli' },
@@ -1182,61 +2356,98 @@ const HemisDashboard = () => {
         { name: 'Dasturlash', grade: 5, attendance: 93, hours: 80, missed: 5, reason: 'Sababli' }
       ],
       debts: []
+    },
+    { 
+      id: 5, 
+      name: 'Yusupov Bobur', 
+      group: 'CS-101', 
+      gender: 'Erkak',
+      age: 21,
+      educationType: "Kunduzgi",
+      course: 2,
+      status: 'Faol',
+      gpa: 3.6,
+      residence: 'Yotoqxona',
+      paymentType: 'Kontrakt',
+      contract: '70%',
+      contractAmount: 10000000,
+      paid: 10000000,
+      debt: 0,
+      subjects: [
+        { name: 'Matematika', grade: 4, attendance: 89, hours: 60, missed: 6, reason: 'Sababli' },
+        { name: 'Fizika', grade: 4, attendance: 91, hours: 60, missed: 5, reason: 'Sababli' },
+        { name: 'Dasturlash', grade: 4, attendance: 87, hours: 80, missed: 10, reason: 'Sababli' }
+      ],
+      debts: []
+    },
+    { 
+      id: 6, 
+      name: 'Nazarova Nigora', 
+      group: 'CS-102', 
+      gender: 'Ayol',
+      age: 18,
+      educationType: "Kunduzgi",
+      course: 2,
+      status: 'Faol',
+      gpa: 4.0,
+      residence: 'Oz uyi',
+      paymentType: 'Grant',
+      contract: '100%',
+      contractAmount: 0,
+      paid: 0,
+      debt: 0,
+      subjects: [
+        { name: 'Matematika', grade: 5, attendance: 98, hours: 60, missed: 1, reason: 'Sababli' },
+        { name: 'Fizika', grade: 5, attendance: 97, hours: 60, missed: 2, reason: 'Sababli' },
+        { name: 'Dasturlash', grade: 5, attendance: 99, hours: 80, missed: 1, reason: 'Sababli' }
+      ],
+      debts: []
     }
   ];
 
-  // Dars jadvali (Haftalik)
   const weekSchedule = [
     { day: 'Dushanba', lessons: [
       { time: '08:30-10:00', subject: 'Matematika', room: '305', teacher: 'Mamadaliyev A.', group: 'CS-101' },
-      { time: '10:10-11:40', subject: 'Fizika', room: '201', teacher: 'Qosimov B.', group: 'CS-101' },
-      { time: '12:00-13:30', subject: 'Dasturlash', room: '401', teacher: 'Karimova S.', group: 'CS-102' }
+      { time: '10:10-11:40', subject: 'Fizika', room: '201', teacher: 'Qosimov B.', group: 'CS-101' }
     ]},
     { day: 'Seshanba', lessons: [
       { time: '08:30-10:00', subject: 'Ingliz tili', room: '105', teacher: 'Rashidova M.', group: 'CS-101' },
-      { time: '10:10-11:40', subject: 'Dasturlash', room: '401', teacher: 'Karimova S.', group: 'CS-101' },
-      { time: '12:00-13:30', subject: 'Matematika', room: '305', teacher: 'Mamadaliyev A.', group: 'CS-102' }
-    ]},
-    { day: 'Chorshanba', lessons: [
-      { time: '08:30-10:00', subject: 'Ma\'lumotlar bazasi', room: '402', teacher: 'Tursunov J.', group: 'CS-101' },
-      { time: '10:10-11:40', subject: 'Fizika', room: '201', teacher: 'Qosimov B.', group: 'CS-102' },
-      { time: '12:00-13:30', subject: 'Ingliz tili', room: '105', teacher: 'Rashidova M.', group: 'CS-102' }
+      { time: '10:10-11:40', subject: 'Dasturlash', room: '401', teacher: 'Karimova S.', group: 'CS-101' }
     ]}
   ];
 
-  // Imtihon jadvali
   const examSchedule = [
     { date: '15.01.2025', day: 'Seshanba', subject: 'Matematika', time: '09:00', room: '305', teacher: 'Mamadaliyev A.', groups: ['CS-101', 'CS-102'] },
-    { date: '17.01.2025', day: 'Payshanba', subject: 'Fizika', time: '09:00', room: '201', teacher: 'Qosimov B.', groups: ['CS-101', 'CS-102'] },
-    { date: '20.01.2025', day: 'Yakshanba', subject: 'Dasturlash', time: '10:00', room: '401', teacher: 'Karimova S.', groups: ['CS-101', 'CS-102'] }
-  ];
-  const documents = [
-    { id: 1, name: 'Enrollment Form 2024', date: '2024-11-10', status: 'Signed', type: 'PDF' },
-    { id: 2, name: 'Transcript Request', date: '2024-11-12', status: 'Pending', type: 'PDF' },
-    { id: 3, name: 'Scholarship Agreement', date: '2024-11-08', status: 'Verified', type: 'DOCX' }
+    { date: '17.01.2025', day: 'Payshanba', subject: 'Fizika', time: '09:00', room: '201', teacher: 'Qosimov B.', groups: ['CS-101', 'CS-102'] }
   ];
 
-  // Statistika hisoblash
-  const filteredStudents = selectedGroup === 'all' 
-    ? students 
-    : students.filter(s => s.group === selectedGroup);
+  const filteredStudents = selectedGroup === 'all' ? students : students.filter(s => s.group === selectedGroup);
 
-  const stats = {
-    total: filteredStudents.length,
-    male: filteredStudents.filter(s => s.gender === 'Erkak').length,
-    female: filteredStudents.filter(s => s.gender === 'Ayol').length,
-    dormitory: filteredStudents.filter(s => s.residence === 'Yotoqxona').length,
-    ownHome: filteredStudents.filter(s => s.residence === 'O\'z uyi').length,
-    rental: filteredStudents.filter(s => s.residence === 'Ijara').length,
-    relative: filteredStudents.filter(s => s.residence === 'Qarindosh uyi').length,
-    contract: filteredStudents.filter(s => s.paymentType === 'Kontrakt').length,
-    grant: filteredStudents.filter(s => s.paymentType === 'Grant').length,
-    active: filteredStudents.filter(s => s.status === 'Faol').length,
-    debtors: filteredStudents.filter(s => s.status === 'Akademik qarzdor').length,
-    avgGpa: filteredStudents.length > 0 ? (filteredStudents.reduce((sum, s) => sum + s.gpa, 0) / filteredStudents.length).toFixed(2) : '0.00'
+  const calculateStats = () => {
+    if (filteredStudents.length === 0) {
+      return {
+        total: 0, male: 0, female: 0, dormitory: 0, ownHome: 0, rental: 0,
+        relative: 0, contract: 0, grant: 0, active: 0, debtors: 0, avgGpa: '0.00'
+      };
+    }
+    return {
+      total: filteredStudents.length,
+      male: filteredStudents.filter(s => s.gender === 'Erkak').length,
+      female: filteredStudents.filter(s => s.gender === 'Ayol').length,
+      dormitory: filteredStudents.filter(s => s.residence === 'Yotoqxona').length,
+      ownHome: filteredStudents.filter(s => s.residence === 'Oz uyi').length,
+      rental: filteredStudents.filter(s => s.residence === 'Ijara').length,
+      relative: filteredStudents.filter(s => s.residence === 'Qarindosh uyi').length,
+      contract: filteredStudents.filter(s => s.paymentType === 'Kontrakt').length,
+      grant: filteredStudents.filter(s => s.paymentType === 'Grant').length,
+      active: filteredStudents.filter(s => s.status === 'Faol').length,
+      debtors: filteredStudents.filter(s => s.status === 'Akademik qarzdor').length,
+      avgGpa: (filteredStudents.reduce((sum, s) => sum + s.gpa, 0) / filteredStudents.length).toFixed(2)
+    };
   };
 
-  // Yosh kesimi
+  const stats = calculateStats();
+
   const ageDistribution = [
     { age: '18', count: filteredStudents.filter(s => s.age === 18).length },
     { age: '19', count: filteredStudents.filter(s => s.age === 19).length },
@@ -1245,28 +2456,72 @@ const HemisDashboard = () => {
   ];
 
   const navigationItems = [
-    { id: 'home', icon: Home, label: 'Bosh sahifa' },
-    { id: 'documents', icon: FileText, label: 'E-Hujjatlar' },
-    { id: 'students', icon: Users, label: 'Talabalar' },
-    { id: 'activity', icon: Activity, label: 'Talaba faoliyati' },
-    { id: 'academic', icon: Calendar, label: 'O\'quv jarayoni' },
-    { id: 'attendance', icon: ClipboardCheck, label: 'Davomat' },
-    { id: 'performance', icon: TrendingUp, label: 'O\'zlashtirish' },
-    { id: 'financial', icon: DollarSign, label: 'Moliyaviy faoliyat' },
-    { id: 'statistics', icon: BarChart3, label: 'Statistika' },
-    { id: 'messages', icon: MessageSquare, label: 'Xabarlar' },
-    { id: 'settings', icon: Settings, label: 'Sozlamalar' }
+    { id: 'home', icon: Home, label: 'Bosh sahifa', type: 'single' },
+    { 
+      id: 'students', 
+      icon: Users, 
+      label: 'Talabalar', 
+      type: 'group',
+      children: [
+        { id: 'students-list', label: "Talabalar ro'yxati", icon: ListChecks },
+        { id: 'students-activity', label: 'Talabalar harakati', icon: Activity },
+        { id: 'students-passport', label: 'Talaba pasporti', icon: FileCheck }
+      ]
+    },
+    { 
+      id: 'academic', 
+      icon: School, 
+      label: "O'quv jarayoni", 
+      type: 'group',
+      children: [
+        { id: 'schedule', label: 'Dars jadvali', icon: Calendar },
+        { id: 'exams', label: 'Nazorat jadvali', icon: FileText },
+        { id: 'attendance', label: 'Davomat', icon: ClipboardCheck },
+        { id: 'performance', label: "O'zlashtirish", icon: TrendingUp }
+      ]
+    },
+    { 
+      id: 'financial', 
+      icon: Wallet, 
+      label: 'Moliyaviy holat', 
+      type: 'group',
+      children: [
+        { id: 'contracts', label: 'Shartnoma', icon: FileText },
+        { id: 'payments', label: "To'lovlar tarixi", icon: CreditCard },
+        { id: 'debts', label: 'Qarzdorlik', icon: AlertCircle },
+        { id: 'scholarship', label: 'Stipendiya', icon: Award },
+        { id: 'rental', label: 'Ijara', icon: Building2 },
+        { id: 'dormitory', label: 'Talabalar turar joyi', icon: Home }
+      ]
+    },
+    { 
+      id: 'external', 
+      icon: HelpCircle, 
+      label: 'Tashqi xizmatlar', 
+      type: 'group',
+      children: [
+        { id: 'support', label: 'Yordam', icon: MessageSquare },
+        { id: 'documents', label: 'Hujjatlar', icon: FileText }
+      ]
+    },
+    { id: 'statistics', icon: BarChart3, label: 'Statistika', type: 'single' },
+    { id: 'messages', icon: MessageSquare, label: 'Xabarlar', type: 'single' },
+    { id: 'settings', icon: Settings, label: 'Sozlamalar', type: 'single' }
   ];
 
-  const StatCard = ({ icon: Icon, title, value, subtitle, color, percentage }) => (
+  const toggleMenu = (menuId) => {
+    setExpandedMenus(prev => ({
+      ...prev,
+      [menuId]: !prev[menuId]
+    }));
+  };
+
+  const StatCard = ({ icon: Icon, title, value, subtitle, color }) => (
     <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
       <div className="flex items-start justify-between mb-4">
         <div className={`p-3 rounded-xl bg-gradient-to-br ${color}`}>
           <Icon className="w-6 h-6 text-white" />
         </div>
-        {percentage && (
-          <span className="text-2xl font-bold text-gray-900">{percentage}%</span>
-        )}
       </div>
       <h3 className="text-gray-500 text-sm font-medium mb-1">{title}</h3>
       <p className="text-3xl font-bold text-gray-900 mb-1">{value}</p>
@@ -1274,18 +2529,11 @@ const HemisDashboard = () => {
     </div>
   );
 
-  const HomeIcon = ({ className = "w-4 h-4" }) => (
-    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-    </svg>
-  );
-
   const renderContent = () => {
     switch(activeTab) {
       case 'home':
         return (
           <div className="space-y-6">
-            {/* Guruh rahbari info */}
             <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -1293,15 +2541,14 @@ const HemisDashboard = () => {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold">{groupLeaderInfo.name}</h2>
-                  <p className="text-blue-100">{groupLeaderInfo.position} • {groupLeaderInfo.faculty}</p>
+                  <p className="text-blue-100">{groupLeaderInfo.position} - {groupLeaderInfo.faculty}</p>
                   <p className="text-blue-100 text-sm mt-1">Guruhlar: {groupLeaderInfo.groups.join(', ')}</p>
                 </div>
               </div>
             </div>
 
-            {/* Guruh filter */}
             <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-              <div className="flex gap-3">
+              <div className="flex gap-3 flex-wrap">
                 <button 
                   onClick={() => setSelectedGroup('all')}
                   className={`px-6 py-2 rounded-xl font-medium transition-all ${
@@ -1328,7 +2575,6 @@ const HemisDashboard = () => {
               </div>
             </div>
 
-            {/* Asosiy statistika */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <StatCard 
                 icon={Users} 
@@ -1345,7 +2591,7 @@ const HemisDashboard = () => {
               />
               <StatCard 
                 icon={Award} 
-                title="O'rtacha GPA" 
+                title="Ortacha GPA" 
                 value={stats.avgGpa}
                 color="from-purple-500 to-purple-600"
               />
@@ -1358,7 +2604,6 @@ const HemisDashboard = () => {
               />
             </div>
 
-            {/* Jins kesimi va Turar joy */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-6">Jins kesimi</h3>
@@ -1369,7 +2614,7 @@ const HemisDashboard = () => {
                       <div className="w-32 bg-gray-200 rounded-full h-2">
                         <div 
                           className="bg-blue-500 h-2 rounded-full transition-all duration-500" 
-                          style={{width: `${(stats.male/stats.total)*100}%`}}
+                          style={{width: stats.total > 0 ? `${(stats.male/stats.total)*100}%` : '0%'}}
                         />
                       </div>
                       <span className="text-xl font-bold text-blue-600 w-12 text-right">{stats.male}</span>
@@ -1381,7 +2626,7 @@ const HemisDashboard = () => {
                       <div className="w-32 bg-gray-200 rounded-full h-2">
                         <div 
                           className="bg-pink-500 h-2 rounded-full transition-all duration-500" 
-                          style={{width: `${(stats.female/stats.total)*100}%`}}
+                          style={{width: stats.total > 0 ? `${(stats.female/stats.total)*100}%` : '0%'}}
                         />
                       </div>
                       <span className="text-xl font-bold text-pink-600 w-12 text-right">{stats.female}</span>
@@ -1402,8 +2647,8 @@ const HemisDashboard = () => {
                   </div>
                   <div className="p-4 bg-blue-50 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
-                      <HomeIcon className="w-4 h-4 text-blue-600" />
-                      <span className="text-sm text-gray-600">O'z uyi</span>
+                      <Home className="w-4 h-4 text-blue-600" />
+                      <span className="text-sm text-gray-600">Oz uyi</span>
                     </div>
                     <p className="text-2xl font-bold text-blue-600">{stats.ownHome}</p>
                   </div>
@@ -1425,7 +2670,6 @@ const HemisDashboard = () => {
               </div>
             </div>
 
-            {/* Yosh va To'lov kesimi */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
                 <h3 className="text-lg font-bold text-gray-900 mb-4">Yosh kesimi</h3>
@@ -1441,7 +2685,7 @@ const HemisDashboard = () => {
               </div>
 
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-6">To'lov turi kesimi</h3>
+                <h3 className="text-lg font-bold text-gray-900 mb-6">Tolov turi kesimi</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl">
                     <div>
@@ -1453,7 +2697,7 @@ const HemisDashboard = () => {
                   <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
                     <div>
                       <span className="font-medium text-gray-700">Kontrakt asosida</span>
-                      <p className="text-sm text-gray-500 mt-1">To'lov shartnomasi</p>
+                      <p className="text-sm text-gray-500 mt-1">Tolov shartnomasi</p>
                     </div>
                     <span className="text-3xl font-bold text-blue-600">{stats.contract}</span>
                   </div>
@@ -1463,13 +2707,18 @@ const HemisDashboard = () => {
           </div>
         );
 
-      case 'activity':
+      case 'students-list':
+      case 'students-activity':
+      case 'students-passport':
         return (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Talaba faoliyati</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">
+                {activeTab === 'students-list' && "Talabalar ro'yxati"}
+                {activeTab === 'students-activity' && "Talabalar harakati"}
+                {activeTab === 'students-passport' && "Talaba pasporti"}
+              </h2>
               
-              {/* Guruhlar bo'yicha */}
               <div className="space-y-6">
                 {groupLeaderInfo.groups.map(group => {
                   const groupStudents = students.filter(s => s.group === group);
@@ -1485,7 +2734,7 @@ const HemisDashboard = () => {
                           <thead className="bg-gray-50">
                             <tr>
                               <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
-                              <th className="text-left py-3 px-4 font-semibold text-gray-700">Ta'lim turi</th>
+                              <th className="text-left py-3 px-4 font-semibold text-gray-700">Talim turi</th>
                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Kurs</th>
                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Talaba holati</th>
                               <th className="text-left py-3 px-4 font-semibold text-gray-700">GPA</th>
@@ -1505,7 +2754,7 @@ const HemisDashboard = () => {
                                     </div>
                                     <div>
                                       <p className="font-medium text-gray-900">{student.name}</p>
-                                      <p className="text-sm text-gray-500">{student.gender} • {student.age} yosh</p>
+                                      <p className="text-sm text-gray-500">{student.gender} - {student.age} yosh</p>
                                     </div>
                                   </div>
                                 </td>
@@ -1521,12 +2770,7 @@ const HemisDashboard = () => {
                                   </span>
                                 </td>
                                 <td className="py-4 px-4">
-                                  <span className={`text-lg font-bold ${
-                                    student.gpa >= 3.5 ? 'text-green-600' : 
-                                    student.gpa >= 3.0 ? 'text-yellow-600' : 'text-red-600'
-                                  }`}>
-                                    {student.gpa}
-                                  </span>
+                                  <span className="font-bold text-gray-900">{student.gpa}</span>
                                 </td>
                               </tr>
                             ))}
@@ -1541,11 +2785,11 @@ const HemisDashboard = () => {
           </div>
         );
 
-      case 'academic':
-         return (
+      case 'schedule':
+        return (
           <div className="space-y-6">
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Oquv jarayoni</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Dars jadvali</h2>
               
               <div className="space-y-4">
                 {weekSchedule.map((day, idx) => (
@@ -1580,579 +2824,82 @@ const HemisDashboard = () => {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        );
 
-              <div className="mt-8">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Imtihonlar jadvali</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-gray-50">
-                      <tr>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Sana</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Kun</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Fan</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Vaqt</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Xona</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Oqituvchi</th>
-                        <th className="text-left py-3 px-4 font-semibold text-gray-700">Guruhlar</th>
+      case 'exams':
+        return (
+          <div className="space-y-6">
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">Nazorat (Imtihonlar) jadvali</h2>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Sana</th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Kun</th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Fan</th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Vaqt</th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Xona</th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Oqituvchi</th>
+                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Guruhlar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {examSchedule.map((exam, idx) => (
+                      <tr key={idx} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+                        <td className="py-3 px-4 font-medium text-gray-900">{exam.date}</td>
+                        <td className="py-3 px-4 text-gray-700">{exam.day}</td>
+                        <td className="py-3 px-4 font-semibold text-blue-600">{exam.subject}</td>
+                        <td className="py-3 px-4 text-gray-700">{exam.time}</td>
+                        <td className="py-3 px-4 text-gray-700">{exam.room}</td>
+                        <td className="py-3 px-4 text-gray-700">{exam.teacher}</td>
+                        <td className="py-3 px-4">
+                          <div className="flex gap-1">
+                            {exam.groups.map((g, gIdx) => (
+                              <span key={gIdx} className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+                                {g}
+                              </span>
+                            ))}
+                          </div>
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {examSchedule.map((exam, idx) => (
-                        <tr key={idx} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                          <td className="py-3 px-4 font-medium text-gray-900">{exam.date}</td>
-                          <td className="py-3 px-4 text-gray-700">{exam.day}</td>
-                          <td className="py-3 px-4 font-semibold text-blue-600">{exam.subject}</td>
-                          <td className="py-3 px-4 text-gray-700">{exam.time}</td>
-                          <td className="py-3 px-4 text-gray-700">{exam.room}</td>
-                          <td className="py-3 px-4 text-gray-700">{exam.teacher}</td>
-                          <td className="py-3 px-4">
-                            <div className="flex gap-1">
-                              {exam.groups.map((g, gIdx) => (
-                                <span key={gIdx} className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
-                                  {g}
-                                </span>
-                              ))}
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         );
 
       case 'attendance':
-        return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Davomat hisoboti</h2>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
-                  <Download className="w-4 h-4" />
-                  Yuklab olish
-                </button>
-              </div>
-
-              <div className="mb-6">
-                <select 
-                  value={selectedGroup}
-                  onChange={(e) => setSelectedGroup(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="all">Barcha guruhlar</option>
-                  {groupLeaderInfo.groups.map(group => (
-                    <option key={group} value={group}>{group}</option>
-                  ))}
-                </select>
-              </div>
-
-              {groupLeaderInfo.groups.map(group => {
-                if (selectedGroup !== 'all' && selectedGroup !== group) return null;
-                const groupStudents = students.filter(s => s.group === group);
-                
-                return (
-                  <div key={group} className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
-                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
-                      <h3 className="text-xl font-bold text-white">{group} guruh - Davomat</h3>
-                    </div>
-                    
-                    {groupStudents.map(student => (
-                      <div key={student.id} className="border-t border-gray-200">
-                        <div className="bg-gray-50 px-6 py-3 flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                              student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
-                            }`}>
-                              <User className={`w-5 h-5 ${
-                                student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
-                              }`} />
-                            </div>
-                            <div>
-                              <p className="font-bold text-gray-900">{student.name}</p>
-                              <p className="text-sm text-gray-500">GPA: {student.gpa}</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="p-6">
-                          <div className="overflow-x-auto">
-                            <table className="w-full">
-                              <thead className="bg-gray-100">
-                                <tr>
-                                  <th className="text-left py-2 px-4 font-semibold text-gray-700">Fan nomi</th>
-                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Umumiy soat</th>
-                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Qoldirilgan</th>
-                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Sabab</th>
-                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Davomat %</th>
-                                  <th className="text-center py-2 px-4 font-semibold text-gray-700">Holat</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {student.subjects.map((subject, idx) => {
-                                  const isRed = subject.attendance < 75;
-                                  return (
-                                    <tr key={idx} className={`border-t border-gray-100 ${isRed ? 'bg-red-50' : ''}`}>
-                                      <td className="py-3 px-4 font-medium text-gray-900">{subject.name}</td>
-                                      <td className="py-3 px-4 text-center text-gray-700">{subject.hours}</td>
-                                      <td className="py-3 px-4 text-center font-semibold text-red-600">{subject.missed}</td>
-                                      <td className="py-3 px-4 text-center">
-                                        <span className={`px-2 py-1 rounded-full text-xs ${
-                                          subject.reason === 'Sababli' 
-                                            ? 'bg-blue-100 text-blue-700' 
-                                            : 'bg-red-100 text-red-700'
-                                        }`}>
-                                          {subject.reason}
-                                        </span>
-                                      </td>
-                                      <td className="py-3 px-4 text-center">
-                                        <div className="flex items-center justify-center gap-2">
-                                          <div className="w-24 bg-gray-200 rounded-full h-2">
-                                            <div 
-                                              className={`h-2 rounded-full ${isRed ? 'bg-red-500' : 'bg-green-500'}`}
-                                              style={{width: `${subject.attendance}%`}}
-                                            />
-                                          </div>
-                                          <span className={`font-bold ${isRed ? 'text-red-600' : 'text-green-600'}`}>
-                                            {subject.attendance}%
-                                          </span>
-                                        </div>
-                                      </td>
-                                      <td className="py-3 px-4 text-center">
-                                        {isRed ? (
-                                          <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
-                                            Qizil
-                                          </span>
-                                        ) : (
-                                          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                                            Yaxshi
-                                          </span>
-                                        )}
-                                      </td>
-                                    </tr>
-                                  );
-                                })}
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-
       case 'performance':
-        return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Ozlashtirish va Baholash</h2>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
-                  <Download className="w-4 h-4" />
-                  Hisobot
-                </button>
-              </div>
-
-              <div className="mb-6">
-                <select 
-                  value={selectedGroup}
-                  onChange={(e) => setSelectedGroup(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="all">Barcha guruhlar</option>
-                  {groupLeaderInfo.groups.map(group => (
-                    <option key={group} value={group}>{group}</option>
-                  ))}
-                </select>
-              </div>
-
-              {groupLeaderInfo.groups.map(group => {
-                if (selectedGroup !== 'all' && selectedGroup !== group) return null;
-                const groupStudents = students.filter(s => s.group === group);
-                const debtorStudents = groupStudents.filter(s => s.debts.length > 0);
-                
-                return (
-                  <div key={group} className="mb-8 space-y-6">
-                    <div className="border border-gray-200 rounded-xl overflow-hidden">
-                      <div className="bg-gradient-to-r from-purple-500 to-purple-600 px-6 py-4">
-                        <h3 className="text-xl font-bold text-white">{group} guruh - Ozlashtirish</h3>
-                      </div>
-                      
-                      {groupStudents.map(student => (
-                        <div key={student.id} className="border-t border-gray-200">
-                          <div className="bg-gray-50 px-6 py-4 flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                                student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
-                              }`}>
-                                <User className={`w-6 h-6 ${
-                                  student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
-                                }`} />
-                              </div>
-                              <div>
-                                <p className="font-bold text-gray-900 text-lg">{student.name}</p>
-                                <p className="text-sm text-gray-500">{student.group} - {student.course}-kurs</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-6">
-                              <div className="text-center">
-                                <p className="text-sm text-gray-500">GPA</p>
-                                <p className="text-2xl font-bold text-purple-600">{student.gpa}</p>
-                              </div>
-                              {student.debts.length > 0 && (
-                                <div className="flex items-center gap-2 px-4 py-2 bg-red-100 rounded-xl">
-                                  <AlertCircle className="w-5 h-5 text-red-600" />
-                                  <span className="font-medium text-red-700">{student.debts.length} ta qarzdorlik</span>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          
-                          <div className="p-6">
-                            <h4 className="font-semibold text-gray-900 mb-4">Fanlar boyicha baholash:</h4>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                              {student.subjects.map((subject, idx) => (
-                                <div key={idx} className="p-4 border border-gray-200 rounded-xl hover:shadow-md transition-shadow">
-                                  <div className="flex items-center justify-between mb-2">
-                                    <p className="font-medium text-gray-900">{subject.name}</p>
-                                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                                      subject.grade === 5 ? 'bg-green-100' :
-                                      subject.grade === 4 ? 'bg-blue-100' :
-                                      subject.grade === 3 ? 'bg-yellow-100' : 'bg-red-100'
-                                    }`}>
-                                      <span className={`text-xl font-bold ${
-                                        subject.grade === 5 ? 'text-green-600' :
-                                        subject.grade === 4 ? 'text-blue-600' :
-                                        subject.grade === 3 ? 'text-yellow-600' : 'text-red-600'
-                                      }`}>
-                                        {subject.grade}
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div className="flex items-center justify-between text-sm text-gray-600">
-                                    <span>Davomat:</span>
-                                    <span className={`font-semibold ${
-                                      subject.attendance >= 85 ? 'text-green-600' :
-                                      subject.attendance >= 75 ? 'text-yellow-600' : 'text-red-600'
-                                    }`}>
-                                      {subject.attendance}%
-                                    </span>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-
-                            {student.debts.length > 0 && (
-                              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
-                                <div className="flex items-center gap-2 mb-2">
-                                  <AlertCircle className="w-5 h-5 text-red-600" />
-                                  <p className="font-semibold text-red-900">Akademik qarzdorliklar:</p>
-                                </div>
-                                <div className="flex flex-wrap gap-2">
-                                  {student.debts.map((debt, idx) => (
-                                    <span key={idx} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
-                                      {debt}
-                                    </span>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {debtorStudents.length > 0 && (
-                      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-                        <h4 className="text-lg font-bold text-red-900 mb-4 flex items-center gap-2">
-                          <AlertCircle className="w-6 h-6" />
-                          Akademik qarzdor talabalar ({debtorStudents.length})
-                        </h4>
-                        <div className="space-y-3">
-                          {debtorStudents.map(student => (
-                            <div key={student.id} className="flex items-center justify-between p-4 bg-white rounded-xl">
-                              <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
-                                  <User className="w-5 h-5 text-red-600" />
-                                </div>
-                                <div>
-                                  <p className="font-medium text-gray-900">{student.name}</p>
-                                  <p className="text-sm text-gray-500">GPA: {student.gpa}</p>
-                                </div>
-                              </div>
-                              <div className="flex flex-wrap gap-2">
-                                {student.debts.map((debt, idx) => (
-                                  <span key={idx} className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm">
-                                    {debt}
-                                  </span>
-                                ))}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-
-      case 'financial':
-           return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">Moliyaviy faoliyat</h2>
-                <button className="px-4 py-2 bg-blue-500 text-white rounded-xl hover:bg-blue-600 transition-colors flex items-center gap-2">
-                  <Download className="w-4 h-4" />
-                  Moliyaviy hisobot
-                </button>
-              </div>
-
-              <div className="mb-6">
-                <select 
-                  value={selectedGroup}
-                  onChange={(e) => setSelectedGroup(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                  <option value="all">Barcha guruhlar</option>
-                  {groupLeaderInfo.groups.map(group => (
-                    <option key={group} value={group}>{group}</option>
-                  ))}
-                </select>
-              </div>
-
-              {groupLeaderInfo.groups.map(group => {
-                if (selectedGroup !== 'all' && selectedGroup !== group) return null;
-                const groupStudents = students.filter(s => s.group === group);
-                
-                return (
-                  <div key={group} className="mb-8 border border-gray-200 rounded-xl overflow-hidden">
-                    <div className="bg-gradient-to-r from-green-500 to-green-600 px-6 py-4">
-                      <h3 className="text-xl font-bold text-white">{group} guruh - Moliyaviy malumotlar</h3>
-                    </div>
-                    
-                    <div className="overflow-x-auto">
-                      <table className="w-full">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
-                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Tolov turi</th>
-                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Chegirma</th>
-                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Kontrakt summasi</th>
-                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Tolangan</th>
-                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Qarz</th>
-                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Turar joy</th>
-                            <th className="text-left py-3 px-4 font-semibold text-gray-700">Holat</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {groupStudents.map(student => (
-                            <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                              <td className="py-4 px-6">
-                                <div className="flex items-center gap-3">
-                                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                    student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
-                                  }`}>
-                                    <User className={`w-5 h-5 ${
-                                      student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
-                                    }`} />
-                                  </div>
-                                  <div>
-                                    <p className="font-medium text-gray-900">{student.name}</p>
-                                    <p className="text-sm text-gray-500">{student.age} yosh</p>
-                                  </div>
-                                </div>
-                              </td>
-                              <td className="py-4 px-4">
-                                <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                  student.paymentType === 'Grant' 
-                                    ? 'bg-green-100 text-green-700' 
-                                    : 'bg-blue-100 text-blue-700'
-                                }`}>
-                                  {student.paymentType}
-                                </span>
-                              </td>
-                              <td className="py-4 px-4 font-semibold text-gray-900">{student.contract}</td>
-                              <td className="py-4 px-4 text-gray-700">
-                                {student.contractAmount ? `${(student.contractAmount / 1000000).toFixed(1)} mln` : '-'}
-                              </td>
-                              <td className="py-4 px-4 font-semibold text-green-600">
-                                {student.paid ? `${(student.paid / 1000000).toFixed(1)} mln` : '-'}
-                              </td>
-                              <td className="py-4 px-4">
-                                {student.debt > 0 ? (
-                                  <span className="font-semibold text-red-600">{(student.debt / 1000000).toFixed(1)} mln</span>
-                                ) : (
-                                  <span className="text-gray-400">-</span>
-                                )}
-                              </td>
-                              <td className="py-4 px-4">
-                                <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-                                  {student.residence}
-                                </span>
-                              </td>
-                              <td className="py-4 px-4">
-                                {student.debt > 0 ? (
-                                  <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
-                                    Qarz bor
-                                  </span>
-                                ) : student.paymentType === 'Grant' ? (
-                                  <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                                    Grant
-                                  </span>
-                                ) : (
-                                  <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                                    Tolangan
-                                  </span>
-                                )}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        );
-      // Qolgan bo'limlar...
-      case 'documents': return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">E-Documents</h2>
-                <button className="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 flex items-center gap-2">
-                  <Upload className="w-4 h-4" />
-                  Upload Document
-                </button>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Document Name</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Date</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Type</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {documents.map(doc => (
-                      <tr key={doc.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                        <td className="py-3 px-4 font-medium text-gray-900">{doc.name}</td>
-                        <td className="py-3 px-4 text-gray-600">{doc.date}</td>
-                        <td className="py-3 px-4">
-                          <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">{doc.type}</span>
-                        </td>
-                        <td className="py-3 px-4">
-                          <span className={`px-3 py-1 rounded-full text-sm ${
-                            doc.status === 'Signed' ? 'bg-green-100 text-green-700' :
-                            doc.status === 'Pending' ? 'bg-yellow-100 text-yellow-700' :
-                            'bg-blue-100 text-blue-700'
-                          }`}>
-                            {doc.status}
-                          </span>
-                        </td>
-                        <td className="py-3 px-4">
-                          <div className="flex gap-2">
-                            <button className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
-                              <CheckCircle className="w-4 h-4 text-green-600" />
-                            </button>
-                            <button className="p-2 hover:bg-gray-200 rounded-lg transition-colors">
-                              <FileText className="w-4 h-4 text-blue-600" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        );
-      case 'students':  return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Student Management</h2>
-              
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Name</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Group</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">GPA</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {students.map(student => (
-                      <tr key={student.id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                        <td className="py-3 px-4 font-medium text-gray-900">{student.name}</td>
-                        <td className="py-3 px-4 text-gray-600">{student.group}</td>
-                        <td className="py-3 px-4 text-gray-900">{student.gpa}</td>
-                        <td className="py-3 px-4">
-                          <span className={`px-3 py-1 rounded-full text-sm ${
-                            student.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
-                          }`}>
-                            {student.status}
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        );
+      case 'contracts':
+      case 'payments':
+      case 'debts':
+      case 'scholarship':
+      case 'rental':
+      case 'dormitory':
+      case 'support':
+      case 'documents':
       case 'statistics':
-      case 'messages': return (
+      case 'messages':
+      case 'settings':
+        return (
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Messages</h2>
-            <div className="space-y-4">
-              <input 
-                type="text" 
-                placeholder="To: Student name or email" 
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <input 
-                type="text" 
-                placeholder="Subject" 
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <textarea 
-                placeholder="Message content..." 
-                rows="6" 
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:shadow-lg transition-all duration-300 flex items-center gap-2">
-                <Send className="w-4 h-4" />
-                Send Message
-              </button>
-            </div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              {navigationItems.flatMap(item => item.type === 'group' ? item.children : [item]).find(i => i.id === activeTab)?.label || 'Sahifa'}
+            </h2>
+            <p className="text-gray-600">Bu bolim ishlab chiqilmoqda...</p>
           </div>
         );
-      case 'settings':
+
       default:
         return (
           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">{navigationItems.find(item => item.id === activeTab)?.label}</h2>
-            <p className="text-gray-600">Ushbu bo'lim hozirda ishlab chiqilmoqda. Tez orada foydalanishga tayyor bo'ladi.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Sahifa topilmadi</h2>
+            <p className="text-gray-600">Bu bolim ishlab chiqilmoqda...</p>
           </div>
         );
     }
@@ -2160,36 +2907,89 @@ const HemisDashboard = () => {
 
   return (
     <div className="flex h-screen bg-gray-50 font-sans">
-      {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}>
+      <div className={`${sidebarOpen ? 'w-72' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}>
         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-          {sidebarOpen && <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">UniManage</h1>}
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          {sidebarOpen && (
+            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              UniManage
+            </h1>
+          )}
+          <button 
+            onClick={() => setSidebarOpen(!sidebarOpen)} 
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-          {navigationItems.map(item => (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                activeTab === item.id
-                  ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg'
-                  : 'text-gray-600 hover:bg-gray-100'
-              }`}
-            >
-              <item.icon className="w-5 h-5" />
-              {sidebarOpen && <span className="font-medium">{item.label}</span>}
-            </button>
-          ))}
+          {navigationItems.map(item => {
+            if (item.type === 'single') {
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+                    activeTab === item.id
+                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg'
+                      : 'text-gray-600 hover:bg-gray-100'
+                  }`}
+                >
+                  <item.icon className="w-5 h-5 flex-shrink-0" />
+                  {sidebarOpen && <span className="font-medium">{item.label}</span>}
+                </button>
+              );
+            } else {
+              const isExpanded = expandedMenus[item.id];
+              const hasActiveChild = item.children.some(child => child.id === activeTab);
+              
+              return (
+                <div key={item.id} className="space-y-1">
+                  <button
+                    onClick={() => toggleMenu(item.id)}
+                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300 ${
+                      hasActiveChild
+                        ? 'bg-blue-50 text-blue-600'
+                        : 'text-gray-600 hover:bg-gray-100'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {sidebarOpen && <span className="font-medium">{item.label}</span>}
+                    </div>
+                    {sidebarOpen && (
+                      isExpanded ? 
+                        <ChevronDown className="w-4 h-4 flex-shrink-0" /> : 
+                        <ChevronRight className="w-4 h-4 flex-shrink-0" />
+                    )}
+                  </button>
+                  
+                  {sidebarOpen && isExpanded && (
+                    <div className="ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+                      {item.children.map(child => (
+                        <button
+                          key={child.id}
+                          onClick={() => setActiveTab(child.id)}
+                          className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 text-sm ${
+                            activeTab === child.id
+                              ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
+                              : 'text-gray-600 hover:bg-gray-100'
+                          }`}
+                        >
+                          <child.icon className="w-4 h-4 flex-shrink-0" />
+                          <span className="font-medium">{child.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            }
+          })}
         </nav>
       </div>
 
-      {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
         <header className="bg-white border-b border-gray-200 px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4 flex-1">
@@ -2197,7 +2997,7 @@ const HemisDashboard = () => {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Talabalar, hujjatlar, fanlar bo'yicha qidirish..."
+                  placeholder="Talabalar, hujjatlar, kurslarni qidirish..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -2210,20 +3010,13 @@ const HemisDashboard = () => {
                 <Bell className="w-6 h-6 text-gray-600" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
-              <div className="flex items-center gap-3">
-                <div className="text-right">
-                  <p className="font-medium text-gray-900 text-sm">{groupLeaderInfo.name}</p>
-                  <p className="text-gray-500 text-xs">{groupLeaderInfo.position}</p>
-                </div>
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <User className="w-5 h-5 text-white" />
-                </div>
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                <User className="w-5 h-5 text-white" />
               </div>
             </div>
           </div>
         </header>
 
-        {/* Content Area */}
         <main className="flex-1 overflow-y-auto p-8">
           {renderContent()}
         </main>
