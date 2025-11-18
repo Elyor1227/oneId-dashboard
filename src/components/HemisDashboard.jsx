@@ -2236,790 +2236,1228 @@
 
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+// import React, { useState } from 'react';
+// import { 
+//   FileText, Users, Activity, Calendar, ClipboardCheck, 
+//   TrendingUp,  BarChart3, MessageSquare, 
+//   Settings, Home, Search, Bell, User,  
+//      Award, BookOpen,
+//   Building2, CreditCard,   
+//   Menu, X, ChevronDown, ChevronRight, AlertCircle,
+//   UserCheck,    FileCheck,
+//   ListChecks, School, Wallet,  
+//   HelpCircle
+// } from 'lucide-react';
+// import {   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
+
+// const HemisDashboard = () => {
+//   const [activeTab, setActiveTab] = useState('home');
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [sidebarOpen, setSidebarOpen] = useState(true);
+//   const [selectedGroup, setSelectedGroup] = useState('all');
+//   const [expandedMenus, setExpandedMenus] = useState({});
+
+//   const groupLeaderInfo = {
+//     name: "Aliyev Sardor Karimovich",
+//     position: "Guruh rahbari",
+//     faculty: "Axborot texnologiyalari fakulteti",
+//     groups: ["CS-101", "CS-102"]
+//   };
+
+//   const students = [
+//     { 
+//       id: 1, 
+//       name: 'Abdullayev Ali', 
+//       group: 'CS-101', 
+//       gender: 'Erkak',
+//       age: 19,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol', 
+//       gpa: 3.8,
+//       residence: 'Yotoqxona',
+//       paymentType: 'Grant',
+//       contract: '100%',
+//       contractAmount: 0,
+//       paid: 0,
+//       debt: 0,
+//       subjects: [
+//         { name: 'Matematika', grade: 5, attendance: 92, hours: 60, missed: 5, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 4, attendance: 88, hours: 60, missed: 7, reason: 'Sababsiz' },
+//         { name: 'Dasturlash', grade: 5, attendance: 95, hours: 80, missed: 4, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     },
+//     { 
+//       id: 2, 
+//       name: 'Karimova Malika', 
+//       group: 'CS-101', 
+//       gender: 'Ayol',
+//       age: 18,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol',
+//       gpa: 3.9,
+//       residence: 'Oz uyi',
+//       paymentType: 'Grant',
+//       contract: '100%',
+//       contractAmount: 0,
+//       paid: 0,
+//       debt: 0,
+//       subjects: [
+//         { name: 'Matematika', grade: 5, attendance: 96, hours: 60, missed: 2, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 5, attendance: 94, hours: 60, missed: 3, reason: 'Sababli' },
+//         { name: 'Dasturlash', grade: 5, attendance: 98, hours: 80, missed: 1, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     },
+//     { 
+//       id: 3, 
+//       name: 'Rahimov Jamshid', 
+//       group: 'CS-102', 
+//       gender: 'Erkak',
+//       age: 20,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Akademik qarzdor',
+//       gpa: 2.8,
+//       residence: 'Ijara',
+//       paymentType: 'Kontrakt',
+//       contract: '50%',
+//       contractAmount: 12000000,
+//       paid: 6000000,
+//       debt: 6000000,
+//       subjects: [
+//         { name: 'Matematika', grade: 3, attendance: 75, hours: 60, missed: 15, reason: 'Sababsiz' },
+//         { name: 'Fizika', grade: 2, attendance: 70, hours: 60, missed: 18, reason: 'Sababsiz' },
+//         { name: 'Dasturlash', grade: 4, attendance: 85, hours: 80, missed: 12, reason: 'Sababli' }
+//       ],
+//       debts: ['Fizika', 'Ingliz tili']
+//     },
+//     { 
+//       id: 4, 
+//       name: 'Tursunova Dilnoza', 
+//       group: 'CS-102', 
+//       gender: 'Ayol',
+//       age: 19,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol',
+//       gpa: 3.5,
+//       residence: 'Qarindosh uyi',
+//       paymentType: 'Kontrakt',
+//       contract: '30%',
+//       contractAmount: 15000000,
+//       paid: 15000000,
+//       debt: 0,
+//       subjects: [
+//         { name: 'Matematika', grade: 4, attendance: 90, hours: 60, missed: 6, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 4, attendance: 88, hours: 60, missed: 7, reason: 'Sababli' },
+//         { name: 'Dasturlash', grade: 5, attendance: 93, hours: 80, missed: 5, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     },
+//     { 
+//       id: 5, 
+//       name: 'Yusupov Bobur', 
+//       group: 'CS-101', 
+//       gender: 'Erkak',
+//       age: 21,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol',
+//       gpa: 3.6,
+//       residence: 'Yotoqxona',
+//       paymentType: 'Kontrakt',
+//       contract: '70%',
+//       contractAmount: 10000000,
+//       paid: 10000000,
+//       debt: 0,
+//       subjects: [
+//         { name: 'Matematika', grade: 4, attendance: 89, hours: 60, missed: 6, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 4, attendance: 91, hours: 60, missed: 5, reason: 'Sababli' },
+//         { name: 'Dasturlash', grade: 4, attendance: 87, hours: 80, missed: 10, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     },
+//     { 
+//       id: 6, 
+//       name: 'Nazarova Nigora', 
+//       group: 'CS-102', 
+//       gender: 'Ayol',
+//       age: 18,
+//       educationType: "Kunduzgi",
+//       course: 2,
+//       status: 'Faol',
+//       gpa: 4.0,
+//       residence: 'Oz uyi',
+//       paymentType: 'Grant',
+//       contract: '100%',
+//       contractAmount: 0,
+//       paid: 0,
+//       debt: 0,
+//       subjects: [
+//         { name: 'Matematika', grade: 5, attendance: 98, hours: 60, missed: 1, reason: 'Sababli' },
+//         { name: 'Fizika', grade: 5, attendance: 97, hours: 60, missed: 2, reason: 'Sababli' },
+//         { name: 'Dasturlash', grade: 5, attendance: 99, hours: 80, missed: 1, reason: 'Sababli' }
+//       ],
+//       debts: []
+//     }
+//   ];
+
+//   const weekSchedule = [
+//     { day: 'Dushanba', lessons: [
+//       { time: '08:30-10:00', subject: 'Matematika', room: '305', teacher: 'Mamadaliyev A.', group: 'CS-101' },
+//       { time: '10:10-11:40', subject: 'Fizika', room: '201', teacher: 'Qosimov B.', group: 'CS-101' }
+//     ]},
+//     { day: 'Seshanba', lessons: [
+//       { time: '08:30-10:00', subject: 'Ingliz tili', room: '105', teacher: 'Rashidova M.', group: 'CS-101' },
+//       { time: '10:10-11:40', subject: 'Dasturlash', room: '401', teacher: 'Karimova S.', group: 'CS-101' }
+//     ]}
+//   ];
+
+//   const examSchedule = [
+//     { date: '15.01.2025', day: 'Seshanba', subject: 'Matematika', time: '09:00', room: '305', teacher: 'Mamadaliyev A.', groups: ['CS-101', 'CS-102'] },
+//     { date: '17.01.2025', day: 'Payshanba', subject: 'Fizika', time: '09:00', room: '201', teacher: 'Qosimov B.', groups: ['CS-101', 'CS-102'] }
+//   ];
+
+//   const filteredStudents = selectedGroup === 'all' ? students : students.filter(s => s.group === selectedGroup);
+
+//   const calculateStats = () => {
+//     if (filteredStudents.length === 0) {
+//       return {
+//         total: 0, male: 0, female: 0, dormitory: 0, ownHome: 0, rental: 0,
+//         relative: 0, contract: 0, grant: 0, active: 0, debtors: 0, avgGpa: '0.00'
+//       };
+//     }
+//     return {
+//       total: filteredStudents.length,
+//       male: filteredStudents.filter(s => s.gender === 'Erkak').length,
+//       female: filteredStudents.filter(s => s.gender === 'Ayol').length,
+//       dormitory: filteredStudents.filter(s => s.residence === 'Yotoqxona').length,
+//       ownHome: filteredStudents.filter(s => s.residence === 'Oz uyi').length,
+//       rental: filteredStudents.filter(s => s.residence === 'Ijara').length,
+//       relative: filteredStudents.filter(s => s.residence === 'Qarindosh uyi').length,
+//       contract: filteredStudents.filter(s => s.paymentType === 'Kontrakt').length,
+//       grant: filteredStudents.filter(s => s.paymentType === 'Grant').length,
+//       active: filteredStudents.filter(s => s.status === 'Faol').length,
+//       debtors: filteredStudents.filter(s => s.status === 'Akademik qarzdor').length,
+//       avgGpa: (filteredStudents.reduce((sum, s) => sum + s.gpa, 0) / filteredStudents.length).toFixed(2)
+//     };
+//   };
+
+//   const stats = calculateStats();
+
+//   const ageDistribution = [
+//     { age: '18', count: filteredStudents.filter(s => s.age === 18).length },
+//     { age: '19', count: filteredStudents.filter(s => s.age === 19).length },
+//     { age: '20', count: filteredStudents.filter(s => s.age === 20).length },
+//     { age: '21+', count: filteredStudents.filter(s => s.age >= 21).length }
+//   ];
+
+//   const navigationItems = [
+//     { id: 'home', icon: Home, label: 'Bosh sahifa', type: 'single' },
+//     { 
+//       id: 'students', 
+//       icon: Users, 
+//       label: 'Talabalar', 
+//       type: 'group',
+//       children: [
+//         { id: 'students-list', label: "Talabalar ro'yxati", icon: ListChecks },
+//         { id: 'students-activity', label: 'Talabalar harakati', icon: Activity },
+//         { id: 'students-passport', label: 'Talaba pasporti', icon: FileCheck }
+//       ]
+//     },
+//     { 
+//       id: 'academic', 
+//       icon: School, 
+//       label: "O'quv jarayoni", 
+//       type: 'group',
+//       children: [
+//         { id: 'schedule', label: 'Dars jadvali', icon: Calendar },
+//         { id: 'exams', label: 'Nazorat jadvali', icon: FileText },
+//         { id: 'attendance', label: 'Davomat', icon: ClipboardCheck },
+//         { id: 'performance', label: "O'zlashtirish", icon: TrendingUp }
+//       ]
+//     },
+//     { 
+//       id: 'financial', 
+//       icon: Wallet, 
+//       label: 'Moliyaviy holat', 
+//       type: 'group',
+//       children: [
+//         { id: 'contracts', label: 'Shartnoma', icon: FileText },
+//         { id: 'payments', label: "To'lovlar tarixi", icon: CreditCard },
+//         { id: 'debts', label: 'Qarzdorlik', icon: AlertCircle },
+//         { id: 'scholarship', label: 'Stipendiya', icon: Award },
+//         { id: 'rental', label: 'Ijara', icon: Building2 },
+//         { id: 'dormitory', label: 'Talabalar turar joyi', icon: Home }
+//       ]
+//     },
+//     { 
+//       id: 'external', 
+//       icon: HelpCircle, 
+//       label: 'Tashqi xizmatlar', 
+//       type: 'group',
+//       children: [
+//         { id: 'support', label: 'Yordam', icon: MessageSquare },
+//         { id: 'documents', label: 'Hujjatlar', icon: FileText }
+//       ]
+//     },
+//     { id: 'statistics', icon: BarChart3, label: 'Statistika', type: 'single' },
+//     { id: 'messages', icon: MessageSquare, label: 'Xabarlar', type: 'single' },
+//     { id: 'settings', icon: Settings, label: 'Sozlamalar', type: 'single' }
+//   ];
+
+//   const toggleMenu = (menuId) => {
+//     setExpandedMenus(prev => ({
+//       ...prev,
+//       [menuId]: !prev[menuId]
+//     }));
+//   };
+
+//   const StatCard = ({ icon: Icon, title, value, subtitle, color }) => (
+//     <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
+//       <div className="flex items-start justify-between mb-4">
+//         <div className={`p-3 rounded-xl bg-gradient-to-br ${color}`}>
+//           <Icon className="w-6 h-6 text-white" />
+//         </div>
+//       </div>
+//       <h3 className="text-gray-500 text-sm font-medium mb-1">{title}</h3>
+//       <p className="text-3xl font-bold text-gray-900 mb-1">{value}</p>
+//       {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
+//     </div>
+//   );
+
+//   const renderContent = () => {
+//     switch(activeTab) {
+//       case 'home':
+//         return (
+//           <div className="space-y-6">
+//             <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
+//               <div className="flex items-center gap-4">
+//                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+//                   <User className="w-8 h-8" />
+//                 </div>
+//                 <div>
+//                   <h2 className="text-2xl font-bold">{groupLeaderInfo.name}</h2>
+//                   <p className="text-blue-100">{groupLeaderInfo.position} - {groupLeaderInfo.faculty}</p>
+//                   <p className="text-blue-100 text-sm mt-1">Guruhlar: {groupLeaderInfo.groups.join(', ')}</p>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
+//               <div className="flex gap-3 flex-wrap">
+//                 <button 
+//                   onClick={() => setSelectedGroup('all')}
+//                   className={`px-6 py-2 rounded-xl font-medium transition-all ${
+//                     selectedGroup === 'all' 
+//                       ? 'bg-blue-500 text-white shadow-md' 
+//                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+//                   }`}
+//                 >
+//                   Barcha guruhlar
+//                 </button>
+//                 {groupLeaderInfo.groups.map(group => (
+//                   <button 
+//                     key={group}
+//                     onClick={() => setSelectedGroup(group)}
+//                     className={`px-6 py-2 rounded-xl font-medium transition-all ${
+//                       selectedGroup === group 
+//                         ? 'bg-blue-500 text-white shadow-md' 
+//                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+//                     }`}
+//                   >
+//                     {group}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+
+//             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+//               <StatCard 
+//                 icon={Users} 
+//                 title="Jami talabalar" 
+//                 value={stats.total}
+//                 color="from-blue-500 to-blue-600"
+//               />
+//               <StatCard 
+//                 icon={UserCheck} 
+//                 title="Faol talabalar" 
+//                 value={stats.active}
+//                 subtitle={`${stats.debtors} nafar qarzdor`}
+//                 color="from-green-500 to-green-600"
+//               />
+//               <StatCard 
+//                 icon={Award} 
+//                 title="Ortacha GPA" 
+//                 value={stats.avgGpa}
+//                 color="from-purple-500 to-purple-600"
+//               />
+//               <StatCard 
+//                 icon={BookOpen} 
+//                 title="Grant talabalar" 
+//                 value={stats.grant}
+//                 subtitle={`${stats.contract} nafar kontrakt`}
+//                 color="from-orange-500 to-orange-600"
+//               />
+//             </div>
+
+//             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-6">Jins kesimi</h3>
+//                 <div className="space-y-4">
+//                   <div className="flex items-center justify-between p-4 bg-blue-50 rounded-xl">
+//                     <span className="font-medium text-gray-700">Erkaklar</span>
+//                     <div className="flex items-center gap-3">
+//                       <div className="w-32 bg-gray-200 rounded-full h-2">
+//                         <div 
+//                           className="bg-blue-500 h-2 rounded-full transition-all duration-500" 
+//                           style={{width: stats.total > 0 ? `${(stats.male/stats.total)*100}%` : '0%'}}
+//                         />
+//                       </div>
+//                       <span className="text-xl font-bold text-blue-600 w-12 text-right">{stats.male}</span>
+//                     </div>
+//                   </div>
+//                   <div className="flex items-center justify-between p-4 bg-pink-50 rounded-xl">
+//                     <span className="font-medium text-gray-700">Qizlar</span>
+//                     <div className="flex items-center gap-3">
+//                       <div className="w-32 bg-gray-200 rounded-full h-2">
+//                         <div 
+//                           className="bg-pink-500 h-2 rounded-full transition-all duration-500" 
+//                           style={{width: stats.total > 0 ? `${(stats.female/stats.total)*100}%` : '0%'}}
+//                         />
+//                       </div>
+//                       <span className="text-xl font-bold text-pink-600 w-12 text-right">{stats.female}</span>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-6">Turar joy kesimi</h3>
+//                 <div className="grid grid-cols-2 gap-3">
+//                   <div className="p-4 bg-green-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <Building2 className="w-4 h-4 text-green-600" />
+//                       <span className="text-sm text-gray-600">Yotoqxona</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-green-600">{stats.dormitory}</p>
+//                   </div>
+//                   <div className="p-4 bg-blue-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <Home className="w-4 h-4 text-blue-600" />
+//                       <span className="text-sm text-gray-600">Oz uyi</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-blue-600">{stats.ownHome}</p>
+//                   </div>
+//                   <div className="p-4 bg-orange-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <CreditCard className="w-4 h-4 text-orange-600" />
+//                       <span className="text-sm text-gray-600">Ijara</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-orange-600">{stats.rental}</p>
+//                   </div>
+//                   <div className="p-4 bg-purple-50 rounded-xl">
+//                     <div className="flex items-center gap-2 mb-2">
+//                       <Users className="w-4 h-4 text-purple-600" />
+//                       <span className="text-sm text-gray-600">Qarindosh</span>
+//                     </div>
+//                     <p className="text-2xl font-bold text-purple-600">{stats.relative}</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-4">Yosh kesimi</h3>
+//                 <ResponsiveContainer width="100%" height={250}>
+//                   <BarChart data={ageDistribution}>
+//                     <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+//                     <XAxis dataKey="age" stroke="#9ca3af" />
+//                     <YAxis stroke="#9ca3af" />
+//                     <Tooltip />
+//                     <Bar dataKey="count" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
+//                   </BarChart>
+//                 </ResponsiveContainer>
+//               </div>
+
+//               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//                 <h3 className="text-lg font-bold text-gray-900 mb-6">Tolov turi kesimi</h3>
+//                 <div className="space-y-4">
+//                   <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl">
+//                     <div>
+//                       <span className="font-medium text-gray-700">Grant asosida</span>
+//                       <p className="text-sm text-gray-500 mt-1">100% chegirma</p>
+//                     </div>
+//                     <span className="text-3xl font-bold text-green-600">{stats.grant}</span>
+//                   </div>
+//                   <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
+//                     <div>
+//                       <span className="font-medium text-gray-700">Kontrakt asosida</span>
+//                       <p className="text-sm text-gray-500 mt-1">Tolov shartnomasi</p>
+//                     </div>
+//                     <span className="text-3xl font-bold text-blue-600">{stats.contract}</span>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         );
+
+//       case 'students-list':
+//       case 'students-activity':
+//       case 'students-passport':
+//         return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <h2 className="text-2xl font-bold text-gray-900 mb-6">
+//                 {activeTab === 'students-list' && "Talabalar ro'yxati"}
+//                 {activeTab === 'students-activity' && "Talabalar harakati"}
+//                 {activeTab === 'students-passport' && "Talaba pasporti"}
+//               </h2>
+              
+//               <div className="space-y-6">
+//                 {groupLeaderInfo.groups.map(group => {
+//                   const groupStudents = students.filter(s => s.group === group);
+//                   return (
+//                     <div key={group} className="border border-gray-200 rounded-xl overflow-hidden">
+//                       <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
+//                         <h3 className="text-xl font-bold text-white">{group} guruh</h3>
+//                         <p className="text-blue-100 text-sm">{groupStudents.length} ta talaba</p>
+//                       </div>
+                      
+//                       <div className="overflow-x-auto">
+//                         <table className="w-full">
+//                           <thead className="bg-gray-50">
+//                             <tr>
+//                               <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Talim turi</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Kurs</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">Talaba holati</th>
+//                               <th className="text-left py-3 px-4 font-semibold text-gray-700">GPA</th>
+//                             </tr>
+//                           </thead>
+//                           <tbody>
+//                             {groupStudents.map(student => (
+//                               <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+//                                 <td className="py-4 px-6">
+//                                   <div className="flex items-center gap-3">
+//                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+//                                       student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
+//                                     }`}>
+//                                       <User className={`w-5 h-5 ${
+//                                         student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
+//                                       }`} />
+//                                     </div>
+//                                     <div>
+//                                       <p className="font-medium text-gray-900">{student.name}</p>
+//                                       <p className="text-sm text-gray-500">{student.gender} - {student.age} yosh</p>
+//                                     </div>
+//                                   </div>
+//                                 </td>
+//                                 <td className="py-4 px-4 text-gray-700">{student.educationType}</td>
+//                                 <td className="py-4 px-4 text-gray-700">{student.course}-kurs</td>
+//                                 <td className="py-4 px-4">
+//                                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+//                                     student.status === 'Faol' 
+//                                       ? 'bg-green-100 text-green-700' 
+//                                       : 'bg-red-100 text-red-700'
+//                                   }`}>
+//                                     {student.status}
+//                                   </span>
+//                                 </td>
+//                                 <td className="py-4 px-4">
+//                                   <span className="font-bold text-gray-900">{student.gpa}</span>
+//                                 </td>
+//                               </tr>
+//                             ))}
+//                           </tbody>
+//                         </table>
+//                       </div>
+//                     </div>
+//                   );
+//                 })}
+//               </div>
+//             </div>
+//           </div>
+//         );
+
+//       case 'schedule':
+//         return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <h2 className="text-2xl font-bold text-gray-900 mb-6">Dars jadvali</h2>
+              
+//               <div className="space-y-4">
+//                 {weekSchedule.map((day, idx) => (
+//                   <div key={idx} className="border border-gray-200 rounded-xl overflow-hidden">
+//                     <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3">
+//                       <h3 className="text-lg font-bold text-white">{day.day}</h3>
+//                     </div>
+//                     <div className="p-4">
+//                       <div className="grid gap-3">
+//                         {day.lessons.map((lesson, lessonIdx) => (
+//                           <div key={lessonIdx} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+//                             <div className="flex items-center gap-4">
+//                               <div className="text-center">
+//                                 <p className="text-sm font-semibold text-blue-600">{lesson.time}</p>
+//                               </div>
+//                               <div className="w-px h-12 bg-gray-300"></div>
+//                               <div>
+//                                 <p className="font-bold text-gray-900">{lesson.subject}</p>
+//                                 <p className="text-sm text-gray-600">{lesson.teacher}</p>
+//                               </div>
+//                             </div>
+//                             <div className="flex items-center gap-4">
+//                               <div className="text-right">
+//                                 <p className="text-sm font-medium text-gray-700">Xona: {lesson.room}</p>
+//                                 <p className="text-sm text-gray-500">{lesson.group}</p>
+//                               </div>
+//                             </div>
+//                           </div>
+//                         ))}
+//                       </div>
+//                     </div>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+//         );
+
+//       case 'exams':
+//         return (
+//           <div className="space-y-6">
+//             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//               <h2 className="text-2xl font-bold text-gray-900 mb-6">Nazorat (Imtihonlar) jadvali</h2>
+//               <div className="overflow-x-auto">
+//                 <table className="w-full">
+//                   <thead className="bg-gray-50">
+//                     <tr>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Sana</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Kun</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Fan</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Vaqt</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Xona</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Oqituvchi</th>
+//                       <th className="text-left py-3 px-4 font-semibold text-gray-700">Guruhlar</th>
+//                     </tr>
+//                   </thead>
+//                   <tbody>
+//                     {examSchedule.map((exam, idx) => (
+//                       <tr key={idx} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
+//                         <td className="py-3 px-4 font-medium text-gray-900">{exam.date}</td>
+//                         <td className="py-3 px-4 text-gray-700">{exam.day}</td>
+//                         <td className="py-3 px-4 font-semibold text-blue-600">{exam.subject}</td>
+//                         <td className="py-3 px-4 text-gray-700">{exam.time}</td>
+//                         <td className="py-3 px-4 text-gray-700">{exam.room}</td>
+//                         <td className="py-3 px-4 text-gray-700">{exam.teacher}</td>
+//                         <td className="py-3 px-4">
+//                           <div className="flex gap-1">
+//                             {exam.groups.map((g, gIdx) => (
+//                               <span key={gIdx} className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+//                                 {g}
+//                               </span>
+//                             ))}
+//                           </div>
+//                         </td>
+//                       </tr>
+//                     ))}
+//                   </tbody>
+//                 </table>
+//               </div>
+//             </div>
+//           </div>
+//         );
+
+//       case 'attendance':
+//       case 'performance':
+//       case 'contracts':
+//       case 'payments':
+//       case 'debts':
+//       case 'scholarship':
+//       case 'rental':
+//       case 'dormitory':
+//       case 'support':
+//       case 'documents':
+//       case 'statistics':
+//       case 'messages':
+//       case 'settings':
+//         return (
+//           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//             <h2 className="text-2xl font-bold text-gray-900 mb-4">
+//               {navigationItems.flatMap(item => item.type === 'group' ? item.children : [item]).find(i => i.id === activeTab)?.label || 'Sahifa'}
+//             </h2>
+//             <p className="text-gray-600">Bu bolim ishlab chiqilmoqda...</p>
+//           </div>
+//         );
+
+//       default:
+//         return (
+//           <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+//             <h2 className="text-2xl font-bold text-gray-900 mb-4">Sahifa topilmadi</h2>
+//             <p className="text-gray-600">Bu bolim ishlab chiqilmoqda...</p>
+//           </div>
+//         );
+//     }
+//   };
+
+//   return (
+//     <div className="flex h-screen bg-gray-50 font-sans">
+//       <div className={`${sidebarOpen ? 'w-72' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}>
+//         <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+//           {sidebarOpen && (
+//             <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+//               UniManage
+//             </h1>
+//           )}
+//           <button 
+//             onClick={() => setSidebarOpen(!sidebarOpen)} 
+//             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+//           >
+//             {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+//           </button>
+//         </div>
+
+//         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+//           {navigationItems.map(item => {
+//             if (item.type === 'single') {
+//               return (
+//                 <button
+//                   key={item.id}
+//                   onClick={() => setActiveTab(item.id)}
+//                   className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
+//                     activeTab === item.id
+//                       ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg'
+//                       : 'text-gray-600 hover:bg-gray-100'
+//                   }`}
+//                 >
+//                   <item.icon className="w-5 h-5 flex-shrink-0" />
+//                   {sidebarOpen && <span className="font-medium">{item.label}</span>}
+//                 </button>
+//               );
+//             } else {
+//               const isExpanded = expandedMenus[item.id];
+//               const hasActiveChild = item.children.some(child => child.id === activeTab);
+              
+//               return (
+//                 <div key={item.id} className="space-y-1">
+//                   <button
+//                     onClick={() => toggleMenu(item.id)}
+//                     className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300 ${
+//                       hasActiveChild
+//                         ? 'bg-blue-50 text-blue-600'
+//                         : 'text-gray-600 hover:bg-gray-100'
+//                     }`}
+//                   >
+//                     <div className="flex items-center gap-3">
+//                       <item.icon className="w-5 h-5 flex-shrink-0" />
+//                       {sidebarOpen && <span className="font-medium">{item.label}</span>}
+//                     </div>
+//                     {sidebarOpen && (
+//                       isExpanded ? 
+//                         <ChevronDown className="w-4 h-4 flex-shrink-0" /> : 
+//                         <ChevronRight className="w-4 h-4 flex-shrink-0" />
+//                     )}
+//                   </button>
+                  
+//                   {sidebarOpen && isExpanded && (
+//                     <div className="ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
+//                       {item.children.map(child => (
+//                         <button
+//                           key={child.id}
+//                           onClick={() => setActiveTab(child.id)}
+//                           className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 text-sm ${
+//                             activeTab === child.id
+//                               ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
+//                               : 'text-gray-600 hover:bg-gray-100'
+//                           }`}
+//                         >
+//                           <child.icon className="w-4 h-4 flex-shrink-0" />
+//                           <span className="font-medium">{child.label}</span>
+//                         </button>
+//                       ))}
+//                     </div>
+//                   )}
+//                 </div>
+//               );
+//             }
+//           })}
+//         </nav>
+//       </div>
+
+//       <div className="flex-1 flex flex-col overflow-hidden">
+//         <header className="bg-white border-b border-gray-200 px-8 py-4">
+//           <div className="flex items-center justify-between">
+//             <div className="flex items-center gap-4 flex-1">
+//               <div className="relative flex-1 max-w-md">
+//                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+//                 <input
+//                   type="text"
+//                   placeholder="Talabalar, hujjatlar, kurslarni qidirish..."
+//                   value={searchQuery}
+//                   onChange={(e) => setSearchQuery(e.target.value)}
+//                   className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+//                 />
+//               </div>
+//             </div>
+
+//             <div className="flex items-center gap-4">
+//               <button className="relative p-2 hover:bg-gray-100 rounded-xl transition-colors">
+//                 <Bell className="w-6 h-6 text-gray-600" />
+//                 <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+//               </button>
+//               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+//                 <User className="w-5 h-5 text-white" />
+//               </div>
+//             </div>
+//           </div>
+//         </header>
+
+//         <main className="flex-1 overflow-y-auto p-8">
+//           {renderContent()}
+//         </main>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default HemisDashboard;
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 import React, { useState } from 'react';
-import { 
-  FileText, Users, Activity, Calendar, ClipboardCheck, 
-  TrendingUp,  BarChart3, MessageSquare, 
-  Settings, Home, Search, Bell, User,  
-     Award, BookOpen,
-  Building2, CreditCard,   
-  Menu, X, ChevronDown, ChevronRight, AlertCircle,
-  UserCheck,    FileCheck,
-  ListChecks, School, Wallet,  
-  HelpCircle
-} from 'lucide-react';
-import {   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,  ResponsiveContainer } from 'recharts';
+import { MapPin,   Building2, Users, GraduationCap, TrendingUp, FileText, DollarSign, Calendar, Briefcase, Handshake, Award } from 'lucide-react';
 
 const HemisDashboard = () => {
-  const [activeTab, setActiveTab] = useState('home');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [selectedGroup, setSelectedGroup] = useState('all');
-  const [expandedMenus, setExpandedMenus] = useState({});
+  const [activeTab, setActiveTab] = useState('yutuqlar');
 
-  const groupLeaderInfo = {
-    name: "Aliyev Sardor Karimovich",
-    position: "Guruh rahbari",
-    faculty: "Axborot texnologiyalari fakulteti",
-    groups: ["CS-101", "CS-102"]
-  };
-
-  const students = [
-    { 
-      id: 1, 
-      name: 'Abdullayev Ali', 
-      group: 'CS-101', 
-      gender: 'Erkak',
-      age: 19,
-      educationType: "Kunduzgi",
-      course: 2,
-      status: 'Faol', 
-      gpa: 3.8,
-      residence: 'Yotoqxona',
-      paymentType: 'Grant',
-      contract: '100%',
-      contractAmount: 0,
-      paid: 0,
-      debt: 0,
-      subjects: [
-        { name: 'Matematika', grade: 5, attendance: 92, hours: 60, missed: 5, reason: 'Sababli' },
-        { name: 'Fizika', grade: 4, attendance: 88, hours: 60, missed: 7, reason: 'Sababsiz' },
-        { name: 'Dasturlash', grade: 5, attendance: 95, hours: 80, missed: 4, reason: 'Sababli' }
-      ],
-      debts: []
-    },
-    { 
-      id: 2, 
-      name: 'Karimova Malika', 
-      group: 'CS-101', 
-      gender: 'Ayol',
-      age: 18,
-      educationType: "Kunduzgi",
-      course: 2,
-      status: 'Faol',
-      gpa: 3.9,
-      residence: 'Oz uyi',
-      paymentType: 'Grant',
-      contract: '100%',
-      contractAmount: 0,
-      paid: 0,
-      debt: 0,
-      subjects: [
-        { name: 'Matematika', grade: 5, attendance: 96, hours: 60, missed: 2, reason: 'Sababli' },
-        { name: 'Fizika', grade: 5, attendance: 94, hours: 60, missed: 3, reason: 'Sababli' },
-        { name: 'Dasturlash', grade: 5, attendance: 98, hours: 80, missed: 1, reason: 'Sababli' }
-      ],
-      debts: []
-    },
-    { 
-      id: 3, 
-      name: 'Rahimov Jamshid', 
-      group: 'CS-102', 
-      gender: 'Erkak',
-      age: 20,
-      educationType: "Kunduzgi",
-      course: 2,
-      status: 'Akademik qarzdor',
-      gpa: 2.8,
-      residence: 'Ijara',
-      paymentType: 'Kontrakt',
-      contract: '50%',
-      contractAmount: 12000000,
-      paid: 6000000,
-      debt: 6000000,
-      subjects: [
-        { name: 'Matematika', grade: 3, attendance: 75, hours: 60, missed: 15, reason: 'Sababsiz' },
-        { name: 'Fizika', grade: 2, attendance: 70, hours: 60, missed: 18, reason: 'Sababsiz' },
-        { name: 'Dasturlash', grade: 4, attendance: 85, hours: 80, missed: 12, reason: 'Sababli' }
-      ],
-      debts: ['Fizika', 'Ingliz tili']
-    },
-    { 
-      id: 4, 
-      name: 'Tursunova Dilnoza', 
-      group: 'CS-102', 
-      gender: 'Ayol',
-      age: 19,
-      educationType: "Kunduzgi",
-      course: 2,
-      status: 'Faol',
-      gpa: 3.5,
-      residence: 'Qarindosh uyi',
-      paymentType: 'Kontrakt',
-      contract: '30%',
-      contractAmount: 15000000,
-      paid: 15000000,
-      debt: 0,
-      subjects: [
-        { name: 'Matematika', grade: 4, attendance: 90, hours: 60, missed: 6, reason: 'Sababli' },
-        { name: 'Fizika', grade: 4, attendance: 88, hours: 60, missed: 7, reason: 'Sababli' },
-        { name: 'Dasturlash', grade: 5, attendance: 93, hours: 80, missed: 5, reason: 'Sababli' }
-      ],
-      debts: []
-    },
-    { 
-      id: 5, 
-      name: 'Yusupov Bobur', 
-      group: 'CS-101', 
-      gender: 'Erkak',
-      age: 21,
-      educationType: "Kunduzgi",
-      course: 2,
-      status: 'Faol',
-      gpa: 3.6,
-      residence: 'Yotoqxona',
-      paymentType: 'Kontrakt',
-      contract: '70%',
-      contractAmount: 10000000,
-      paid: 10000000,
-      debt: 0,
-      subjects: [
-        { name: 'Matematika', grade: 4, attendance: 89, hours: 60, missed: 6, reason: 'Sababli' },
-        { name: 'Fizika', grade: 4, attendance: 91, hours: 60, missed: 5, reason: 'Sababli' },
-        { name: 'Dasturlash', grade: 4, attendance: 87, hours: 80, missed: 10, reason: 'Sababli' }
-      ],
-      debts: []
-    },
-    { 
-      id: 6, 
-      name: 'Nazarova Nigora', 
-      group: 'CS-102', 
-      gender: 'Ayol',
-      age: 18,
-      educationType: "Kunduzgi",
-      course: 2,
-      status: 'Faol',
-      gpa: 4.0,
-      residence: 'Oz uyi',
-      paymentType: 'Grant',
-      contract: '100%',
-      contractAmount: 0,
-      paid: 0,
-      debt: 0,
-      subjects: [
-        { name: 'Matematika', grade: 5, attendance: 98, hours: 60, missed: 1, reason: 'Sababli' },
-        { name: 'Fizika', grade: 5, attendance: 97, hours: 60, missed: 2, reason: 'Sababli' },
-        { name: 'Dasturlash', grade: 5, attendance: 99, hours: 80, missed: 1, reason: 'Sababli' }
-      ],
-      debts: []
-    }
+  const tabs = [
+    { id: 'yutuqlar', label: 'Yutuqlar', icon: TrendingUp },
+    { id: 'ijara', label: 'Ijara', icon: Building2 },
+    { id: 'mablaglar', label: "Mablag'lar", icon: DollarSign },
+    { id: 'dasturlar', label: "O'quv dasturlari", icon: FileText },
+    { id: 'kvota', label: 'Qabul kvotalari', icon: Users },
+    { id: 'muddat', label: "O'qish muddati", icon: Calendar },
+    { id: 'tolov', label: "To'lov-kontrakt", icon: DollarSign },
+    { id: 'amaliyot', label: 'Amaliyot', icon: Briefcase },
+    { id: 'hamkorlar', label: 'Hamkorlar', icon: Handshake },
+    { id: 'malaka', label: 'Malaka va daraja', icon: Award }
   ];
 
-  const weekSchedule = [
-    { day: 'Dushanba', lessons: [
-      { time: '08:30-10:00', subject: 'Matematika', room: '305', teacher: 'Mamadaliyev A.', group: 'CS-101' },
-      { time: '10:10-11:40', subject: 'Fizika', room: '201', teacher: 'Qosimov B.', group: 'CS-101' }
-    ]},
-    { day: 'Seshanba', lessons: [
-      { time: '08:30-10:00', subject: 'Ingliz tili', room: '105', teacher: 'Rashidova M.', group: 'CS-101' },
-      { time: '10:10-11:40', subject: 'Dasturlash', room: '401', teacher: 'Karimova S.', group: 'CS-101' }
-    ]}
-  ];
-
-  const examSchedule = [
-    { date: '15.01.2025', day: 'Seshanba', subject: 'Matematika', time: '09:00', room: '305', teacher: 'Mamadaliyev A.', groups: ['CS-101', 'CS-102'] },
-    { date: '17.01.2025', day: 'Payshanba', subject: 'Fizika', time: '09:00', room: '201', teacher: 'Qosimov B.', groups: ['CS-101', 'CS-102'] }
-  ];
-
-  const filteredStudents = selectedGroup === 'all' ? students : students.filter(s => s.group === selectedGroup);
-
-  const calculateStats = () => {
-    if (filteredStudents.length === 0) {
-      return {
-        total: 0, male: 0, female: 0, dormitory: 0, ownHome: 0, rental: 0,
-        relative: 0, contract: 0, grant: 0, active: 0, debtors: 0, avgGpa: '0.00'
-      };
-    }
-    return {
-      total: filteredStudents.length,
-      male: filteredStudents.filter(s => s.gender === 'Erkak').length,
-      female: filteredStudents.filter(s => s.gender === 'Ayol').length,
-      dormitory: filteredStudents.filter(s => s.residence === 'Yotoqxona').length,
-      ownHome: filteredStudents.filter(s => s.residence === 'Oz uyi').length,
-      rental: filteredStudents.filter(s => s.residence === 'Ijara').length,
-      relative: filteredStudents.filter(s => s.residence === 'Qarindosh uyi').length,
-      contract: filteredStudents.filter(s => s.paymentType === 'Kontrakt').length,
-      grant: filteredStudents.filter(s => s.paymentType === 'Grant').length,
-      active: filteredStudents.filter(s => s.status === 'Faol').length,
-      debtors: filteredStudents.filter(s => s.status === 'Akademik qarzdor').length,
-      avgGpa: (filteredStudents.reduce((sum, s) => sum + s.gpa, 0) / filteredStudents.length).toFixed(2)
-    };
-  };
-
-  const stats = calculateStats();
-
-  const ageDistribution = [
-    { age: '18', count: filteredStudents.filter(s => s.age === 18).length },
-    { age: '19', count: filteredStudents.filter(s => s.age === 19).length },
-    { age: '20', count: filteredStudents.filter(s => s.age === 20).length },
-    { age: '21+', count: filteredStudents.filter(s => s.age >= 21).length }
-  ];
-
-  const navigationItems = [
-    { id: 'home', icon: Home, label: 'Bosh sahifa', type: 'single' },
-    { 
-      id: 'students', 
-      icon: Users, 
-      label: 'Talabalar', 
-      type: 'group',
-      children: [
-        { id: 'students-list', label: "Talabalar ro'yxati", icon: ListChecks },
-        { id: 'students-activity', label: 'Talabalar harakati', icon: Activity },
-        { id: 'students-passport', label: 'Talaba pasporti', icon: FileCheck }
+  const tabContent = {
+    yutuqlar: {
+      title: "Texnikum Erishgan Yutuqlar",
+      items: [
+        { year: "2024", achievement: "Viloyat miqyosida 'Eng yaxshi tibbiy texnikum' mukofoti" },
+        { year: "2023", achievement: "90% bitiruvchilar ish bilan ta'minlangan" },
+        { year: "2023", achievement: "Respublika ko'rgazmasida 2-o'rin" },
+        { year: "2022", achievement: "Zamonaviy laboratoriyalar ochildi" }
       ]
     },
-    { 
-      id: 'academic', 
-      icon: School, 
-      label: "O'quv jarayoni", 
-      type: 'group',
-      children: [
-        { id: 'schedule', label: 'Dars jadvali', icon: Calendar },
-        { id: 'exams', label: 'Nazorat jadvali', icon: FileText },
-        { id: 'attendance', label: 'Davomat', icon: ClipboardCheck },
-        { id: 'performance', label: "O'zlashtirish", icon: TrendingUp }
+    ijara: {
+      title: "Ijara Ma'lumotlari",
+      data: [
+        { label: "Bino maydoni", value: "5,000 m²" },
+        { label: "Ijara shakli", value: "Uzoq muddatli ijara" },
+        { label: "Ijara muddati", value: "25 yil" },
+        { label: "Ijara to'lovi", value: "Yillik shartnoma asosida" }
       ]
     },
-    { 
-      id: 'financial', 
-      icon: Wallet, 
-      label: 'Moliyaviy holat', 
-      type: 'group',
-      children: [
-        { id: 'contracts', label: 'Shartnoma', icon: FileText },
-        { id: 'payments', label: "To'lovlar tarixi", icon: CreditCard },
-        { id: 'debts', label: 'Qarzdorlik', icon: AlertCircle },
-        { id: 'scholarship', label: 'Stipendiya', icon: Award },
-        { id: 'rental', label: 'Ijara', icon: Building2 },
-        { id: 'dormitory', label: 'Talabalar turar joyi', icon: Home }
+    mablaglar: {
+      title: "Moliyaviy Ko'rsatkichlar",
+      budget: [
+        { category: "Umumiy byudjet", amount: "2,5 mlrd so'm", percent: 100 },
+        { category: "Ta'lim xarajatlari", amount: "1,2 mlrd so'm", percent: 48 },
+        { category: "Infratuzilma", amount: "800 mln so'm", percent: 32 },
+        { category: "Maosh fondi", amount: "500 mln so'm", percent: 20 }
       ]
     },
-    { 
-      id: 'external', 
-      icon: HelpCircle, 
-      label: 'Tashqi xizmatlar', 
-      type: 'group',
-      children: [
-        { id: 'support', label: 'Yordam', icon: MessageSquare },
-        { id: 'documents', label: 'Hujjatlar', icon: FileText }
+    dasturlar: {
+      title: "O'quv Dasturlari",
+      programs: [
+        { code: "5110700", name: "Hamshiralik ishi", duration: "2 yil 10 oy" },
+        { code: "5110900", name: "Laboratoriya diagnostikasi", duration: "2 yil 10 oy" },
+        { code: "5111000", name: "Stomatologiya", duration: "2 yil 10 oy" },
+        { code: "5110800", name: "Dorivor vositalar texnologiyasi", duration: "2 yil 10 oy" }
       ]
     },
-    { id: 'statistics', icon: BarChart3, label: 'Statistika', type: 'single' },
-    { id: 'messages', icon: MessageSquare, label: 'Xabarlar', type: 'single' },
-    { id: 'settings', icon: Settings, label: 'Sozlamalar', type: 'single' }
-  ];
-
-  const toggleMenu = (menuId) => {
-    setExpandedMenus(prev => ({
-      ...prev,
-      [menuId]: !prev[menuId]
-    }));
-  };
-
-  const StatCard = ({ icon: Icon, title, value, subtitle, color }) => (
-    <div className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100">
-      <div className="flex items-start justify-between mb-4">
-        <div className={`p-3 rounded-xl bg-gradient-to-br ${color}`}>
-          <Icon className="w-6 h-6 text-white" />
-        </div>
-      </div>
-      <h3 className="text-gray-500 text-sm font-medium mb-1">{title}</h3>
-      <p className="text-3xl font-bold text-gray-900 mb-1">{value}</p>
-      {subtitle && <p className="text-sm text-gray-500">{subtitle}</p>}
-    </div>
-  );
-
-  const renderContent = () => {
-    switch(activeTab) {
-      case 'home':
-        return (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-6 text-white shadow-lg">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
-                  <User className="w-8 h-8" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold">{groupLeaderInfo.name}</h2>
-                  <p className="text-blue-100">{groupLeaderInfo.position} - {groupLeaderInfo.faculty}</p>
-                  <p className="text-blue-100 text-sm mt-1">Guruhlar: {groupLeaderInfo.groups.join(', ')}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl p-4 shadow-sm border border-gray-100">
-              <div className="flex gap-3 flex-wrap">
-                <button 
-                  onClick={() => setSelectedGroup('all')}
-                  className={`px-6 py-2 rounded-xl font-medium transition-all ${
-                    selectedGroup === 'all' 
-                      ? 'bg-blue-500 text-white shadow-md' 
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  Barcha guruhlar
-                </button>
-                {groupLeaderInfo.groups.map(group => (
-                  <button 
-                    key={group}
-                    onClick={() => setSelectedGroup(group)}
-                    className={`px-6 py-2 rounded-xl font-medium transition-all ${
-                      selectedGroup === group 
-                        ? 'bg-blue-500 text-white shadow-md' 
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    {group}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <StatCard 
-                icon={Users} 
-                title="Jami talabalar" 
-                value={stats.total}
-                color="from-blue-500 to-blue-600"
-              />
-              <StatCard 
-                icon={UserCheck} 
-                title="Faol talabalar" 
-                value={stats.active}
-                subtitle={`${stats.debtors} nafar qarzdor`}
-                color="from-green-500 to-green-600"
-              />
-              <StatCard 
-                icon={Award} 
-                title="Ortacha GPA" 
-                value={stats.avgGpa}
-                color="from-purple-500 to-purple-600"
-              />
-              <StatCard 
-                icon={BookOpen} 
-                title="Grant talabalar" 
-                value={stats.grant}
-                subtitle={`${stats.contract} nafar kontrakt`}
-                color="from-orange-500 to-orange-600"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-6">Jins kesimi</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-blue-50 rounded-xl">
-                    <span className="font-medium text-gray-700">Erkaklar</span>
-                    <div className="flex items-center gap-3">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div 
-                          className="bg-blue-500 h-2 rounded-full transition-all duration-500" 
-                          style={{width: stats.total > 0 ? `${(stats.male/stats.total)*100}%` : '0%'}}
-                        />
-                      </div>
-                      <span className="text-xl font-bold text-blue-600 w-12 text-right">{stats.male}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-between p-4 bg-pink-50 rounded-xl">
-                    <span className="font-medium text-gray-700">Qizlar</span>
-                    <div className="flex items-center gap-3">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
-                        <div 
-                          className="bg-pink-500 h-2 rounded-full transition-all duration-500" 
-                          style={{width: stats.total > 0 ? `${(stats.female/stats.total)*100}%` : '0%'}}
-                        />
-                      </div>
-                      <span className="text-xl font-bold text-pink-600 w-12 text-right">{stats.female}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-6">Turar joy kesimi</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-4 bg-green-50 rounded-xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Building2 className="w-4 h-4 text-green-600" />
-                      <span className="text-sm text-gray-600">Yotoqxona</span>
-                    </div>
-                    <p className="text-2xl font-bold text-green-600">{stats.dormitory}</p>
-                  </div>
-                  <div className="p-4 bg-blue-50 rounded-xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Home className="w-4 h-4 text-blue-600" />
-                      <span className="text-sm text-gray-600">Oz uyi</span>
-                    </div>
-                    <p className="text-2xl font-bold text-blue-600">{stats.ownHome}</p>
-                  </div>
-                  <div className="p-4 bg-orange-50 rounded-xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <CreditCard className="w-4 h-4 text-orange-600" />
-                      <span className="text-sm text-gray-600">Ijara</span>
-                    </div>
-                    <p className="text-2xl font-bold text-orange-600">{stats.rental}</p>
-                  </div>
-                  <div className="p-4 bg-purple-50 rounded-xl">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Users className="w-4 h-4 text-purple-600" />
-                      <span className="text-sm text-gray-600">Qarindosh</span>
-                    </div>
-                    <p className="text-2xl font-bold text-purple-600">{stats.relative}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Yosh kesimi</h3>
-                <ResponsiveContainer width="100%" height={250}>
-                  <BarChart data={ageDistribution}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                    <XAxis dataKey="age" stroke="#9ca3af" />
-                    <YAxis stroke="#9ca3af" />
-                    <Tooltip />
-                    <Bar dataKey="count" fill="#8b5cf6" radius={[8, 8, 0, 0]} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <h3 className="text-lg font-bold text-gray-900 mb-6">Tolov turi kesimi</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl">
-                    <div>
-                      <span className="font-medium text-gray-700">Grant asosida</span>
-                      <p className="text-sm text-gray-500 mt-1">100% chegirma</p>
-                    </div>
-                    <span className="text-3xl font-bold text-green-600">{stats.grant}</span>
-                  </div>
-                  <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl">
-                    <div>
-                      <span className="font-medium text-gray-700">Kontrakt asosida</span>
-                      <p className="text-sm text-gray-500 mt-1">Tolov shartnomasi</p>
-                    </div>
-                    <span className="text-3xl font-bold text-blue-600">{stats.contract}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'students-list':
-      case 'students-activity':
-      case 'students-passport':
-        return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                {activeTab === 'students-list' && "Talabalar ro'yxati"}
-                {activeTab === 'students-activity' && "Talabalar harakati"}
-                {activeTab === 'students-passport' && "Talaba pasporti"}
-              </h2>
-              
-              <div className="space-y-6">
-                {groupLeaderInfo.groups.map(group => {
-                  const groupStudents = students.filter(s => s.group === group);
-                  return (
-                    <div key={group} className="border border-gray-200 rounded-xl overflow-hidden">
-                      <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-4">
-                        <h3 className="text-xl font-bold text-white">{group} guruh</h3>
-                        <p className="text-blue-100 text-sm">{groupStudents.length} ta talaba</p>
-                      </div>
-                      
-                      <div className="overflow-x-auto">
-                        <table className="w-full">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th className="text-left py-3 px-6 font-semibold text-gray-700">Talaba</th>
-                              <th className="text-left py-3 px-4 font-semibold text-gray-700">Talim turi</th>
-                              <th className="text-left py-3 px-4 font-semibold text-gray-700">Kurs</th>
-                              <th className="text-left py-3 px-4 font-semibold text-gray-700">Talaba holati</th>
-                              <th className="text-left py-3 px-4 font-semibold text-gray-700">GPA</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {groupStudents.map(student => (
-                              <tr key={student.id} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                                <td className="py-4 px-6">
-                                  <div className="flex items-center gap-3">
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                      student.gender === 'Erkak' ? 'bg-blue-100' : 'bg-pink-100'
-                                    }`}>
-                                      <User className={`w-5 h-5 ${
-                                        student.gender === 'Erkak' ? 'text-blue-600' : 'text-pink-600'
-                                      }`} />
-                                    </div>
-                                    <div>
-                                      <p className="font-medium text-gray-900">{student.name}</p>
-                                      <p className="text-sm text-gray-500">{student.gender} - {student.age} yosh</p>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td className="py-4 px-4 text-gray-700">{student.educationType}</td>
-                                <td className="py-4 px-4 text-gray-700">{student.course}-kurs</td>
-                                <td className="py-4 px-4">
-                                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                                    student.status === 'Faol' 
-                                      ? 'bg-green-100 text-green-700' 
-                                      : 'bg-red-100 text-red-700'
-                                  }`}>
-                                    {student.status}
-                                  </span>
-                                </td>
-                                <td className="py-4 px-4">
-                                  <span className="font-bold text-gray-900">{student.gpa}</span>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'schedule':
-        return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Dars jadvali</h2>
-              
-              <div className="space-y-4">
-                {weekSchedule.map((day, idx) => (
-                  <div key={idx} className="border border-gray-200 rounded-xl overflow-hidden">
-                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 px-6 py-3">
-                      <h3 className="text-lg font-bold text-white">{day.day}</h3>
-                    </div>
-                    <div className="p-4">
-                      <div className="grid gap-3">
-                        {day.lessons.map((lesson, lessonIdx) => (
-                          <div key={lessonIdx} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-                            <div className="flex items-center gap-4">
-                              <div className="text-center">
-                                <p className="text-sm font-semibold text-blue-600">{lesson.time}</p>
-                              </div>
-                              <div className="w-px h-12 bg-gray-300"></div>
-                              <div>
-                                <p className="font-bold text-gray-900">{lesson.subject}</p>
-                                <p className="text-sm text-gray-600">{lesson.teacher}</p>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-4">
-                              <div className="text-right">
-                                <p className="text-sm font-medium text-gray-700">Xona: {lesson.room}</p>
-                                <p className="text-sm text-gray-500">{lesson.group}</p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'exams':
-        return (
-          <div className="space-y-6">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Nazorat (Imtihonlar) jadvali</h2>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-gray-50">
-                    <tr>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Sana</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Kun</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Fan</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Vaqt</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Xona</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Oqituvchi</th>
-                      <th className="text-left py-3 px-4 font-semibold text-gray-700">Guruhlar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {examSchedule.map((exam, idx) => (
-                      <tr key={idx} className="border-t border-gray-100 hover:bg-gray-50 transition-colors">
-                        <td className="py-3 px-4 font-medium text-gray-900">{exam.date}</td>
-                        <td className="py-3 px-4 text-gray-700">{exam.day}</td>
-                        <td className="py-3 px-4 font-semibold text-blue-600">{exam.subject}</td>
-                        <td className="py-3 px-4 text-gray-700">{exam.time}</td>
-                        <td className="py-3 px-4 text-gray-700">{exam.room}</td>
-                        <td className="py-3 px-4 text-gray-700">{exam.teacher}</td>
-                        <td className="py-3 px-4">
-                          <div className="flex gap-1">
-                            {exam.groups.map((g, gIdx) => (
-                              <span key={gIdx} className="px-2 py-1 bg-blue-100 text-blue-700 rounded text-sm">
-                                {g}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        );
-
-      case 'attendance':
-      case 'performance':
-      case 'contracts':
-      case 'payments':
-      case 'debts':
-      case 'scholarship':
-      case 'rental':
-      case 'dormitory':
-      case 'support':
-      case 'documents':
-      case 'statistics':
-      case 'messages':
-      case 'settings':
-        return (
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              {navigationItems.flatMap(item => item.type === 'group' ? item.children : [item]).find(i => i.id === activeTab)?.label || 'Sahifa'}
-            </h2>
-            <p className="text-gray-600">Bu bolim ishlab chiqilmoqda...</p>
-          </div>
-        );
-
-      default:
-        return (
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Sahifa topilmadi</h2>
-            <p className="text-gray-600">Bu bolim ishlab chiqilmoqda...</p>
-          </div>
-        );
+    kvota: {
+      title: "Qabul Kvotalari (2024-2025)",
+      quotas: [
+        { program: "Hamshiralik ishi", davlat: 150, kontrakt: 200 },
+        { program: "Laboratoriya diagnostikasi", davlat: 80, kontrakt: 120 },
+        { program: "Stomatologiya", davlat: 60, kontrakt: 100 },
+        { program: "Dorivor vositalar texnologiyasi", davlat: 70, kontrakt: 90 }
+      ]
+    },
+    muddat: {
+      title: "O'qish Muddatlari",
+      durations: [
+        { base: "9-sinf asosida", duration: "3 yil 10 oy", form: "Kunduzgi" },
+        { base: "11-sinf asosida", duration: "2 yil 10 oy", form: "Kunduzgi" },
+        { base: "9-sinf asosida", duration: "4 yil", form: "Sirtqi" },
+        { base: "11-sinf asosida", duration: "3 yil 4 oy", form: "Sirtqi" }
+      ]
+    },
+    tolov: {
+      title: "To'lov-Kontrakt Miqdorlari (2024-2025)",
+      payments: [
+        { program: "Hamshiralik ishi", year: "7,500,000 so'm", month: "625,000 so'm" },
+        { program: "Laboratoriya diagnostikasi", year: "8,200,000 so'm", month: "683,333 so'm" },
+        { program: "Stomatologiya", year: "9,000,000 so'm", month: "750,000 so'm" },
+        { program: "Dorivor vositalar", year: "7,800,000 so'm", month: "650,000 so'm" }
+      ]
+    },
+    amaliyot: {
+      title: "Amaliyot O'tash Joylari",
+      locations: [
+        { name: "Surxondaryo viloyat shifoxonasi", type: "Asosiy hamkor", students: "250 ta talaba" },
+        { name: "Sho'rchi tuman markaziy shifoxonasi", type: "Hamkor muassasa", students: "150 ta talaba" },
+        { name: "Jarqo'rg'on tuman shifoxonasi", type: "Hamkor muassasa", students: "100 ta talaba" },
+        { name: "Termiz davlat tibbiyot shifoxonasi", type: "Hamkor muassasa", students: "80 ta talaba" }
+      ]
+    },
+    hamkorlar: {
+      title: "Hamkor Tashkilotlar",
+      partners: [
+        { name: "Surxondaryo viloyat SSV boshqarmasi", type: "Davlat muassasasi" },
+        { name: "Termiz davlat universiteti", type: "Ta'lim muassasasi" },
+        { name: "Ajiniyoz nomidagi Nukus davlat pedagogika instituti", type: "Ta'lim muassasasi" },
+        { name: "MEDLINE Diagnostika Markazi", type: "Xususiy klinika" },
+        { name: "FARMAMED dorixona tarmog'i", type: "Xususiy kompaniya" }
+      ]
+    },
+    malaka: {
+      title: "Bitiruvchilar Malakasi va Darajasi",
+      qualifications: [
+        { direction: "Hamshiralik ishi", degree: "Hamshira", level: "O'rta maxsus" },
+        { direction: "Laboratoriya diagnostikasi", degree: "Laborant", level: "O'rta maxsus" },
+        { direction: "Stomatologiya", degree: "Stomatologik hamshira", level: "O'rta maxsus" },
+        { direction: "Dorivor vositalar", degree: "Farmatsevt", level: "O'rta maxsus" }
+      ]
     }
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 font-sans">
-      <div className={`${sidebarOpen ? 'w-72' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}>
-        <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-          {sidebarOpen && (
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              UniManage
-            </h1>
-          )}
-          <button 
-            onClick={() => setSidebarOpen(!sidebarOpen)} 
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-          {navigationItems.map(item => {
-            if (item.type === 'single') {
-              return (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${
-                    activeTab === item.id
-                      ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
-                >
-                  <item.icon className="w-5 h-5 flex-shrink-0" />
-                  {sidebarOpen && <span className="font-medium">{item.label}</span>}
-                </button>
-              );
-            } else {
-              const isExpanded = expandedMenus[item.id];
-              const hasActiveChild = item.children.some(child => child.id === activeTab);
-              
-              return (
-                <div key={item.id} className="space-y-1">
-                  <button
-                    onClick={() => toggleMenu(item.id)}
-                    className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-300 ${
-                      hasActiveChild
-                        ? 'bg-blue-50 text-blue-600'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {sidebarOpen && <span className="font-medium">{item.label}</span>}
-                    </div>
-                    {sidebarOpen && (
-                      isExpanded ? 
-                        <ChevronDown className="w-4 h-4 flex-shrink-0" /> : 
-                        <ChevronRight className="w-4 h-4 flex-shrink-0" />
-                    )}
-                  </button>
-                  
-                  {sidebarOpen && isExpanded && (
-                    <div className="ml-4 space-y-1 border-l-2 border-gray-200 pl-4">
-                      {item.children.map(child => (
-                        <button
-                          key={child.id}
-                          onClick={() => setActiveTab(child.id)}
-                          className={`w-full flex items-center gap-3 px-4 py-2 rounded-lg transition-all duration-300 text-sm ${
-                            activeTab === child.id
-                              ? 'bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md'
-                              : 'text-gray-600 hover:bg-gray-100'
-                          }`}
-                        >
-                          <child.icon className="w-4 h-4 flex-shrink-0" />
-                          <span className="font-medium">{child.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            }
-          })}
-        </nav>
-      </div>
-
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-white border-b border-gray-200 px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4 flex-1">
-              <div className="relative flex-1 max-w-md">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Talabalar, hujjatlar, kurslarni qidirish..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-green-600 text-white shadow-xl">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          {/* Universitet rasmi va ma'lumotlari */}
+          <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
+            <div className="w-68 h-68 bg-white rounded-2xl shadow-2xl overflow-hidden flex-shrink-0 border-4 border-white/30">
+              <img 
+                src="https://kasbiy.edu.uz/api/public/download/xwWzM196531262.png" 
+                alt="MEDSTART Logo"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="flex-1 text-center md:text-left">
+              <h1 className="text-3xl md:text-4xl font-bold mb-2">MEDSTART TIBBIYOT TEXNIKUMI</h1>
+              <p className="text-blue-100 text-lg">Nodavlat ta'lim muassasasi</p>
+              <div className="flex items-center gap-2 mt-3 justify-center md:justify-start">
+                <MapPin className="w-5 h-5" />
+                <p className="text-base text-blue-100">Sho'rchi tumani, Surxondaryo viloyati</p>
               </div>
             </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all">
+              <Users className="w-8 h-8 mx-auto mb-3" />
+              <p className="text-sm text-blue-100 mb-1">Umumiy sig'im</p>
+              <p className="text-3xl font-bold">9,999</p>
+              <p className="text-xs text-blue-100 mt-1">talaba</p>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all">
+              <TrendingUp className="w-8 h-8 mx-auto mb-3" />
+              <p className="text-sm text-blue-100 mb-1">Ish bilan ta'minlanish</p>
+              <p className="text-3xl font-bold">90%</p>
+              <p className="text-xs text-blue-100 mt-1">bandlik darajasi</p>
+            </div>
+            
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center hover:bg-white/20 transition-all">
+              <GraduationCap className="w-8 h-8 mx-auto mb-3" />
+              <p className="text-sm text-blue-100 mb-1">Bitiruvchilar</p>
+              <p className="text-3xl font-bold">967</p>
+              <p className="text-xs text-blue-100 mt-1">mutaxassis</p>
+            </div>
+          </div>
+          </div>
+          
+          {/* 3 ta ko'rsatkich bitta qatorda */}
+        </div>
+      </div>
 
-            <div className="flex items-center gap-4">
-              <button className="relative p-2 hover:bg-gray-100 rounded-xl transition-colors">
-                <Bell className="w-6 h-6 text-gray-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                <User className="w-5 h-5 text-white" />
+      {/* Tabs */}
+      <div className="max-w-7xl mx-auto px-4 py-6">
+        {/* Xarita bo'limi - Kattaroq */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6 h-96">
+          <div className="relative w-full h-full">
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=67.7%2C37.8%2C67.9%2C38.0&layer=mapnik&marker=37.9,67.8"
+              className="w-full h-full border-0"
+              title="Texnikum joylashuvi"
+            />
+            <div className="absolute top-4 left-4 bg-white px-4 py-3 rounded-lg shadow-lg">
+              <div className="flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-blue-600" />
+                <div>
+                  <p className="font-bold text-gray-800">Joylashuv</p>
+                  <p className="text-sm text-gray-600">Sho'rchi tumani, Surxondaryo</p>
+                </div>
               </div>
             </div>
           </div>
-        </header>
+        </div>
 
-        <main className="flex-1 overflow-y-auto p-8">
-          {renderContent()}
-        </main>
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="flex overflow-x-auto border-b">
+            {tabs.map(tab => {
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all whitespace-nowrap ${
+                    activeTab === tab.id
+                      ? 'bg-gradient-to-r from-blue-600 to-green-600 text-white border-b-2 border-blue-600'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Content */}
+          <div className="p-8">
+            {activeTab === 'yutuqlar' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.yutuqlar.title}</h2>
+                <div className="space-y-4">
+                  {tabContent.yutuqlar.items.map((item, idx) => (
+                    <div key={idx} className="flex items-start gap-4 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg hover:shadow-md transition-shadow">
+                      <div className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold">{item.year}</div>
+                      <p className="text-gray-700 flex-1 pt-2">{item.achievement}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'ijara' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.ijara.title}</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {tabContent.ijara.data.map((item, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-md">
+                      <p className="text-sm text-gray-600 mb-2">{item.label}</p>
+                      <p className="text-xl font-bold text-blue-600">{item.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'mablaglar' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.mablaglar.title}</h2>
+                <div className="space-y-4">
+                  {tabContent.mablaglar.budget.map((item, idx) => (
+                    <div key={idx} className="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
+                      <div className="flex justify-between items-center mb-3">
+                        <h3 className="font-semibold text-gray-800">{item.category}</h3>
+                        <span className="text-lg font-bold text-green-600">{item.amount}</span>
+                      </div>
+                      <div className="w-full bg-gray-200 rounded-full h-3">
+                        <div
+                          className="bg-gradient-to-r from-blue-600 to-green-600 h-3 rounded-full transition-all"
+                          style={{ width: `${item.percent}%` }}
+                        ></div>
+                      </div>
+                      <p className="text-sm text-gray-600 mt-2">{item.percent}% umumiy byudjetdan</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'dasturlar' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.dasturlar.title}</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {tabContent.dasturlar.programs.map((program, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                      <div className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold inline-block mb-3">
+                        {program.code}
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-800 mb-2">{program.name}</h3>
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Calendar className="w-4 h-4" />
+                        <span>{program.duration}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'kvota' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.kvota.title}</h2>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="bg-gradient-to-r from-blue-600 to-green-600 text-white">
+                        <th className="px-6 py-4 text-left">Yo'nalish</th>
+                        <th className="px-6 py-4 text-center">Davlat grant</th>
+                        <th className="px-6 py-4 text-center">Kontrakt</th>
+                        <th className="px-6 py-4 text-center">Jami</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {tabContent.kvota.quotas.map((quota, idx) => (
+                        <tr key={idx} className="border-b hover:bg-blue-50 transition-colors">
+                          <td className="px-6 py-4 font-medium">{quota.program}</td>
+                          <td className="px-6 py-4 text-center text-green-600 font-bold">{quota.davlat}</td>
+                          <td className="px-6 py-4 text-center text-blue-600 font-bold">{quota.kontrakt}</td>
+                          <td className="px-6 py-4 text-center font-bold">{quota.davlat + quota.kontrakt}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'muddat' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.muddat.title}</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {tabContent.muddat.durations.map((dur, idx) => (
+                    <div key={idx} className="bg-white border-2 border-blue-200 rounded-xl p-6 hover:border-blue-400 transition-colors">
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="bg-blue-100 p-2 rounded-lg">
+                          <Calendar className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+                          {dur.form}
+                        </span>
+                      </div>
+                      <p className="text-gray-600 mb-2">{dur.base}</p>
+                      <p className="text-2xl font-bold text-blue-600">{dur.duration}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'tolov' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.tolov.title}</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {tabContent.tolov.payments.map((pay, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-green-50 via-white to-blue-50 p-6 rounded-xl shadow-lg">
+                      <h3 className="font-bold text-lg text-gray-800 mb-4">{pay.program}</h3>
+                      <div className="space-y-3">
+                        <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                          <span className="text-gray-600">Yillik to'lov:</span>
+                          <span className="text-xl font-bold text-green-600">{pay.year}</span>
+                        </div>
+                        <div className="flex justify-between items-center p-3 bg-white rounded-lg">
+                          <span className="text-gray-600">Oylik to'lov:</span>
+                          <span className="text-lg font-bold text-blue-600">{pay.month}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'amaliyot' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.amaliyot.title}</h2>
+                <div className="space-y-4">
+                  {tabContent.amaliyot.locations.map((loc, idx) => (
+                    <div key={idx} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                      <div className="flex items-start gap-4">
+                        <div className="bg-blue-100 p-3 rounded-lg">
+                          <Briefcase className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold text-gray-800 mb-1">{loc.name}</h3>
+                          <div className="flex flex-wrap gap-3 mt-2">
+                            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                              {loc.type}
+                            </span>
+                            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                              {loc.students}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'hamkorlar' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.hamkorlar.title}</h2>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {tabContent.hamkorlar.partners.map((partner, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow border-l-4 border-blue-600">
+                      <div className="flex items-start gap-3">
+                        <Handshake className="w-6 h-6 text-blue-600 mt-1" />
+                        <div>
+                          <h3 className="font-bold text-gray-800 mb-2">{partner.name}</h3>
+                          <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                            {partner.type}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'malaka' && (
+              <div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.malaka.title}</h2>
+                <div className="space-y-4">
+                  {tabContent.malaka.qualifications.map((qual, idx) => (
+                    <div key={idx} className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                      <div className="flex items-center gap-4">
+                        <div className="bg-gradient-to-br from-blue-600 to-green-600 p-3 rounded-lg">
+                          <Award className="w-8 h-8 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-lg font-bold text-gray-800">{qual.direction}</h3>
+                          <div className="flex gap-3 mt-2">
+                            <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                              {qual.degree}
+                            </span>
+                            <span className="bg-green-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                              {qual.level}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
