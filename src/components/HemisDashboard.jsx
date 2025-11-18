@@ -3029,12 +3029,13 @@
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 import React, { useState } from 'react';
-import { MapPin,   Building2, Users, GraduationCap, TrendingUp, FileText, DollarSign, Calendar, Briefcase, Handshake, Award } from 'lucide-react';
+import { MapPin,   Building2, Users, GraduationCap, TrendingUp, FileText, DollarSign, Calendar, Briefcase, Handshake, Award, X, Menu } from 'lucide-react';
 
 const HemisDashboard = () => {
-  const [activeTab, setActiveTab] = useState('yutuqlar');
+    const [activeSection, setActiveSection] = useState('yutuqlar');
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const tabs = [
+  const sections = [
     { id: 'yutuqlar', label: 'Yutuqlar', icon: TrendingUp },
     { id: 'ijara', label: 'Ijara', icon: Building2 },
     { id: 'mablaglar', label: "Mablag'lar", icon: DollarSign },
@@ -3047,7 +3048,7 @@ const HemisDashboard = () => {
     { id: 'malaka', label: 'Malaka va daraja', icon: Award }
   ];
 
-  const tabContent = {
+  const sectionContent  = {
     yutuqlar: {
       title: "Texnikum Erishgan Yutuqlar",
       items: [
@@ -3213,34 +3214,50 @@ const HemisDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="flex overflow-x-auto border-b">
-            {tabs.map(tab => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-6 py-4 font-medium transition-all whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? 'bg-gradient-to-r from-blue-600 to-green-600 text-white border-b-2 border-blue-600'
-                      : 'text-gray-600 hover:bg-gray-50'
-                  }`}
+         <div className="flex flex-col lg:flex-row gap-6">
+          {/* Sidebar Menu */}
+          <div className="lg:w-64 flex-shrink-0">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden sticky top-6">
+              <div className="bg-gradient-to-r from-blue-600 to-green-600 text-white p-4 flex items-center justify-between lg:justify-center">
+                <h3 className="font-bold text-lg">Bo'limlar</h3>
+                <button 
+                  onClick={() => setMenuOpen(!menuOpen)}
+                  className="lg:hidden"
                 >
-                  <Icon className="w-4 h-4" />
-                  {tab.label}
+                  {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                 </button>
-              );
-            })}
+              </div>
+              <div className={`${menuOpen ? 'block' : 'hidden'} lg:block`}>
+                {sections.map(section => {
+                  const Icon = section.icon;
+                  return (
+                    <button
+                      key={section.id}
+                      onClick={() => {
+                        setActiveSection(section.id);
+                        setMenuOpen(false);
+                      }}
+                      className={`w-full flex items-center gap-3 px-4 py-4 transition-all border-l-4 ${
+                        activeSection === section.id
+                          ? 'bg-blue-50 border-blue-600 text-blue-600 font-semibold'
+                          : 'border-transparent text-gray-600 hover:bg-gray-50'
+                      }`}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span>{section.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-
           {/* Content */}
-          <div className="p-8">
-            {activeTab === 'yutuqlar' && (
+          <div className="flex-1 bg-white rounded-xl shadow-lg p-8">
+            {activeSection === 'yutuqlar' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.yutuqlar.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.yutuqlar.title}</h2>
                 <div className="space-y-4">
-                  {tabContent.yutuqlar.items.map((item, idx) => (
+                  {sectionContent.yutuqlar.items.map((item, idx) => (
                     <div key={idx} className="flex items-start gap-4 p-4 bg-gradient-to-r from-blue-50 to-green-50 rounded-lg hover:shadow-md transition-shadow">
                       <div className="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold">{item.year}</div>
                       <p className="text-gray-700 flex-1 pt-2">{item.achievement}</p>
@@ -3250,25 +3267,25 @@ const HemisDashboard = () => {
               </div>
             )}
 
-            {activeTab === 'ijara' && (
+            {activeSection === 'ijara' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.ijara.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.ijara.title}</h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {tabContent.ijara.data.map((item, idx) => (
-                    <div key={idx} className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-md">
+                  {sectionContent.ijara.data.map((item, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-purple-50 to-white p-6 rounded-xl shadow-md">
                       <p className="text-sm text-gray-600 mb-2">{item.label}</p>
-                      <p className="text-xl font-bold text-blue-600">{item.value}</p>
+                      <p className="text-xl font-bold text-purple-600">{item.value}</p>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {activeTab === 'mablaglar' && (
+            {activeSection === 'mablaglar' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.mablaglar.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.mablaglar.title}</h2>
                 <div className="space-y-4">
-                  {tabContent.mablaglar.budget.map((item, idx) => (
+                  {sectionContent.mablaglar.budget.map((item, idx) => (
                     <div key={idx} className="bg-white border border-gray-200 rounded-lg p-5 hover:shadow-lg transition-shadow">
                       <div className="flex justify-between items-center mb-3">
                         <h3 className="font-semibold text-gray-800">{item.category}</h3>
@@ -3276,7 +3293,7 @@ const HemisDashboard = () => {
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-3">
                         <div
-                          className="bg-gradient-to-r from-blue-600 to-green-600 h-3 rounded-full transition-all"
+                          className="bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full transition-all"
                           style={{ width: `${item.percent}%` }}
                         ></div>
                       </div>
@@ -3287,12 +3304,12 @@ const HemisDashboard = () => {
               </div>
             )}
 
-            {activeTab === 'dasturlar' && (
+            {activeSection === 'dasturlar' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.dasturlar.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.dasturlar.title}</h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {tabContent.dasturlar.programs.map((program, idx) => (
-                    <div key={idx} className="bg-gradient-to-br from-green-50 to-blue-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                  {sectionContent.dasturlar.programs.map((program, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-blue-50 to-cyan-50 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow">
                       <div className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold inline-block mb-3">
                         {program.code}
                       </div>
@@ -3307,71 +3324,93 @@ const HemisDashboard = () => {
               </div>
             )}
 
-            {activeTab === 'kvota' && (
+            {activeSection === 'kvota' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.kvota.title}</h2>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="bg-gradient-to-r from-blue-600 to-green-600 text-white">
-                        <th className="px-6 py-4 text-left">Yo'nalish</th>
-                        <th className="px-6 py-4 text-center">Davlat grant</th>
-                        <th className="px-6 py-4 text-center">Kontrakt</th>
-                        <th className="px-6 py-4 text-center">Jami</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tabContent.kvota.quotas.map((quota, idx) => (
-                        <tr key={idx} className="border-b hover:bg-blue-50 transition-colors">
-                          <td className="px-6 py-4 font-medium">{quota.program}</td>
-                          <td className="px-6 py-4 text-center text-green-600 font-bold">{quota.davlat}</td>
-                          <td className="px-6 py-4 text-center text-blue-600 font-bold">{quota.kontrakt}</td>
-                          <td className="px-6 py-4 text-center font-bold">{quota.davlat + quota.kontrakt}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.kvota.title}</h2>
+                <div className="space-y-6">
+                  {sectionContent.kvota.quotas.map((quota, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-white to-indigo-50 rounded-2xl shadow-lg hover:shadow-2xl transition-all p-6 border-l-4 border-indigo-600">
+                      <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <GraduationCap className="w-5 h-5 text-indigo-600" />
+                        {quota.program}
+                      </h3>
+                      <div className="grid grid-cols-3 gap-4">
+                        <div className="bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl p-4 text-center shadow-md">
+                          <p className="text-sm opacity-90 mb-1">Davlat grant</p>
+                          <p className="text-3xl font-bold">{quota.davlat}</p>
+                          <p className="text-xs opacity-75 mt-1">o'rin</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl p-4 text-center shadow-md">
+                          <p className="text-sm opacity-90 mb-1">Kontrakt</p>
+                          <p className="text-3xl font-bold">{quota.kontrakt}</p>
+                          <p className="text-xs opacity-75 mt-1">o'rin</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl p-4 text-center shadow-md">
+                          <p className="text-sm opacity-90 mb-1">Jami</p>
+                          <p className="text-3xl font-bold">{quota.davlat + quota.kontrakt}</p>
+                          <p className="text-xs opacity-75 mt-1">o'rin</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
 
-            {activeTab === 'muddat' && (
+            {activeSection === 'muddat' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.muddat.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.muddat.title}</h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {tabContent.muddat.durations.map((dur, idx) => (
-                    <div key={idx} className="bg-white border-2 border-blue-200 rounded-xl p-6 hover:border-blue-400 transition-colors">
+                  {sectionContent.muddat.durations.map((dur, idx) => (
+                    <div key={idx} className="bg-white border-2 border-pink-200 rounded-xl p-6 hover:border-pink-400 transition-colors">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="bg-blue-100 p-2 rounded-lg">
-                          <Calendar className="w-6 h-6 text-blue-600" />
+                        <div className="bg-pink-100 p-2 rounded-lg">
+                          <Calendar className="w-6 h-6 text-pink-600" />
                         </div>
-                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+                        <span className="bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm font-semibold">
                           {dur.form}
                         </span>
                       </div>
                       <p className="text-gray-600 mb-2">{dur.base}</p>
-                      <p className="text-2xl font-bold text-blue-600">{dur.duration}</p>
+                      <p className="text-2xl font-bold text-pink-600">{dur.duration}</p>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            {activeTab === 'tolov' && (
+            {activeSection === 'tolov' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.tolov.title}</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {tabContent.tolov.payments.map((pay, idx) => (
-                    <div key={idx} className="bg-gradient-to-br from-green-50 via-white to-blue-50 p-6 rounded-xl shadow-lg">
-                      <h3 className="font-bold text-lg text-gray-800 mb-4">{pay.program}</h3>
-                      <div className="space-y-3">
-                        <div className="flex justify-between items-center p-3 bg-white rounded-lg">
-                          <span className="text-gray-600">Yillik to'lov:</span>
-                          <span className="text-xl font-bold text-green-600">{pay.year}</span>
-                        </div>
-                        <div className="flex justify-between items-center p-3 bg-white rounded-lg">
-                          <span className="text-gray-600">Oylik to'lov:</span>
-                          <span className="text-lg font-bold text-blue-600">{pay.month}</span>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.tolov.title}</h2>
+                <div className="space-y-6">
+                  {sectionContent.tolov.payments.map((pay, idx) => (
+                    <div key={idx} className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all overflow-hidden border border-gray-100">
+                      <div className="bg-gradient-to-r from-teal-600 to-cyan-600 text-white p-4">
+                        <h3 className="font-bold text-xl flex items-center gap-2">
+                          <DollarSign className="w-6 h-6" />
+                          {pay.program}
+                        </h3>
+                      </div>
+                      <div className="p-6">
+                        <div className="grid md:grid-cols-2 gap-6">
+                          <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border-2 border-green-200">
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="bg-green-600 p-2 rounded-lg">
+                                <Calendar className="w-5 h-5 text-white" />
+                              </div>
+                              <p className="text-gray-600 font-medium">Yillik to'lov</p>
+                            </div>
+                            <p className="text-3xl font-bold text-green-700">{pay.year}</p>
+                          </div>
+                          <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-2 border-blue-200">
+                            <div className="flex items-center gap-3 mb-3">
+                              <div className="bg-blue-600 p-2 rounded-lg">
+                                <Calendar className="w-5 h-5 text-white" />
+                              </div>
+                              <p className="text-gray-600 font-medium">Oylik to'lov</p>
+                            </div>
+                            <p className="text-3xl font-bold text-blue-700">{pay.month}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3380,23 +3419,23 @@ const HemisDashboard = () => {
               </div>
             )}
 
-            {activeTab === 'amaliyot' && (
+            {activeSection === 'amaliyot' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.amaliyot.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.amaliyot.title}</h2>
                 <div className="space-y-4">
-                  {tabContent.amaliyot.locations.map((loc, idx) => (
+                  {sectionContent.amaliyot.locations.map((loc, idx) => (
                     <div key={idx} className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
                       <div className="flex items-start gap-4">
-                        <div className="bg-blue-100 p-3 rounded-lg">
-                          <Briefcase className="w-6 h-6 text-blue-600" />
+                        <div className="bg-orange-100 p-3 rounded-lg">
+                          <Briefcase className="w-6 h-6 text-orange-600" />
                         </div>
                         <div className="flex-1">
                           <h3 className="text-lg font-bold text-gray-800 mb-1">{loc.name}</h3>
                           <div className="flex flex-wrap gap-3 mt-2">
-                            <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                            <span className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm">
                               {loc.type}
                             </span>
-                            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                            <span className="bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm">
                               {loc.students}
                             </span>
                           </div>
@@ -3408,17 +3447,17 @@ const HemisDashboard = () => {
               </div>
             )}
 
-            {activeTab === 'hamkorlar' && (
+            {activeSection === 'hamkorlar' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.hamkorlar.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.hamkorlar.title}</h2>
                 <div className="grid md:grid-cols-2 gap-6">
-                  {tabContent.hamkorlar.partners.map((partner, idx) => (
-                    <div key={idx} className="bg-gradient-to-br from-blue-50 to-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow border-l-4 border-blue-600">
+                  {sectionContent.hamkorlar.partners.map((partner, idx) => (
+                    <div key={idx} className="bg-gradient-to-br from-violet-50 to-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow border-l-4 border-violet-600">
                       <div className="flex items-start gap-3">
-                        <Handshake className="w-6 h-6 text-blue-600 mt-1" />
+                        <Handshake className="w-6 h-6 text-violet-600 mt-1" />
                         <div>
                           <h3 className="font-bold text-gray-800 mb-2">{partner.name}</h3>
-                          <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
+                          <span className="bg-violet-100 text-violet-700 px-3 py-1 rounded-full text-sm">
                             {partner.type}
                           </span>
                         </div>
@@ -3429,23 +3468,23 @@ const HemisDashboard = () => {
               </div>
             )}
 
-            {activeTab === 'malaka' && (
+            {activeSection === 'malaka' && (
               <div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-6">{tabContent.malaka.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-6">{sectionContent.malaka.title}</h2>
                 <div className="space-y-4">
-                  {tabContent.malaka.qualifications.map((qual, idx) => (
-                    <div key={idx} className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                  {sectionContent.malaka.qualifications.map((qual, idx) => (
+                    <div key={idx} className="bg-gradient-to-r from-amber-50 to-yellow-50 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
                       <div className="flex items-center gap-4">
-                        <div className="bg-gradient-to-br from-blue-600 to-green-600 p-3 rounded-lg">
+                        <div className="bg-gradient-to-br from-amber-600 to-yellow-600 p-3 rounded-lg">
                           <Award className="w-8 h-8 text-white" />
                         </div>
                         <div className="flex-1">
                           <h3 className="text-lg font-bold text-gray-800">{qual.direction}</h3>
                           <div className="flex gap-3 mt-2">
-                            <span className="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            <span className="bg-amber-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
                               {qual.degree}
                             </span>
-                            <span className="bg-green-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+                            <span className="bg-yellow-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
                               {qual.level}
                             </span>
                           </div>
