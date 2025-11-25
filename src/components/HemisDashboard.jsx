@@ -4130,525 +4130,8 @@
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-// import React, { useState } from 'react';
-// import { TrendingUp, TrendingDown, Search, Filter, Calendar, FileText, DollarSign, Users, Award, Building } from 'lucide-react';
-
-// // CSS Animations
-// const styles = `
-//   @keyframes fadeInUp {
-//     from {
-//       opacity: 0;
-//       transform: translateY(30px);
-//     }
-//     to {
-//       opacity: 1;
-//       transform: translateY(0);
-//     }
-//   }
-  
-//   @keyframes slideIn {
-//     from {
-//       opacity: 0;
-//       transform: translateX(-20px);
-//     }
-//     to {
-//       opacity: 1;
-//       transform: translateX(0);
-//     }
-//   }
-  
-//   @keyframes float {
-//     0%, 100% {
-//       transform: translateY(0px);
-//     }
-//     50% {
-//       transform: translateY(-10px);
-//     }
-//   }
-  
-//   .animate-float {
-//     animation: float 3s ease-in-out infinite;
-//   }
-// `;
-
-// const ModernDashboard = () => {
-//   const [selectedYear, setSelectedYear] = useState('2025-2026');
-//   const [selectedCard, setSelectedCard] = useState(null);
-//   const [searchQuery, setSearchQuery] = useState('');
-//   const [activeFilter, setActiveFilter] = useState('all');
-
-//   const dashboardData = {
-//     tolovKontrakt: {
-//       title: "To'lov kontrakt",
-//       icon: FileText,
-//       color: "from-blue-500 to-blue-600",
-//       stats: [
-//         { label: "Arizalar soni", value: "698 124 ta", subValue: "Shartnomalar soni: 697 555 ta", trend: 2.5 },
-//         { label: "Shartnomalar summasi", value: "9 789.8 mlrd so'm", subValue: "To'langan summa: 3 651.1 mlrd", trend: -1.2 },
-//         { label: "Qarzdorlik soni", value: "911 949 ta", subValue: "10 082.0 mlrd so'm", trend: 5.3 },
-//         { label: "Haqдorlik soni", value: "434 554 ta", subValue: "2 738.4 mlrd so'm", trend: -0.8 }
-//       ],
-//       details: {
-//         byFaculty: [
-//           { name: "Matematika", students: 1250, amount: "850.5 mln" },
-//           { name: "Fizika", students: 980, amount: "720.3 mln" },
-//           { name: "Kimyo", students: 1100, amount: "790.8 mln" }
-//         ],
-//         monthly: [
-//           { month: "Sentyabr", collected: "450.2 mln", planned: "500 mln" },
-//           { month: "Oktyabr", collected: "480.5 mln", planned: "500 mln" },
-//           { month: "Noyabr", collected: "520.8 mln", planned: "500 mln" }
-//         ]
-//       }
-//     },
-//     kreditModul: {
-//       title: "Kredit modul",
-//       icon: Award,
-//       color: "from-purple-500 to-purple-600",
-//       stats: [
-//         { label: "Arizalar soni", value: "30 789 ta", subValue: "Shartnomalar: 30 426 ta", trend: 3.2 },
-//         { label: "Shartnomalar summasi", value: "0.0 mlrd so'm", subValue: "To'langan: 0.0 mlrd", trend: 0 },
-//         { label: "Qarzdorlik soni", value: "94 154 ta", subValue: "190.2 mlrd so'm", trend: 2.1 },
-//         { label: "Haqдorlik soni", value: "127 552 ta", subValue: "74.1 mlrd so'm", trend: -1.5 }
-//       ],
-//       details: {
-//         byDegree: [
-//           { name: "Bakalavr", students: 25000, amount: "150.2 mln" },
-//           { name: "Magistratura", students: 5000, amount: "40.0 mln" }
-//         ]
-//       }
-//     },
-//     stipendiya: {
-//       title: "Stipendiya (VM-59)",
-//       icon: DollarSign,
-//       color: "from-green-500 to-green-600",
-//       stats: [
-//         { 
-//           label: "Stipendiya oluvchilar talaba soni", 
-//           value: "184 939 nafar",
-//           budget: "150 114 nafar",
-//           contract: "34 825 nafar",
-//           percentage: "19.8% / 81.2%",
-//           trend: 1.5
-//         },
-//         { 
-//           label: "Hisoblanган summa", 
-//           value: "449.3 mlrd",
-//           budget: "405.8 mlrd",
-//           contract: "43.5 mlrd",
-//           percentage: "9.7% / 90.3%",
-//           trend: 2.3
-//         },
-//         { 
-//           label: "To'langan summa", 
-//           value: "448.4 mlrd",
-//           budget: "405.4 mlrd",
-//           contract: "43.1 mlrd",
-//           percentage: "9.6% / 90.4%",
-//           trend: 2.1
-//         }
-//       ]
-//     },
-//     talabalar: {
-//       title: "Talabalar turar joyi",
-//       icon: Building,
-//       color: "from-orange-500 to-orange-600",
-//       stats: [
-//         { label: "Arizalar soni", value: "98 382 ta", subValue: "Shartnomalar: 100 364 ta", trend: 4.2 },
-//         { label: "Shartnomalar summasi", value: "253.3 mlrd so'm", subValue: "To'langan: 90.3 mlrd", trend: 1.8 },
-//         { label: "Qarzdorlik soni", value: "104 963 ta", subValue: "182.4 mlrd so'm", trend: 3.5 },
-//         { label: "Haqдorlik soni", value: "24 684 ta", subValue: "8.8 mlrd so'm", trend: -2.1 }
-//       ]
-//     }
-//   };
-
-//   const StatCard = ({ data, onClick }) => {
-//     const Icon = data.icon;
-//     const [isHovered, setIsHovered] = useState(false);
-    
-//     return (
-//       <div
-//         onClick={onClick}
-//         onMouseEnter={() => setIsHovered(true)}
-//         onMouseLeave={() => setIsHovered(false)}
-//         className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${data.color} p-6 text-white cursor-pointer transform transition-all duration-500 hover:scale-[1.02] group shadow-xl hover:shadow-2xl`}
-//         style={{
-//           boxShadow: isHovered 
-//             ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(59, 130, 246, 0.3)' 
-//             : '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
-//         }}
-//       >
-//         {/* Animated background circles */}
-//         <div className={`absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white opacity-10 transition-all duration-700 ${isHovered ? 'opacity-20 scale-150' : 'scale-100'}`}></div>
-//         <div className={`absolute bottom-0 left-0 -mb-6 -ml-6 h-40 w-40 rounded-full bg-white opacity-5 transition-all duration-1000 ${isHovered ? 'opacity-15 scale-125' : 'scale-100'}`}></div>
-        
-//         {/* Animated gradient overlay */}
-//         <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 opacity-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
-        
-//         <div className="relative z-10">
-//           <div className="flex items-center justify-between mb-4">
-//             <div className={`p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm transition-all duration-300 ${isHovered ? 'scale-110 rotate-6 bg-opacity-30' : ''}`}>
-//               <Icon className={`h-6 w-6 transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`} />
-//             </div>
-//             <span className={`text-xs font-medium bg-white bg-opacity-20 px-3 py-1 rounded-full transition-all duration-300 ${isHovered ? 'bg-opacity-30 pr-4' : ''}`}>
-//               Detallar {isHovered ? '→' : ''}
-//             </span>
-//           </div>
-//           <h3 className={`text-xl font-bold mb-6 transition-all duration-300 ${isHovered ? 'translate-x-2' : ''}`}>{data.title}</h3>
-//           <div className="grid grid-cols-2 gap-4">
-//             {data.stats.map((stat, idx) => (
-//               <div 
-//                 key={idx} 
-//                 className={`bg-white bg-opacity-10 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 ${isHovered ? 'bg-opacity-20 translate-y-[-4px]' : ''}`}
-//                 style={{
-//                   transitionDelay: `${idx * 50}ms`
-//                 }}
-//               >
-//                 <p className="text-xs opacity-90 mb-2">{stat.label}</p>
-//                 <p className={`text-lg font-bold mb-1 transition-all duration-300 ${isHovered ? 'scale-105' : ''}`}>{stat.value}</p>
-//                 {stat.subValue && (
-//                   <p className="text-xs opacity-75">{stat.subValue}</p>
-//                 )}
-//                 {stat.trend !== undefined && stat.trend !== 0 && (
-//                   <div className={`flex items-center mt-2 transition-all duration-300 ${isHovered ? 'translate-x-1' : ''}`}>
-//                     {stat.trend > 0 ? (
-//                       <>
-//                         <TrendingUp className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
-//                         <span className="text-xs">+{stat.trend}%</span>
-//                       </>
-//                     ) : (
-//                       <>
-//                         <TrendingDown className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
-//                         <span className="text-xs">{stat.trend}%</span>
-//                       </>
-//                     )}
-//                   </div>
-//                 )}
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   const Modal = ({ data, onClose }) => {
-//     const Icon = data.icon;
-//     const [isVisible, setIsVisible] = useState(false);
-
-//     React.useEffect(() => {
-//       setIsVisible(true);
-//     }, []);
-//     if (!data) return null;
-
-//     return (
-//       <div 
-//         className={`fixed inset-0 bg-black transition-opacity duration-300 flex items-center justify-center z-50 p-4 ${isVisible ? 'bg-opacity-50' : 'bg-opacity-0'}`}
-//         onClick={onClose}
-//       >
-//         <div 
-//           className={`bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transition-all duration-500 transform ${isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
-//           onClick={(e) => e.stopPropagation()}
-//           style={{
-//             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 60px rgba(59, 130, 246, 0.2)'
-//           }}
-//         >
-//           <div className={`bg-gradient-to-br ${data.color} p-8 text-white rounded-t-3xl relative overflow-hidden`}>
-//             {/* Animated background */}
-//             <div className="absolute inset-0 opacity-20">
-//               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
-//               <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-//             </div>
-            
-//             <div className="flex items-center justify-between relative z-10">
-//               <div className="flex items-center gap-4">
-//                 <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm animate-pulse">
-//                   <Icon className="h-8 w-8" />
-//                 </div>
-//                 <div>
-//                   <h2 className="text-3xl font-bold">{data.title}</h2>
-//                   <p className="text-sm opacity-90 mt-1">Batafsil statistika va ma'lumotlar</p>
-//                 </div>
-//               </div>
-//               <button
-//                 onClick={onClose}
-//                 className="p-2 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300 hover:rotate-90"
-//               >
-//                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-//                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-//                 </svg>
-//               </button>
-//             </div>
-//           </div>
-
-//           <div className="p-8">
-//             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-//               {data.stats.map((stat, idx) => (
-//                 <div 
-//                   key={idx} 
-//                   className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
-//                   style={{
-//                     animation: `slideIn 0.5s ease-out ${idx * 100}ms both`
-//                   }}
-//                 >
-//                   <p className="text-sm text-gray-600 mb-2">{stat.label}</p>
-//                   <p className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</p>
-//                   {stat.subValue && (
-//                     <p className="text-sm text-gray-500">{stat.subValue}</p>
-//                   )}
-//                   {stat.percentage && (
-//                     <div className="mt-3">
-//                       <div className="flex justify-between text-xs text-gray-600 mb-1">
-//                         <span>Budjet / Kontrakt</span>
-//                         <span>{stat.percentage}</span>
-//                       </div>
-//                       <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-//                         <div 
-//                           className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000 ease-out"
-//                           style={{
-//                             width: isVisible ? stat.percentage.split('/')[0].trim() : '0%'
-//                           }}
-//                         ></div>
-//                       </div>
-//                     </div>
-//                   )}
-//                   {stat.trend !== undefined && stat.trend !== 0 && (
-//                     <div className="flex items-center mt-3 text-sm">
-//                       {stat.trend > 0 ? (
-//                         <>
-//                           <TrendingUp className="h-4 w-4 mr-1 text-green-500 animate-bounce" />
-//                           <span className="text-green-600 font-medium">+{stat.trend}% o'sish</span>
-//                         </>
-//                       ) : (
-//                         <>
-//                           <TrendingDown className="h-4 w-4 mr-1 text-red-500 animate-bounce" />
-//                           <span className="text-red-600 font-medium">{stat.trend}% kamayish</span>
-//                         </>
-//                       )}
-//                     </div>
-//                   )}
-//                 </div>
-//               ))}
-//             </div>
-
-//             {data.details && (
-//               <div className="space-y-6">
-//                 {data.details.byFaculty && (
-//                   <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6">
-//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Fakultetlar bo'yicha</h3>
-//                     <div className="space-y-3">
-//                       {data.details.byFaculty.map((faculty, idx) => (
-//                         <div key={idx} className="bg-white rounded-xl p-4 flex justify-between items-center">
-//                           <div>
-//                             <p className="font-semibold text-gray-900">{faculty.name}</p>
-//                             <p className="text-sm text-gray-600">{faculty.students} talaba</p>
-//                           </div>
-//                           <p className="text-lg font-bold text-blue-600">{faculty.amount}</p>
-//                         </div>
-//                       ))}
-//                     </div>
-//                   </div>
-//                 )}
-
-//                 {data.details.byDegree && (
-//                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6">
-//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Ta'lim darajasi bo'yicha</h3>
-//                     <div className="space-y-3">
-//                       {data.details.byDegree.map((degree, idx) => (
-//                         <div key={idx} className="bg-white rounded-xl p-4 flex justify-between items-center">
-//                           <div>
-//                             <p className="font-semibold text-gray-900">{degree.name}</p>
-//                             <p className="text-sm text-gray-600">{degree.students} talaba</p>
-//                           </div>
-//                           <p className="text-lg font-bold text-purple-600">{degree.amount}</p>
-//                         </div>
-//                       ))}
-//                     </div>
-//                   </div>
-//                 )}
-
-//                 {data.details.monthly && (
-//                   <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6">
-//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Oylik statistika</h3>
-//                     <div className="space-y-3">
-//                       {data.details.monthly.map((month, idx) => (
-//                         <div key={idx} className="bg-white rounded-xl p-4">
-//                           <div className="flex justify-between items-center mb-2">
-//                             <p className="font-semibold text-gray-900">{month.month}</p>
-//                             <p className="text-sm text-gray-600">Reja: {month.planned}</p>
-//                           </div>
-//                           <div className="flex items-center gap-3">
-//                             <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
-//                               <div 
-//                                 className="h-full bg-gradient-to-r from-green-500 to-teal-500"
-//                                 style={{width: `${(parseInt(month.collected) / parseInt(month.planned)) * 100}%`}}
-//                               ></div>
-//                             </div>
-//                             <p className="text-lg font-bold text-green-600">{month.collected}</p>
-//                           </div>
-//                         </div>
-//                       ))}
-//                     </div>
-//                   </div>
-//                 )}
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
-//       <style>{styles}</style>
-//       {/* Header */}
-//       <div className="bg-white shadow-sm border-b border-gray-200">
-//         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-//           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-//             <div className="animate-float">
-//               <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-//               <p className="text-gray-600 mt-1">CHIRCHIQ DAVLAT PEDAGOGIKA UNIVERSITETI</p>
-//             </div>
-            
-//             <div className="flex flex-wrap items-center gap-3">
-//               {/* Search */}
-//               <div className="relative">
-//                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-//                 <input
-//                   type="text"
-//                   placeholder="Qidirish..."
-//                   value={searchQuery}
-//                   onChange={(e) => setSearchQuery(e.target.value)}
-//                   className="pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-64"
-//                 />
-//               </div>
-
-//               {/* Year Selector */}
-//               <div className="relative">
-//                 <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-//                 <select
-//                   value={selectedYear}
-//                   onChange={(e) => setSelectedYear(e.target.value)}
-//                   className="pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none appearance-none bg-white cursor-pointer"
-//                 >
-//                   <option value="2025-2026">2025-2026 o'quv yili</option>
-//                   <option value="2024-2025">2024-2025 o'quv yili</option>
-//                   <option value="2023-2024">2023-2024 o'quv yili</option>
-//                 </select>
-//               </div>
-
-//               {/* Filter */}
-//               <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all">
-//                 <Filter className="h-5 w-5" />
-//                 <span>Filtr</span>
-//               </button>
-//             </div>
-//           </div>
-
-//           {/* Quick Filters */}
-//           <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
-//             {['all', 'payment', 'credit', 'scholarship', 'dormitory'].map((filter) => (
-//               <button
-//                 key={filter}
-//                 onClick={() => setActiveFilter(filter)}
-//                 className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
-//                   activeFilter === filter
-//                     ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
-//                     : 'bg-white text-gray-700 hover:bg-gray-100'
-//                 }`}
-//               >
-//                 {filter === 'all' && 'Hammasi'}
-//                 {filter === 'payment' && "To'lov kontrakt"}
-//                 {filter === 'credit' && 'Kredit modul'}
-//                 {filter === 'scholarship' && 'Stipendiya'}
-//                 {filter === 'dormitory' && 'Turar joy'}
-//               </button>
-//             ))}
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* Main Content */}
-//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-//         {/* Summary Cards */}
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-//           {[
-//             { label: "Jami talabalar", value: "698 124", trend: 5.2, icon: Users, color: "blue" },
-//             { label: "Jami to'lovlar", value: "9 789.8", sub: "mlrd so'm", icon: DollarSign, color: "purple" },
-//             { label: "Qarzdorliklar", value: "1 111 066", trend: 3.8, up: false, icon: FileText, color: "red" },
-//             { label: "Stipendiya oluvchilar", value: "184 939", trend: 2.1, icon: Award, color: "green" }
-//           ].map((item, idx) => {
-//             const Icon = item.icon;
-//             return (
-//               <div 
-//                 key={idx}
-//                 className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group"
-//                 style={{
-//                   animation: `fadeInUp 0.6s ease-out ${idx * 100}ms both`,
-//                   boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
-//                 }}
-//               >
-//                 <div className="flex items-center justify-between">
-//                   <div>
-//                     <p className="text-sm text-gray-600 transition-colors duration-300 group-hover:text-gray-900">{item.label}</p>
-//                     <p className="text-3xl font-bold text-gray-900 mt-2 transition-transform duration-300 group-hover:scale-110">{item.value}</p>
-//                     {item.sub && <p className="text-sm text-gray-500 mt-1">{item.sub}</p>}
-//                     {item.trend !== undefined && (
-//                       <div className={`flex items-center mt-2 ${item.up === false ? 'text-red-600' : 'text-green-600'}`}>
-//                         {item.up === false ? (
-//                           <TrendingUp className="h-4 w-4 mr-1 group-hover:animate-bounce" />
-//                         ) : (
-//                           <TrendingUp className="h-4 w-4 mr-1 group-hover:animate-bounce" />
-//                         )}
-//                         <span className="text-sm font-medium">+{item.trend}%</span>
-//                       </div>
-//                     )}
-//                   </div>
-//                   <div className={`p-4 bg-${item.color}-100 rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-12`}>
-//                     <Icon className={`h-8 w-8 text-${item.color}-600`} />
-//                   </div>
-//                 </div>
-//               </div>
-//             );
-//           })}
-//         </div>
-
-//         {/* Main Dashboard Cards */}
-//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-//           <StatCard 
-//             data={dashboardData.tolovKontrakt} 
-//             onClick={() => setSelectedCard(dashboardData.tolovKontrakt)}
-//           />
-//           <StatCard 
-//             data={dashboardData.kreditModul} 
-//             onClick={() => setSelectedCard(dashboardData.kreditModul)}
-//           />
-//           <StatCard 
-//             data={dashboardData.stipendiya} 
-//             onClick={() => setSelectedCard(dashboardData.stipendiya)}
-//           />
-//           <StatCard 
-//             data={dashboardData.talabalar} 
-//             onClick={() => setSelectedCard(dashboardData.talabalar)}
-//           />
-//         </div>
-//       </div>
-
-//       {/* Modal */}
-//       {selectedCard && (
-//         <Modal data={selectedCard} onClose={() => setSelectedCard(null)} />
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ModernDashboard;
-
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Animations and 
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Search,  Calendar, FileText, DollarSign, Users, Award, Building, Download, Share2, Bell, Settings,  BarChart3, PieChart, Activity, Zap } from 'lucide-react';
+import React, { useState } from 'react';
+import { TrendingUp, TrendingDown, Search, Filter, Calendar, FileText, DollarSign, Users, Award, Building } from 'lucide-react';
 
 // CSS Animations
 const styles = `
@@ -4683,90 +4166,16 @@ const styles = `
     }
   }
   
-  @keyframes pulse-ring {
-    0% {
-      transform: scale(0.95);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scale(0.95);
-      opacity: 1;
-    }
-  }
-  
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-  
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
-  
-  .animate-pulse-ring {
-    animation: pulse-ring 2s ease-in-out infinite;
-  }
-  
-  .shimmer {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    background-size: 1000px 100%;
-    animation: shimmer 2s;
-  }
-  
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .notification-enter {
-    animation: slideDown 0.3s ease-out;
-  }
 `;
 
-const HemisDashboard = () => {
+const ModernDashboard = () => {
   const [selectedYear, setSelectedYear] = useState('2025-2026');
   const [selectedCard, setSelectedCard] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState([
-    { id: 1, type: 'success', message: "Yangi to'lov qabul qilindi", time: '5 daqiqa oldin', unread: true },
-    { id: 2, type: 'warning', message: 'Qarzdorlik muddati tugaydi', time: '1 soat oldin', unread: true },
-    { id: 3, type: 'info', message: 'Oylik hisobot tayyor', time: '2 soat oldin', unread: false }
-  ]);
-  
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [liveStats, setLiveStats] = useState({
-    activeUsers: 1245,
-    todayPayments: 45,
-    pendingRequests: 89
-  });
-
-  // Real-time counter simulation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLiveStats(prev => ({
-        activeUsers: prev.activeUsers + Math.floor(Math.random() * 10) - 5,
-        todayPayments: prev.todayPayments + Math.floor(Math.random() * 3),
-        pendingRequests: prev.pendingRequests + Math.floor(Math.random() * 5) - 2
-      }));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   const dashboardData = {
     tolovKontrakt: {
@@ -4781,14 +4190,14 @@ const HemisDashboard = () => {
       ],
       details: {
         byFaculty: [
-          { name: "Matematika", students: 1250, amount: "850.5 mln", progress: 85 },
-          { name: "Fizika", students: 980, amount: "720.3 mln", progress: 72 },
-          { name: "Kimyo", students: 1100, amount: "790.8 mln", progress: 79 }
+          { name: "Matematika", students: 1250, amount: "850.5 mln" },
+          { name: "Fizika", students: 980, amount: "720.3 mln" },
+          { name: "Kimyo", students: 1100, amount: "790.8 mln" }
         ],
         monthly: [
-          { month: "Sentyabr", collected: "450.2 mln", planned: "500 mln", percentage: 90 },
-          { month: "Oktyabr", collected: "480.5 mln", planned: "500 mln", percentage: 96 },
-          { month: "Noyabr", collected: "520.8 mln", planned: "500 mln", percentage: 104 }
+          { month: "Sentyabr", collected: "450.2 mln", planned: "500 mln" },
+          { month: "Oktyabr", collected: "480.5 mln", planned: "500 mln" },
+          { month: "Noyabr", collected: "520.8 mln", planned: "500 mln" }
         ]
       }
     },
@@ -4804,8 +4213,8 @@ const HemisDashboard = () => {
       ],
       details: {
         byDegree: [
-          { name: "Bakalavr", students: 25000, amount: "150.2 mln", progress: 88 },
-          { name: "Magistratura", students: 5000, amount: "40.0 mln", progress: 65 }
+          { name: "Bakalavr", students: 25000, amount: "150.2 mln" },
+          { name: "Magistratura", students: 5000, amount: "40.0 mln" }
         ]
       }
     },
@@ -4854,8 +4263,8 @@ const HemisDashboard = () => {
   };
 
   const StatCard = ({ data, onClick }) => {
-    const [isHovered, setIsHovered] = useState(false);
     const Icon = data.icon;
+    const [isHovered, setIsHovered] = useState(false);
     
     return (
       <div
@@ -4873,9 +4282,6 @@ const HemisDashboard = () => {
         <div className={`absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white opacity-10 transition-all duration-700 ${isHovered ? 'opacity-20 scale-150' : 'scale-100'}`}></div>
         <div className={`absolute bottom-0 left-0 -mb-6 -ml-6 h-40 w-40 rounded-full bg-white opacity-5 transition-all duration-1000 ${isHovered ? 'opacity-15 scale-125' : 'scale-100'}`}></div>
         
-        {/* Shimmer effect */}
-        {isHovered && <div className="absolute inset-0 shimmer"></div>}
-        
         {/* Animated gradient overlay */}
         <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 opacity-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
         
@@ -4884,20 +4290,9 @@ const HemisDashboard = () => {
             <div className={`p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm transition-all duration-300 ${isHovered ? 'scale-110 rotate-6 bg-opacity-30' : ''}`}>
               <Icon className={`h-6 w-6 transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`} />
             </div>
-            <div className="flex gap-2">
-              <button 
-                className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                onClick={(e) => { e.stopPropagation(); }}
-              >
-                <Download className="h-4 w-4" />
-              </button>
-              <button 
-                className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                onClick={(e) => { e.stopPropagation(); }}
-              >
-                <Share2 className="h-4 w-4" />
-              </button>
-            </div>
+            <span className={`text-xs font-medium bg-white bg-opacity-20 px-3 py-1 rounded-full transition-all duration-300 ${isHovered ? 'bg-opacity-30 pr-4' : ''}`}>
+              Detallar {isHovered ? '→' : ''}
+            </span>
           </div>
           <h3 className={`text-xl font-bold mb-6 transition-all duration-300 ${isHovered ? 'translate-x-2' : ''}`}>{data.title}</h3>
           <div className="grid grid-cols-2 gap-4">
@@ -4938,14 +4333,13 @@ const HemisDashboard = () => {
   };
 
   const Modal = ({ data, onClose }) => {
+    const Icon = data.icon;
     const [isVisible, setIsVisible] = useState(false);
-    const [activeTab, setActiveTab] = useState('overview');
-    
-    useEffect(() => {
+
+    React.useEffect(() => {
       setIsVisible(true);
     }, []);
     if (!data) return null;
-    const Icon = data.icon;
 
     return (
       <div 
@@ -4953,13 +4347,13 @@ const HemisDashboard = () => {
         onClick={onClose}
       >
         <div 
-          className={`bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl transition-all duration-500 transform ${isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
+          className={`bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl transition-all duration-500 transform ${isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
           onClick={(e) => e.stopPropagation()}
           style={{
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 60px rgba(59, 130, 246, 0.2)'
           }}
         >
-          <div className={`bg-gradient-to-br ${data.color} p-8 text-white relative overflow-hidden`}>
+          <div className={`bg-gradient-to-br ${data.color} p-8 text-white rounded-t-3xl relative overflow-hidden`}>
             {/* Animated background */}
             <div className="absolute inset-0 opacity-20">
               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
@@ -4968,7 +4362,7 @@ const HemisDashboard = () => {
             
             <div className="flex items-center justify-between relative z-10">
               <div className="flex items-center gap-4">
-                <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm animate-pulse-ring">
+                <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm animate-pulse">
                   <Icon className="h-8 w-8" />
                 </div>
                 <div>
@@ -4976,118 +4370,80 @@ const HemisDashboard = () => {
                   <p className="text-sm opacity-90 mt-1">Batafsil statistika va ma'lumotlar</p>
                 </div>
               </div>
-              <div className="flex gap-2">
-                <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
-                  <Download className="h-5 w-5" />
-                </button>
-                <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
-                  <Share2 className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={onClose}
-                  className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300 hover:rotate-90"
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Tabs */}
-            <div className="flex gap-2 mt-6 relative z-10">
-              {['overview', 'details', 'analytics'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                    activeTab === tab 
-                      ? 'bg-white bg-opacity-30 backdrop-blur-sm' 
-                      : 'bg-white bg-opacity-10 hover:bg-opacity-20'
-                  }`}
-                >
-                  {tab === 'overview' && 'Umumiy'}
-                  {tab === 'details' && 'Batafsil'}
-                  {tab === 'analytics' && 'Tahlil'}
-                </button>
-              ))}
+              <button
+                onClick={onClose}
+                className="p-2 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300 hover:rotate-90"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
           </div>
 
-          <div className="p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
-            {activeTab === 'overview' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {data.stats.map((stat, idx) => (
-                  <div 
-                    key={idx} 
-                    className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
-                    style={{
-                      animation: `slideIn 0.5s ease-out ${idx * 100}ms both`
-                    }}
-                  >
-                    <p className="text-sm text-gray-600 mb-2">{stat.label}</p>
-                    <p className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</p>
-                    {stat.subValue && (
-                      <p className="text-sm text-gray-500">{stat.subValue}</p>
-                    )}
-                    {stat.percentage && (
-                      <div className="mt-3">
-                        <div className="flex justify-between text-xs text-gray-600 mb-1">
-                          <span>Budjet / Kontrakt</span>
-                          <span>{stat.percentage}</span>
-                        </div>
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000 ease-out"
-                            style={{
-                              width: isVisible ? stat.percentage.split('/')[0].trim() : '0%'
-                            }}
-                          ></div>
-                        </div>
+          <div className="p-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              {data.stats.map((stat, idx) => (
+                <div 
+                  key={idx} 
+                  className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
+                  style={{
+                    animation: `slideIn 0.5s ease-out ${idx * 100}ms both`
+                  }}
+                >
+                  <p className="text-sm text-gray-600 mb-2">{stat.label}</p>
+                  <p className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</p>
+                  {stat.subValue && (
+                    <p className="text-sm text-gray-500">{stat.subValue}</p>
+                  )}
+                  {stat.percentage && (
+                    <div className="mt-3">
+                      <div className="flex justify-between text-xs text-gray-600 mb-1">
+                        <span>Budjet / Kontrakt</span>
+                        <span>{stat.percentage}</span>
                       </div>
-                    )}
-                    {stat.trend !== undefined && stat.trend !== 0 && (
-                      <div className="flex items-center mt-3 text-sm">
-                        {stat.trend > 0 ? (
-                          <>
-                            <TrendingUp className="h-4 w-4 mr-1 text-green-500 animate-bounce" />
-                            <span className="text-green-600 font-medium">+{stat.trend}% o'sish</span>
-                          </>
-                        ) : (
-                          <>
-                            <TrendingDown className="h-4 w-4 mr-1 text-red-500 animate-bounce" />
-                            <span className="text-red-600 font-medium">{stat.trend}% kamayish</span>
-                          </>
-                        )}
+                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div 
+                          className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000 ease-out"
+                          style={{
+                            width: isVisible ? stat.percentage.split('/')[0].trim() : '0%'
+                          }}
+                        ></div>
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+                    </div>
+                  )}
+                  {stat.trend !== undefined && stat.trend !== 0 && (
+                    <div className="flex items-center mt-3 text-sm">
+                      {stat.trend > 0 ? (
+                        <>
+                          <TrendingUp className="h-4 w-4 mr-1 text-green-500 animate-bounce" />
+                          <span className="text-green-600 font-medium">+{stat.trend}% o'sish</span>
+                        </>
+                      ) : (
+                        <>
+                          <TrendingDown className="h-4 w-4 mr-1 text-red-500 animate-bounce" />
+                          <span className="text-red-600 font-medium">{stat.trend}% kamayish</span>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
 
-            {activeTab === 'details' && data.details && (
+            {data.details && (
               <div className="space-y-6">
                 {data.details.byFaculty && (
                   <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6">
                     <h3 className="text-lg font-bold text-gray-900 mb-4">Fakultetlar bo'yicha</h3>
                     <div className="space-y-3">
                       {data.details.byFaculty.map((faculty, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-4">
-                          <div className="flex justify-between items-center mb-3">
-                            <div>
-                              <p className="font-semibold text-gray-900">{faculty.name}</p>
-                              <p className="text-sm text-gray-600">{faculty.students} talaba</p>
-                            </div>
-                            <p className="text-lg font-bold text-blue-600">{faculty.amount}</p>
+                        <div key={idx} className="bg-white rounded-xl p-4 flex justify-between items-center">
+                          <div>
+                            <p className="font-semibold text-gray-900">{faculty.name}</p>
+                            <p className="text-sm text-gray-600">{faculty.students} talaba</p>
                           </div>
-                          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
-                              style={{width: isVisible ? `${faculty.progress}%` : '0%'}}
-                            ></div>
-                          </div>
-                          <p className="text-xs text-gray-500 mt-1">{faculty.progress}% to'langan</p>
+                          <p className="text-lg font-bold text-blue-600">{faculty.amount}</p>
                         </div>
                       ))}
                     </div>
@@ -5099,21 +4455,12 @@ const HemisDashboard = () => {
                     <h3 className="text-lg font-bold text-gray-900 mb-4">Ta'lim darajasi bo'yicha</h3>
                     <div className="space-y-3">
                       {data.details.byDegree.map((degree, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-4">
-                          <div className="flex justify-between items-center mb-3">
-                            <div>
-                              <p className="font-semibold text-gray-900">{degree.name}</p>
-                              <p className="text-sm text-gray-600">{degree.students} talaba</p>
-                            </div>
-                            <p className="text-lg font-bold text-purple-600">{degree.amount}</p>
+                        <div key={idx} className="bg-white rounded-xl p-4 flex justify-between items-center">
+                          <div>
+                            <p className="font-semibold text-gray-900">{degree.name}</p>
+                            <p className="text-sm text-gray-600">{degree.students} talaba</p>
                           </div>
-                          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-1000"
-                              style={{width: isVisible ? `${degree.progress}%` : '0%'}}
-                            ></div>
-                          </div>
-                          <p className="text-xs text-gray-500 mt-1">{degree.progress}% to'langan</p>
+                          <p className="text-lg font-bold text-purple-600">{degree.amount}</p>
                         </div>
                       ))}
                     </div>
@@ -5133,13 +4480,12 @@ const HemisDashboard = () => {
                           <div className="flex items-center gap-3">
                             <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
                               <div 
-                                className={`h-full ${month.percentage >= 100 ? 'bg-gradient-to-r from-green-500 to-teal-500' : 'bg-gradient-to-r from-orange-500 to-yellow-500'} transition-all duration-1000`}
-                                style={{width: isVisible ? `${Math.min(month.percentage, 100)}%` : '0%'}}
+                                className="h-full bg-gradient-to-r from-green-500 to-teal-500"
+                                style={{width: `${(parseInt(month.collected) / parseInt(month.planned)) * 100}%`}}
                               ></div>
                             </div>
                             <p className="text-lg font-bold text-green-600">{month.collected}</p>
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">{month.percentage}% bajarildi</p>
                         </div>
                       ))}
                     </div>
@@ -5147,141 +4493,6 @@ const HemisDashboard = () => {
                 )}
               </div>
             )}
-
-            {activeTab === 'analytics' && (
-              <div className="space-y-6">
-                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-indigo-600" />
-                    Tahlil va prognoz
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">O'rtacha o'sish sur'ati</p>
-                      <p className="text-2xl font-bold text-indigo-600">+12.5%</p>
-                      <p className="text-xs text-gray-500 mt-1">Oylik</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">To'lov faolligi</p>
-                      <p className="text-2xl font-bold text-green-600">87.3%</p>
-                      <p className="text-xs text-gray-500 mt-1">Hozirgi holat</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">Kelgusi oy prognozi</p>
-                      <p className="text-2xl font-bold text-purple-600">+8.7%</p>
-                      <p className="text-xs text-gray-500 mt-1">Kutilmoqda</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">Samaradorlik darajasi</p>
-                      <p className="text-2xl font-bold text-orange-600">92.1%</p>
-                      <p className="text-xs text-gray-500 mt-1">Umumiy</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white border border-gray-200 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Tavsiyalar</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
-                      <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">Qarzdorlikni kamaytirish</p>
-                        <p className="text-xs text-gray-600">SMS xabarnoma tizimini faollashtiring</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
-                      <Zap className="h-5 w-5 text-green-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">To'lovlarni tezlashtirish</p>
-                        <p className="text-xs text-gray-600">Online to'lov tizimini yaxshilang</p>
-                      </div>
-                    </div>
-                                        <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
-                      <Zap className="h-5 w-5 text-purple-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">Hisobotlarni avtomatlashtirish</p>
-                        <p className="text-xs text-gray-600">Oylik hisobotlar avtomatik yuborish</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const NotificationPanel = () => {
-    return (
-      <div className="absolute right-0 top-12 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 notification-enter">
-        <div className="p-4 border-b border-gray-100">
-          <div className="flex justify-between items-center">
-            <h3 className="font-bold text-gray-900">Bildirishnomalar</h3>
-            <span className="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">
-              {notifications.filter(n => n.unread).length} yangi
-            </span>
-          </div>
-        </div>
-        <div className="max-h-96 overflow-y-auto">
-          {notifications.map((notification) => (
-            <div
-              key={notification.id}
-              className={`p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200 ${
-                notification.unread ? 'bg-blue-50' : ''
-              }`}
-            >
-              <div className="flex gap-3">
-                <div className={`w-2 h-2 mt-2 rounded-full ${
-                  notification.type === 'success' ? 'bg-green-500' :
-                  notification.type === 'warning' ? 'bg-yellow-500' :
-                  'bg-blue-500'
-                }`}></div>
-                <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">{notification.message}</p>
-                  <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
-                </div>
-                {notification.unread && (
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="p-3 text-center">
-          <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
-            Barchasini ko'rish
-          </button>
-        </div>
-      </div>
-    );
-  };
-
-  const LiveStatsBar = () => {
-    return (
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-2xl mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Activity className="h-5 w-5 animate-pulse" />
-            <span className="font-semibold">Real vaqt rejimi</span>
-          </div>
-          <div className="flex gap-6">
-            <div className="text-center">
-              <p className="text-2xl font-bold">{liveStats.activeUsers}</p>
-              <p className="text-xs opacity-90">Faol foydalanuvchilar</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold">{liveStats.todayPayments}</p>
-              <p className="text-xs opacity-90">Bugungi to'lovlar</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold">{liveStats.pendingRequests}</p>
-              <p className="text-xs opacity-90">Kutilayotgan so'rovlar</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
-            <span className="text-sm">Online</span>
           </div>
         </div>
       </div>
@@ -5289,219 +4500,1008 @@ const HemisDashboard = () => {
   };
 
   return (
-    <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-blue-50 to-indigo-100'} transition-colors duration-300`}>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50">
       <style>{styles}</style>
-      
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
-        <div className="px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-2 rounded-xl">
-                <Building className="h-6 w-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">Universitet Moliya Tizimi</h1>
-                <p className="text-sm text-gray-600">Boshqaruv paneli</p>
-              </div>
+      <div className="bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div className="animate-float">
+              <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
+              <p className="text-gray-600 mt-1">CHIRCHIQ DAVLAT PEDAGOGIKA UNIVERSITETI</p>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3">
               {/* Search */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Qidirish..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-300 w-64"
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none w-64"
                 />
               </div>
 
-              {/* Theme Toggle */}
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-200"
-              >
-                <Settings className="h-5 w-5 text-gray-600" />
-              </button>
-
-              {/* Notifications */}
+              {/* Year Selector */}
               <div className="relative">
-                <button
-                  onClick={() => setShowNotifications(!showNotifications)}
-                  className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-200 relative"
-                >
-                  <Bell className="h-5 w-5 text-gray-600" />
-                  {notifications.filter(n => n.unread).length > 0 && (
-                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
-                  )}
-                </button>
-                {showNotifications && <NotificationPanel />}
-              </div>
-
-              {/* User Profile */}
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">A</span>
-                </div>
-                <div className="text-sm">
-                  <p className="font-medium text-gray-900">Adminstrator</p>
-                  <p className="text-gray-600">Super admin</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="container mx-auto px-6 py-8">
-        {/* Controls */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <div className="bg-white rounded-2xl p-4 shadow-sm">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-gray-600" />
+                <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <select
                   value={selectedYear}
                   onChange={(e) => setSelectedYear(e.target.value)}
-                  className="bg-transparent border-0 focus:ring-0 font-medium"
+                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none appearance-none bg-white cursor-pointer"
                 >
-                  <option>2024-2025</option>
-                  <option>2025-2026</option>
-                  <option>2026-2027</option>
+                  <option value="2025-2026">2025-2026 o'quv yili</option>
+                  <option value="2024-2025">2024-2025 o'quv yili</option>
+                  <option value="2023-2024">2023-2024 o'quv yili</option>
                 </select>
               </div>
-            </div>
-            
-            <div className="flex bg-white rounded-2xl p-1 shadow-sm">
-              {['all', 'payments', 'contracts', 'debts'].map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => setActiveFilter(filter)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
-                    activeFilter === filter 
-                      ? 'bg-blue-500 text-white shadow-sm' 
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  {filter === 'all' && 'Hammasi'}
-                  {filter === 'payments' && 'To\'lovlar'}
-                  {filter === 'contracts' && 'Shartnomalar'}
-                  {filter === 'debts' && 'Qarzdorliklar'}
-                </button>
-              ))}
+
+              {/* Filter */}
+              <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-xl hover:shadow-lg transition-all">
+                <Filter className="h-5 w-5" />
+                <span>Filtr</span>
+              </button>
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
-            <button className="flex items-center gap-2 bg-white px-4 py-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
-              <Download className="h-4 w-4" />
-              <span className="font-medium">Eksport</span>
-            </button>
-            <button className="flex items-center gap-2 bg-gradient-to-br from-blue-500 to-purple-600 text-white px-4 py-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105">
-              <FileText className="h-4 w-4" />
-              <span className="font-medium">Hisobot yaratish</span>
-            </button>
+          {/* Quick Filters */}
+          <div className="flex gap-2 mt-4 overflow-x-auto pb-2">
+            {['all', 'payment', 'credit', 'scholarship', 'dormitory'].map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
+                  activeFilter === filter
+                    ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-100'
+                }`}
+              >
+                {filter === 'all' && 'Hammasi'}
+                {filter === 'payment' && "To'lov kontrakt"}
+                {filter === 'credit' && 'Kredit modul'}
+                {filter === 'scholarship' && 'Stipendiya'}
+                {filter === 'dormitory' && 'Turar joy'}
+              </button>
+            ))}
           </div>
         </div>
+      </div>
 
-        {/* Live Stats */}
-        <LiveStatsBar />
-
-        {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {Object.entries(dashboardData).map(([key, data], index) => (
-            <StatCard
-              key={key}
-              data={data}
-              onClick={() => setSelectedCard(data)}
-              style={{
-                animation: `fadeInUp 0.6s ease-out ${index * 100}ms both`
-              }}
-            />
-          ))}
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Summary Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          {[
+            { label: "Jami talabalar", value: "698 124", trend: 5.2, icon: Users, color: "blue" },
+            { label: "Jami to'lovlar", value: "9 789.8", sub: "mlrd so'm", icon: DollarSign, color: "purple" },
+            { label: "Qarzdorliklar", value: "1 111 066", trend: 3.8, up: false, icon: FileText, color: "red" },
+            { label: "Stipendiya oluvchilar", value: "184 939", trend: 2.1, icon: Award, color: "green" }
+          ].map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div 
+                key={idx}
+                className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 group"
+                style={{
+                  animation: `fadeInUp 0.6s ease-out ${idx * 100}ms both`,
+                  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)'
+                }}
+              >
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm text-gray-600 transition-colors duration-300 group-hover:text-gray-900">{item.label}</p>
+                    <p className="text-3xl font-bold text-gray-900 mt-2 transition-transform duration-300 group-hover:scale-110">{item.value}</p>
+                    {item.sub && <p className="text-sm text-gray-500 mt-1">{item.sub}</p>}
+                    {item.trend !== undefined && (
+                      <div className={`flex items-center mt-2 ${item.up === false ? 'text-red-600' : 'text-green-600'}`}>
+                        {item.up === false ? (
+                          <TrendingUp className="h-4 w-4 mr-1 group-hover:animate-bounce" />
+                        ) : (
+                          <TrendingUp className="h-4 w-4 mr-1 group-hover:animate-bounce" />
+                        )}
+                        <span className="text-sm font-medium">+{item.trend}%</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className={`p-4 bg-${item.color}-100 rounded-xl transition-all duration-300 group-hover:scale-110 group-hover:rotate-12`}>
+                    <Icon className={`h-8 w-8 text-${item.color}-600`} />
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Additional Analytics */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-3xl p-6 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-green-100 rounded-xl">
-                <TrendingUp className="h-5 w-5 text-green-600" />
-              </div>
-              <h3 className="font-bold text-gray-900">Umumiy statistika</h3>
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Jami to'lovlar</span>
-                <span className="font-bold text-gray-900">12,456.8 mlrd</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Faol shartnomalar</span>
-                <span className="font-bold text-gray-900">829,045 ta</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">O'rtacha to'lov</span>
-                <span className="font-bold text-gray-900">15.0 mln</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-3xl p-6 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-blue-100 rounded-xl">
-                <Users className="h-5 w-5 text-blue-600" />
-              </div>
-              <h3 className="font-bold text-gray-900">Talabalar statistikasi</h3>
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Jami talabalar</span>
-                <span className="font-bold text-gray-900">184,939</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Stipendiya oluvchilar</span>
-                <span className="font-bold text-gray-900">150,114</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Kontrakt asosida</span>
-                <span className="font-bold text-gray-900">34,825</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-3xl p-6 shadow-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2 bg-purple-100 rounded-xl">
-                <PieChart className="h-5 w-5 text-purple-600" />
-              </div>
-              <h3 className="font-bold text-gray-900">To'lov turlari</h3>
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Online to'lovlar</span>
-                <span className="font-bold text-gray-900">67%</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Bank orqali</span>
-                <span className="font-bold text-gray-900">23%</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm text-gray-600">Boshqa usullar</span>
-                <span className="font-bold text-gray-900">10%</span>
-              </div>
-            </div>
-          </div>
+        {/* Main Dashboard Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <StatCard 
+            data={dashboardData.tolovKontrakt} 
+            onClick={() => setSelectedCard(dashboardData.tolovKontrakt)}
+          />
+          <StatCard 
+            data={dashboardData.kreditModul} 
+            onClick={() => setSelectedCard(dashboardData.kreditModul)}
+          />
+          <StatCard 
+            data={dashboardData.stipendiya} 
+            onClick={() => setSelectedCard(dashboardData.stipendiya)}
+          />
+          <StatCard 
+            data={dashboardData.talabalar} 
+            onClick={() => setSelectedCard(dashboardData.talabalar)}
+          />
         </div>
-      </main>
+      </div>
 
       {/* Modal */}
-      <Modal data={selectedCard} onClose={() => setSelectedCard(null)} />
+      {selectedCard && (
+        <Modal data={selectedCard} onClose={() => setSelectedCard(null)} />
+      )}
     </div>
   );
 };
 
-export default HemisDashboard;
+export default ModernDashboard;
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// // Animations and 
+// import React, { useState, useEffect } from 'react';
+// import { TrendingUp, TrendingDown, Search,  Calendar, FileText, DollarSign, Users, Award, Building, Download, Share2, Bell, Settings,  BarChart3, PieChart, Activity, Zap } from 'lucide-react';
+
+// // CSS Animations
+// const styles = `
+//   @keyframes fadeInUp {
+//     from {
+//       opacity: 0;
+//       transform: translateY(30px);
+//     }
+//     to {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+//   }
+  
+//   @keyframes slideIn {
+//     from {
+//       opacity: 0;
+//       transform: translateX(-20px);
+//     }
+//     to {
+//       opacity: 1;
+//       transform: translateX(0);
+//     }
+//   }
+  
+//   @keyframes float {
+//     0%, 100% {
+//       transform: translateY(0px);
+//     }
+//     50% {
+//       transform: translateY(-10px);
+//     }
+//   }
+  
+//   @keyframes pulse-ring {
+//     0% {
+//       transform: scale(0.95);
+//       opacity: 1;
+//     }
+//     50% {
+//       transform: scale(1);
+//       opacity: 0.7;
+//     }
+//     100% {
+//       transform: scale(0.95);
+//       opacity: 1;
+//     }
+//   }
+  
+//   @keyframes shimmer {
+//     0% {
+//       background-position: -1000px 0;
+//     }
+//     100% {
+//       background-position: 1000px 0;
+//     }
+//   }
+  
+//   .animate-float {
+//     animation: float 3s ease-in-out infinite;
+//   }
+  
+//   .animate-pulse-ring {
+//     animation: pulse-ring 2s ease-in-out infinite;
+//   }
+  
+//   .shimmer {
+//     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+//     background-size: 1000px 100%;
+//     animation: shimmer 2s;
+//   }
+  
+//   @keyframes slideDown {
+//     from {
+//       opacity: 0;
+//       transform: translateY(-20px);
+//     }
+//     to {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+//   }
+  
+//   .notification-enter {
+//     animation: slideDown 0.3s ease-out;
+//   }
+// `;
+
+// const HemisDashboard = () => {
+//   const [selectedYear, setSelectedYear] = useState('2025-2026');
+//   const [selectedCard, setSelectedCard] = useState(null);
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [activeFilter, setActiveFilter] = useState('all');
+//   const [showNotifications, setShowNotifications] = useState(false);
+//   const [notifications, setNotifications] = useState([
+//     { id: 1, type: 'success', message: "Yangi to'lov qabul qilindi", time: '5 daqiqa oldin', unread: true },
+//     { id: 2, type: 'warning', message: 'Qarzdorlik muddati tugaydi', time: '1 soat oldin', unread: true },
+//     { id: 3, type: 'info', message: 'Oylik hisobot tayyor', time: '2 soat oldin', unread: false }
+//   ]);
+  
+//   const [isDarkMode, setIsDarkMode] = useState(false);
+//   const [liveStats, setLiveStats] = useState({
+//     activeUsers: 1245,
+//     todayPayments: 45,
+//     pendingRequests: 89
+//   });
+
+//   // Real-time counter simulation
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setLiveStats(prev => ({
+//         activeUsers: prev.activeUsers + Math.floor(Math.random() * 10) - 5,
+//         todayPayments: prev.todayPayments + Math.floor(Math.random() * 3),
+//         pendingRequests: prev.pendingRequests + Math.floor(Math.random() * 5) - 2
+//       }));
+//     }, 3000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const dashboardData = {
+//     tolovKontrakt: {
+//       title: "To'lov kontrakt",
+//       icon: FileText,
+//       color: "from-blue-500 to-blue-600",
+//       stats: [
+//         { label: "Arizalar soni", value: "698 124 ta", subValue: "Shartnomalar soni: 697 555 ta", trend: 2.5 },
+//         { label: "Shartnomalar summasi", value: "9 789.8 mlrd so'm", subValue: "To'langan summa: 3 651.1 mlrd", trend: -1.2 },
+//         { label: "Qarzdorlik soni", value: "911 949 ta", subValue: "10 082.0 mlrd so'm", trend: 5.3 },
+//         { label: "Haqдorlik soni", value: "434 554 ta", subValue: "2 738.4 mlrd so'm", trend: -0.8 }
+//       ],
+//       details: {
+//         byFaculty: [
+//           { name: "Matematika", students: 1250, amount: "850.5 mln", progress: 85 },
+//           { name: "Fizika", students: 980, amount: "720.3 mln", progress: 72 },
+//           { name: "Kimyo", students: 1100, amount: "790.8 mln", progress: 79 }
+//         ],
+//         monthly: [
+//           { month: "Sentyabr", collected: "450.2 mln", planned: "500 mln", percentage: 90 },
+//           { month: "Oktyabr", collected: "480.5 mln", planned: "500 mln", percentage: 96 },
+//           { month: "Noyabr", collected: "520.8 mln", planned: "500 mln", percentage: 104 }
+//         ]
+//       }
+//     },
+//     kreditModul: {
+//       title: "Kredit modul",
+//       icon: Award,
+//       color: "from-purple-500 to-purple-600",
+//       stats: [
+//         { label: "Arizalar soni", value: "30 789 ta", subValue: "Shartnomalar: 30 426 ta", trend: 3.2 },
+//         { label: "Shartnomalar summasi", value: "0.0 mlrd so'm", subValue: "To'langan: 0.0 mlrd", trend: 0 },
+//         { label: "Qarzdorlik soni", value: "94 154 ta", subValue: "190.2 mlrd so'm", trend: 2.1 },
+//         { label: "Haqдorlik soni", value: "127 552 ta", subValue: "74.1 mlrd so'm", trend: -1.5 }
+//       ],
+//       details: {
+//         byDegree: [
+//           { name: "Bakalavr", students: 25000, amount: "150.2 mln", progress: 88 },
+//           { name: "Magistratura", students: 5000, amount: "40.0 mln", progress: 65 }
+//         ]
+//       }
+//     },
+//     stipendiya: {
+//       title: "Stipendiya (VM-59)",
+//       icon: DollarSign,
+//       color: "from-green-500 to-green-600",
+//       stats: [
+//         { 
+//           label: "Stipendiya oluvchilar talaba soni", 
+//           value: "184 939 nafar",
+//           budget: "150 114 nafar",
+//           contract: "34 825 nafar",
+//           percentage: "19.8% / 81.2%",
+//           trend: 1.5
+//         },
+//         { 
+//           label: "Hisoblanган summa", 
+//           value: "449.3 mlrd",
+//           budget: "405.8 mlrd",
+//           contract: "43.5 mlrd",
+//           percentage: "9.7% / 90.3%",
+//           trend: 2.3
+//         },
+//         { 
+//           label: "To'langan summa", 
+//           value: "448.4 mlrd",
+//           budget: "405.4 mlrd",
+//           contract: "43.1 mlrd",
+//           percentage: "9.6% / 90.4%",
+//           trend: 2.1
+//         }
+//       ]
+//     },
+//     talabalar: {
+//       title: "Talabalar turar joyi",
+//       icon: Building,
+//       color: "from-orange-500 to-orange-600",
+//       stats: [
+//         { label: "Arizalar soni", value: "98 382 ta", subValue: "Shartnomalar: 100 364 ta", trend: 4.2 },
+//         { label: "Shartnomalar summasi", value: "253.3 mlrd so'm", subValue: "To'langan: 90.3 mlrd", trend: 1.8 },
+//         { label: "Qarzdorlik soni", value: "104 963 ta", subValue: "182.4 mlrd so'm", trend: 3.5 },
+//         { label: "Haqдorlik soni", value: "24 684 ta", subValue: "8.8 mlrd so'm", trend: -2.1 }
+//       ]
+//     }
+//   };
+
+//   const StatCard = ({ data, onClick }) => {
+//     const [isHovered, setIsHovered] = useState(false);
+//     const Icon = data.icon;
+    
+//     return (
+//       <div
+//         onClick={onClick}
+//         onMouseEnter={() => setIsHovered(true)}
+//         onMouseLeave={() => setIsHovered(false)}
+//         className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${data.color} p-6 text-white cursor-pointer transform transition-all duration-500 hover:scale-[1.02] group shadow-xl hover:shadow-2xl`}
+//         style={{
+//           boxShadow: isHovered 
+//             ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(59, 130, 246, 0.3)' 
+//             : '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+//         }}
+//       >
+//         {/* Animated background circles */}
+//         <div className={`absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white opacity-10 transition-all duration-700 ${isHovered ? 'opacity-20 scale-150' : 'scale-100'}`}></div>
+//         <div className={`absolute bottom-0 left-0 -mb-6 -ml-6 h-40 w-40 rounded-full bg-white opacity-5 transition-all duration-1000 ${isHovered ? 'opacity-15 scale-125' : 'scale-100'}`}></div>
+        
+//         {/* Shimmer effect */}
+//         {isHovered && <div className="absolute inset-0 shimmer"></div>}
+        
+//         {/* Animated gradient overlay */}
+//         <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 opacity-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
+        
+//         <div className="relative z-10">
+//           <div className="flex items-center justify-between mb-4">
+//             <div className={`p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm transition-all duration-300 ${isHovered ? 'scale-110 rotate-6 bg-opacity-30' : ''}`}>
+//               <Icon className={`h-6 w-6 transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`} />
+//             </div>
+//             <div className="flex gap-2">
+//               <button 
+//                 className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+//                 onClick={(e) => { e.stopPropagation(); }}
+//               >
+//                 <Download className="h-4 w-4" />
+//               </button>
+//               <button 
+//                 className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+//                 onClick={(e) => { e.stopPropagation(); }}
+//               >
+//                 <Share2 className="h-4 w-4" />
+//               </button>
+//             </div>
+//           </div>
+//           <h3 className={`text-xl font-bold mb-6 transition-all duration-300 ${isHovered ? 'translate-x-2' : ''}`}>{data.title}</h3>
+//           <div className="grid grid-cols-2 gap-4">
+//             {data.stats.map((stat, idx) => (
+//               <div 
+//                 key={idx} 
+//                 className={`bg-white bg-opacity-10 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 ${isHovered ? 'bg-opacity-20 translate-y-[-4px]' : ''}`}
+//                 style={{
+//                   transitionDelay: `${idx * 50}ms`
+//                 }}
+//               >
+//                 <p className="text-xs opacity-90 mb-2">{stat.label}</p>
+//                 <p className={`text-lg font-bold mb-1 transition-all duration-300 ${isHovered ? 'scale-105' : ''}`}>{stat.value}</p>
+//                 {stat.subValue && (
+//                   <p className="text-xs opacity-75">{stat.subValue}</p>
+//                 )}
+//                 {stat.trend !== undefined && stat.trend !== 0 && (
+//                   <div className={`flex items-center mt-2 transition-all duration-300 ${isHovered ? 'translate-x-1' : ''}`}>
+//                     {stat.trend > 0 ? (
+//                       <>
+//                         <TrendingUp className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
+//                         <span className="text-xs">+{stat.trend}%</span>
+//                       </>
+//                     ) : (
+//                       <>
+//                         <TrendingDown className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
+//                         <span className="text-xs">{stat.trend}%</span>
+//                       </>
+//                     )}
+//                   </div>
+//                 )}
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   const Modal = ({ data, onClose }) => {
+//     const [isVisible, setIsVisible] = useState(false);
+//     const [activeTab, setActiveTab] = useState('overview');
+    
+//     useEffect(() => {
+//       setIsVisible(true);
+//     }, []);
+//     if (!data) return null;
+//     const Icon = data.icon;
+
+//     return (
+//       <div 
+//         className={`fixed inset-0 bg-black transition-opacity duration-300 flex items-center justify-center z-50 p-4 ${isVisible ? 'bg-opacity-50' : 'bg-opacity-0'}`}
+//         onClick={onClose}
+//       >
+//         <div 
+//           className={`bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl transition-all duration-500 transform ${isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
+//           onClick={(e) => e.stopPropagation()}
+//           style={{
+//             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 60px rgba(59, 130, 246, 0.2)'
+//           }}
+//         >
+//           <div className={`bg-gradient-to-br ${data.color} p-8 text-white relative overflow-hidden`}>
+//             {/* Animated background */}
+//             <div className="absolute inset-0 opacity-20">
+//               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
+//               <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+//             </div>
+            
+//             <div className="flex items-center justify-between relative z-10">
+//               <div className="flex items-center gap-4">
+//                 <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm animate-pulse-ring">
+//                   <Icon className="h-8 w-8" />
+//                 </div>
+//                 <div>
+//                   <h2 className="text-3xl font-bold">{data.title}</h2>
+//                   <p className="text-sm opacity-90 mt-1">Batafsil statistika va ma'lumotlar</p>
+//                 </div>
+//               </div>
+//               <div className="flex gap-2">
+//                 <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
+//                   <Download className="h-5 w-5" />
+//                 </button>
+//                 <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
+//                   <Share2 className="h-5 w-5" />
+//                 </button>
+//                 <button
+//                   onClick={onClose}
+//                   className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300 hover:rotate-90"
+//                 >
+//                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+//                   </svg>
+//                 </button>
+//               </div>
+//             </div>
+
+//             {/* Tabs */}
+//             <div className="flex gap-2 mt-6 relative z-10">
+//               {['overview', 'details', 'analytics'].map((tab) => (
+//                 <button
+//                   key={tab}
+//                   onClick={() => setActiveTab(tab)}
+//                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+//                     activeTab === tab 
+//                       ? 'bg-white bg-opacity-30 backdrop-blur-sm' 
+//                       : 'bg-white bg-opacity-10 hover:bg-opacity-20'
+//                   }`}
+//                 >
+//                   {tab === 'overview' && 'Umumiy'}
+//                   {tab === 'details' && 'Batafsil'}
+//                   {tab === 'analytics' && 'Tahlil'}
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+
+//           <div className="p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
+//             {activeTab === 'overview' && (
+//               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//                 {data.stats.map((stat, idx) => (
+//                   <div 
+//                     key={idx} 
+//                     className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
+//                     style={{
+//                       animation: `slideIn 0.5s ease-out ${idx * 100}ms both`
+//                     }}
+//                   >
+//                     <p className="text-sm text-gray-600 mb-2">{stat.label}</p>
+//                     <p className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</p>
+//                     {stat.subValue && (
+//                       <p className="text-sm text-gray-500">{stat.subValue}</p>
+//                     )}
+//                     {stat.percentage && (
+//                       <div className="mt-3">
+//                         <div className="flex justify-between text-xs text-gray-600 mb-1">
+//                           <span>Budjet / Kontrakt</span>
+//                           <span>{stat.percentage}</span>
+//                         </div>
+//                         <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+//                           <div 
+//                             className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000 ease-out"
+//                             style={{
+//                               width: isVisible ? stat.percentage.split('/')[0].trim() : '0%'
+//                             }}
+//                           ></div>
+//                         </div>
+//                       </div>
+//                     )}
+//                     {stat.trend !== undefined && stat.trend !== 0 && (
+//                       <div className="flex items-center mt-3 text-sm">
+//                         {stat.trend > 0 ? (
+//                           <>
+//                             <TrendingUp className="h-4 w-4 mr-1 text-green-500 animate-bounce" />
+//                             <span className="text-green-600 font-medium">+{stat.trend}% o'sish</span>
+//                           </>
+//                         ) : (
+//                           <>
+//                             <TrendingDown className="h-4 w-4 mr-1 text-red-500 animate-bounce" />
+//                             <span className="text-red-600 font-medium">{stat.trend}% kamayish</span>
+//                           </>
+//                         )}
+//                       </div>
+//                     )}
+//                   </div>
+//                 ))}
+//               </div>
+//             )}
+
+//             {activeTab === 'details' && data.details && (
+//               <div className="space-y-6">
+//                 {data.details.byFaculty && (
+//                   <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6">
+//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Fakultetlar bo'yicha</h3>
+//                     <div className="space-y-3">
+//                       {data.details.byFaculty.map((faculty, idx) => (
+//                         <div key={idx} className="bg-white rounded-xl p-4">
+//                           <div className="flex justify-between items-center mb-3">
+//                             <div>
+//                               <p className="font-semibold text-gray-900">{faculty.name}</p>
+//                               <p className="text-sm text-gray-600">{faculty.students} talaba</p>
+//                             </div>
+//                             <p className="text-lg font-bold text-blue-600">{faculty.amount}</p>
+//                           </div>
+//                           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+//                             <div 
+//                               className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
+//                               style={{width: isVisible ? `${faculty.progress}%` : '0%'}}
+//                             ></div>
+//                           </div>
+//                           <p className="text-xs text-gray-500 mt-1">{faculty.progress}% to'langan</p>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 )}
+
+//                 {data.details.byDegree && (
+//                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6">
+//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Ta'lim darajasi bo'yicha</h3>
+//                     <div className="space-y-3">
+//                       {data.details.byDegree.map((degree, idx) => (
+//                         <div key={idx} className="bg-white rounded-xl p-4">
+//                           <div className="flex justify-between items-center mb-3">
+//                             <div>
+//                               <p className="font-semibold text-gray-900">{degree.name}</p>
+//                               <p className="text-sm text-gray-600">{degree.students} talaba</p>
+//                             </div>
+//                             <p className="text-lg font-bold text-purple-600">{degree.amount}</p>
+//                           </div>
+//                           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+//                             <div 
+//                               className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-1000"
+//                               style={{width: isVisible ? `${degree.progress}%` : '0%'}}
+//                             ></div>
+//                           </div>
+//                           <p className="text-xs text-gray-500 mt-1">{degree.progress}% to'langan</p>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 )}
+
+//                 {data.details.monthly && (
+//                   <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6">
+//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Oylik statistika</h3>
+//                     <div className="space-y-3">
+//                       {data.details.monthly.map((month, idx) => (
+//                         <div key={idx} className="bg-white rounded-xl p-4">
+//                           <div className="flex justify-between items-center mb-2">
+//                             <p className="font-semibold text-gray-900">{month.month}</p>
+//                             <p className="text-sm text-gray-600">Reja: {month.planned}</p>
+//                           </div>
+//                           <div className="flex items-center gap-3">
+//                             <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
+//                               <div 
+//                                 className={`h-full ${month.percentage >= 100 ? 'bg-gradient-to-r from-green-500 to-teal-500' : 'bg-gradient-to-r from-orange-500 to-yellow-500'} transition-all duration-1000`}
+//                                 style={{width: isVisible ? `${Math.min(month.percentage, 100)}%` : '0%'}}
+//                               ></div>
+//                             </div>
+//                             <p className="text-lg font-bold text-green-600">{month.collected}</p>
+//                           </div>
+//                           <p className="text-xs text-gray-500 mt-1">{month.percentage}% bajarildi</p>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 )}
+//               </div>
+//             )}
+
+//             {activeTab === 'analytics' && (
+//               <div className="space-y-6">
+//                 <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6">
+//                   <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+//                     <BarChart3 className="h-5 w-5 text-indigo-600" />
+//                     Tahlil va prognoz
+//                   </h3>
+//                   <div className="grid grid-cols-2 gap-4">
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">O'rtacha o'sish sur'ati</p>
+//                       <p className="text-2xl font-bold text-indigo-600">+12.5%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Oylik</p>
+//                     </div>
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">To'lov faolligi</p>
+//                       <p className="text-2xl font-bold text-green-600">87.3%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Hozirgi holat</p>
+//                     </div>
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">Kelgusi oy prognozi</p>
+//                       <p className="text-2xl font-bold text-purple-600">+8.7%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Kutilmoqda</p>
+//                     </div>
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">Samaradorlik darajasi</p>
+//                       <p className="text-2xl font-bold text-orange-600">92.1%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Umumiy</p>
+//                     </div>
+//                   </div>
+//                 </div>
+//                 <div className="bg-white border border-gray-200 rounded-2xl p-6">
+//                   <h4 className="font-semibold text-gray-900 mb-3">Tavsiyalar</h4>
+//                   <div className="space-y-2">
+//                     <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+//                       <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
+//                       <div>
+//                         <p className="text-sm font-medium text-gray-900">Qarzdorlikni kamaytirish</p>
+//                         <p className="text-xs text-gray-600">SMS xabarnoma tizimini faollashtiring</p>
+//                       </div>
+//                     </div>
+//                     <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+//                       <Zap className="h-5 w-5 text-green-600 mt-0.5" />
+//                       <div>
+//                         <p className="text-sm font-medium text-gray-900">To'lovlarni tezlashtirish</p>
+//                         <p className="text-xs text-gray-600">Online to'lov tizimini yaxshilang</p>
+//                       </div>
+//                     </div>
+//                                         <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
+//                       <Zap className="h-5 w-5 text-purple-600 mt-0.5" />
+//                       <div>
+//                         <p className="text-sm font-medium text-gray-900">Hisobotlarni avtomatlashtirish</p>
+//                         <p className="text-xs text-gray-600">Oylik hisobotlar avtomatik yuborish</p>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   const NotificationPanel = () => {
+//     return (
+//       <div className="absolute right-0 top-12 w-80 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 notification-enter">
+//         <div className="p-4 border-b border-gray-100">
+//           <div className="flex justify-between items-center">
+//             <h3 className="font-bold text-gray-900">Bildirishnomalar</h3>
+//             <span className="text-xs bg-blue-500 text-white px-2 py-1 rounded-full">
+//               {notifications.filter(n => n.unread).length} yangi
+//             </span>
+//           </div>
+//         </div>
+//         <div className="max-h-96 overflow-y-auto">
+//           {notifications.map((notification) => (
+//             <div
+//               key={notification.id}
+//               className={`p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200 ${
+//                 notification.unread ? 'bg-blue-50' : ''
+//               }`}
+//             >
+//               <div className="flex gap-3">
+//                 <div className={`w-2 h-2 mt-2 rounded-full ${
+//                   notification.type === 'success' ? 'bg-green-500' :
+//                   notification.type === 'warning' ? 'bg-yellow-500' :
+//                   'bg-blue-500'
+//                 }`}></div>
+//                 <div className="flex-1">
+//                   <p className="text-sm font-medium text-gray-900">{notification.message}</p>
+//                   <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+//                 </div>
+//                 {notification.unread && (
+//                   <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+//                 )}
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//         <div className="p-3 text-center">
+//           <button className="text-sm text-blue-600 hover:text-blue-700 font-medium">
+//             Barchasini ko'rish
+//           </button>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   const LiveStatsBar = () => {
+//     return (
+//       <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 rounded-2xl mb-6">
+//         <div className="flex items-center justify-between">
+//           <div className="flex items-center gap-2">
+//             <Activity className="h-5 w-5 animate-pulse" />
+//             <span className="font-semibold">Real vaqt rejimi</span>
+//           </div>
+//           <div className="flex gap-6">
+//             <div className="text-center">
+//               <p className="text-2xl font-bold">{liveStats.activeUsers}</p>
+//               <p className="text-xs opacity-90">Faol foydalanuvchilar</p>
+//             </div>
+//             <div className="text-center">
+//               <p className="text-2xl font-bold">{liveStats.todayPayments}</p>
+//               <p className="text-xs opacity-90">Bugungi to'lovlar</p>
+//             </div>
+//             <div className="text-center">
+//               <p className="text-2xl font-bold">{liveStats.pendingRequests}</p>
+//               <p className="text-xs opacity-90">Kutilayotgan so'rovlar</p>
+//             </div>
+//           </div>
+//           <div className="flex items-center gap-2">
+//             <div className="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+//             <span className="text-sm">Online</span>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   return (
+//     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gradient-to-br from-blue-50 to-indigo-100'} transition-colors duration-300`}>
+//       <style>{styles}</style>
+      
+//       {/* Header */}
+//       <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+//         <div className="px-6 py-4">
+//           <div className="flex items-center justify-between">
+//             <div className="flex items-center gap-4">
+//               <div className="bg-gradient-to-br from-blue-500 to-purple-600 p-2 rounded-xl">
+//                 <Building className="h-6 w-6 text-white" />
+//               </div>
+//               <div>
+//                 <h1 className="text-xl font-bold text-gray-900">Universitet Moliya Tizimi</h1>
+//                 <p className="text-sm text-gray-600">Boshqaruv paneli</p>
+//               </div>
+//             </div>
+            
+//             <div className="flex items-center gap-4">
+//               {/* Search */}
+//               <div className="relative">
+//                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+//                 <input
+//                   type="text"
+//                   placeholder="Qidirish..."
+//                   value={searchQuery}
+//                   onChange={(e) => setSearchQuery(e.target.value)}
+//                   className="pl-10 pr-4 py-2 bg-gray-100 border-0 rounded-xl focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all duration-300 w-64"
+//                 />
+//               </div>
+
+//               {/* Theme Toggle */}
+//               <button
+//                 onClick={() => setIsDarkMode(!isDarkMode)}
+//                 className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-200"
+//               >
+//                 <Settings className="h-5 w-5 text-gray-600" />
+//               </button>
+
+//               {/* Notifications */}
+//               <div className="relative">
+//                 <button
+//                   onClick={() => setShowNotifications(!showNotifications)}
+//                   className="p-2 hover:bg-gray-100 rounded-xl transition-colors duration-200 relative"
+//                 >
+//                   <Bell className="h-5 w-5 text-gray-600" />
+//                   {notifications.filter(n => n.unread).length > 0 && (
+//                     <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+//                   )}
+//                 </button>
+//                 {showNotifications && <NotificationPanel />}
+//               </div>
+
+//               {/* User Profile */}
+//               <div className="flex items-center gap-3">
+//                 <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+//                   <span className="text-white text-sm font-bold">A</span>
+//                 </div>
+//                 <div className="text-sm">
+//                   <p className="font-medium text-gray-900">Adminstrator</p>
+//                   <p className="text-gray-600">Super admin</p>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </header>
+
+//       {/* Main Content */}
+//       <main className="container mx-auto px-6 py-8">
+//         {/* Controls */}
+//         <div className="flex items-center justify-between mb-8">
+//           <div className="flex items-center gap-4">
+//             <div className="bg-white rounded-2xl p-4 shadow-sm">
+//               <div className="flex items-center gap-2">
+//                 <Calendar className="h-5 w-5 text-gray-600" />
+//                 <select
+//                   value={selectedYear}
+//                   onChange={(e) => setSelectedYear(e.target.value)}
+//                   className="bg-transparent border-0 focus:ring-0 font-medium"
+//                 >
+//                   <option>2024-2025</option>
+//                   <option>2025-2026</option>
+//                   <option>2026-2027</option>
+//                 </select>
+//               </div>
+//             </div>
+            
+//             <div className="flex bg-white rounded-2xl p-1 shadow-sm">
+//               {['all', 'payments', 'contracts', 'debts'].map((filter) => (
+//                 <button
+//                   key={filter}
+//                   onClick={() => setActiveFilter(filter)}
+//                   className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${
+//                     activeFilter === filter 
+//                       ? 'bg-blue-500 text-white shadow-sm' 
+//                       : 'text-gray-600 hover:text-gray-900'
+//                   }`}
+//                 >
+//                   {filter === 'all' && 'Hammasi'}
+//                   {filter === 'payments' && 'To\'lovlar'}
+//                   {filter === 'contracts' && 'Shartnomalar'}
+//                   {filter === 'debts' && 'Qarzdorliklar'}
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+
+//           <div className="flex items-center gap-3">
+//             <button className="flex items-center gap-2 bg-white px-4 py-3 rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-300">
+//               <Download className="h-4 w-4" />
+//               <span className="font-medium">Eksport</span>
+//             </button>
+//             <button className="flex items-center gap-2 bg-gradient-to-br from-blue-500 to-purple-600 text-white px-4 py-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105">
+//               <FileText className="h-4 w-4" />
+//               <span className="font-medium">Hisobot yaratish</span>
+//             </button>
+//           </div>
+//         </div>
+
+//         {/* Live Stats */}
+//         <LiveStatsBar />
+
+//         {/* Dashboard Grid */}
+//         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+//           {Object.entries(dashboardData).map(([key, data], index) => (
+//             <StatCard
+//               key={key}
+//               data={data}
+//               onClick={() => setSelectedCard(data)}
+//               style={{
+//                 animation: `fadeInUp 0.6s ease-out ${index * 100}ms both`
+//               }}
+//             />
+//           ))}
+//         </div>
+
+//         {/* Additional Analytics */}
+//         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+//           <div className="bg-white rounded-3xl p-6 shadow-sm">
+//             <div className="flex items-center gap-3 mb-4">
+//               <div className="p-2 bg-green-100 rounded-xl">
+//                 <TrendingUp className="h-5 w-5 text-green-600" />
+//               </div>
+//               <h3 className="font-bold text-gray-900">Umumiy statistika</h3>
+//             </div>
+//             <div className="space-y-3">
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Jami to'lovlar</span>
+//                 <span className="font-bold text-gray-900">12,456.8 mlrd</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Faol shartnomalar</span>
+//                 <span className="font-bold text-gray-900">829,045 ta</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">O'rtacha to'lov</span>
+//                 <span className="font-bold text-gray-900">15.0 mln</span>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="bg-white rounded-3xl p-6 shadow-sm">
+//             <div className="flex items-center gap-3 mb-4">
+//               <div className="p-2 bg-blue-100 rounded-xl">
+//                 <Users className="h-5 w-5 text-blue-600" />
+//               </div>
+//               <h3 className="font-bold text-gray-900">Talabalar statistikasi</h3>
+//             </div>
+//             <div className="space-y-3">
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Jami talabalar</span>
+//                 <span className="font-bold text-gray-900">184,939</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Stipendiya oluvchilar</span>
+//                 <span className="font-bold text-gray-900">150,114</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Kontrakt asosida</span>
+//                 <span className="font-bold text-gray-900">34,825</span>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="bg-white rounded-3xl p-6 shadow-sm">
+//             <div className="flex items-center gap-3 mb-4">
+//               <div className="p-2 bg-purple-100 rounded-xl">
+//                 <PieChart className="h-5 w-5 text-purple-600" />
+//               </div>
+//               <h3 className="font-bold text-gray-900">To'lov turlari</h3>
+//             </div>
+//             <div className="space-y-3">
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Online to'lovlar</span>
+//                 <span className="font-bold text-gray-900">67%</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Bank orqali</span>
+//                 <span className="font-bold text-gray-900">23%</span>
+//               </div>
+//               <div className="flex justify-between items-center">
+//                 <span className="text-sm text-gray-600">Boshqa usullar</span>
+//                 <span className="font-bold text-gray-900">10%</span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </main>
+
+//       {/* Modal */}
+//       <Modal data={selectedCard} onClose={() => setSelectedCard(null)} />
+//     </div>
+//   );
+// };
+
+// export default HemisDashboard;
