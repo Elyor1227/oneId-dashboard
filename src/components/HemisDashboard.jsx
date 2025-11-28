@@ -5511,1276 +5511,2091 @@
 
 // Animations 2
 
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, TrendingDown, Search, Filter, Calendar, FileText, DollarSign, Users, Award, Building, Download, Share2, Bell, Settings, ChevronRight, BarChart3,  Activity, Zap } from 'lucide-react';
+// import React, { useState, useEffect } from 'react';
+// import { TrendingUp, TrendingDown, Search, Filter, Calendar, FileText, DollarSign, Users, Award, Building, Download, Share2, Bell, Settings, ChevronRight, BarChart3,  Activity, Zap } from 'lucide-react';
 
-// CSS Animations
-const styles = `
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+// // CSS Animations
+// const styles = `
+//   @keyframes fadeInUp {
+//     from {
+//       opacity: 0;
+//       transform: translateY(30px);
+//     }
+//     to {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+//   }
   
-  @keyframes slideIn {
-    from {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+//   @keyframes slideIn {
+//     from {
+//       opacity: 0;
+//       transform: translateX(-20px);
+//     }
+//     to {
+//       opacity: 1;
+//       transform: translateX(0);
+//     }
+//   }
   
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
+//   @keyframes float {
+//     0%, 100% {
+//       transform: translateY(0px);
+//     }
+//     50% {
+//       transform: translateY(-10px);
+//     }
+//   }
   
-  @keyframes pulse-ring {
-    0% {
-      transform: scale(0.95);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1);
-      opacity: 0.7;
-    }
-    100% {
-      transform: scale(0.95);
-      opacity: 1;
-    }
-  }
+//   @keyframes pulse-ring {
+//     0% {
+//       transform: scale(0.95);
+//       opacity: 1;
+//     }
+//     50% {
+//       transform: scale(1);
+//       opacity: 0.7;
+//     }
+//     100% {
+//       transform: scale(0.95);
+//       opacity: 1;
+//     }
+//   }
   
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
+//   @keyframes shimmer {
+//     0% {
+//       background-position: -1000px 0;
+//     }
+//     100% {
+//       background-position: 1000px 0;
+//     }
+//   }
   
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
+//   .animate-float {
+//     animation: float 3s ease-in-out infinite;
+//   }
   
-  .animate-pulse-ring {
-    animation: pulse-ring 2s ease-in-out infinite;
-  }
+//   .animate-pulse-ring {
+//     animation: pulse-ring 2s ease-in-out infinite;
+//   }
   
-  .shimmer {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite;
-  }
+//   .shimmer {
+//     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+//     background-size: 1000px 100%;
+//     animation: shimmer 2s infinite;
+//   }
   
-  @keyframes slideDown {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+//   @keyframes slideDown {
+//     from {
+//       opacity: 0;
+//       transform: translateY(-20px);
+//     }
+//     to {
+//       opacity: 1;
+//       transform: translateY(0);
+//     }
+//   }
   
-  .notification-enter {
-    animation: slideDown 0.3s ease-out;
-  }
-`;
+//   .notification-enter {
+//     animation: slideDown 0.3s ease-out;
+//   }
+// `;
 
-const ModernDashboard = () => {
-  const [selectedYear, setSelectedYear] = useState('2025-2026');
-  const [selectedCard, setSelectedCard] = useState(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showNotifications, setShowNotifications] = useState(false);
-  const [notifications, setNotifications] = useState([
-    { id: 1, type: 'success', message: "Yangi to'lov qabul qilindi", time: '5 daqiqa oldin', unread: true },
-    { id: 2, type: 'warning', message: 'Qarzdorlik muddati tugaydi', time: '1 soat oldin', unread: true },
-    { id: 3, type: 'info', message: 'Oylik hisobot tayyor', time: '2 soat oldin', unread: false }
-  ]);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [liveStats, setLiveStats] = useState({
-    activeUsers: 1245,
-    todayPayments: 45,
-    pendingRequests: 89
-  });
+// const ModernDashboard = () => {
+//   const [selectedYear, setSelectedYear] = useState('2025-2026');
+//   const [selectedCard, setSelectedCard] = useState(null);
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [showNotifications, setShowNotifications] = useState(false);
+//   const [notifications, setNotifications] = useState([
+//     { id: 1, type: 'success', message: "Yangi to'lov qabul qilindi", time: '5 daqiqa oldin', unread: true },
+//     { id: 2, type: 'warning', message: 'Qarzdorlik muddati tugaydi', time: '1 soat oldin', unread: true },
+//     { id: 3, type: 'info', message: 'Oylik hisobot tayyor', time: '2 soat oldin', unread: false }
+//   ]);
+//   const [isDarkMode, setIsDarkMode] = useState(false);
+//   const [liveStats, setLiveStats] = useState({
+//     activeUsers: 1245,
+//     todayPayments: 45,
+//     pendingRequests: 89
+//   });
 
-  // Real-time counter simulation
+//   // Real-time counter simulation
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       setLiveStats(prev => ({
+//         activeUsers: prev.activeUsers + Math.floor(Math.random() * 10) - 5,
+//         todayPayments: prev.todayPayments + Math.floor(Math.random() * 3),
+//         pendingRequests: prev.pendingRequests + Math.floor(Math.random() * 5) - 2
+//       }));
+//     }, 3000);
+//     return () => clearInterval(interval);
+//   }, []);
+
+//   const dashboardData = {
+//     tolovKontrakt1: {
+//       title: "To'lov kontrakt",
+//       icon: FileText,
+//       color: "from-blue-500 to-blue-600",
+//       stats: [
+//         { label: "Arizalar soni", value: "698 124 ta", subValue: "Shartnomalar soni: 697 555 ta", trend: 2.5 },
+//         { label: "Shartnomalar summasi", value: "9 789.8 mlrd so'm", subValue: "To'langan summa: 3 651.1 mlrd", trend: -1.2 },
+//         { label: "Qarzdorlik soni", value: "911 949 ta", subValue: "10 082.0 mlrd so'm", trend: 5.3 },
+//         { label: "Haqдorlik soni", value: "434 554 ta", subValue: "2 738.4 mlrd so'm", trend: -0.8 }
+//       ],
+//       details: {
+//         byFaculty: [
+//           { name: "Matematika", students: 1250, amount: "850.5 mln", progress: 85 },
+//           { name: "Fizika", students: 980, amount: "720.3 mln", progress: 72 },
+//           { name: "Kimyo", students: 1100, amount: "790.8 mln", progress: 79 }
+//         ],
+//         monthly: [
+//           { month: "Sentyabr", collected: "450.2 mln", planned: "500 mln", percentage: 90 },
+//           { month: "Oktyabr", collected: "480.5 mln", planned: "500 mln", percentage: 96 },
+//           { month: "Noyabr", collected: "520.8 mln", planned: "500 mln", percentage: 104 }
+//         ]
+//       }
+//     },
+//     kreditModul1: {
+//       title: "Kredit modul",
+//       icon: Award,
+//       color: "from-purple-500 to-purple-600",
+//       stats: [
+//         { label: "Arizalar soni", value: "30 789 ta", subValue: "Shartnomalar: 30 426 ta", trend: 3.2 },
+//         { label: "Shartnomalar summasi", value: "0.0 mlrd so'm", subValue: "To'langan: 0.0 mlrd", trend: 0 },
+//         { label: "Qarzdorlik soni", value: "94 154 ta", subValue: "190.2 mlrd so'm", trend: 2.1 },
+//         { label: "Haqдorlik soni", value: "127 552 ta", subValue: "74.1 mlrd so'm", trend: -1.5 }
+//       ],
+//       details: {
+//         byDegree: [
+//           { name: "Bakalavr", students: 25000, amount: "150.2 mln", progress: 88 },
+//           { name: "Magistratura", students: 5000, amount: "40.0 mln", progress: 65 }
+//         ]
+//       }
+//     },
+//     stipendiya: {
+//       title: "Stipendiya (VM-59)",
+//       icon: DollarSign,
+//       color: "from-green-500 to-green-600",
+//       stats: [
+//         { 
+//           label: "Stipendiya oluvchilar talaba soni", 
+//           value: "184 939 nafar",
+//           budget: "150 114 nafar",
+//           contract: "34 825 nafar",
+//           percentage: "19.8% / 81.2%",
+//           trend: 1.5
+//         },
+//         { 
+//           label: "Hisoblanган summa", 
+//           value: "449.3 mlrd",
+//           budget: "405.8 mlrd",
+//           contract: "43.5 mlrd",
+//           percentage: "9.7% / 90.3%",
+//           trend: 2.3
+//         },
+//         { 
+//           label: "To'langan summa", 
+//           value: "448.4 mlrd",
+//           budget: "405.4 mlrd",
+//           contract: "43.1 mlrd",
+//           percentage: "9.6% / 90.4%",
+//           trend: 2.1
+//         }
+//       ]
+//     },
+//     talabalar: {
+//       title: "Talabalar turar joyi",
+//       icon: Building,
+//       color: "from-orange-500 to-orange-600",
+//       stats: [
+//         { label: "Arizalar soni", value: "98 382 ta", subValue: "Shartnomalar: 100 364 ta", trend: 4.2 },
+//         { label: "Shartnomalar summasi", value: "253.3 mlrd so'm", subValue: "To'langan: 90.3 mlrd", trend: 1.8 },
+//         { label: "Qarzdorlik soni", value: "104 963 ta", subValue: "182.4 mlrd so'm", trend: 3.5 },
+//         { label: "Haqдorlik soni", value: "24 684 ta", subValue: "8.8 mlrd so'm", trend: -2.1 }
+//       ]
+//     }
+//   };
+//   const dashboardData1 = {
+//     stipendiya: {
+//       title: "Stipendiya (VM-59)",
+//       icon: DollarSign,
+//       color: "from-green-500 to-green-600",
+//       stats: [
+//         { 
+//           label: "Stipendiya oluvchilar talaba soni", 
+//           value: "184 939 nafar",
+//           budget: "150 114 nafar",
+//           contract: "34 825 nafar",
+//           percentage: "19.8% / 81.2%",
+//           trend: 1.5
+//         },
+//         { 
+//           label: "Hisoblanган summa", 
+//           value: "449.3 mlrd",
+//           budget: "405.8 mlrd",
+//           contract: "43.5 mlrd",
+//           percentage: "9.7% / 90.3%",
+//           trend: 2.3
+//         },
+//         { 
+//           label: "To'langan summa", 
+//           value: "448.4 mlrd",
+//           budget: "405.4 mlrd",
+//           contract: "43.1 mlrd",
+//           percentage: "9.6% / 90.4%",
+//           trend: 2.1
+//         }
+//       ]
+//     },
+//     talabalar: {
+//       title: "Talabalar turar joyi",
+//       icon: Building,
+//       color: "from-blue-500 to-blue-600",
+//       stats: [
+//         { label: "Arizalar soni", value: "98 382 ta", subValue: "Shartnomalar: 100 364 ta", trend: 4.2 },
+//         { label: "Shartnomalar summasi", value: "253.3 mlrd so'm", subValue: "To'langan: 90.3 mlrd", trend: 1.8 },
+//         { label: "Qarzdorlik soni", value: "104 963 ta", subValue: "182.4 mlrd so'm", trend: 3.5 },
+//         { label: "Haqдorlik soni", value: "24 684 ta", subValue: "8.8 mlrd so'm", trend: -2.1 }
+//       ]
+//     }
+//   };
+
+//   const StatCard = ({ data, onClick }) => {
+//     const Icon = data.icon;
+//     const [isHovered, setIsHovered] = useState(false);
+    
+//     return (
+//       <div
+//         onClick={onClick}
+//         onMouseEnter={() => setIsHovered(true)}
+//         onMouseLeave={() => setIsHovered(false)}
+//         className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${data.color} p-6 text-white cursor-pointer transform transition-all duration-500 hover:scale-[1.02] group shadow-xl hover:shadow-2xl`}
+//         style={{
+//           boxShadow: isHovered 
+//             ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(59, 130, 246, 0.3)' 
+//             : '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+//         }}
+//       >
+//         {/* Animated background circles */}
+//         <div className={`absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white opacity-10 transition-all duration-700 ${isHovered ? 'opacity-20 scale-150' : 'scale-100'}`}></div>
+//         <div className={`absolute bottom-0 left-0 -mb-6 -ml-6 h-40 w-40 rounded-full bg-white opacity-5 transition-all duration-1000 ${isHovered ? 'opacity-15 scale-125' : 'scale-100'}`}></div>
+        
+//         {/* Shimmer effect */}
+//         {isHovered && <div className="absolute inset-0 shimmer"></div>}
+        
+//         {/* Animated gradient overlay */}
+//         <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 opacity-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
+        
+//         <div className="relative z-10">
+//           <div className="flex items-center justify-between mb-4">
+//             <div className={`p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm transition-all duration-300 ${isHovered ? 'scale-110 rotate-6 bg-opacity-30' : ''}`}>
+//               <Icon className={`h-6 w-6 transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`} />
+//             </div>
+//             <div className="flex gap-2">
+//               <button 
+//                 className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+//                 onClick={(e) => { e.stopPropagation(); }}
+//               >
+//                 <Download className="h-4 w-4" />
+//               </button>
+//               <button 
+//                 className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+//                 onClick={(e) => { e.stopPropagation(); }}
+//               >
+//                 <Share2 className="h-4 w-4" />
+//               </button>
+//             </div>
+//           </div>
+//           <h3 className={`text-xl font-bold mb-6 transition-all duration-300 ${isHovered ? 'translate-x-2' : ''}`}>{data.title}</h3>
+//           <div className="grid grid-cols-2 gap-4">
+//             {data.stats.map((stat, idx) => (
+//               <div 
+//                 key={idx} 
+//                 className={`bg-white bg-opacity-10 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 ${isHovered ? 'bg-opacity-20 translate-y-[-4px]' : ''}`}
+//                 style={{
+//                   transitionDelay: `${idx * 50}ms`
+//                 }}
+//               >
+//                 <p className="text-xs opacity-90 mb-2">{stat.label}</p>
+//                 <p className={`text-lg font-bold mb-1 transition-all duration-300 ${isHovered ? 'scale-105' : ''}`}>{stat.value}</p>
+//                 {stat.subValue && (
+//                   <p className="text-xs opacity-75">{stat.subValue}</p>
+//                 )}
+//                 {stat.trend !== undefined && stat.trend !== 0 && (
+//                   <div className={`flex items-center mt-2 transition-all duration-300 ${isHovered ? 'translate-x-1' : ''}`}>
+//                     {stat.trend > 0 ? (
+//                       <>
+//                         <TrendingUp className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
+//                         <span className="text-xs">+{stat.trend}%</span>
+//                       </>
+//                     ) : (
+//                       <>
+//                         <TrendingDown className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
+//                         <span className="text-xs">{stat.trend}%</span>
+//                       </>
+//                     )}
+//                   </div>
+//                 )}
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   const Modal = ({ data, onClose }) => {
+//     const Icon = data.icon;
+//     const [isVisible, setIsVisible] = useState(false);
+//     const [activeTab, setActiveTab] = useState('overview');
+    
+//     useEffect(() => {
+//       setIsVisible(true);
+//     }, []);
+//     if (!data) return null;
+
+//     return (
+//       <div 
+//         className={`fixed inset-0 bg-black transition-opacity duration-300 flex items-center justify-center z-50 p-4 ${isVisible ? 'bg-opacity-50' : 'bg-opacity-0'}`}
+//         onClick={onClose}
+//       >
+//         <div 
+//           className={`bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl transition-all duration-500 transform ${isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
+//           onClick={(e) => e.stopPropagation()}
+//           style={{
+//             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 60px rgba(59, 130, 246, 0.2)'
+//           }}
+//         >
+//           <div className={`bg-gradient-to-br ${data.color} p-8 text-white relative overflow-hidden`}>
+//             {/* Animated background */}
+//             <div className="absolute inset-0 opacity-20">
+//               <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
+//               <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
+//             </div>
+            
+//             <div className="flex items-center justify-between relative z-10">
+//               <div className="flex items-center gap-4">
+//                 <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm animate-pulse-ring">
+//                   <Icon className="h-8 w-8" />
+//                 </div>
+//                 <div>
+//                   <h2 className="text-3xl font-bold">{data.title}</h2>
+//                   <p className="text-sm opacity-90 mt-1">Batafsil statistika va ma'lumotlar</p>
+//                 </div>
+//               </div>
+//               <div className="flex gap-2">
+//                 <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
+//                   <Download className="h-5 w-5" />
+//                 </button>
+//                 <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
+//                   <Share2 className="h-5 w-5" />
+//                 </button>
+//                 <button
+//                   onClick={onClose}
+//                   className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300 hover:rotate-90"
+//                 >
+//                   <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+//                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+//                   </svg>
+//                 </button>
+//               </div>
+//             </div>
+
+//             {/* Tabs */}
+//             <div className="flex gap-2 mt-6 relative z-10">
+//               {['overview', 'details', 'analytics'].map((tab) => (
+//                 <button
+//                   key={tab}
+//                   onClick={() => setActiveTab(tab)}
+//                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+//                     activeTab === tab 
+//                       ? 'bg-white bg-opacity-30 backdrop-blur-sm' 
+//                       : 'bg-white bg-opacity-10 hover:bg-opacity-20'
+//                   }`}
+//                 >
+//                   {tab === 'overview' && 'Umumiy'}
+//                   {tab === 'details' && 'Batafsil'}
+//                   {tab === 'analytics' && 'Tahlil'}
+//                 </button>
+//               ))}
+//             </div>
+//           </div>
+
+//           <div className="p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
+//             {activeTab === 'overview' && (
+//               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+//                 {data.stats.map((stat, idx) => (
+//                   <div 
+//                     key={idx} 
+//                     className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
+//                     style={{
+//                       animation: `slideIn 0.5s ease-out ${idx * 100}ms both`
+//                     }}
+//                   >
+//                     <p className="text-sm text-gray-600 mb-2">{stat.label}</p>
+//                     <p className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</p>
+//                     {stat.subValue && (
+//                       <p className="text-sm text-gray-500">{stat.subValue}</p>
+//                     )}
+//                     {stat.percentage && (
+//                       <div className="mt-3">
+//                         <div className="flex justify-between text-xs text-gray-600 mb-1">
+//                           <span>Budjet / Kontrakt</span>
+//                           <span>{stat.percentage}</span>
+//                         </div>
+//                         <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+//                           <div 
+//                             className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000 ease-out"
+//                             style={{
+//                               width: isVisible ? stat.percentage.split('/')[0].trim() : '0%'
+//                             }}
+//                           ></div>
+//                         </div>
+//                       </div>
+//                     )}
+//                     {stat.trend !== undefined && stat.trend !== 0 && (
+//                       <div className="flex items-center mt-3 text-sm">
+//                         {stat.trend > 0 ? (
+//                           <>
+//                             <TrendingUp className="h-4 w-4 mr-1 text-green-500 animate-bounce" />
+//                             <span className="text-green-600 font-medium">+{stat.trend}% o'sish</span>
+//                           </>
+//                         ) : (
+//                           <>
+//                             <TrendingDown className="h-4 w-4 mr-1 text-red-500 animate-bounce" />
+//                             <span className="text-red-600 font-medium">{stat.trend}% kamayish</span>
+//                           </>
+//                         )}
+//                       </div>
+//                     )}
+//                   </div>
+//                 ))}
+//               </div>
+//             )}
+
+//             {activeTab === 'details' && data.details && (
+//               <div className="space-y-6">
+//                 {data.details.byFaculty && (
+//                   <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6">
+//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Fakultetlar bo'yicha</h3>
+//                     <div className="space-y-3">
+//                       {data.details.byFaculty.map((faculty, idx) => (
+//                         <div key={idx} className="bg-white rounded-xl p-4">
+//                           <div className="flex justify-between items-center mb-3">
+//                             <div>
+//                               <p className="font-semibold text-gray-900">{faculty.name}</p>
+//                               <p className="text-sm text-gray-600">{faculty.students} talaba</p>
+//                             </div>
+//                             <p className="text-lg font-bold text-blue-600">{faculty.amount}</p>
+//                           </div>
+//                           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+//                             <div 
+//                               className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
+//                               style={{width: isVisible ? `${faculty.progress}%` : '0%'}}
+//                             ></div>
+//                           </div>
+//                           <p className="text-xs text-gray-500 mt-1">{faculty.progress}% to'langan</p>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 )}
+
+//                 {data.details.byDegree && (
+//                   <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6">
+//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Ta'lim darajasi bo'yicha</h3>
+//                     <div className="space-y-3">
+//                       {data.details.byDegree.map((degree, idx) => (
+//                         <div key={idx} className="bg-white rounded-xl p-4">
+//                           <div className="flex justify-between items-center mb-3">
+//                             <div>
+//                               <p className="font-semibold text-gray-900">{degree.name}</p>
+//                               <p className="text-sm text-gray-600">{degree.students} talaba</p>
+//                             </div>
+//                             <p className="text-lg font-bold text-purple-600">{degree.amount}</p>
+//                           </div>
+//                           <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+//                             <div 
+//                               className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-1000"
+//                               style={{width: isVisible ? `${degree.progress}%` : '0%'}}
+//                             ></div>
+//                           </div>
+//                           <p className="text-xs text-gray-500 mt-1">{degree.progress}% to'langan</p>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 )}
+
+//                 {data.details.monthly && (
+//                   <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6">
+//                     <h3 className="text-lg font-bold text-gray-900 mb-4">Oylik statistika</h3>
+//                     <div className="space-y-3">
+//                       {data.details.monthly.map((month, idx) => (
+//                         <div key={idx} className="bg-white rounded-xl p-4">
+//                           <div className="flex justify-between items-center mb-2">
+//                             <p className="font-semibold text-gray-900">{month.month}</p>
+//                             <p className="text-sm text-gray-600">Reja: {month.planned}</p>
+//                           </div>
+//                           <div className="flex items-center gap-3">
+//                             <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
+//                               <div 
+//                                 className={`h-full ${month.percentage >= 100 ? 'bg-gradient-to-r from-green-500 to-teal-500' : 'bg-gradient-to-r from-orange-500 to-yellow-500'} transition-all duration-1000`}
+//                                 style={{width: isVisible ? `${Math.min(month.percentage, 100)}%` : '0%'}}
+//                               ></div>
+//                             </div>
+//                             <p className="text-lg font-bold text-green-600">{month.collected}</p>
+//                           </div>
+//                           <p className="text-xs text-gray-500 mt-1">{month.percentage}% bajarildi</p>
+//                         </div>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 )}
+//               </div>
+//             )}
+
+//             {activeTab === 'analytics' && (
+//               <div className="space-y-6">
+//                 <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6">
+//                   <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+//                     <BarChart3 className="h-5 w-5 text-indigo-600" />
+//                     Tahlil va prognoz
+//                   </h3>
+//                   <div className="grid grid-cols-2 gap-4">
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">O'rtacha o'sish sur'ati</p>
+//                       <p className="text-2xl font-bold text-indigo-600">+12.5%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Oylik</p>
+//                     </div>
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">To'lov faolligi</p>
+//                       <p className="text-2xl font-bold text-green-600">87.3%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Hozirgi holat</p>
+//                     </div>
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">Kelgusi oy prognozi</p>
+//                       <p className="text-2xl font-bold text-purple-600">+8.7%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Kutilmoqda</p>
+//                     </div>
+//                     <div className="bg-white rounded-xl p-4">
+//                       <p className="text-sm text-gray-600 mb-2">Samaradorlik darajasi</p>
+//                       <p className="text-2xl font-bold text-orange-600">92.1%</p>
+//                       <p className="text-xs text-gray-500 mt-1">Umumiy</p>
+//                     </div>
+//                   </div>
+//                 </div>
+//                 <div className="bg-white border border-gray-200 rounded-2xl p-6">
+//                   <h4 className="font-semibold text-gray-900 mb-3">Tavsiyalar</h4>
+//                   <div className="space-y-2">
+//                     <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
+//                       <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
+//                       <div>
+//                         <p className="text-sm font-medium text-gray-900">Qarzdorlikni kamaytirish</p>
+//                         <p className="text-xs text-gray-600">SMS xabarnoma tizimini faollashtiring</p>
+//                       </div>
+//                     </div>
+//                     <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
+//                       <Zap className="h-5 w-5 text-green-600 mt-0.5" />
+//                       <div>
+//                         <p className="text-sm font-medium text-gray-900">To'lovlarni tezlashtirish</p>
+//                         <p className="text-xs text-gray-600">Online to'lov tizimini yaxshilang</p>
+//                       </div>
+//                     </div>
+//                     <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
+//                       <Zap className="h-5 w-5 text-purple-600 mt-0.5" />
+//                       <div>
+//                         <p className="text-sm font-medium text-gray-900">Samaradorlikni oshirish</p>
+//                         <p className="text-xs text-gray-600">Avtomatlashtirish tizimlarini joriy qiling</p>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   };
+
+//   return (
+//     <>
+//       <style>{styles}</style>
+//       <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50'} transition-colors duration-500`}>
+//         {/* Header with enhanced design */}
+//         <header className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-xl sticky top-0 z-40 backdrop-blur-lg bg-opacity-90 transition-all duration-300`}>
+//           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+//             <div className="flex items-center justify-between">
+//               <div className="flex items-center gap-4">
+//                 <div className="relative">
+//                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl blur-lg opacity-50 animate-pulse"></div>
+//                   <div className="relative bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-xl">
+//                     <Activity className="h-6 w-6 text-white" />
+//                   </div>
+//                 </div>
+//                 <div>
+//                   <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+//                     Moliya Dashboard
+//                   </h1>
+//                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+//                     {selectedYear} o'quv yili
+//                   </p>
+//                 </div>
+//               </div>
+
+//               <div className="flex items-center gap-4">
+//                 {/* Live Stats */}
+//                 <div className="hidden md:flex items-center gap-4">
+//                   <div className={`px-4 py-2 rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-blue-50'} flex items-center gap-2`}>
+//                     <Users className={`h-4 w-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} animate-pulse`} />
+//                     <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+//                       {liveStats.activeUsers.toLocaleString()}
+//                     </span>
+//                   </div>
+//                   <div className={`px-4 py-2 rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-green-50'} flex items-center gap-2`}>
+//                     <DollarSign className={`h-4 w-4 ${isDarkMode ? 'text-green-400' : 'text-green-600'} animate-pulse`} />
+//                     <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+//                       {liveStats.todayPayments}
+//                     </span>
+//                   </div>
+//                 </div>
+
+//                 {/* Notifications */}
+//                 <div className="relative">
+//                   <button
+//                     onClick={() => setShowNotifications(!showNotifications)}
+//                     className={`p-3 rounded-xl ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition-all duration-300 relative`}
+//                   >
+//                     <Bell className={`h-5 w-5 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`} />
+//                     {notifications.some(n => n.unread) && (
+//                       <span className="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
+//                     )}
+//                   </button>
+
+//                   {showNotifications && (
+//                     <div className={`absolute right-0 mt-2 w-80 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl shadow-2xl overflow-hidden notification-enter`}>
+//                       <div className={`p-4 ${isDarkMode ? 'bg-gray-700' : 'bg-gradient-to-r from-blue-500 to-purple-500'} text-white`}>
+//                         <h3 className="font-bold">Bildirishnomalar</h3>
+//                       </div>
+//                       <div className="max-h-96 overflow-y-auto">
+//                         {notifications.map(notif => (
+//                           <div
+//                             key={notif.id}
+//                             className={`p-4 border-b ${isDarkMode ? 'border-gray-700 hover:bg-gray-700' : 'border-gray-100 hover:bg-gray-50'} transition-colors cursor-pointer ${notif.unread ? (isDarkMode ? 'bg-gray-750' : 'bg-blue-50') : ''}`}
+//                           >
+//                             <div className="flex items-start gap-3">
+//                               <div className={`p-2 rounded-lg ${
+//                                 notif.type === 'success' ? 'bg-green-100 text-green-600' :
+//                                 notif.type === 'warning' ? 'bg-yellow-100 text-yellow-600' :
+//                                 'bg-blue-100 text-blue-600'
+//                               }`}>
+//                                 <Bell className="h-4 w-4" />
+//                               </div>
+//                               <div className="flex-1">
+//                                 <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
+//                                   {notif.message}
+//                                 </p>
+//                                 <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} mt-1`}>
+//                                   {notif.time}
+//                                 </p>
+//                               </div>
+//                             </div>
+//                           </div>
+//                         ))}
+//                       </div>
+//                     </div>
+//                   )}
+//                 </div>
+
+//                 {/* Settings */}
+//                 <button
+//                   onClick={() => setIsDarkMode(!isDarkMode)}
+//                   className={`p-3 rounded-xl ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition-all duration-300`}
+//                 >
+//                   <Settings className={`h-5 w-5 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`} />
+//                 </button>
+//               </div>
+//             </div>
+
+//             {/* Search and Filter Bar */}
+//             <div className="mt-4 flex flex-col sm:flex-row gap-3">
+//               <div className="flex-1 relative">
+//                 <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`} />
+//                 <input
+//                   type="text"
+//                   placeholder="Qidirish..."
+//                   value={searchQuery}
+//                   onChange={(e) => setSearchQuery(e.target.value)}
+//                   className={`w-full pl-10 pr-4 py-3 ${isDarkMode ? 'bg-gray-700 text-gray-200 placeholder-gray-400' : 'bg-white'} rounded-xl border-2 border-transparent focus:border-blue-500 outline-none transition-all duration-300`}
+//                 />
+//               </div>
+//               <div className="flex gap-2">
+//                 <button className={`px-4 py-3 ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-white hover:bg-gray-50'} rounded-xl flex items-center gap-2 transition-all duration-300`}>
+//                   <Filter className="h-5 w-5" />
+//                   <span className="hidden sm:inline">Filter</span>
+//                 </button>
+//                 <button className={`px-4 py-3 ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-white hover:bg-gray-50'} rounded-xl flex items-center gap-2 transition-all duration-300`}>
+//                   <Calendar className="h-5 w-5" />
+//                   <span className="hidden sm:inline">{selectedYear}</span>
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//         </header>
+
+//         {/* Main Content */}
+//         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+//           {/* Quick Stats */}
+//           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+//             <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
+//               <div className="flex items-center justify-between">
+//                 <div>
+//                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Jami talabalar</p>
+//                   <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
+//                     {liveStats.activeUsers.toLocaleString()}
+//                   </p>
+//                 </div>
+//                 <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl">
+//                   <Users className="h-8 w-8 text-white" />
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
+//               <div className="flex items-center justify-between">
+//                 <div>
+//                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Bugungi to'lovlar</p>
+//                   <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
+//                     {liveStats.todayPayments}
+//                   </p>
+//                 </div>
+//                 <div className="p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-xl">
+//                   <DollarSign className="h-8 w-8 text-white" />
+//                 </div>
+//               </div>
+//             </div>
+
+//             <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
+//               <div className="flex items-center justify-between">
+//                 <div>
+//                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Kutilayotgan</p>
+//                   <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
+//                     {liveStats.pendingRequests}
+//                   </p>
+//                 </div>
+//                 <div className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl">
+//                   <Activity className="h-8 w-8 text-white" />
+//                 </div>
+//               </div>
+//             </div>
+//             <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
+//               <div className="flex items-center justify-between">
+//                 <div>
+//                   <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Kutilayotgan</p>
+//                   <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
+//                     {liveStats.pendingRequests}
+//                   </p>
+//                 </div>
+//                 <div className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl">
+//                   <Activity className="h-8 w-8 text-white" />
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//           {/* Main Dashboard Cards */}
+//           <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-6 mb-8">
+//           <div className="flex items-center justify-between mb-6">
+//             <div>
+//               <h2 className="text-2xl font-bold text-gray-900">Shartnomalar dinamikasi</h2>
+//               <p className="text-gray-600 text-sm mt-1">Tasdiqlangan va bekor qilingan shartnomalar soni</p>
+//             </div>
+//             <div className="flex gap-6">
+//               <div className="flex items-center gap-2">
+//                 <div className="w-4 h-4 bg-blue-500 rounded"></div>
+//                 <span className="text-sm text-gray-600">Tasdiqlangan shartnomalar</span>
+//               </div>
+//               <div className="flex items-center gap-2">
+//                 <div className="w-4 h-4 bg-orange-500 rounded"></div>
+//                 <span className="text-sm text-gray-600">Bekor qilingan shartnomalar</span>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="relative h-80">
+//             {/* Y-axis labels */}
+//             <div className="absolute left-0 top-0 bottom-8 flex flex-col justify-between text-xs text-gray-500">
+//               <span>80000</span>
+//               <span>60000</span>
+//               <span>40000</span>
+//               <span>20000</span>
+//               <span>0</span>
+//               <span>-20000</span>
+//             </div>
+
+//             {/* Chart area */}
+//             <div className="ml-12 h-full flex items-end justify-around pb-8">
+//               {[
+//                 { month: 'Yanvar', approved: 68000, cancelled: 2100 },
+//                 { month: 'Fevral', approved: 52000, cancelled: 1800 },
+//                 { month: 'Mart', approved: 45000, cancelled: 1500 },
+//                 { month: 'Aprel', approved: 58000, cancelled: 2300 },
+//                 { month: 'May', approved: 56000, cancelled: 1900 },
+//                 { month: 'Iyun', approved: 72000, cancelled: 2500 },
+//                 { month: 'Iyul', approved: 48000, cancelled: 1700 }
+//               ].map((data, idx) => {
+//                 const maxHeight = 280;
+//                 const maxValue = 80000;
+//                 const approvedHeight = (data.approved / maxValue) * maxHeight;
+//                 const cancelledHeight = (data.cancelled / maxValue) * maxHeight;
+
+//                 return (
+//                   <div key={idx} className="flex flex-col items-center gap-2 group">
+//                     {/* Approved bar */}
+//                     <div 
+//                       className="w-12 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg transition-all duration-500 hover:from-blue-600 hover:to-blue-500 relative group/bar"
+//                       style={{ 
+//                         height: `${approvedHeight}px`,
+//                         animation: `slideIn 0.8s ease-out ${idx * 100}ms both`
+//                       }}
+//                     >
+//                       {/* Tooltip on hover */}
+//                       <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap z-10">
+//                         {data.approved.toLocaleString()} ta
+//                         <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+//                       </div>
+//                     </div>
+
+//                     {/* Cancelled bar (negative) */}
+//                     <div 
+//                       className="w-12 bg-gradient-to-b from-orange-400 to-orange-500 rounded-b-lg transition-all duration-500 hover:from-orange-500 hover:to-orange-600 relative group/bar"
+//                       style={{ 
+//                         height: `${cancelledHeight}px`,
+//                         animation: `slideIn 0.8s ease-out ${idx * 100 + 50}ms both`
+//                       }}
+//                     >
+//                       {/* Tooltip on hover */}
+//                       <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap z-10">
+//                         {data.cancelled.toLocaleString()} ta
+//                         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-900"></div>
+//                       </div>
+//                     </div>
+
+//                     {/* Month label */}
+//                     <span className="text-xs text-gray-600 font-medium mt-2 group-hover:text-blue-600 transition-colors">
+//                       {data.month}
+//                     </span>
+//                   </div>
+//                 );
+//               })}
+//             </div>
+
+//             {/* Zero line */}
+//             <div className="absolute left-12 right-0" style={{ top: 'calc(50% - 16px)' }}>
+//               <div className="h-px bg-gray-300"></div>
+//             </div>
+//           </div>
+
+//           {/* Summary stats */}
+//           <div className="grid grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-200">
+//             <div className="text-center">
+//               <p className="text-sm text-gray-600 mb-1">Jami tasdiqlangan</p>
+//               <p className="text-2xl font-bold text-blue-600">399 000</p>
+//               <p className="text-xs text-green-600 mt-1 flex items-center justify-center gap-1">
+//                 <TrendingUp className="h-3 w-3" />
+//                 +8.5%
+//               </p>
+//             </div>
+//             <div className="text-center">
+//               <p className="text-sm text-gray-600 mb-1">Jami bekor qilingan</p>
+//               <p className="text-2xl font-bold text-orange-600">13 800</p>
+//               <p className="text-xs text-red-600 mt-1 flex items-center justify-center gap-1">
+//                 <TrendingUp className="h-3 w-3" />
+//                 +3.2%
+//               </p>
+//             </div>
+//             <div className="text-center">
+//               <p className="text-sm text-gray-600 mb-1">Bekor qilish foizi</p>
+//               <p className="text-2xl font-bold text-gray-900">3.46%</p>
+//               <p className="text-xs text-gray-500 mt-1">O'rtacha</p>
+//             </div>
+//             <div className="text-center">
+//               <p className="text-sm text-gray-600 mb-1">Eng faol oy</p>
+//               <p className="text-2xl font-bold text-purple-600">Iyun</p>
+//               <p className="text-xs text-gray-500 mt-1">72 000 ta</p>
+//             </div>
+//           </div>
+//         </div>
+//           <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden mb-8">
+//           <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6">
+//             <div className="flex items-center justify-between">
+//               <div>
+//                 <h2 className="text-2xl font-bold text-white">Asosiy modullar</h2>
+//                 <p className="text-blue-100 text-sm mt-1">To'lov kontrakt, Kredit modul va Turar joy</p>
+//               </div>
+//               <div className="flex gap-2">
+//                 <button className="p-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all">
+//                   <Download className="h-5 w-5 text-white" />
+//                 </button>
+//                 <button className="p-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all">
+//                   <Settings className="h-5 w-5 text-white" />
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+
+//           <div className="overflow-x-auto">
+//             <table className="w-full">
+//               <thead>
+//                 <tr className="bg-gray-50 border-b border-gray-200">
+//                   <th className="text-left p-4 text-sm font-semibold text-gray-700">Modul nomi</th>
+//                   <th className="text-right p-4 text-sm font-semibold text-gray-700">Arizalar</th>
+//                   <th className="text-right p-4 text-sm font-semibold text-gray-700">Shartnomalar</th>
+//                   <th className="text-right p-4 text-sm font-semibold text-gray-700">Summa</th>
+//                   <th className="text-right p-4 text-sm font-semibold text-gray-700">Qarzdorlik</th>
+//                   <th className="text-right p-4 text-sm font-semibold text-gray-700">Trend</th>
+//                   <th className="text-right p-4 text-sm font-semibold text-gray-700">Amallar</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {[
+//                   ['tolovKontrakt', dashboardData.tolovKontrakt1],
+//                   ['kreditModul', dashboardData.kreditModul1],
+//                   ['talabalar', dashboardData.talabalar]
+//                 ].map(([key, data], idx) => {
+//                   const Icon = data.icon;
+//                   const avgTrend = data.stats.reduce((sum, stat) => sum + (stat.trend || 0), 0) / data.stats.length;
+                  
+//                   return (
+//                     <tr 
+//                       key={key}
+//                       className="border-b border-gray-100 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-300 cursor-pointer group"
+//                       style={{
+//                         animation: `fadeInUp 0.5s ease-out ${idx * 100}ms both`
+//                       }}
+//                       onClick={() => setSelectedCard(data)}
+//                     >
+//                       <td className="p-4">
+//                         <div className="flex items-center gap-3">
+//                           <div className={`p-3 bg-gradient-to-br ${data.color} rounded-xl group-hover:scale-110 transition-transform duration-300`}>
+//                             <Icon className="h-5 w-5 text-white" />
+//                           </div>
+//                           <div>
+//                             <p className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+//                               {data.title}
+//                             </p>
+//                             <p className="text-xs text-gray-500">
+//                               {data.stats.length} ta ko'rsatkich
+//                             </p>
+//                           </div>
+//                         </div>
+//                       </td>
+//                       <td className="p-4 text-right">
+//                         <p className="font-bold text-gray-900">{data.stats[0]?.value.split(' ')[0]}</p>
+//                         <p className="text-xs text-gray-500">{data.stats[0]?.value.split(' ')[1]}</p>
+//                       </td>
+//                       <td className="p-4 text-right">
+//                         <p className="font-bold text-gray-900">
+//                           {data.stats[0]?.subValue?.match(/\d+\s*\d*\s*\d*/)?.[0] || '-'}
+//                         </p>
+//                         <p className="text-xs text-gray-500">shartnoma</p>
+//                       </td>
+//                       <td className="p-4 text-right">
+//                         <p className="font-bold text-purple-600">
+//                           {data.stats[1]?.value.includes('mlrd') ? data.stats[1]?.value : data.stats[0]?.value}
+//                         </p>
+//                         <p className="text-xs text-gray-500">umumiy</p>
+//                       </td>
+//                       <td className="p-4 text-right">
+//                         <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-100 rounded-full">
+//                           <span className="font-bold text-orange-700">
+//                             {data.stats[2]?.value.split(' ')[0] || '-'}
+//                           </span>
+//                         </div>
+//                       </td>
+//                       <td className="p-4 text-right">
+//                         <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full ${
+//                           avgTrend > 0 ? 'bg-green-100' : avgTrend < 0 ? 'bg-red-100' : 'bg-gray-100'
+//                         }`}>
+//                           {avgTrend > 0 ? (
+//                             <>
+//                               <TrendingUp className="h-4 w-4 text-green-600" />
+//                               <span className="font-bold text-green-700">+{avgTrend.toFixed(1)}%</span>
+//                             </>
+//                           ) : avgTrend < 0 ? (
+//                             <>
+//                               <TrendingDown className="h-4 w-4 text-red-600" />
+//                               <span className="font-bold text-red-700">{avgTrend.toFixed(1)}%</span>
+//                             </>
+//                           ) : (
+//                             <span className="font-bold text-gray-700">0%</span>
+//                           )}
+//                         </div>
+//                       </td>
+//                       <td className="p-4 text-right">
+//                         <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+//                           <button 
+//                             className="p-2 bg-blue-100 rounded-lg hover:bg-blue-200 transition-all"
+//                             onClick={(e) => { e.stopPropagation(); }}
+//                           >
+//                             <BarChart3 className="h-4 w-4 text-blue-600" />
+//                           </button>
+//                           <button 
+//                             className="p-2 bg-green-100 rounded-lg hover:bg-green-200 transition-all"
+//                             onClick={(e) => { e.stopPropagation(); }}
+//                           >
+//                             <Download className="h-4 w-4 text-green-600" />
+//                           </button>
+//                           <button 
+//                             className="p-2 bg-purple-100 rounded-lg hover:bg-purple-200 transition-all"
+//                             onClick={(e) => { e.stopPropagation(); setSelectedCard(data); }}
+//                           >
+//                             <ChevronRight className="h-4 w-4 text-purple-600" />
+//                           </button>
+//                         </div>
+//                       </td>
+//                     </tr>
+//                   );
+//                 })}
+//               </tbody>
+//             </table>
+//           </div>
+
+//           <div className="bg-gray-50 p-4 border-t border-gray-200">
+//             <div className="flex items-center justify-between">
+//               <div className="flex items-center gap-4">
+//                 <p className="text-sm text-gray-600">
+//                   Jami <span className="font-bold text-gray-900">3</span> ta modul
+//                 </p>
+//               </div>
+//               <div className="flex gap-2">
+//                 <button className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-all">
+//                   Barchasini ko'rish →
+//                 </button>
+//               </div>
+//             </div>
+//           </div>
+//           </div>
+        
+
+//           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+//             {Object.entries(dashboardData1).map(([key, data]) => (
+//               <StatCard
+//                 key={key}
+//                 data={data}
+//                 onClick={() => setSelectedCard(data)}
+//               />
+//             ))}
+//           </div>
+//           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+//           {/* Income Card */}
+//           <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
+//             <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-4">
+//               <div className="flex items-center justify-between">
+//                 <div className="flex items-center gap-2">
+//                   <TrendingUp className="h-5 w-5 text-white" />
+//                   <div>
+//                     <h3 className="text-lg font-bold text-white">Top 5 - Daromad</h3>
+//                     <p className="text-green-100 text-xs">Eng ko'p daromadli universitetlar</p>
+//                   </div>
+//                 </div>
+//                 <button className="px-3 py-1.5 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all text-white text-xs font-medium">
+//                   Export
+//                 </button>
+//               </div>
+//             </div>
+            
+//             <div className="p-5">
+//               <div className="space-y-3">
+//                 {[
+//                   { name: "O'zbekiston Milliy Universiteti", amount: 2458.3, rank: 1 },
+//                   { name: "Toshkent Davlat Iqtisodiyot Universiteti", amount: 2187.6, rank: 2 },
+//                   { name: "Samarqand Davlat Universiteti", amount: 1956.8, rank: 3 },
+//                   { name: "Buxoro Davlat Universiteti", amount: 1743.2, rank: 4 },
+//                   { name: "Farg'ona Davlat Universiteti", amount: 1621.5, rank: 5 }
+//                 ].map((uni, idx) => {
+//                   const maxAmount = 2458.3;
+//                   const barWidth = (uni.amount / maxAmount) * 100;
+                  
+//                   return (
+//                     <div 
+//                       key={idx}
+//                       className="group"
+//                       style={{
+//                         animation: `fadeInUp 0.5s ease-out ${idx * 80}ms both`
+//                       }}
+//                     >
+//                       <div className="flex items-center gap-2 mb-1.5">
+//                         <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-300 flex-shrink-0 ${
+//                           uni.rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-white shadow-md' :
+//                           uni.rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-white shadow-sm' :
+//                           uni.rank === 3 ? 'bg-gradient-to-br from-orange-400 to-orange-500 text-white shadow-sm' :
+//                           'bg-gradient-to-br from-green-100 to-green-200 text-green-700'
+//                         } group-hover:scale-110 group-hover:rotate-12`}>
+//                           {uni.rank}
+//                         </div>
+//                         <div className="flex-1 min-w-0">
+//                           <p className="text-xs font-semibold text-gray-900 truncate group-hover:text-green-600 transition-colors">
+//                             {uni.name}
+//                           </p>
+//                         </div>
+//                         <p className="text-sm font-bold text-green-600 flex-shrink-0">{uni.amount.toFixed(1)}</p>
+//                       </div>
+                      
+//                       <div className="relative h-7 bg-gray-100 rounded-lg overflow-hidden">
+//                         <div 
+//                           className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg transition-all duration-1000 ease-out flex items-center justify-end pr-2 group-hover:from-green-600 group-hover:to-emerald-600"
+//                           style={{ width: `${barWidth}%` }}
+//                         >
+//                           <span className="text-white font-bold text-[10px]">{barWidth.toFixed(0)}%</span>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   );
+//                 })}
+//               </div>
+
+//               <div className="mt-4 pt-4 border-t border-gray-200">
+//                 <div className="grid grid-cols-2 gap-3">
+//                   <div className="text-center bg-green-50 rounded-lg p-2">
+//                     <p className="text-[10px] text-gray-600">Jami</p>
+//                     <p className="text-lg font-bold text-green-600">9 967.4</p>
+//                     <p className="text-[10px] text-gray-500">mln so'm</p>
+//                   </div>
+//                   <div className="text-center bg-emerald-50 rounded-lg p-2">
+//                     <p className="text-[10px] text-gray-600">O'rtacha</p>
+//                     <p className="text-lg font-bold text-emerald-600">1 993.5</p>
+//                     <p className="text-[10px] text-gray-500">mln so'm</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Debt Card */}
+//           <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
+//             <div className="bg-gradient-to-r from-red-500 to-rose-600 p-4">
+//               <div className="flex items-center justify-between">
+//                 <div className="flex items-center gap-2">
+//                   <TrendingDown className="h-5 w-5 text-white" />
+//                   <div>
+//                     <h3 className="text-lg font-bold text-white">Top 5 - Qarzdorlik</h3>
+//                     <p className="text-red-100 text-xs">Eng ko'p qarzdor universitetlar</p>
+//                   </div>
+//                 </div>
+//                 <button className="px-3 py-1.5 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all text-white text-xs font-medium">
+//                   Export
+//                 </button>
+//               </div>
+//             </div>
+            
+//             <div className="p-5">
+//               <div className="space-y-3">
+//                 {[
+//                   { name: "Andijon Davlat Universiteti", amount: 856.4, rank: 1 },
+//                   { name: "Namangan Davlat Universiteti", amount: 742.8, rank: 2 },
+//                   { name: "Qo'qon Davlat Pedagogika Instituti", amount: 698.5, rank: 3 },
+//                   { name: "Termiz Davlat Universiteti", amount: 645.2, rank: 4 },
+//                   { name: "Urganch Davlat Universiteti", amount: 587.3, rank: 5 }
+//                 ].map((uni, idx) => {
+//                   const maxAmount = 856.4;
+//                   const barWidth = (uni.amount / maxAmount) * 100;
+                  
+//                   return (
+//                     <div 
+//                       key={idx}
+//                       className="group"
+//                       style={{
+//                         animation: `fadeInUp 0.5s ease-out ${idx * 80}ms both`
+//                       }}
+//                     >
+//                       <div className="flex items-center gap-2 mb-1.5">
+//                         <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-300 flex-shrink-0 ${
+//                           uni.rank === 1 ? 'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-md' :
+//                           uni.rank === 2 ? 'bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-sm' :
+//                           uni.rank === 3 ? 'bg-gradient-to-br from-yellow-500 to-yellow-600 text-white shadow-sm' :
+//                           'bg-gradient-to-br from-red-100 to-red-200 text-red-700'
+//                         } group-hover:scale-110 group-hover:rotate-12`}>
+//                           {uni.rank}
+//                         </div>
+//                         <div className="flex-1 min-w-0">
+//                           <p className="text-xs font-semibold text-gray-900 truncate group-hover:text-red-600 transition-colors">
+//                             {uni.name}
+//                           </p>
+//                         </div>
+//                         <p className="text-sm font-bold text-red-600 flex-shrink-0">{uni.amount.toFixed(1)}</p>
+//                       </div>
+                      
+//                       <div className="relative h-7 bg-gray-100 rounded-lg overflow-hidden">
+//                         <div 
+//                           className="absolute inset-y-0 left-0 bg-gradient-to-r from-red-500 to-rose-500 rounded-lg transition-all duration-1000 ease-out flex items-center justify-end pr-2 group-hover:from-red-600 group-hover:to-rose-600"
+//                           style={{ width: `${barWidth}%` }}
+//                         >
+//                           <span className="text-white font-bold text-[10px]">{barWidth.toFixed(0)}%</span>
+//                         </div>
+//                       </div>
+//                     </div>
+//                   );
+//                 })}
+//               </div>
+
+//               <div className="mt-4 pt-4 border-t border-gray-200">
+//                 <div className="grid grid-cols-2 gap-3">
+//                   <div className="text-center bg-red-50 rounded-lg p-2">
+//                     <p className="text-[10px] text-gray-600">Jami</p>
+//                     <p className="text-lg font-bold text-red-600">3 530.2</p>
+//                     <p className="text-[10px] text-gray-500">mln so'm</p>
+//                   </div>
+//                   <div className="text-center bg-rose-50 rounded-lg p-2">
+//                     <p className="text-[10px] text-gray-600">O'rtacha</p>
+//                     <p className="text-lg font-bold text-rose-600">706.0</p>
+//                     <p className="text-[10px] text-gray-500">mln so'm</p>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//         </main>
+
+//         {/* Modal */}
+//         {selectedCard && (
+//           <Modal data={selectedCard} onClose={() => setSelectedCard(null)} />
+//         )}
+//       </div>
+//     </>
+//   );
+// };
+
+// export default ModernDashboard;
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
+  ResponsiveContainer, AreaChart, Area, RadialBarChart, RadialBar, ComposedChart, Line,
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Treemap
+} from 'recharts';
+
+// Data
+const genderData = [
+  { name: 'Erkak', value: 7234, color: '#3b82f6' },
+  { name: 'Ayol', value: 5613, color: '#a855f7' }
+];
+
+const educationFormData = [
+  { name: 'Kunduzgi', students: 8234, color: '#3b82f6' },
+  { name: 'Sirtqi', students: 4613, color: '#8b5cf6' }
+];
+
+const courseData = [
+  { subject: '1-kurs', A: 3456, fullMark: 4000 },
+  { subject: '2-kurs', A: 3234, fullMark: 4000 },
+  { subject: '3-kurs', A: 3012, fullMark: 4000 },
+  { subject: '4-kurs', A: 3145, fullMark: 4000 }
+];
+
+const regionData = [
+  { name: 'Toshkent', value: 2845 },
+  { name: 'Samarqand', value: 1923 },
+  { name: "Farg'ona", value: 1756 },
+  { name: 'Andijon', value: 1634 },
+  { name: 'Namangan', value: 1423 },
+  { name: 'Buxoro', value: 1234 },
+  { name: 'Qashqadaryo', value: 1032 }
+];
+
+const districtData = [
+  { name: 'Chilonzor', talabalar: 2134, yotoqxona: 856 },
+  { name: 'Yunusobod', talabalar: 1876, yotoqxona: 654 },
+  { name: 'M.Ulug\'bek', talabalar: 1654, yotoqxona: 534 },
+  { name: 'Sergeli', talabalar: 1432, yotoqxona: 423 },
+  { name: 'Yakkasaroy', talabalar: 1234, yotoqxona: 312 },
+  { name: 'Shayxontohur', talabalar: 987, yotoqxona: 234 }
+];
+
+const housingTypeData = [
+  { name: 'Yotoqxona', value: 3421, color: '#3b82f6' },
+  { name: 'Ijara', value: 4256, color: '#10b981' },
+  { name: 'Ota-ona bilan', value: 3876, color: '#f59e0b' },
+  { name: 'Qarindoshlar', value: 1294, color: '#ef4444' }
+];
+
+const housingStatusData = [
+  { name: '1-kurs', taminlangan: 2845, navbatda: 432, taminlanmagan: 179 },
+  { name: '2-kurs', taminlangan: 2654, navbatda: 389, taminlanmagan: 191 },
+  { name: '3-kurs', taminlangan: 2512, navbatda: 312, taminlanmagan: 188 },
+  { name: '4-kurs', taminlangan: 2634, navbatda: 298, taminlanmagan: 213 }
+];
+
+const attendanceData = [
+  { range: '30-40 soat', count: 234, fill: '#3b82f6' },
+  { range: '40-50 soat', count: 156, fill: '#f59e0b' },
+  { range: '50-70 soat', count: 89, fill: '#f97316' },
+  { range: '70+ soat', count: 47, fill: '#ef4444' }
+];
+
+const mapLocations = [
+  { id: 1, name: 'Yotoqxona 1', type: 'Yotoqxona', students: 450, lat: 41.3111, lng: 69.2797, color: '#3b82f6' },
+  { id: 2, name: 'Yotoqxona 2', type: 'Yotoqxona', students: 380, lat: 41.3275, lng: 69.2145, color: '#3b82f6' },
+  { id: 3, name: 'Yotoqxona 3', type: 'Yotoqxona', students: 520, lat: 41.2995, lng: 69.2401, color: '#3b82f6' },
+  { id: 4, name: 'Chilonzor', type: 'Ijara', students: 890, lat: 41.3156, lng: 69.2934, color: '#10b981' },
+  { id: 5, name: 'Yunusobod', type: 'Ijara', students: 760, lat: 41.3411, lng: 69.1876, color: '#10b981' },
+  { id: 6, name: 'Sergeli', type: 'Ijara', students: 540, lat: 41.2650, lng: 69.2200, color: '#10b981' },
+  { id: 7, name: 'M.Ulug\'bek', type: 'Ota-ona', students: 1200, lat: 41.3400, lng: 69.2850, color: '#f59e0b' },
+  { id: 8, name: 'Yakkasaroy', type: 'Ota-ona', students: 980, lat: 41.2900, lng: 69.2650, color: '#f59e0b' },
+  { id: 9, name: 'Shayxontohur', type: 'Qarindosh', students: 320, lat: 41.3200, lng: 69.2350, color: '#ef4444' },
+  { id: 10, name: 'Olmazor', type: 'Qarindosh', students: 280, lat: 41.3350, lng: 69.1950, color: '#ef4444' },
+  { id: 11, name: 'Bektemir', type: 'Ijara', students: 420, lat: 41.2750, lng: 69.3100, color: '#10b981' },
+  { id: 12, name: 'Uchtepa', type: 'Ota-ona', students: 650, lat: 41.3050, lng: 69.1750, color: '#f59e0b' },
+];
+
+// Icons
+const DashboardIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>;
+const UsersIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+const ChartIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+const MapIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+const MenuIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
+const CloseIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+const SunIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
+const MoonIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
+const TrendUpIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>;
+const TrendDownIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>;
+
+// Theme Context
+const ThemeContext = React.createContext();
+const useTheme = () => React.useContext(ThemeContext);
+
+// Animated Counter
+const AnimatedCounter = ({ value, duration = 2000 }) => {
+  const [count, setCount] = useState(0);
   useEffect(() => {
-    const interval = setInterval(() => {
-      setLiveStats(prev => ({
-        activeUsers: prev.activeUsers + Math.floor(Math.random() * 10) - 5,
-        todayPayments: prev.todayPayments + Math.floor(Math.random() * 3),
-        pendingRequests: prev.pendingRequests + Math.floor(Math.random() * 5) - 2
-      }));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+    let start = 0;
+    const increment = Math.ceil(value / 80);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= value) { setCount(value); clearInterval(timer); }
+      else { setCount(start); }
+    }, duration / 80);
+    return () => clearInterval(timer);
+  }, [value, duration]);
+  return <span>{count.toLocaleString()}</span>;
+};
 
-  const dashboardData = {
-    tolovKontrakt1: {
-      title: "To'lov kontrakt",
-      icon: FileText,
-      color: "from-blue-500 to-blue-600",
-      stats: [
-        { label: "Arizalar soni", value: "698 124 ta", subValue: "Shartnomalar soni: 697 555 ta", trend: 2.5 },
-        { label: "Shartnomalar summasi", value: "9 789.8 mlrd so'm", subValue: "To'langan summa: 3 651.1 mlrd", trend: -1.2 },
-        { label: "Qarzdorlik soni", value: "911 949 ta", subValue: "10 082.0 mlrd so'm", trend: 5.3 },
-        { label: "Haqдorlik soni", value: "434 554 ta", subValue: "2 738.4 mlrd so'm", trend: -0.8 }
-      ],
-      details: {
-        byFaculty: [
-          { name: "Matematika", students: 1250, amount: "850.5 mln", progress: 85 },
-          { name: "Fizika", students: 980, amount: "720.3 mln", progress: 72 },
-          { name: "Kimyo", students: 1100, amount: "790.8 mln", progress: 79 }
-        ],
-        monthly: [
-          { month: "Sentyabr", collected: "450.2 mln", planned: "500 mln", percentage: 90 },
-          { month: "Oktyabr", collected: "480.5 mln", planned: "500 mln", percentage: 96 },
-          { month: "Noyabr", collected: "520.8 mln", planned: "500 mln", percentage: 104 }
-        ]
-      }
-    },
-    kreditModul1: {
-      title: "Kredit modul",
-      icon: Award,
-      color: "from-purple-500 to-purple-600",
-      stats: [
-        { label: "Arizalar soni", value: "30 789 ta", subValue: "Shartnomalar: 30 426 ta", trend: 3.2 },
-        { label: "Shartnomalar summasi", value: "0.0 mlrd so'm", subValue: "To'langan: 0.0 mlrd", trend: 0 },
-        { label: "Qarzdorlik soni", value: "94 154 ta", subValue: "190.2 mlrd so'm", trend: 2.1 },
-        { label: "Haqдorlik soni", value: "127 552 ta", subValue: "74.1 mlrd so'm", trend: -1.5 }
-      ],
-      details: {
-        byDegree: [
-          { name: "Bakalavr", students: 25000, amount: "150.2 mln", progress: 88 },
-          { name: "Magistratura", students: 5000, amount: "40.0 mln", progress: 65 }
-        ]
-      }
-    },
-    stipendiya: {
-      title: "Stipendiya (VM-59)",
-      icon: DollarSign,
-      color: "from-green-500 to-green-600",
-      stats: [
-        { 
-          label: "Stipendiya oluvchilar talaba soni", 
-          value: "184 939 nafar",
-          budget: "150 114 nafar",
-          contract: "34 825 nafar",
-          percentage: "19.8% / 81.2%",
-          trend: 1.5
-        },
-        { 
-          label: "Hisoblanган summa", 
-          value: "449.3 mlrd",
-          budget: "405.8 mlrd",
-          contract: "43.5 mlrd",
-          percentage: "9.7% / 90.3%",
-          trend: 2.3
-        },
-        { 
-          label: "To'langan summa", 
-          value: "448.4 mlrd",
-          budget: "405.4 mlrd",
-          contract: "43.1 mlrd",
-          percentage: "9.6% / 90.4%",
-          trend: 2.1
-        }
-      ]
-    },
-    talabalar: {
-      title: "Talabalar turar joyi",
-      icon: Building,
-      color: "from-orange-500 to-orange-600",
-      stats: [
-        { label: "Arizalar soni", value: "98 382 ta", subValue: "Shartnomalar: 100 364 ta", trend: 4.2 },
-        { label: "Shartnomalar summasi", value: "253.3 mlrd so'm", subValue: "To'langan: 90.3 mlrd", trend: 1.8 },
-        { label: "Qarzdorlik soni", value: "104 963 ta", subValue: "182.4 mlrd so'm", trend: 3.5 },
-        { label: "Haqдorlik soni", value: "24 684 ta", subValue: "8.8 mlrd so'm", trend: -2.1 }
-      ]
-    }
-  };
-  const dashboardData1 = {
-    stipendiya: {
-      title: "Stipendiya (VM-59)",
-      icon: DollarSign,
-      color: "from-green-500 to-green-600",
-      stats: [
-        { 
-          label: "Stipendiya oluvchilar talaba soni", 
-          value: "184 939 nafar",
-          budget: "150 114 nafar",
-          contract: "34 825 nafar",
-          percentage: "19.8% / 81.2%",
-          trend: 1.5
-        },
-        { 
-          label: "Hisoblanган summa", 
-          value: "449.3 mlrd",
-          budget: "405.8 mlrd",
-          contract: "43.5 mlrd",
-          percentage: "9.7% / 90.3%",
-          trend: 2.3
-        },
-        { 
-          label: "To'langan summa", 
-          value: "448.4 mlrd",
-          budget: "405.4 mlrd",
-          contract: "43.1 mlrd",
-          percentage: "9.6% / 90.4%",
-          trend: 2.1
-        }
-      ]
-    },
-    talabalar: {
-      title: "Talabalar turar joyi",
-      icon: Building,
-      color: "from-blue-500 to-blue-600",
-      stats: [
-        { label: "Arizalar soni", value: "98 382 ta", subValue: "Shartnomalar: 100 364 ta", trend: 4.2 },
-        { label: "Shartnomalar summasi", value: "253.3 mlrd so'm", subValue: "To'langan: 90.3 mlrd", trend: 1.8 },
-        { label: "Qarzdorlik soni", value: "104 963 ta", subValue: "182.4 mlrd so'm", trend: 3.5 },
-        { label: "Haqдorlik soni", value: "24 684 ta", subValue: "8.8 mlrd so'm", trend: -2.1 }
-      ]
-    }
-  };
-
-  const StatCard = ({ data, onClick }) => {
-    const Icon = data.icon;
-    const [isHovered, setIsHovered] = useState(false);
-    
-    return (
-      <div
-        onClick={onClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${data.color} p-6 text-white cursor-pointer transform transition-all duration-500 hover:scale-[1.02] group shadow-xl hover:shadow-2xl`}
-        style={{
-          boxShadow: isHovered 
-            ? '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 40px rgba(59, 130, 246, 0.3)' 
-            : '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
-        }}
-      >
-        {/* Animated background circles */}
-        <div className={`absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-white opacity-10 transition-all duration-700 ${isHovered ? 'opacity-20 scale-150' : 'scale-100'}`}></div>
-        <div className={`absolute bottom-0 left-0 -mb-6 -ml-6 h-40 w-40 rounded-full bg-white opacity-5 transition-all duration-1000 ${isHovered ? 'opacity-15 scale-125' : 'scale-100'}`}></div>
-        
-        {/* Shimmer effect */}
-        {isHovered && <div className="absolute inset-0 shimmer"></div>}
-        
-        {/* Animated gradient overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 opacity-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
-        
-        <div className="relative z-10">
-          <div className="flex items-center justify-between mb-4">
-            <div className={`p-3 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm transition-all duration-300 ${isHovered ? 'scale-110 rotate-6 bg-opacity-30' : ''}`}>
-              <Icon className={`h-6 w-6 transition-transform duration-300 ${isHovered ? 'scale-110' : ''}`} />
-            </div>
-            <div className="flex gap-2">
-              <button 
-                className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                onClick={(e) => { e.stopPropagation(); }}
-              >
-                <Download className="h-4 w-4" />
-              </button>
-              <button 
-                className={`p-2 bg-white bg-opacity-20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:bg-opacity-30 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-                onClick={(e) => { e.stopPropagation(); }}
-              >
-                <Share2 className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
-          <h3 className={`text-xl font-bold mb-6 transition-all duration-300 ${isHovered ? 'translate-x-2' : ''}`}>{data.title}</h3>
-          <div className="grid grid-cols-2 gap-4">
-            {data.stats.map((stat, idx) => (
-              <div 
-                key={idx} 
-                className={`bg-white bg-opacity-10 rounded-xl p-4 backdrop-blur-sm transition-all duration-300 ${isHovered ? 'bg-opacity-20 translate-y-[-4px]' : ''}`}
-                style={{
-                  transitionDelay: `${idx * 50}ms`
-                }}
-              >
-                <p className="text-xs opacity-90 mb-2">{stat.label}</p>
-                <p className={`text-lg font-bold mb-1 transition-all duration-300 ${isHovered ? 'scale-105' : ''}`}>{stat.value}</p>
-                {stat.subValue && (
-                  <p className="text-xs opacity-75">{stat.subValue}</p>
-                )}
-                {stat.trend !== undefined && stat.trend !== 0 && (
-                  <div className={`flex items-center mt-2 transition-all duration-300 ${isHovered ? 'translate-x-1' : ''}`}>
-                    {stat.trend > 0 ? (
-                      <>
-                        <TrendingUp className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
-                        <span className="text-xs">+{stat.trend}%</span>
-                      </>
-                    ) : (
-                      <>
-                        <TrendingDown className={`h-3 w-3 mr-1 transition-transform duration-300 ${isHovered ? 'animate-bounce' : ''}`} />
-                        <span className="text-xs">{stat.trend}%</span>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  const Modal = ({ data, onClose }) => {
-    const Icon = data.icon;
-    const [isVisible, setIsVisible] = useState(false);
-    const [activeTab, setActiveTab] = useState('overview');
-    
-    useEffect(() => {
-      setIsVisible(true);
-    }, []);
-    if (!data) return null;
-
-    return (
-      <div 
-        className={`fixed inset-0 bg-black transition-opacity duration-300 flex items-center justify-center z-50 p-4 ${isVisible ? 'bg-opacity-50' : 'bg-opacity-0'}`}
-        onClick={onClose}
-      >
-        <div 
-          className={`bg-white rounded-3xl max-w-5xl w-full max-h-[90vh] overflow-hidden shadow-2xl transition-all duration-500 transform ${isVisible ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-4'}`}
-          onClick={(e) => e.stopPropagation()}
-          style={{
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 60px rgba(59, 130, 246, 0.2)'
-          }}
-        >
-          <div className={`bg-gradient-to-br ${data.color} p-8 text-white relative overflow-hidden`}>
-            {/* Animated background */}
-            <div className="absolute inset-0 opacity-20">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute bottom-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-            </div>
-            
-            <div className="flex items-center justify-between relative z-10">
-              <div className="flex items-center gap-4">
-                <div className="p-4 bg-white bg-opacity-20 rounded-xl backdrop-blur-sm animate-pulse-ring">
-                  <Icon className="h-8 w-8" />
-                </div>
-                <div>
-                  <h2 className="text-3xl font-bold">{data.title}</h2>
-                  <p className="text-sm opacity-90 mt-1">Batafsil statistika va ma'lumotlar</p>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
-                  <Download className="h-5 w-5" />
-                </button>
-                <button className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300">
-                  <Share2 className="h-5 w-5" />
-                </button>
-                <button
-                  onClick={onClose}
-                  className="p-3 hover:bg-white hover:bg-opacity-20 rounded-xl transition-all duration-300 hover:rotate-90"
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* Tabs */}
-            <div className="flex gap-2 mt-6 relative z-10">
-              {['overview', 'details', 'analytics'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                    activeTab === tab 
-                      ? 'bg-white bg-opacity-30 backdrop-blur-sm' 
-                      : 'bg-white bg-opacity-10 hover:bg-opacity-20'
-                  }`}
-                >
-                  {tab === 'overview' && 'Umumiy'}
-                  {tab === 'details' && 'Batafsil'}
-                  {tab === 'analytics' && 'Tahlil'}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="p-8 overflow-y-auto max-h-[calc(90vh-200px)]">
-            {activeTab === 'overview' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {data.stats.map((stat, idx) => (
-                  <div 
-                    key={idx} 
-                    className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1"
-                    style={{
-                      animation: `slideIn 0.5s ease-out ${idx * 100}ms both`
-                    }}
-                  >
-                    <p className="text-sm text-gray-600 mb-2">{stat.label}</p>
-                    <p className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</p>
-                    {stat.subValue && (
-                      <p className="text-sm text-gray-500">{stat.subValue}</p>
-                    )}
-                    {stat.percentage && (
-                      <div className="mt-3">
-                        <div className="flex justify-between text-xs text-gray-600 mb-1">
-                          <span>Budjet / Kontrakt</span>
-                          <span>{stat.percentage}</span>
-                        </div>
-                        <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div 
-                            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000 ease-out"
-                            style={{
-                              width: isVisible ? stat.percentage.split('/')[0].trim() : '0%'
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                    )}
-                    {stat.trend !== undefined && stat.trend !== 0 && (
-                      <div className="flex items-center mt-3 text-sm">
-                        {stat.trend > 0 ? (
-                          <>
-                            <TrendingUp className="h-4 w-4 mr-1 text-green-500 animate-bounce" />
-                            <span className="text-green-600 font-medium">+{stat.trend}% o'sish</span>
-                          </>
-                        ) : (
-                          <>
-                            <TrendingDown className="h-4 w-4 mr-1 text-red-500 animate-bounce" />
-                            <span className="text-red-600 font-medium">{stat.trend}% kamayish</span>
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {activeTab === 'details' && data.details && (
-              <div className="space-y-6">
-                {data.details.byFaculty && (
-                  <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-4">Fakultetlar bo'yicha</h3>
-                    <div className="space-y-3">
-                      {data.details.byFaculty.map((faculty, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-4">
-                          <div className="flex justify-between items-center mb-3">
-                            <div>
-                              <p className="font-semibold text-gray-900">{faculty.name}</p>
-                              <p className="text-sm text-gray-600">{faculty.students} talaba</p>
-                            </div>
-                            <p className="text-lg font-bold text-blue-600">{faculty.amount}</p>
-                          </div>
-                          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
-                              style={{width: isVisible ? `${faculty.progress}%` : '0%'}}
-                            ></div>
-                          </div>
-                          <p className="text-xs text-gray-500 mt-1">{faculty.progress}% to'langan</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {data.details.byDegree && (
-                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-4">Ta'lim darajasi bo'yicha</h3>
-                    <div className="space-y-3">
-                      {data.details.byDegree.map((degree, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-4">
-                          <div className="flex justify-between items-center mb-3">
-                            <div>
-                              <p className="font-semibold text-gray-900">{degree.name}</p>
-                              <p className="text-sm text-gray-600">{degree.students} talaba</p>
-                            </div>
-                            <p className="text-lg font-bold text-purple-600">{degree.amount}</p>
-                          </div>
-                          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-1000"
-                              style={{width: isVisible ? `${degree.progress}%` : '0%'}}
-                            ></div>
-                          </div>
-                          <p className="text-xs text-gray-500 mt-1">{degree.progress}% to'langan</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {data.details.monthly && (
-                  <div className="bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-4">Oylik statistika</h3>
-                    <div className="space-y-3">
-                      {data.details.monthly.map((month, idx) => (
-                        <div key={idx} className="bg-white rounded-xl p-4">
-                          <div className="flex justify-between items-center mb-2">
-                            <p className="font-semibold text-gray-900">{month.month}</p>
-                            <p className="text-sm text-gray-600">Reja: {month.planned}</p>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <div className="flex-1 h-3 bg-gray-200 rounded-full overflow-hidden">
-                              <div 
-                                className={`h-full ${month.percentage >= 100 ? 'bg-gradient-to-r from-green-500 to-teal-500' : 'bg-gradient-to-r from-orange-500 to-yellow-500'} transition-all duration-1000`}
-                                style={{width: isVisible ? `${Math.min(month.percentage, 100)}%` : '0%'}}
-                              ></div>
-                            </div>
-                            <p className="text-lg font-bold text-green-600">{month.collected}</p>
-                          </div>
-                          <p className="text-xs text-gray-500 mt-1">{month.percentage}% bajarildi</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {activeTab === 'analytics' && (
-              <div className="space-y-6">
-                <div className="bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-indigo-600" />
-                    Tahlil va prognoz
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">O'rtacha o'sish sur'ati</p>
-                      <p className="text-2xl font-bold text-indigo-600">+12.5%</p>
-                      <p className="text-xs text-gray-500 mt-1">Oylik</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">To'lov faolligi</p>
-                      <p className="text-2xl font-bold text-green-600">87.3%</p>
-                      <p className="text-xs text-gray-500 mt-1">Hozirgi holat</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">Kelgusi oy prognozi</p>
-                      <p className="text-2xl font-bold text-purple-600">+8.7%</p>
-                      <p className="text-xs text-gray-500 mt-1">Kutilmoqda</p>
-                    </div>
-                    <div className="bg-white rounded-xl p-4">
-                      <p className="text-sm text-gray-600 mb-2">Samaradorlik darajasi</p>
-                      <p className="text-2xl font-bold text-orange-600">92.1%</p>
-                      <p className="text-xs text-gray-500 mt-1">Umumiy</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-white border border-gray-200 rounded-2xl p-6">
-                  <h4 className="font-semibold text-gray-900 mb-3">Tavsiyalar</h4>
-                  <div className="space-y-2">
-                    <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg">
-                      <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">Qarzdorlikni kamaytirish</p>
-                        <p className="text-xs text-gray-600">SMS xabarnoma tizimini faollashtiring</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg">
-                      <Zap className="h-5 w-5 text-green-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">To'lovlarni tezlashtirish</p>
-                        <p className="text-xs text-gray-600">Online to'lov tizimini yaxshilang</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg">
-                      <Zap className="h-5 w-5 text-purple-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">Samaradorlikni oshirish</p>
-                        <p className="text-xs text-gray-600">Avtomatlashtirish tizimlarini joriy qiling</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
+// Stat Card
+const StatCard = ({ label, value, change, positive, gradient }) => {
+  const { isDark } = useTheme();
   return (
-    <>
-      <style>{styles}</style>
-      <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50'} transition-colors duration-500`}>
-        {/* Header with enhanced design */}
-        <header className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-xl sticky top-0 z-40 backdrop-blur-lg bg-opacity-90 transition-all duration-300`}>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl blur-lg opacity-50 animate-pulse"></div>
-                  <div className="relative bg-gradient-to-r from-blue-500 to-purple-500 p-3 rounded-xl">
-                    <Activity className="h-6 w-6 text-white" />
-                  </div>
-                </div>
-                <div>
-                  <h1 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                    Moliya Dashboard
-                  </h1>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-                    {selectedYear} o'quv yili
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                {/* Live Stats */}
-                <div className="hidden md:flex items-center gap-4">
-                  <div className={`px-4 py-2 rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-blue-50'} flex items-center gap-2`}>
-                    <Users className={`h-4 w-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} animate-pulse`} />
-                    <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
-                      {liveStats.activeUsers.toLocaleString()}
-                    </span>
-                  </div>
-                  <div className={`px-4 py-2 rounded-xl ${isDarkMode ? 'bg-gray-700' : 'bg-green-50'} flex items-center gap-2`}>
-                    <DollarSign className={`h-4 w-4 ${isDarkMode ? 'text-green-400' : 'text-green-600'} animate-pulse`} />
-                    <span className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`}>
-                      {liveStats.todayPayments}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Notifications */}
-                <div className="relative">
-                  <button
-                    onClick={() => setShowNotifications(!showNotifications)}
-                    className={`p-3 rounded-xl ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition-all duration-300 relative`}
-                  >
-                    <Bell className={`h-5 w-5 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`} />
-                    {notifications.some(n => n.unread) && (
-                      <span className="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full animate-pulse"></span>
-                    )}
-                  </button>
-
-                  {showNotifications && (
-                    <div className={`absolute right-0 mt-2 w-80 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl shadow-2xl overflow-hidden notification-enter`}>
-                      <div className={`p-4 ${isDarkMode ? 'bg-gray-700' : 'bg-gradient-to-r from-blue-500 to-purple-500'} text-white`}>
-                        <h3 className="font-bold">Bildirishnomalar</h3>
-                      </div>
-                      <div className="max-h-96 overflow-y-auto">
-                        {notifications.map(notif => (
-                          <div
-                            key={notif.id}
-                            className={`p-4 border-b ${isDarkMode ? 'border-gray-700 hover:bg-gray-700' : 'border-gray-100 hover:bg-gray-50'} transition-colors cursor-pointer ${notif.unread ? (isDarkMode ? 'bg-gray-750' : 'bg-blue-50') : ''}`}
-                          >
-                            <div className="flex items-start gap-3">
-                              <div className={`p-2 rounded-lg ${
-                                notif.type === 'success' ? 'bg-green-100 text-green-600' :
-                                notif.type === 'warning' ? 'bg-yellow-100 text-yellow-600' :
-                                'bg-blue-100 text-blue-600'
-                              }`}>
-                                <Bell className="h-4 w-4" />
-                              </div>
-                              <div className="flex-1">
-                                <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-200' : 'text-gray-900'}`}>
-                                  {notif.message}
-                                </p>
-                                <p className={`text-xs ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} mt-1`}>
-                                  {notif.time}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Settings */}
-                <button
-                  onClick={() => setIsDarkMode(!isDarkMode)}
-                  className={`p-3 rounded-xl ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'} transition-all duration-300`}
-                >
-                  <Settings className={`h-5 w-5 ${isDarkMode ? 'text-gray-200' : 'text-gray-700'}`} />
-                </button>
-              </div>
-            </div>
-
-            {/* Search and Filter Bar */}
-            <div className="mt-4 flex flex-col sm:flex-row gap-3">
-              <div className="flex-1 relative">
-                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 ${isDarkMode ? 'text-gray-400' : 'text-gray-400'}`} />
-                <input
-                  type="text"
-                  placeholder="Qidirish..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-3 ${isDarkMode ? 'bg-gray-700 text-gray-200 placeholder-gray-400' : 'bg-white'} rounded-xl border-2 border-transparent focus:border-blue-500 outline-none transition-all duration-300`}
-                />
-              </div>
-              <div className="flex gap-2">
-                <button className={`px-4 py-3 ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-white hover:bg-gray-50'} rounded-xl flex items-center gap-2 transition-all duration-300`}>
-                  <Filter className="h-5 w-5" />
-                  <span className="hidden sm:inline">Filter</span>
-                </button>
-                <button className={`px-4 py-3 ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-white hover:bg-gray-50'} rounded-xl flex items-center gap-2 transition-all duration-300`}>
-                  <Calendar className="h-5 w-5" />
-                  <span className="hidden sm:inline">{selectedYear}</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-
-        {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Quick Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Jami talabalar</p>
-                  <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
-                    {liveStats.activeUsers.toLocaleString()}
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </div>
-
-            <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Bugungi to'lovlar</p>
-                  <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
-                    {liveStats.todayPayments}
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-green-500 to-green-600 rounded-xl">
-                  <DollarSign className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </div>
-
-            <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Kutilayotgan</p>
-                  <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
-                    {liveStats.pendingRequests}
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl">
-                  <Activity className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </div>
-            <div className={`${isDarkMode ? 'bg-gray-800' : 'bg-white'} rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>Kutilayotgan</p>
-                  <p className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mt-2`}>
-                    {liveStats.pendingRequests}
-                  </p>
-                </div>
-                <div className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl">
-                  <Activity className="h-8 w-8 text-white" />
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* Main Dashboard Cards */}
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-200 p-6 mb-8">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">Shartnomalar dinamikasi</h2>
-              <p className="text-gray-600 text-sm mt-1">Tasdiqlangan va bekor qilingan shartnomalar soni</p>
-            </div>
-            <div className="flex gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                <span className="text-sm text-gray-600">Tasdiqlangan shartnomalar</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-orange-500 rounded"></div>
-                <span className="text-sm text-gray-600">Bekor qilingan shartnomalar</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative h-80">
-            {/* Y-axis labels */}
-            <div className="absolute left-0 top-0 bottom-8 flex flex-col justify-between text-xs text-gray-500">
-              <span>80000</span>
-              <span>60000</span>
-              <span>40000</span>
-              <span>20000</span>
-              <span>0</span>
-              <span>-20000</span>
-            </div>
-
-            {/* Chart area */}
-            <div className="ml-12 h-full flex items-end justify-around pb-8">
-              {[
-                { month: 'Yanvar', approved: 68000, cancelled: 2100 },
-                { month: 'Fevral', approved: 52000, cancelled: 1800 },
-                { month: 'Mart', approved: 45000, cancelled: 1500 },
-                { month: 'Aprel', approved: 58000, cancelled: 2300 },
-                { month: 'May', approved: 56000, cancelled: 1900 },
-                { month: 'Iyun', approved: 72000, cancelled: 2500 },
-                { month: 'Iyul', approved: 48000, cancelled: 1700 }
-              ].map((data, idx) => {
-                const maxHeight = 280;
-                const maxValue = 80000;
-                const approvedHeight = (data.approved / maxValue) * maxHeight;
-                const cancelledHeight = (data.cancelled / maxValue) * maxHeight;
-
-                return (
-                  <div key={idx} className="flex flex-col items-center gap-2 group">
-                    {/* Approved bar */}
-                    <div 
-                      className="w-12 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-lg transition-all duration-500 hover:from-blue-600 hover:to-blue-500 relative group/bar"
-                      style={{ 
-                        height: `${approvedHeight}px`,
-                        animation: `slideIn 0.8s ease-out ${idx * 100}ms both`
-                      }}
-                    >
-                      {/* Tooltip on hover */}
-                      <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap z-10">
-                        {data.approved.toLocaleString()} ta
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
-                      </div>
-                    </div>
-
-                    {/* Cancelled bar (negative) */}
-                    <div 
-                      className="w-12 bg-gradient-to-b from-orange-400 to-orange-500 rounded-b-lg transition-all duration-500 hover:from-orange-500 hover:to-orange-600 relative group/bar"
-                      style={{ 
-                        height: `${cancelledHeight}px`,
-                        animation: `slideIn 0.8s ease-out ${idx * 100 + 50}ms both`
-                      }}
-                    >
-                      {/* Tooltip on hover */}
-                      <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs py-1 px-3 rounded opacity-0 group-hover/bar:opacity-100 transition-opacity whitespace-nowrap z-10">
-                        {data.cancelled.toLocaleString()} ta
-                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-gray-900"></div>
-                      </div>
-                    </div>
-
-                    {/* Month label */}
-                    <span className="text-xs text-gray-600 font-medium mt-2 group-hover:text-blue-600 transition-colors">
-                      {data.month}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Zero line */}
-            <div className="absolute left-12 right-0" style={{ top: 'calc(50% - 16px)' }}>
-              <div className="h-px bg-gray-300"></div>
-            </div>
-          </div>
-
-          {/* Summary stats */}
-          <div className="grid grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-200">
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-1">Jami tasdiqlangan</p>
-              <p className="text-2xl font-bold text-blue-600">399 000</p>
-              <p className="text-xs text-green-600 mt-1 flex items-center justify-center gap-1">
-                <TrendingUp className="h-3 w-3" />
-                +8.5%
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-1">Jami bekor qilingan</p>
-              <p className="text-2xl font-bold text-orange-600">13 800</p>
-              <p className="text-xs text-red-600 mt-1 flex items-center justify-center gap-1">
-                <TrendingUp className="h-3 w-3" />
-                +3.2%
-              </p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-1">Bekor qilish foizi</p>
-              <p className="text-2xl font-bold text-gray-900">3.46%</p>
-              <p className="text-xs text-gray-500 mt-1">O'rtacha</p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-600 mb-1">Eng faol oy</p>
-              <p className="text-2xl font-bold text-purple-600">Iyun</p>
-              <p className="text-xs text-gray-500 mt-1">72 000 ta</p>
-            </div>
-          </div>
+    <div className={`relative overflow-hidden rounded-xl p-4 lg:p-5 border transition-all duration-300 hover:scale-[1.02] ${
+      isDark ? `border-slate-800 bg-gradient-to-br ${gradient}` : 'border-slate-200 bg-white shadow-sm hover:shadow-md'
+    }`}>
+      <div className="relative z-10">
+        <p className={`text-xs uppercase tracking-wide mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{label}</p>
+        <p className={`text-2xl lg:text-3xl font-bold mb-1 font-mono ${isDark ? 'text-white' : 'text-slate-800'}`}>
+          <AnimatedCounter value={value} />
+        </p>
+        <div className={`flex items-center gap-1 text-xs ${positive ? 'text-emerald-500' : 'text-red-500'}`}>
+          {positive ? <TrendUpIcon /> : <TrendDownIcon />}
+          <span>{change}</span>
         </div>
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden mb-8">
-          <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold text-white">Asosiy modullar</h2>
-                <p className="text-blue-100 text-sm mt-1">To'lov kontrakt, Kredit modul va Turar joy</p>
-              </div>
-              <div className="flex gap-2">
-                <button className="p-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all">
-                  <Download className="h-5 w-5 text-white" />
-                </button>
-                <button className="p-2 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all">
-                  <Settings className="h-5 w-5 text-white" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="bg-gray-50 border-b border-gray-200">
-                  <th className="text-left p-4 text-sm font-semibold text-gray-700">Modul nomi</th>
-                  <th className="text-right p-4 text-sm font-semibold text-gray-700">Arizalar</th>
-                  <th className="text-right p-4 text-sm font-semibold text-gray-700">Shartnomalar</th>
-                  <th className="text-right p-4 text-sm font-semibold text-gray-700">Summa</th>
-                  <th className="text-right p-4 text-sm font-semibold text-gray-700">Qarzdorlik</th>
-                  <th className="text-right p-4 text-sm font-semibold text-gray-700">Trend</th>
-                  <th className="text-right p-4 text-sm font-semibold text-gray-700">Amallar</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ['tolovKontrakt', dashboardData.tolovKontrakt1],
-                  ['kreditModul', dashboardData.kreditModul1],
-                  ['talabalar', dashboardData.talabalar]
-                ].map(([key, data], idx) => {
-                  const Icon = data.icon;
-                  const avgTrend = data.stats.reduce((sum, stat) => sum + (stat.trend || 0), 0) / data.stats.length;
-                  
-                  return (
-                    <tr 
-                      key={key}
-                      className="border-b border-gray-100 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-300 cursor-pointer group"
-                      style={{
-                        animation: `fadeInUp 0.5s ease-out ${idx * 100}ms both`
-                      }}
-                      onClick={() => setSelectedCard(data)}
-                    >
-                      <td className="p-4">
-                        <div className="flex items-center gap-3">
-                          <div className={`p-3 bg-gradient-to-br ${data.color} rounded-xl group-hover:scale-110 transition-transform duration-300`}>
-                            <Icon className="h-5 w-5 text-white" />
-                          </div>
-                          <div>
-                            <p className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                              {data.title}
-                            </p>
-                            <p className="text-xs text-gray-500">
-                              {data.stats.length} ta ko'rsatkich
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td className="p-4 text-right">
-                        <p className="font-bold text-gray-900">{data.stats[0]?.value.split(' ')[0]}</p>
-                        <p className="text-xs text-gray-500">{data.stats[0]?.value.split(' ')[1]}</p>
-                      </td>
-                      <td className="p-4 text-right">
-                        <p className="font-bold text-gray-900">
-                          {data.stats[0]?.subValue?.match(/\d+\s*\d*\s*\d*/)?.[0] || '-'}
-                        </p>
-                        <p className="text-xs text-gray-500">shartnoma</p>
-                      </td>
-                      <td className="p-4 text-right">
-                        <p className="font-bold text-purple-600">
-                          {data.stats[1]?.value.includes('mlrd') ? data.stats[1]?.value : data.stats[0]?.value}
-                        </p>
-                        <p className="text-xs text-gray-500">umumiy</p>
-                      </td>
-                      <td className="p-4 text-right">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-100 rounded-full">
-                          <span className="font-bold text-orange-700">
-                            {data.stats[2]?.value.split(' ')[0] || '-'}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="p-4 text-right">
-                        <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full ${
-                          avgTrend > 0 ? 'bg-green-100' : avgTrend < 0 ? 'bg-red-100' : 'bg-gray-100'
-                        }`}>
-                          {avgTrend > 0 ? (
-                            <>
-                              <TrendingUp className="h-4 w-4 text-green-600" />
-                              <span className="font-bold text-green-700">+{avgTrend.toFixed(1)}%</span>
-                            </>
-                          ) : avgTrend < 0 ? (
-                            <>
-                              <TrendingDown className="h-4 w-4 text-red-600" />
-                              <span className="font-bold text-red-700">{avgTrend.toFixed(1)}%</span>
-                            </>
-                          ) : (
-                            <span className="font-bold text-gray-700">0%</span>
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-4 text-right">
-                        <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <button 
-                            className="p-2 bg-blue-100 rounded-lg hover:bg-blue-200 transition-all"
-                            onClick={(e) => { e.stopPropagation(); }}
-                          >
-                            <BarChart3 className="h-4 w-4 text-blue-600" />
-                          </button>
-                          <button 
-                            className="p-2 bg-green-100 rounded-lg hover:bg-green-200 transition-all"
-                            onClick={(e) => { e.stopPropagation(); }}
-                          >
-                            <Download className="h-4 w-4 text-green-600" />
-                          </button>
-                          <button 
-                            className="p-2 bg-purple-100 rounded-lg hover:bg-purple-200 transition-all"
-                            onClick={(e) => { e.stopPropagation(); setSelectedCard(data); }}
-                          >
-                            <ChevronRight className="h-4 w-4 text-purple-600" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="bg-gray-50 p-4 border-t border-gray-200">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <p className="text-sm text-gray-600">
-                  Jami <span className="font-bold text-gray-900">3</span> ta modul
-                </p>
-              </div>
-              <div className="flex gap-2">
-                <button className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-all">
-                  Barchasini ko'rish →
-                </button>
-              </div>
-            </div>
-          </div>
-          </div>
-        
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {Object.entries(dashboardData1).map(([key, data]) => (
-              <StatCard
-                key={key}
-                data={data}
-                onClick={() => setSelectedCard(data)}
-              />
-            ))}
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-          {/* Income Card */}
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-600 p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5 text-white" />
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Top 5 - Daromad</h3>
-                    <p className="text-green-100 text-xs">Eng ko'p daromadli universitetlar</p>
-                  </div>
-                </div>
-                <button className="px-3 py-1.5 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all text-white text-xs font-medium">
-                  Export
-                </button>
-              </div>
-            </div>
-            
-            <div className="p-5">
-              <div className="space-y-3">
-                {[
-                  { name: "O'zbekiston Milliy Universiteti", amount: 2458.3, rank: 1 },
-                  { name: "Toshkent Davlat Iqtisodiyot Universiteti", amount: 2187.6, rank: 2 },
-                  { name: "Samarqand Davlat Universiteti", amount: 1956.8, rank: 3 },
-                  { name: "Buxoro Davlat Universiteti", amount: 1743.2, rank: 4 },
-                  { name: "Farg'ona Davlat Universiteti", amount: 1621.5, rank: 5 }
-                ].map((uni, idx) => {
-                  const maxAmount = 2458.3;
-                  const barWidth = (uni.amount / maxAmount) * 100;
-                  
-                  return (
-                    <div 
-                      key={idx}
-                      className="group"
-                      style={{
-                        animation: `fadeInUp 0.5s ease-out ${idx * 80}ms both`
-                      }}
-                    >
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-300 flex-shrink-0 ${
-                          uni.rank === 1 ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-white shadow-md' :
-                          uni.rank === 2 ? 'bg-gradient-to-br from-gray-300 to-gray-400 text-white shadow-sm' :
-                          uni.rank === 3 ? 'bg-gradient-to-br from-orange-400 to-orange-500 text-white shadow-sm' :
-                          'bg-gradient-to-br from-green-100 to-green-200 text-green-700'
-                        } group-hover:scale-110 group-hover:rotate-12`}>
-                          {uni.rank}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-gray-900 truncate group-hover:text-green-600 transition-colors">
-                            {uni.name}
-                          </p>
-                        </div>
-                        <p className="text-sm font-bold text-green-600 flex-shrink-0">{uni.amount.toFixed(1)}</p>
-                      </div>
-                      
-                      <div className="relative h-7 bg-gray-100 rounded-lg overflow-hidden">
-                        <div 
-                          className="absolute inset-y-0 left-0 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg transition-all duration-1000 ease-out flex items-center justify-end pr-2 group-hover:from-green-600 group-hover:to-emerald-600"
-                          style={{ width: `${barWidth}%` }}
-                        >
-                          <span className="text-white font-bold text-[10px]">{barWidth.toFixed(0)}%</span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="text-center bg-green-50 rounded-lg p-2">
-                    <p className="text-[10px] text-gray-600">Jami</p>
-                    <p className="text-lg font-bold text-green-600">9 967.4</p>
-                    <p className="text-[10px] text-gray-500">mln so'm</p>
-                  </div>
-                  <div className="text-center bg-emerald-50 rounded-lg p-2">
-                    <p className="text-[10px] text-gray-600">O'rtacha</p>
-                    <p className="text-lg font-bold text-emerald-600">1 993.5</p>
-                    <p className="text-[10px] text-gray-500">mln so'm</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Debt Card */}
-          <div className="bg-white rounded-3xl shadow-xl border border-gray-200 overflow-hidden">
-            <div className="bg-gradient-to-r from-red-500 to-rose-600 p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <TrendingDown className="h-5 w-5 text-white" />
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Top 5 - Qarzdorlik</h3>
-                    <p className="text-red-100 text-xs">Eng ko'p qarzdor universitetlar</p>
-                  </div>
-                </div>
-                <button className="px-3 py-1.5 bg-white bg-opacity-20 rounded-lg hover:bg-opacity-30 transition-all text-white text-xs font-medium">
-                  Export
-                </button>
-              </div>
-            </div>
-            
-            <div className="p-5">
-              <div className="space-y-3">
-                {[
-                  { name: "Andijon Davlat Universiteti", amount: 856.4, rank: 1 },
-                  { name: "Namangan Davlat Universiteti", amount: 742.8, rank: 2 },
-                  { name: "Qo'qon Davlat Pedagogika Instituti", amount: 698.5, rank: 3 },
-                  { name: "Termiz Davlat Universiteti", amount: 645.2, rank: 4 },
-                  { name: "Urganch Davlat Universiteti", amount: 587.3, rank: 5 }
-                ].map((uni, idx) => {
-                  const maxAmount = 856.4;
-                  const barWidth = (uni.amount / maxAmount) * 100;
-                  
-                  return (
-                    <div 
-                      key={idx}
-                      className="group"
-                      style={{
-                        animation: `fadeInUp 0.5s ease-out ${idx * 80}ms both`
-                      }}
-                    >
-                      <div className="flex items-center gap-2 mb-1.5">
-                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center font-bold text-sm transition-all duration-300 flex-shrink-0 ${
-                          uni.rank === 1 ? 'bg-gradient-to-br from-red-500 to-red-600 text-white shadow-md' :
-                          uni.rank === 2 ? 'bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-sm' :
-                          uni.rank === 3 ? 'bg-gradient-to-br from-yellow-500 to-yellow-600 text-white shadow-sm' :
-                          'bg-gradient-to-br from-red-100 to-red-200 text-red-700'
-                        } group-hover:scale-110 group-hover:rotate-12`}>
-                          {uni.rank}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-gray-900 truncate group-hover:text-red-600 transition-colors">
-                            {uni.name}
-                          </p>
-                        </div>
-                        <p className="text-sm font-bold text-red-600 flex-shrink-0">{uni.amount.toFixed(1)}</p>
-                      </div>
-                      
-                      <div className="relative h-7 bg-gray-100 rounded-lg overflow-hidden">
-                        <div 
-                          className="absolute inset-y-0 left-0 bg-gradient-to-r from-red-500 to-rose-500 rounded-lg transition-all duration-1000 ease-out flex items-center justify-end pr-2 group-hover:from-red-600 group-hover:to-rose-600"
-                          style={{ width: `${barWidth}%` }}
-                        >
-                          <span className="text-white font-bold text-[10px]">{barWidth.toFixed(0)}%</span>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="text-center bg-red-50 rounded-lg p-2">
-                    <p className="text-[10px] text-gray-600">Jami</p>
-                    <p className="text-lg font-bold text-red-600">3 530.2</p>
-                    <p className="text-[10px] text-gray-500">mln so'm</p>
-                  </div>
-                  <div className="text-center bg-rose-50 rounded-lg p-2">
-                    <p className="text-[10px] text-gray-600">O'rtacha</p>
-                    <p className="text-lg font-bold text-rose-600">706.0</p>
-                    <p className="text-[10px] text-gray-500">mln so'm</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        </main>
-
-        {/* Modal */}
-        {selectedCard && (
-          <Modal data={selectedCard} onClose={() => setSelectedCard(null)} />
-        )}
       </div>
-    </>
+      {isDark && <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-white/5 blur-2xl"></div>}
+    </div>
   );
 };
 
-export default ModernDashboard;
+// Chart Card
+const ChartCard = ({ title, subtitle, children, className = '' }) => {
+  const { isDark } = useTheme();
+  return (
+    <div className={`rounded-xl p-4 lg:p-5 transition-all duration-300 ${
+      isDark ? 'bg-slate-900/50 backdrop-blur border border-slate-800 hover:border-slate-700' : 'bg-white border border-slate-200 shadow-sm hover:shadow-md'
+    } ${className}`}>
+      <div className="mb-3">
+        <h3 className={`text-sm lg:text-base font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>{title}</h3>
+        {subtitle && <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{subtitle}</p>}
+      </div>
+      {children}
+    </div>
+  );
+};
 
+// Custom Tooltip
+const CustomTooltip = ({ active, payload, label }) => {
+  const { isDark } = useTheme();
+  if (active && payload && payload.length) {
+    return (
+      <div className={`rounded-lg p-3 shadow-xl border text-xs ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
+        <p className={`font-semibold mb-1.5 ${isDark ? 'text-white' : 'text-slate-800'}`}>{label}</p>
+        {payload.map((entry, index) => (
+          <div key={index} className="flex items-center gap-2 mb-0.5">
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }}></div>
+            <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>{entry.name}:</span>
+            <span className="font-bold" style={{ color: entry.color || entry.fill }}>{entry.value?.toLocaleString()}</span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
 
+// Enhanced Donut Chart with Animation
+const EnhancedDonutChart = ({ data }) => {
+  const { isDark } = useTheme();
+  const total = data.reduce((sum, item) => sum + item.value, 0);
+  const [activeIndex, setActiveIndex] = useState(null);
 
+  return (
+    <div className="relative">
+      <ResponsiveContainer width="100%" height={220}>
+        <PieChart>
+          <defs>
+            {data.map((entry, index) => (
+              <linearGradient key={index} id={`gradient-${index}`} x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor={entry.color} stopOpacity={1} />
+                <stop offset="100%" stopColor={entry.color} stopOpacity={0.6} />
+              </linearGradient>
+            ))}
+          </defs>
+          <Pie
+            data={data}
+            cx="50%"
+            cy="50%"
+            innerRadius={60}
+            outerRadius={activeIndex !== null ? 90 : 85}
+            paddingAngle={3}
+            dataKey="value"
+            animationBegin={0}
+            animationDuration={1500}
+            animationEasing="ease-out"
+            onMouseEnter={(_, index) => setActiveIndex(index)}
+            onMouseLeave={() => setActiveIndex(null)}
+          >
+            {data.map((entry, index) => (
+              <Cell 
+                key={index} 
+                fill={`url(#gradient-${index})`}
+                stroke={isDark ? '#0f172a' : '#fff'}
+                strokeWidth={2}
+                style={{ 
+                  filter: activeIndex === index ? 'drop-shadow(0 0 8px ' + entry.color + ')' : 'none',
+                  transition: 'all 0.3s ease'
+                }}
+              />
+            ))}
+          </Pie>
+          <Tooltip content={<CustomTooltip />} />
+        </PieChart>
+      </ResponsiveContainer>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="text-center">
+          <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{total.toLocaleString()}</p>
+          <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Jami</p>
+        </div>
+      </div>
+      <div className="flex justify-center gap-4 mt-3">
+        {data.map((item, index) => (
+          <div key={index} className="flex items-center gap-2 cursor-pointer" onMouseEnter={() => setActiveIndex(index)} onMouseLeave={() => setActiveIndex(null)}>
+            <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: item.color }}></div>
+            <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{item.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
+// Semi-circle Gauge Chart for Courses
+const SemiCircleGauge = ({ data }) => {
+  const { isDark } = useTheme();
+  const total = data.reduce((sum, item) => sum + item.A, 0);
+  const colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#10b981'];
+  
+  // Calculate angles for each segment
+  let currentAngle = 180;
+  const segments = data.map((item, index) => {
+    const percentage = (item.A / total) * 180;
+    const segment = {
+      ...item,
+      startAngle: currentAngle,
+      endAngle: currentAngle - percentage,
+      color: colors[index],
+      percentage: ((item.A / total) * 100).toFixed(1)
+    };
+    currentAngle -= percentage;
+    return segment;
+  });
 
+  const createArc = (startAngle, endAngle, innerRadius, outerRadius) => {
+    const startRad = (startAngle * Math.PI) / 180;
+    const endRad = (endAngle * Math.PI) / 180;
+    
+    const x1 = 50 + outerRadius * Math.cos(startRad);
+    const y1 = 50 - outerRadius * Math.sin(startRad);
+    const x2 = 50 + outerRadius * Math.cos(endRad);
+    const y2 = 50 - outerRadius * Math.sin(endRad);
+    const x3 = 50 + innerRadius * Math.cos(endRad);
+    const y3 = 50 - innerRadius * Math.sin(endRad);
+    const x4 = 50 + innerRadius * Math.cos(startRad);
+    const y4 = 50 - innerRadius * Math.sin(startRad);
+    
+    const largeArc = Math.abs(endAngle - startAngle) > 180 ? 1 : 0;
+    
+    return `M ${x1} ${y1} A ${outerRadius} ${outerRadius} 0 ${largeArc} 1 ${x2} ${y2} L ${x3} ${y3} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x4} ${y4} Z`;
+  };
 
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [animationProgress, setAnimationProgress] = useState(0);
 
+  useEffect(() => {
+    const duration = 1500;
+    const startTime = Date.now();
+    
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      setAnimationProgress(easeOut);
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, []);
 
+  return (
+    <div className="relative">
+      <svg viewBox="0 0 100 60" className="w-full h-48">
+        <defs>
+          {colors.map((color, i) => (
+            <linearGradient key={i} id={`gaugeGrad${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={color} stopOpacity={1} />
+              <stop offset="100%" stopColor={color} stopOpacity={0.7} />
+            </linearGradient>
+          ))}
+          <filter id="gaugeShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1" stdDeviation="1" floodOpacity="0.3"/>
+          </filter>
+          <filter id="gaugeGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        
+        {/* Background arc */}
+        <path
+          d={createArc(180, 0, 28, 42)}
+          fill={isDark ? '#1e293b' : '#e2e8f0'}
+        />
+        
+        {/* Segments */}
+        {segments.map((segment, index) => {
+          const animatedEndAngle = segment.startAngle - (segment.startAngle - segment.endAngle) * animationProgress;
+          return (
+            <path
+              key={index}
+              d={createArc(segment.startAngle, animatedEndAngle, 28, 42)}
+              fill={`url(#gaugeGrad${index})`}
+              filter={hoveredIndex === index ? "url(#gaugeGlow)" : "url(#gaugeShadow)"}
+              style={{ 
+                transition: 'filter 0.3s ease',
+                cursor: 'pointer'
+              }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            />
+          );
+        })}
+        
+        {/* Center decoration */}
+        <circle cx="50" cy="50" r="24" fill={isDark ? '#0f172a' : '#fff'} />
+        <circle cx="50" cy="50" r="22" fill={isDark ? '#1e293b' : '#f8fafc'} />
+        
+        {/* Center text */}
+        <text x="50" y="46" textAnchor="middle" fontSize="8" fontWeight="bold" fill={isDark ? '#fff' : '#1e293b'}>
+          {total.toLocaleString()}
+        </text>
+        <text x="50" y="54" textAnchor="middle" fontSize="4" fill={isDark ? '#64748b' : '#94a3b8'}>
+          Jami talabalar
+        </text>
+        
+        {/* Tick marks */}
+        {[0, 45, 90, 135, 180].map((angle, i) => {
+          const rad = (angle * Math.PI) / 180;
+          const x1 = 50 + 44 * Math.cos(rad);
+          const y1 = 50 - 44 * Math.sin(rad);
+          const x2 = 50 + 47 * Math.cos(rad);
+          const y2 = 50 - 47 * Math.sin(rad);
+          return (
+            <line
+              key={i}
+              x1={x1} y1={y1} x2={x2} y2={y2}
+              stroke={isDark ? '#475569' : '#cbd5e1'}
+              strokeWidth="0.5"
+            />
+          );
+        })}
+      </svg>
+      
+      {/* Legend */}
+      <div className="grid grid-cols-4 gap-2 mt-2">
+        {segments.map((segment, index) => (
+          <div 
+            key={index}
+            className={`text-center p-2 rounded-lg transition-all cursor-pointer ${
+              hoveredIndex === index 
+                ? (isDark ? 'bg-slate-800' : 'bg-slate-100') 
+                : ''
+            }`}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            <div className="flex items-center justify-center gap-1.5 mb-1">
+              <div 
+                className="w-2.5 h-2.5 rounded-full"
+                style={{ backgroundColor: segment.color }}
+              />
+              <span className={`text-xs font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {segment.subject}
+              </span>
+            </div>
+            <p className="text-sm font-bold font-mono" style={{ color: segment.color }}>
+              {segment.A.toLocaleString()}
+            </p>
+            <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
+              {segment.percentage}%
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
+// Interactive Map with Leaflet-like style
+const InteractiveMap = ({ locations }) => {
+  const { isDark } = useTheme();
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [hoveredLocation, setHoveredLocation] = useState(null);
+  
+  const normalizeCoords = (lat, lng) => {
+    const minLat = 41.24, maxLat = 41.38, minLng = 69.12, maxLng = 69.36;
+    return {
+      x: ((lng - minLng) / (maxLng - minLng)) * 100,
+      y: ((maxLat - lat) / (maxLat - minLat)) * 100
+    };
+  };
 
+  const getMarkerSize = (students) => {
+    if (students > 1000) return 12;
+    if (students > 500) return 9;
+    return 6;
+  };
 
+  return (
+    <div className={`relative rounded-xl overflow-hidden ${isDark ? 'bg-slate-800/30' : 'bg-slate-100'}`}>
+      {/* Map Header */}
+      <div className={`px-4 py-2 border-b ${isDark ? 'border-slate-700 bg-slate-800/50' : 'border-slate-200 bg-white/80'}`}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <MapIcon />
+            <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Toshkent shahri</span>
+          </div>
+          <div className="flex gap-3">
+            {[
+              { name: 'Yotoqxona', color: '#3b82f6', count: locations.filter(l => l.type === 'Yotoqxona').length },
+              { name: 'Ijara', color: '#10b981', count: locations.filter(l => l.type === 'Ijara').length },
+              { name: 'Ota-ona', color: '#f59e0b', count: locations.filter(l => l.type === 'Ota-ona').length },
+              { name: 'Qarindosh', color: '#ef4444', count: locations.filter(l => l.type === 'Qarindosh').length }
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-1">
+                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }}></div>
+                <span className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{item.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
+      {/* Map SVG */}
+      <svg viewBox="0 0 100 100" className="w-full h-72 lg:h-80">
+        <defs>
+          <pattern id="gridPattern" width="5" height="5" patternUnits="userSpaceOnUse">
+            <path d="M 5 0 L 0 0 0 5" fill="none" stroke={isDark ? '#1e293b' : '#e2e8f0'} strokeWidth="0.2"/>
+          </pattern>
+          <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <filter id="shadowFilter">
+            <feDropShadow dx="0" dy="1" stdDeviation="1" floodOpacity="0.3"/>
+          </filter>
+          {/* Road paths */}
+          <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor={isDark ? '#334155' : '#cbd5e1'} />
+            <stop offset="50%" stopColor={isDark ? '#475569' : '#94a3b8'} />
+            <stop offset="100%" stopColor={isDark ? '#334155' : '#cbd5e1'} />
+          </linearGradient>
+        </defs>
+        
+        {/* Background */}
+        <rect width="100%" height="100%" fill="url(#gridPattern)"/>
+        
+        {/* Simplified road network */}
+        <g stroke="url(#roadGradient)" strokeWidth="0.4" fill="none" opacity="0.6">
+          <path d="M 0 50 Q 25 45 50 50 T 100 50" />
+          <path d="M 50 0 Q 55 25 50 50 T 50 100" />
+          <path d="M 20 20 Q 35 35 50 50 T 80 80" />
+          <path d="M 80 20 Q 65 35 50 50 T 20 80" />
+          <circle cx="50" cy="50" r="15" />
+          <circle cx="50" cy="50" r="30" />
+        </g>
 
+        {/* Location markers */}
+        {locations.map((location) => {
+          const { x, y } = normalizeCoords(location.lat, location.lng);
+          const size = getMarkerSize(location.students);
+          const isHovered = hoveredLocation?.id === location.id;
+          const isSelected = selectedLocation?.id === location.id;
+          
+          return (
+            <g 
+              key={location.id} 
+              className="cursor-pointer"
+              onMouseEnter={() => setHoveredLocation(location)}
+              onMouseLeave={() => setHoveredLocation(null)}
+              onClick={() => setSelectedLocation(selectedLocation?.id === location.id ? null : location)}
+            >
+              {/* Pulse animation ring */}
+              <circle cx={x} cy={y} r={size + 4} fill="none" stroke={location.color} strokeWidth="0.5" opacity="0.3">
+                <animate attributeName="r" values={`${size};${size + 8};${size}`} dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              
+              {/* Main marker */}
+              <circle 
+                cx={x} 
+                cy={y} 
+                r={isHovered || isSelected ? size + 2 : size}
+                fill={location.color}
+                filter={isHovered || isSelected ? "url(#glowFilter)" : "url(#shadowFilter)"}
+                style={{ transition: 'all 0.2s ease' }}
+              >
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+              </circle>
+              
+              {/* Inner highlight */}
+              <circle cx={x - size/4} cy={y - size/4} r={size/3} fill="white" opacity="0.3"/>
+              
+              {/* Label on hover */}
+              {(isHovered || isSelected) && (
+                <g>
+                  <rect 
+                    x={x + size + 3} 
+                    y={y - 8} 
+                    width={location.name.length * 3 + 10} 
+                    height="16" 
+                    rx="3"
+                    fill={isDark ? '#1e293b' : '#fff'}
+                    stroke={location.color}
+                    strokeWidth="0.5"
+                  />
+                  <text 
+                    x={x + size + 8} 
+                    y={y + 1} 
+                    fontSize="4" 
+                    fill={isDark ? '#fff' : '#334155'}
+                    fontWeight="500"
+                  >
+                    {location.name}
+                  </text>
+                </g>
+              )}
+            </g>
+          );
+        })}
+      </svg>
 
+      {/* Info Panel */}
+      {selectedLocation && (
+        <div className={`absolute bottom-3 left-3 right-3 rounded-lg p-3 border backdrop-blur-sm ${
+          isDark ? 'bg-slate-900/90 border-slate-700' : 'bg-white/90 border-slate-200 shadow-lg'
+        }`}>
+          <div className="flex justify-between items-start">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: selectedLocation.color + '20' }}>
+                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: selectedLocation.color }}></div>
+              </div>
+              <div>
+                <p className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>{selectedLocation.name}</p>
+                <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{selectedLocation.type}</p>
+                <p className="text-sm mt-1">
+                  <span className="font-bold" style={{ color: selectedLocation.color }}>{selectedLocation.students.toLocaleString()}</span>
+                  <span className={`ml-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>talaba</span>
+                </p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setSelectedLocation(null)} 
+              className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}
+            >
+              <CloseIcon />
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Gradient Bar Chart
+const GradientBarChart = ({ data, dataKey, fill }) => {
+  const { isDark } = useTheme();
+  return (
+    <ResponsiveContainer width="100%" height={220}>
+      <BarChart data={data} layout="vertical" barCategoryGap="20%">
+        <defs>
+          <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={fill} stopOpacity={1} />
+            <stop offset="100%" stopColor={fill} stopOpacity={0.5} />
+          </linearGradient>
+        </defs>
+        <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} horizontal={false} />
+        <XAxis type="number" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} axisLine={false} tickLine={false} />
+        <YAxis type="category" dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={11} width={70} axisLine={false} tickLine={false} />
+        <Tooltip content={<CustomTooltip />} cursor={{ fill: isDark ? '#1e293b' : '#f1f5f9' }} />
+        <Bar dataKey={dataKey} fill="url(#barGradient)" radius={[0, 6, 6, 0]} animationDuration={1500} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+};
+
+// Main Dashboard
+export default function Billing() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [activeNav, setActiveNav] = useState('dashboard');
+  const [isDark, setIsDark] = useState(false);
+
+  const navItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
+    { id: 'students', label: 'Talabalar', icon: <UsersIcon /> },
+    { id: 'statistics', label: 'Statistika', icon: <ChartIcon /> },
+    { id: 'map', label: 'Xarita', icon: <MapIcon /> }
+  ];
+
+  return (
+    <ThemeContext.Provider value={{ isDark }}>
+      <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+        {/* Mobile Header */}
+        <div className={`lg:hidden fixed top-0 left-0 right-0 h-14 backdrop-blur border-b z-50 flex items-center justify-between px-4 ${
+          isDark ? 'bg-slate-900/95 border-slate-800' : 'bg-white/95 border-slate-200'
+        }`}>
+          <div className="flex items-center gap-3">
+            <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}>
+              {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
+            <h1 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
+          </div>
+          <button onClick={() => setIsDark(!isDark)} className={`p-2 rounded-lg ${isDark ? 'bg-slate-800 text-yellow-400' : 'bg-slate-100 text-slate-600'}`}>
+            {isDark ? <SunIcon /> : <MoonIcon />}
+          </button>
+        </div>
+
+        {sidebarOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSidebarOpen(false)} />}
+
+        {/* Sidebar */}
+        <aside className={`fixed top-0 left-0 h-full w-60 border-r z-50 transform transition-transform duration-300 ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        } ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+          <div className={`p-5 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
+            <p className={`text-[10px] uppercase tracking-widest mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Admin Dashboard</p>
+          </div>
+          
+          <nav className="p-3">
+            <p className={`text-[10px] uppercase tracking-wider mb-2 px-3 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>Asosiy</p>
+            {navItems.map((item) => (
+              <button key={item.id} onClick={() => { setActiveNav(item.id); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 text-sm transition-all ${
+                  activeNav === item.id 
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/20' 
+                    : isDark ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                }`}>
+                {item.icon}
+                <span className="font-medium">{item.label}</span>
+              </button>
+            ))}
+          </nav>
+
+          <div className={`hidden lg:block absolute bottom-0 left-0 right-0 p-3 border-t ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+            <button onClick={() => setIsDark(!isDark)}
+              className={`w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-all ${
+                isDark ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}>
+              {isDark ? <SunIcon /> : <MoonIcon />}
+              <span>{isDark ? 'Kunduzgi rejim' : 'Tungi rejim'}</span>
+            </button>
+          </div>
+        </aside>
+
+        {/* Main Content */}
+        <main className="lg:ml-60 pt-14 lg:pt-0 min-h-screen">
+          <div className="p-4 lg:p-5">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <h2 className={`text-xl lg:text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Dashboard</h2>
+                <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>2024-2025 o'quv yili statistikasi</p>
+              </div>
+              <div className="flex gap-2">
+                <button className={`px-3 py-2 rounded-lg text-xs font-medium border ${isDark ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-50'}`}>
+                  Export
+                </button>
+                <button className="px-3 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg text-xs font-medium text-white shadow-lg shadow-blue-500/20">
+                  Yangilash
+                </button>
+              </div>
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+              <StatCard label="Jami talabalar" value={12847} change="+5.2% o'tgan yilga" positive={true} gradient="from-slate-900 to-blue-900/20" />
+              <StatCard label="Kunduzgi ta'lim" value={8234} change="64% jami talabalar" positive={true} gradient="from-slate-900 to-purple-900/20" />
+              <StatCard label="Sirtqi ta'lim" value={4613} change="36% jami talabalar" positive={true} gradient="from-slate-900 to-cyan-900/20" />
+              <StatCard label="Yotoqxonada" value={3421} change="-2.1% joy yetishmovchi" positive={false} gradient="from-slate-900 to-orange-900/20" />
+            </div>
+
+            {/* Row 1 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-3">
+              <ChartCard title="Jins kesimida" subtitle="Talabalar taqsimoti">
+                <EnhancedDonutChart data={genderData} />
+              </ChartCard>
+
+              <ChartCard title="Ta'lim shakli" subtitle="Kunduzgi va sirtqi">
+                <GradientBarChart data={educationFormData} dataKey="students" fill="#3b82f6" />
+              </ChartCard>
+
+              <ChartCard title="Kurslar kesimida" subtitle="Yarim doira ko'rinishi">
+                <SemiCircleGauge data={courseData} />
+              </ChartCard>
+            </div>
+
+            {/* Row 2 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
+              <ChartCard title="Doimiy yashash viloyati" subtitle="Talabalar kelib chiqqan viloyatlar">
+                <ResponsiveContainer width="100%" height={220}>
+                  <AreaChart data={regionData}>
+                    <defs>
+                      <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8}/>
+                        <stop offset="50%" stopColor="#8b5cf6" stopOpacity={0.4}/>
+                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+                    <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={9} angle={-45} textAnchor="end" height={50} />
+                    <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Area type="monotone" dataKey="value" stroke="#3b82f6" strokeWidth={2} fill="url(#areaGradient)" animationDuration={1500} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </ChartCard>
+
+              <ChartCard title="Joriy yashash tumani" subtitle="Talabalar va yotoqxona">
+                <ResponsiveContainer width="100%" height={220}>
+                  <ComposedChart data={districtData}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+                    <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={9} />
+                    <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ fontSize: 10 }} />
+                    <Bar dataKey="talabalar" name="Talabalar" fill="#8b5cf6" radius={[4, 4, 0, 0]} animationDuration={1200} />
+                    <Line type="monotone" dataKey="yotoqxona" name="Yotoqxona" stroke="#06b6d4" strokeWidth={3} dot={{ fill: '#06b6d4', r: 4, strokeWidth: 2, stroke: isDark ? '#0f172a' : '#fff' }} animationDuration={1500} />
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </ChartCard>
+            </div>
+
+            {/* Row 3 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
+              <ChartCard title="Turar joy turi" subtitle="Yashash sharoitlari">
+                <EnhancedDonutChart data={housingTypeData} />
+              </ChartCard>
+
+              <ChartCard title="Yashash joyi statusi" subtitle="Kurslar bo'yicha">
+                <ResponsiveContainer width="100%" height={220}>
+                  <BarChart data={housingStatusData} barCategoryGap="15%">
+                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+                    <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+                    <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend wrapperStyle={{ fontSize: 10 }} />
+                    <Bar dataKey="taminlangan" name="Ta'minlangan" stackId="a" fill="#10b981" animationDuration={1200} />
+                    <Bar dataKey="navbatda" name="Navbatda" stackId="a" fill="#f59e0b" animationDuration={1200} />
+                    <Bar dataKey="taminlanmagan" name="Ta'minlanmagan" stackId="a" fill="#ef4444" radius={[4, 4, 0, 0]} animationDuration={1200} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </ChartCard>
+            </div>
+
+            {/* Attendance */}
+            <ChartCard title="Dars qoldirish statistikasi" subtitle="Soatlar bo'yicha taqsimot" className="mb-3">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+                {attendanceData.map((item, i) => (
+                  <div key={i} className={`rounded-lg p-3 text-center border transition-all hover:scale-105 ${
+                    isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200 shadow-sm'
+                  }`}>
+                    <p className={`text-xs mb-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{item.range}</p>
+                    <p className="text-xl lg:text-2xl font-bold font-mono" style={{ color: item.fill }}>
+                      <AnimatedCounter value={item.count} duration={1500} />
+                    </p>
+                    <p className={`text-[10px] ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>talaba</p>
+                  </div>
+                ))}
+              </div>
+              <ResponsiveContainer width="100%" height={150}>
+                <BarChart data={attendanceData} barCategoryGap="25%">
+                  <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+                  <XAxis dataKey="range" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+                  <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="count" radius={[6, 6, 0, 0]} animationDuration={1200}>
+                    {attendanceData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartCard>
+
+            {/* Map */}
+            <ChartCard title="Talabalar joylashuvi xaritasi" subtitle="Turar joylar geografik ko'rinishi">
+              <InteractiveMap locations={mapLocations} />
+            </ChartCard>
+          </div>
+        </main>
+      </div>
+    </ThemeContext.Provider>
+  );
+}
 
 
 
