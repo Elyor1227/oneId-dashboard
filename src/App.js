@@ -1,10 +1,10 @@
 import React from 'react';
-import HemisDashboard from './components/HemisDashboard';
+import TyutorHemis from './components/tyutor-hemis-landingpage';
 
 function App() {
   return (
     <div className="App">
-      <HemisDashboard />
+      <TyutorHemis />
     </div>
   );
 }
