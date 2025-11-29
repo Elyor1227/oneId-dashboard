@@ -6781,29 +6781,2544 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // =========================================================================================================================
 
-import React, { useState, useEffect, useRef } from 'react';
+// import React, { useState, useEffect, useRef } from 'react';
+// import { 
+//   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
+//   ResponsiveContainer, AreaChart, Area, RadialBarChart, RadialBar, ComposedChart, Line,
+//   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Treemap
+// } from 'recharts';
+
+// // Data
+// const genderData = [
+//   { name: 'Erkak', value: 7234, color: '#3b82f6' },
+//   { name: 'Ayol', value: 5613, color: '#a855f7' }
+// ];
+
+// const educationFormData = [
+//   { name: 'Kunduzgi', students: 8234, color: '#3b82f6' },
+//   { name: 'Sirtqi', students: 4613, color: '#8b5cf6' }
+// ];
+
+// const courseData = [
+//   { subject: '1-kurs', A: 3456, fullMark: 4000 },
+//   { subject: '2-kurs', A: 3234, fullMark: 4000 },
+//   { subject: '3-kurs', A: 3012, fullMark: 4000 },
+//   { subject: '4-kurs', A: 3145, fullMark: 4000 }
+// ];
+
+// const regionData = [
+//   { name: 'Toshkent', value: 2845 },
+//   { name: 'Samarqand', value: 1923 },
+//   { name: "Farg'ona", value: 1756 },
+//   { name: 'Andijon', value: 1634 },
+//   { name: 'Namangan', value: 1423 },
+//   { name: 'Buxoro', value: 1234 },
+//   { name: 'Qashqadaryo', value: 1032 }
+// ];
+
+// const districtData = [
+//   { name: 'Chilonzor', talabalar: 2134, yotoqxona: 856 },
+//   { name: 'Yunusobod', talabalar: 1876, yotoqxona: 654 },
+//   { name: 'M.Ulug\'bek', talabalar: 1654, yotoqxona: 534 },
+//   { name: 'Sergeli', talabalar: 1432, yotoqxona: 423 },
+//   { name: 'Yakkasaroy', talabalar: 1234, yotoqxona: 312 },
+//   { name: 'Shayxontohur', talabalar: 987, yotoqxona: 234 }
+// ];
+
+// const housingTypeData = [
+//   { name: 'Yotoqxona', value: 3421, color: '#3b82f6' },
+//   { name: 'Ijara', value: 4256, color: '#10b981' },
+//   { name: 'Ota-ona bilan', value: 3876, color: '#f59e0b' },
+//   { name: 'Qarindoshlar', value: 1294, color: '#ef4444' }
+// ];
+
+// const housingStatusData = [
+//   { name: '1-kurs', taminlangan: 2845, navbatda: 432, taminlanmagan: 179 },
+//   { name: '2-kurs', taminlangan: 2654, navbatda: 389, taminlanmagan: 191 },
+//   { name: '3-kurs', taminlangan: 2512, navbatda: 312, taminlanmagan: 188 },
+//   { name: '4-kurs', taminlangan: 2634, navbatda: 298, taminlanmagan: 213 }
+// ];
+
+// const attendanceData = [
+//   { range: '30-40 soat', count: 234, fill: '#3b82f6' },
+//   { range: '40-50 soat', count: 156, fill: '#f59e0b' },
+//   { range: '50-70 soat', count: 89, fill: '#f97316' },
+//   { range: '70+ soat', count: 47, fill: '#ef4444' }
+// ];
+
+// const mapLocations = [
+//   { id: 1, name: 'Yotoqxona 1', type: 'Yotoqxona', students: 450, lat: 41.3111, lng: 69.2797, color: '#3b82f6' },
+//   { id: 2, name: 'Yotoqxona 2', type: 'Yotoqxona', students: 380, lat: 41.3275, lng: 69.2145, color: '#3b82f6' },
+//   { id: 3, name: 'Yotoqxona 3', type: 'Yotoqxona', students: 520, lat: 41.2995, lng: 69.2401, color: '#3b82f6' },
+//   { id: 4, name: 'Chilonzor', type: 'Ijara', students: 890, lat: 41.3156, lng: 69.2934, color: '#10b981' },
+//   { id: 5, name: 'Yunusobod', type: 'Ijara', students: 760, lat: 41.3411, lng: 69.1876, color: '#10b981' },
+//   { id: 6, name: 'Sergeli', type: 'Ijara', students: 540, lat: 41.2650, lng: 69.2200, color: '#10b981' },
+//   { id: 7, name: 'M.Ulug\'bek', type: 'Ota-ona', students: 1200, lat: 41.3400, lng: 69.2850, color: '#f59e0b' },
+//   { id: 8, name: 'Yakkasaroy', type: 'Ota-ona', students: 980, lat: 41.2900, lng: 69.2650, color: '#f59e0b' },
+//   { id: 9, name: 'Shayxontohur', type: 'Qarindosh', students: 320, lat: 41.3200, lng: 69.2350, color: '#ef4444' },
+//   { id: 10, name: 'Olmazor', type: 'Qarindosh', students: 280, lat: 41.3350, lng: 69.1950, color: '#ef4444' },
+//   { id: 11, name: 'Bektemir', type: 'Ijara', students: 420, lat: 41.2750, lng: 69.3100, color: '#10b981' },
+//   { id: 12, name: 'Uchtepa', type: 'Ota-ona', students: 650, lat: 41.3050, lng: 69.1750, color: '#f59e0b' },
+// ];
+
+// // Icons
+// const DashboardIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>;
+// const UsersIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+// const ChartIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+// const MapIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+// const MenuIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
+// const CloseIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+// const SunIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
+// const MoonIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
+// const TrendUpIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>;
+// const TrendDownIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>;
+
+// // Theme Context
+// const ThemeContext = React.createContext();
+// const useTheme = () => React.useContext(ThemeContext);
+
+// // Animated Counter
+// const AnimatedCounter = ({ value, duration = 2000 }) => {
+//   const [count, setCount] = useState(0);
+//   useEffect(() => {
+//     let start = 0;
+//     const increment = Math.ceil(value / 80);
+//     const timer = setInterval(() => {
+//       start += increment;
+//       if (start >= value) { setCount(value); clearInterval(timer); }
+//       else { setCount(start); }
+//     }, duration / 80);
+//     return () => clearInterval(timer);
+//   }, [value, duration]);
+//   return <span>{count.toLocaleString()}</span>;
+// };
+
+// // Stat Card
+// const StatCard = ({ label, value, change, positive, gradient }) => {
+//   const { isDark } = useTheme();
+//   return (
+//     <div className={`relative overflow-hidden rounded-xl p-4 lg:p-5 border transition-all duration-300 hover:scale-[1.02] ${
+//       isDark ? `border-slate-800 bg-gradient-to-br ${gradient}` : 'border-slate-200 bg-white shadow-sm hover:shadow-md'
+//     }`}>
+//       <div className="relative z-10">
+//         <p className={`text-xs uppercase tracking-wide mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{label}</p>
+//         <p className={`text-2xl lg:text-3xl font-bold mb-1 font-mono ${isDark ? 'text-white' : 'text-slate-800'}`}>
+//           <AnimatedCounter value={value} />
+//         </p>
+//         <div className={`flex items-center gap-1 text-xs ${positive ? 'text-emerald-500' : 'text-red-500'}`}>
+//           {positive ? <TrendUpIcon /> : <TrendDownIcon />}
+//           <span>{change}</span>
+//         </div>
+//       </div>
+//       {isDark && <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-white/5 blur-2xl"></div>}
+//     </div>
+//   );
+// };
+
+// // Chart Card
+// const ChartCard = ({ title, subtitle, children, className = '' }) => {
+//   const { isDark } = useTheme();
+//   return (
+//     <div className={`rounded-xl p-4 lg:p-5 transition-all duration-300 ${
+//       isDark ? 'bg-slate-900/50 backdrop-blur border border-slate-800 hover:border-slate-700' : 'bg-white border border-slate-200 shadow-sm hover:shadow-md'
+//     } ${className}`}>
+//       <div className="mb-3">
+//         <h3 className={`text-sm lg:text-base font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>{title}</h3>
+//         {subtitle && <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{subtitle}</p>}
+//       </div>
+//       {children}
+//     </div>
+//   );
+// };
+
+// // Custom Tooltip
+// const CustomTooltip = ({ active, payload, label }) => {
+//   const { isDark } = useTheme();
+//   if (active && payload && payload.length) {
+//     return (
+//       <div className={`rounded-lg p-3 shadow-xl border text-xs ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
+//         <p className={`font-semibold mb-1.5 ${isDark ? 'text-white' : 'text-slate-800'}`}>{label}</p>
+//         {payload.map((entry, index) => (
+//           <div key={index} className="flex items-center gap-2 mb-0.5">
+//             <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }}></div>
+//             <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>{entry.name}:</span>
+//             <span className="font-bold" style={{ color: entry.color || entry.fill }}>{entry.value?.toLocaleString()}</span>
+//           </div>
+//         ))}
+//       </div>
+//     );
+//   }
+//   return null;
+// };
+
+// // Enhanced Donut Chart with Animation
+// const EnhancedDonutChart = ({ data }) => {
+//   const { isDark } = useTheme();
+//   const total = data.reduce((sum, item) => sum + item.value, 0);
+//   const [activeIndex, setActiveIndex] = useState(null);
+
+//   return (
+//     <div className="relative">
+//       <ResponsiveContainer width="100%" height={220}>
+//         <PieChart>
+//           <defs>
+//             {data.map((entry, index) => (
+//               <linearGradient key={index} id={`gradient-${index}`} x1="0" y1="0" x2="1" y2="1">
+//                 <stop offset="0%" stopColor={entry.color} stopOpacity={1} />
+//                 <stop offset="100%" stopColor={entry.color} stopOpacity={0.6} />
+//               </linearGradient>
+//             ))}
+//           </defs>
+//           <Pie
+//             data={data}
+//             cx="50%"
+//             cy="50%"
+//             innerRadius={60}
+//             outerRadius={activeIndex !== null ? 90 : 85}
+//             paddingAngle={3}
+//             dataKey="value"
+//             animationBegin={0}
+//             animationDuration={1500}
+//             animationEasing="ease-out"
+//             onMouseEnter={(_, index) => setActiveIndex(index)}
+//             onMouseLeave={() => setActiveIndex(null)}
+//           >
+//             {data.map((entry, index) => (
+//               <Cell 
+//                 key={index} 
+//                 fill={`url(#gradient-${index})`}
+//                 stroke={isDark ? '#0f172a' : '#fff'}
+//                 strokeWidth={2}
+//                 style={{ 
+//                   filter: activeIndex === index ? 'drop-shadow(0 0 8px ' + entry.color + ')' : 'none',
+//                   transition: 'all 0.3s ease'
+//                 }}
+//               />
+//             ))}
+//           </Pie>
+//           <Tooltip content={<CustomTooltip />} />
+//         </PieChart>
+//       </ResponsiveContainer>
+//       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+//         <div className="text-center">
+//           <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{total.toLocaleString()}</p>
+//           <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Jami</p>
+//         </div>
+//       </div>
+//       <div className="flex justify-center gap-4 mt-3">
+//         {data.map((item, index) => (
+//           <div key={index} className="flex items-center gap-2 cursor-pointer" onMouseEnter={() => setActiveIndex(index)} onMouseLeave={() => setActiveIndex(null)}>
+//             <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: item.color }}></div>
+//             <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{item.name}</span>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Semi-circle Gauge Chart for Courses
+// const SemiCircleGauge = ({ data }) => {
+//   const { isDark } = useTheme();
+//   const total = data.reduce((sum, item) => sum + item.A, 0);
+//   const colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#10b981'];
+  
+//   // Calculate angles for each segment
+//   let currentAngle = 180;
+//   const segments = data.map((item, index) => {
+//     const percentage = (item.A / total) * 180;
+//     const segment = {
+//       ...item,
+//       startAngle: currentAngle,
+//       endAngle: currentAngle - percentage,
+//       color: colors[index],
+//       percentage: ((item.A / total) * 100).toFixed(1)
+//     };
+//     currentAngle -= percentage;
+//     return segment;
+//   });
+
+//   const createArc = (startAngle, endAngle, innerRadius, outerRadius) => {
+//     const startRad = (startAngle * Math.PI) / 180;
+//     const endRad = (endAngle * Math.PI) / 180;
+    
+//     const x1 = 50 + outerRadius * Math.cos(startRad);
+//     const y1 = 50 - outerRadius * Math.sin(startRad);
+//     const x2 = 50 + outerRadius * Math.cos(endRad);
+//     const y2 = 50 - outerRadius * Math.sin(endRad);
+//     const x3 = 50 + innerRadius * Math.cos(endRad);
+//     const y3 = 50 - innerRadius * Math.sin(endRad);
+//     const x4 = 50 + innerRadius * Math.cos(startRad);
+//     const y4 = 50 - innerRadius * Math.sin(startRad);
+    
+//     const largeArc = Math.abs(endAngle - startAngle) > 180 ? 1 : 0;
+    
+//     return `M ${x1} ${y1} A ${outerRadius} ${outerRadius} 0 ${largeArc} 1 ${x2} ${y2} L ${x3} ${y3} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x4} ${y4} Z`;
+//   };
+
+//   const [hoveredIndex, setHoveredIndex] = useState(null);
+//   const [animationProgress, setAnimationProgress] = useState(0);
+
+//   useEffect(() => {
+//     const duration = 1500;
+//     const startTime = Date.now();
+    
+//     const animate = () => {
+//       const elapsed = Date.now() - startTime;
+//       const progress = Math.min(elapsed / duration, 1);
+//       const easeOut = 1 - Math.pow(1 - progress, 3);
+//       setAnimationProgress(easeOut);
+      
+//       if (progress < 1) {
+//         requestAnimationFrame(animate);
+//       }
+//     };
+    
+//     requestAnimationFrame(animate);
+//   }, []);
+
+//   return (
+//     <div className="relative">
+//       <svg viewBox="0 0 100 60" className="w-full h-48">
+//         <defs>
+//           {colors.map((color, i) => (
+//             <linearGradient key={i} id={`gaugeGrad${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
+//               <stop offset="0%" stopColor={color} stopOpacity={1} />
+//               <stop offset="100%" stopColor={color} stopOpacity={0.7} />
+//             </linearGradient>
+//           ))}
+//           <filter id="gaugeShadow" x="-20%" y="-20%" width="140%" height="140%">
+//             <feDropShadow dx="0" dy="1" stdDeviation="1" floodOpacity="0.3"/>
+//           </filter>
+//           <filter id="gaugeGlow" x="-50%" y="-50%" width="200%" height="200%">
+//             <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+//             <feMerge>
+//               <feMergeNode in="coloredBlur"/>
+//               <feMergeNode in="SourceGraphic"/>
+//             </feMerge>
+//           </filter>
+//         </defs>
+        
+//         {/* Background arc */}
+//         <path
+//           d={createArc(180, 0, 28, 42)}
+//           fill={isDark ? '#1e293b' : '#e2e8f0'}
+//         />
+        
+//         {/* Segments */}
+//         {segments.map((segment, index) => {
+//           const animatedEndAngle = segment.startAngle - (segment.startAngle - segment.endAngle) * animationProgress;
+//           return (
+//             <path
+//               key={index}
+//               d={createArc(segment.startAngle, animatedEndAngle, 28, 42)}
+//               fill={`url(#gaugeGrad${index})`}
+//               filter={hoveredIndex === index ? "url(#gaugeGlow)" : "url(#gaugeShadow)"}
+//               style={{ 
+//                 transition: 'filter 0.3s ease',
+//                 cursor: 'pointer'
+//               }}
+//               onMouseEnter={() => setHoveredIndex(index)}
+//               onMouseLeave={() => setHoveredIndex(null)}
+//             />
+//           );
+//         })}
+        
+//         {/* Center decoration */}
+//         <circle cx="50" cy="50" r="24" fill={isDark ? '#0f172a' : '#fff'} />
+//         <circle cx="50" cy="50" r="22" fill={isDark ? '#1e293b' : '#f8fafc'} />
+        
+//         {/* Center text */}
+//         <text x="50" y="46" textAnchor="middle" fontSize="8" fontWeight="bold" fill={isDark ? '#fff' : '#1e293b'}>
+//           {total.toLocaleString()}
+//         </text>
+//         <text x="50" y="54" textAnchor="middle" fontSize="4" fill={isDark ? '#64748b' : '#94a3b8'}>
+//           Jami talabalar
+//         </text>
+        
+//         {/* Tick marks */}
+//         {[0, 45, 90, 135, 180].map((angle, i) => {
+//           const rad = (angle * Math.PI) / 180;
+//           const x1 = 50 + 44 * Math.cos(rad);
+//           const y1 = 50 - 44 * Math.sin(rad);
+//           const x2 = 50 + 47 * Math.cos(rad);
+//           const y2 = 50 - 47 * Math.sin(rad);
+//           return (
+//             <line
+//               key={i}
+//               x1={x1} y1={y1} x2={x2} y2={y2}
+//               stroke={isDark ? '#475569' : '#cbd5e1'}
+//               strokeWidth="0.5"
+//             />
+//           );
+//         })}
+//       </svg>
+      
+//       {/* Legend */}
+//       <div className="grid grid-cols-4 gap-2 mt-2">
+//         {segments.map((segment, index) => (
+//           <div 
+//             key={index}
+//             className={`text-center p-2 rounded-lg transition-all cursor-pointer ${
+//               hoveredIndex === index 
+//                 ? (isDark ? 'bg-slate-800' : 'bg-slate-100') 
+//                 : ''
+//             }`}
+//             onMouseEnter={() => setHoveredIndex(index)}
+//             onMouseLeave={() => setHoveredIndex(null)}
+//           >
+//             <div className="flex items-center justify-center gap-1.5 mb-1">
+//               <div 
+//                 className="w-2.5 h-2.5 rounded-full"
+//                 style={{ backgroundColor: segment.color }}
+//               />
+//               <span className={`text-xs font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+//                 {segment.subject}
+//               </span>
+//             </div>
+//             <p className="text-sm font-bold font-mono" style={{ color: segment.color }}>
+//               {segment.A.toLocaleString()}
+//             </p>
+//             <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
+//               {segment.percentage}%
+//             </p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Interactive Map with Leaflet-like style
+// const InteractiveMap = ({ locations }) => {
+//   const { isDark } = useTheme();
+//   const [selectedLocation, setSelectedLocation] = useState(null);
+//   const [hoveredLocation, setHoveredLocation] = useState(null);
+  
+//   const normalizeCoords = (lat, lng) => {
+//     const minLat = 41.24, maxLat = 41.38, minLng = 69.12, maxLng = 69.36;
+//     return {
+//       x: ((lng - minLng) / (maxLng - minLng)) * 100,
+//       y: ((maxLat - lat) / (maxLat - minLat)) * 100
+//     };
+//   };
+
+//   const getMarkerSize = (students) => {
+//     if (students > 1000) return 12;
+//     if (students > 500) return 9;
+//     return 6;
+//   };
+
+//   return (
+//     <div className={`relative rounded-xl overflow-hidden ${isDark ? 'bg-slate-800/30' : 'bg-slate-100'}`}>
+//       {/* Map Header */}
+//       <div className={`px-4 py-2 border-b ${isDark ? 'border-slate-700 bg-slate-800/50' : 'border-slate-200 bg-white/80'}`}>
+//         <div className="flex items-center justify-between">
+//           <div className="flex items-center gap-2">
+//             <MapIcon />
+//             <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Toshkent shahri</span>
+//           </div>
+//           <div className="flex gap-3">
+//             {[
+//               { name: 'Yotoqxona', color: '#3b82f6', count: locations.filter(l => l.type === 'Yotoqxona').length },
+//               { name: 'Ijara', color: '#10b981', count: locations.filter(l => l.type === 'Ijara').length },
+//               { name: 'Ota-ona', color: '#f59e0b', count: locations.filter(l => l.type === 'Ota-ona').length },
+//               { name: 'Qarindosh', color: '#ef4444', count: locations.filter(l => l.type === 'Qarindosh').length }
+//             ].map((item, i) => (
+//               <div key={i} className="flex items-center gap-1">
+//                 <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }}></div>
+//                 <span className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{item.name}</span>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Map SVG */}
+//       <svg viewBox="0 0 100 100" className="w-full h-72 lg:h-80">
+//         <defs>
+//           <pattern id="gridPattern" width="5" height="5" patternUnits="userSpaceOnUse">
+//             <path d="M 5 0 L 0 0 0 5" fill="none" stroke={isDark ? '#1e293b' : '#e2e8f0'} strokeWidth="0.2"/>
+//           </pattern>
+//           <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
+//             <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+//             <feMerge>
+//               <feMergeNode in="coloredBlur"/>
+//               <feMergeNode in="SourceGraphic"/>
+//             </feMerge>
+//           </filter>
+//           <filter id="shadowFilter">
+//             <feDropShadow dx="0" dy="1" stdDeviation="1" floodOpacity="0.3"/>
+//           </filter>
+//           {/* Road paths */}
+//           <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+//             <stop offset="0%" stopColor={isDark ? '#334155' : '#cbd5e1'} />
+//             <stop offset="50%" stopColor={isDark ? '#475569' : '#94a3b8'} />
+//             <stop offset="100%" stopColor={isDark ? '#334155' : '#cbd5e1'} />
+//           </linearGradient>
+//         </defs>
+        
+//         {/* Background */}
+//         <rect width="100%" height="100%" fill="url(#gridPattern)"/>
+        
+//         {/* Simplified road network */}
+//         <g stroke="url(#roadGradient)" strokeWidth="0.4" fill="none" opacity="0.6">
+//           <path d="M 0 50 Q 25 45 50 50 T 100 50" />
+//           <path d="M 50 0 Q 55 25 50 50 T 50 100" />
+//           <path d="M 20 20 Q 35 35 50 50 T 80 80" />
+//           <path d="M 80 20 Q 65 35 50 50 T 20 80" />
+//           <circle cx="50" cy="50" r="15" />
+//           <circle cx="50" cy="50" r="30" />
+//         </g>
+
+//         {/* Location markers */}
+//         {locations.map((location) => {
+//           const { x, y } = normalizeCoords(location.lat, location.lng);
+//           const size = getMarkerSize(location.students);
+//           const isHovered = hoveredLocation?.id === location.id;
+//           const isSelected = selectedLocation?.id === location.id;
+          
+//           return (
+//             <g 
+//               key={location.id} 
+//               className="cursor-pointer"
+//               onMouseEnter={() => setHoveredLocation(location)}
+//               onMouseLeave={() => setHoveredLocation(null)}
+//               onClick={() => setSelectedLocation(selectedLocation?.id === location.id ? null : location)}
+//             >
+//               {/* Pulse animation ring */}
+//               <circle cx={x} cy={y} r={size + 4} fill="none" stroke={location.color} strokeWidth="0.5" opacity="0.3">
+//                 <animate attributeName="r" values={`${size};${size + 8};${size}`} dur="2s" repeatCount="indefinite"/>
+//                 <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
+//               </circle>
+              
+//               {/* Main marker */}
+//               <circle 
+//                 cx={x} 
+//                 cy={y} 
+//                 r={isHovered || isSelected ? size + 2 : size}
+//                 fill={location.color}
+//                 filter={isHovered || isSelected ? "url(#glowFilter)" : "url(#shadowFilter)"}
+//                 style={{ transition: 'all 0.2s ease' }}
+//               >
+//                 <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+//               </circle>
+              
+//               {/* Inner highlight */}
+//               <circle cx={x - size/4} cy={y - size/4} r={size/3} fill="white" opacity="0.3"/>
+              
+//               {/* Label on hover */}
+//               {(isHovered || isSelected) && (
+//                 <g>
+//                   <rect 
+//                     x={x + size + 3} 
+//                     y={y - 8} 
+//                     width={location.name.length * 3 + 10} 
+//                     height="16" 
+//                     rx="3"
+//                     fill={isDark ? '#1e293b' : '#fff'}
+//                     stroke={location.color}
+//                     strokeWidth="0.5"
+//                   />
+//                   <text 
+//                     x={x + size + 8} 
+//                     y={y + 1} 
+//                     fontSize="4" 
+//                     fill={isDark ? '#fff' : '#334155'}
+//                     fontWeight="500"
+//                   >
+//                     {location.name}
+//                   </text>
+//                 </g>
+//               )}
+//             </g>
+//           );
+//         })}
+//       </svg>
+
+//       {/* Info Panel */}
+//       {selectedLocation && (
+//         <div className={`absolute bottom-3 left-3 right-3 rounded-lg p-3 border backdrop-blur-sm ${
+//           isDark ? 'bg-slate-900/90 border-slate-700' : 'bg-white/90 border-slate-200 shadow-lg'
+//         }`}>
+//           <div className="flex justify-between items-start">
+//             <div className="flex items-start gap-3">
+//               <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: selectedLocation.color + '20' }}>
+//                 <div className="w-4 h-4 rounded-full" style={{ backgroundColor: selectedLocation.color }}></div>
+//               </div>
+//               <div>
+//                 <p className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>{selectedLocation.name}</p>
+//                 <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{selectedLocation.type}</p>
+//                 <p className="text-sm mt-1">
+//                   <span className="font-bold" style={{ color: selectedLocation.color }}>{selectedLocation.students.toLocaleString()}</span>
+//                   <span className={`ml-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>talaba</span>
+//                 </p>
+//               </div>
+//             </div>
+//             <button 
+//               onClick={() => setSelectedLocation(null)} 
+//               className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}
+//             >
+//               <CloseIcon />
+//             </button>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// // Gradient Bar Chart
+// const GradientBarChart = ({ data, dataKey, fill }) => {
+//   const { isDark } = useTheme();
+//   return (
+//     <ResponsiveContainer width="100%" height={220}>
+//       <BarChart data={data} layout="vertical" barCategoryGap="20%">
+//         <defs>
+//           <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
+//             <stop offset="0%" stopColor={fill} stopOpacity={1} />
+//             <stop offset="100%" stopColor={fill} stopOpacity={0.5} />
+//           </linearGradient>
+//         </defs>
+//         <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} horizontal={false} />
+//         <XAxis type="number" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} axisLine={false} tickLine={false} />
+//         <YAxis type="category" dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={11} width={70} axisLine={false} tickLine={false} />
+//         <Tooltip content={<CustomTooltip />} cursor={{ fill: isDark ? '#1e293b' : '#f1f5f9' }} />
+//         <Bar dataKey={dataKey} fill="url(#barGradient)" radius={[0, 6, 6, 0]} animationDuration={1500} />
+//       </BarChart>
+//     </ResponsiveContainer>
+//   );
+// };
+
+// // Main Dashboard
+// // Main Dashboard
+// // Main Dashboard
+// export default function Billing() {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+//   const [activeNav, setActiveNav] = useState('dashboard');
+//   const [isDark, setIsDark] = useState(false);
+
+//   const navItems = [
+//     { id: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
+//     { id: 'students', label: 'Talabalar', icon: <UsersIcon /> },
+//     { id: 'statistics', label: 'Statistika', icon: <ChartIcon /> },
+//     { id: 'map', label: 'Xarita', icon: <MapIcon /> }
+//   ];
+
+//   return (
+//     <ThemeContext.Provider value={{ isDark }}>
+//       <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+//         {/* Mobile Header */}
+//         <div className={`lg:hidden fixed top-0 left-0 right-0 h-14 backdrop-blur border-b z-50 flex items-center justify-between px-4 ${
+//           isDark ? 'bg-slate-900/95 border-slate-800' : 'bg-white/95 border-slate-200'
+//         }`}>
+//           <div className="flex items-center gap-3">
+//             <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}>
+//               {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
+//             </button>
+//             <h1 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
+//           </div>
+//           <button onClick={() => setIsDark(!isDark)} className={`p-2 rounded-lg ${isDark ? 'bg-slate-800 text-yellow-400' : 'bg-slate-100 text-slate-600'}`}>
+//             {isDark ? <SunIcon /> : <MoonIcon />}
+//           </button>
+//         </div>
+
+//         {sidebarOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSidebarOpen(false)} />}
+
+//         {/* Sidebar */}
+//         <aside className={`fixed top-0 left-0 h-full w-60 border-r z-50 transform transition-transform duration-300 ${
+//           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+//         } ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
+//           <div className={`p-5 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+//             <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
+//             <p className={`text-[10px] uppercase tracking-widest mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Admin Dashboard</p>
+//           </div>
+          
+//           <nav className="p-3">
+//             <p className={`text-[10px] uppercase tracking-wider mb-2 px-3 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>Asosiy</p>
+//             {navItems.map((item) => (
+//               <button key={item.id} onClick={() => { setActiveNav(item.id); setSidebarOpen(false); }}
+//                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 text-sm transition-all ${
+//                   activeNav === item.id 
+//                     ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/20' 
+//                     : isDark ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+//                 }`}>
+//                 {item.icon}
+//                 <span className="font-medium">{item.label}</span>
+//               </button>
+//             ))}
+//           </nav>
+
+//           <div className={`hidden lg:block absolute bottom-0 left-0 right-0 p-3 border-t ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
+//             <button onClick={() => setIsDark(!isDark)}
+//               className={`w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-all ${
+//                 isDark ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+//               }`}>
+//               {isDark ? <SunIcon /> : <MoonIcon />}
+//               <span>{isDark ? 'Kunduzgi rejim' : 'Tungi rejim'}</span>
+//             </button>
+//           </div>
+//         </aside>
+
+//         {/* Main Content */}
+//         <main className="lg:ml-60 pt-14 lg:pt-0 min-h-screen">
+//           <div className="p-4 lg:p-5">
+//             {/* Header */}
+//             <div className="flex items-center justify-between mb-5">
+//               <div>
+//                 <h2 className={`text-xl lg:text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Dashboard</h2>
+//                 <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>2024-2025 o'quv yili statistikasi</p>
+//               </div>
+//               <div className="flex gap-2">
+//                 <button className={`px-3 py-2 rounded-lg text-xs font-medium border ${isDark ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-50'}`}>
+//                   Export
+//                 </button>
+//                 <button className="px-3 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg text-xs font-medium text-white shadow-lg shadow-blue-500/20">
+//                   Yangilash
+//                 </button>
+//               </div>
+//             </div>
+
+//             {/* Stats */}
+//             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
+//               <StatCard label="Jami talabalar" value={12847} change="+5.2% o'tgan yilga" positive={true} gradient="from-slate-900 to-blue-900/20" />
+//               <StatCard label="Kunduzgi ta'lim" value={8234} change="64% jami talabalar" positive={true} gradient="from-slate-900 to-purple-900/20" />
+//               <StatCard label="Sirtqi ta'lim" value={4613} change="36% jami talabalar" positive={true} gradient="from-slate-900 to-cyan-900/20" />
+//               <StatCard label="Yotoqxonada" value={3421} change="-2.1% joy yetishmovchi" positive={false} gradient="from-slate-900 to-orange-900/20" />
+//             </div>
+
+//             {/* Row 1 */}
+//             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-3">
+//               <ChartCard title="Jins kesimida" subtitle="Talabalar taqsimoti">
+//                 <EnhancedDonutChart data={genderData} />
+//               </ChartCard>
+
+//               <ChartCard title="Ta'lim shakli" subtitle="Kunduzgi va sirtqi">
+//                 <GradientBarChart data={educationFormData} dataKey="students" fill="#3b82f6" />
+//               </ChartCard>
+
+//               <ChartCard title="Kurslar kesimida" subtitle="Yarim doira ko'rinishi">
+//                 <SemiCircleGauge data={courseData} />
+//               </ChartCard>
+//             </div>
+
+//             {/* Row 2 */}
+//             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
+//               <ChartCard title="Doimiy yashash viloyati" subtitle="Talabalar kelib chiqqan viloyatlar">
+//                 <ResponsiveContainer width="100%" height={220}>
+//                   <AreaChart data={regionData}>
+//                     <defs>
+//                       <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+//                         <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8}/>
+//                         <stop offset="50%" stopColor="#8b5cf6" stopOpacity={0.4}/>
+//                         <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0}/>
+//                       </linearGradient>
+//                     </defs>
+//                     <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+//                     <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={9} angle={-45} textAnchor="end" height={50} />
+//                     <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+//                     <Tooltip content={<CustomTooltip />} />
+//                     <Area type="monotone" dataKey="value" stroke="#3b82f6" strokeWidth={2} fill="url(#areaGradient)" animationDuration={1500} />
+//                   </AreaChart>
+//                 </ResponsiveContainer>
+//               </ChartCard>
+
+//               <ChartCard title="Joriy yashash tumani" subtitle="Talabalar va yotoqxona">
+//                 <ResponsiveContainer width="100%" height={220}>
+//                   <ComposedChart data={districtData}>
+//                     <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+//                     <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={9} />
+//                     <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+//                     <Tooltip content={<CustomTooltip />} />
+//                     <Legend wrapperStyle={{ fontSize: 10 }} />
+//                     <Bar dataKey="talabalar" name="Talabalar" fill="#8b5cf6" radius={[4, 4, 0, 0]} animationDuration={1200} />
+//                     <Line type="monotone" dataKey="yotoqxona" name="Yotoqxona" stroke="#06b6d4" strokeWidth={3} dot={{ fill: '#06b6d4', r: 4, strokeWidth: 2, stroke: isDark ? '#0f172a' : '#fff' }} animationDuration={1500} />
+//                   </ComposedChart>
+//                 </ResponsiveContainer>
+//               </ChartCard>
+//             </div>
+
+//             {/* Row 3 */}
+//             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
+//               <ChartCard title="Turar joy turi" subtitle="Yashash sharoitlari">
+//                 <EnhancedDonutChart data={housingTypeData} />
+//               </ChartCard>
+
+//               <ChartCard title="Yashash joyi statusi" subtitle="Kurslar bo'yicha">
+//                 <ResponsiveContainer width="100%" height={220}>
+//                   <BarChart data={housingStatusData} barCategoryGap="15%">
+//                     <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+//                     <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+//                     <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+//                     <Tooltip content={<CustomTooltip />} />
+//                     <Legend wrapperStyle={{ fontSize: 10 }} />
+//                     <Bar dataKey="taminlangan" name="Ta'minlangan" stackId="a" fill="#10b981" animationDuration={1200} />
+//                     <Bar dataKey="navbatda" name="Navbatda" stackId="a" fill="#f59e0b" animationDuration={1200} />
+//                     <Bar dataKey="taminlanmagan" name="Ta'minlanmagan" stackId="a" fill="#ef4444" radius={[4, 4, 0, 0]} animationDuration={1200} />
+//                   </BarChart>
+//                 </ResponsiveContainer>
+//               </ChartCard>
+//             </div>
+
+//             {/* Attendance */}
+//             <ChartCard title="Dars qoldirish statistikasi" subtitle="Soatlar bo'yicha taqsimot" className="mb-3">
+//               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+//                 {attendanceData.map((item, i) => (
+//                   <div key={i} className={`rounded-lg p-3 text-center border transition-all hover:scale-105 ${
+//                     isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200 shadow-sm'
+//                   }`}>
+//                     <p className={`text-xs mb-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{item.range}</p>
+//                     <p className="text-xl lg:text-2xl font-bold font-mono" style={{ color: item.fill }}>
+//                       <AnimatedCounter value={item.count} duration={1500} />
+//                     </p>
+//                     <p className={`text-[10px] ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>talaba</p>
+//                   </div>
+//                 ))}
+//               </div>
+//               <ResponsiveContainer width="100%" height={150}>
+//                 <BarChart data={attendanceData} barCategoryGap="25%">
+//                   <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
+//                   <XAxis dataKey="range" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+//                   <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
+//                   <Tooltip content={<CustomTooltip />} />
+//                   <Bar dataKey="count" radius={[6, 6, 0, 0]} animationDuration={1200}>
+//                     {attendanceData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
+//                   </Bar>
+//                 </BarChart>
+//               </ResponsiveContainer>
+//             </ChartCard>
+
+//             {/* Map */}
+//             <ChartCard title="Talabalar joylashuvi xaritasi" subtitle="Turar joylar geografik ko'rinishi">
+//               <InteractiveMap locations={mapLocations} />
+//             </ChartCard>
+//           </div>
+//         </main>
+//       </div>
+//     </ThemeContext.Provider>
+//   );
+// }
+
+
+
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import { 
+//   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
+//   ResponsiveContainer, AreaChart, Area, ComposedChart, Line
+// } from 'recharts';
+
+// // Data
+// const genderData = [
+//   { name: 'Erkak', value: 7234, color: '#6366f1' },
+//   { name: 'Ayol', value: 5613, color: '#a855f7' }
+// ];
+
+// const educationFormData = [
+//   { name: 'Kunduzgi', students: 8234 },
+//   { name: 'Sirtqi', students: 4613 }
+// ];
+
+// const courseData = [
+//   { name: '1-kurs', value: 3456, color: '#3b82f6', percent: '27%' },
+//   { name: '2-kurs', value: 3234, color: '#06b6d4', percent: '25%' },
+//   { name: '3-kurs', value: 3012, color: '#8b5cf6', percent: '23%' },
+//   { name: '4-kurs', value: 3145, color: '#10b981', percent: '25%' }
+// ];
+
+// const monthlyData = [
+//   { month: 'Sen', kunduzgi: 8100, sirtqi: 4500 },
+//   { month: 'Okt', kunduzgi: 8150, sirtqi: 4520 },
+//   { month: 'Noy', kunduzgi: 8180, sirtqi: 4550 },
+//   { month: 'Dek', kunduzgi: 8200, sirtqi: 4580 },
+//   { month: 'Yan', kunduzgi: 8220, sirtqi: 4600 },
+//   { month: 'Fev', kunduzgi: 8234, sirtqi: 4613 }
+// ];
+
+// const regionData = [
+//   { name: 'Toshkent', value: 2845 },
+//   { name: 'Samarqand', value: 1923 },
+//   { name: "Farg'ona", value: 1756 },
+//   { name: 'Andijon', value: 1634 },
+//   { name: 'Namangan', value: 1423 },
+//   { name: 'Buxoro', value: 1234 },
+//   { name: 'Boshqa', value: 2032 }
+// ];
+
+// const housingData = [
+//   { name: 'Yotoqxona', value: 3421, color: '#3b82f6', percent: '27%', change: '+5.2%' },
+//   { name: 'Ijara', value: 4256, color: '#10b981', percent: '33%', change: '+3.1%' },
+//   { name: 'Ota-ona', value: 3876, color: '#f59e0b', percent: '30%', change: '-1.2%' },
+//   { name: 'Qarindosh', value: 1294, color: '#8b5cf6', percent: '10%', change: '+2.4%' }
+// ];
+
+// const attendanceData = [
+//   { range: '30-40', count: 234, fill: '#3b82f6' },
+//   { range: '40-50', count: 156, fill: '#f59e0b' },
+//   { range: '50-70', count: 89, fill: '#f97316' },
+//   { range: '70+', count: 47, fill: '#ef4444' }
+// ];
+
+// const mapLocations = [
+//   { id: 1, name: 'Toshkent', x: 68, y: 28, students: 2845, intensity: 1 },
+//   { id: 2, name: 'Samarqand', x: 45, y: 35, students: 1923, intensity: 0.8 },
+//   { id: 3, name: "Farg'ona", x: 85, y: 32, students: 1756, intensity: 0.7 },
+//   { id: 4, name: 'Andijon', x: 90, y: 28, students: 1634, intensity: 0.65 },
+//   { id: 5, name: 'Namangan', x: 82, y: 24, students: 1423, intensity: 0.55 },
+//   { id: 6, name: 'Buxoro', x: 32, y: 40, students: 1234, intensity: 0.5 },
+//   { id: 7, name: 'Xorazm', x: 22, y: 28, students: 890, intensity: 0.4 },
+//   { id: 8, name: 'Qarshi', x: 42, y: 48, students: 756, intensity: 0.35 },
+//   { id: 9, name: 'Nukus', x: 18, y: 18, students: 534, intensity: 0.25 },
+//   { id: 10, name: 'Termiz', x: 50, y: 62, students: 445, intensity: 0.2 },
+// ];
+
+// // Icons
+// const DashboardIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>;
+// const ReportIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>;
+// const UsersIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+// const ChartIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+// const MapIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+// const SettingsIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>;
+// const SearchIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
+// const BellIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>;
+// const MenuIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
+// const CloseIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+
+// // Animated Counter
+// const AnimatedCounter = ({ value, duration = 2000 }) => {
+//   const [count, setCount] = useState(0);
+//   useEffect(() => {
+//     let start = 0;
+//     const increment = Math.ceil(value / 60);
+//     const timer = setInterval(() => {
+//       start += increment;
+//       if (start >= value) { setCount(value); clearInterval(timer); }
+//       else { setCount(start); }
+//     }, duration / 60);
+//     return () => clearInterval(timer);
+//   }, [value, duration]);
+//   return <span>{count.toLocaleString()}</span>;
+// };
+
+// // Glass Card
+// const GlassCard = ({ children, className = '', glow = false }) => (
+//   <div className={`relative rounded-2xl border border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-xl overflow-hidden ${className}`}>
+//     {glow && <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10 pointer-events-none" />}
+//     <div className="relative z-10">{children}</div>
+//   </div>
+// );
+
+// // Stat Card with Icon
+// const StatCard = ({ icon, label, value, change, positive }) => (
+//   <GlassCard className="p-4 hover:border-white/20 transition-all duration-300 group" glow>
+//     <div className="flex items-start justify-between">
+//       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform">
+//         {icon}
+//       </div>
+//       <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${positive ? 'text-emerald-400 bg-emerald-400/10' : 'text-red-400 bg-red-400/10'}`}>
+//         {change}
+//       </span>
+//     </div>
+//     <div className="mt-3">
+//       <p className="text-slate-400 text-xs mb-1">{label}</p>
+//       <p className="text-2xl font-bold text-white">
+//         <AnimatedCounter value={value} />
+//       </p>
+//     </div>
+//   </GlassCard>
+// );
+
+// // 3D Pie Chart
+// const Pie3DChart = ({ data }) => {
+//   const [activeIndex, setActiveIndex] = useState(null);
+//   const total = data.reduce((sum, item) => sum + item.value, 0);
+
+//   return (
+//     <div className="flex items-center justify-between">
+//       <div className="relative">
+//         {/* 3D Effect layers */}
+//         <div className="absolute top-2 left-1">
+//           <svg width="160" height="160" viewBox="0 0 160 160">
+//             <ellipse cx="80" cy="90" rx="65" ry="25" fill="rgba(0,0,0,0.3)" />
+//           </svg>
+//         </div>
+        
+//         <ResponsiveContainer width={160} height={160}>
+//           <PieChart>
+//             <defs>
+//               {data.map((entry, index) => (
+//                 <linearGradient key={index} id={`pie3dGrad${index}`} x1="0" y1="0" x2="1" y2="1">
+//                   <stop offset="0%" stopColor={entry.color} stopOpacity={1} />
+//                   <stop offset="100%" stopColor={entry.color} stopOpacity={0.6} />
+//                 </linearGradient>
+//               ))}
+//             </defs>
+//             <Pie
+//               data={data}
+//               cx="50%"
+//               cy="45%"
+//               innerRadius={35}
+//               outerRadius={activeIndex !== null ? 70 : 65}
+//               paddingAngle={2}
+//               dataKey="value"
+//               onMouseEnter={(_, index) => setActiveIndex(index)}
+//               onMouseLeave={() => setActiveIndex(null)}
+//               animationBegin={0}
+//               animationDuration={1200}
+//             >
+//               {data.map((entry, index) => (
+//                 <Cell 
+//                   key={index} 
+//                   fill={`url(#pie3dGrad${index})`}
+//                   stroke={entry.color}
+//                   strokeWidth={1}
+//                   style={{
+//                     filter: activeIndex === index ? `drop-shadow(0 0 8px ${entry.color})` : 'none',
+//                     transform: activeIndex === index ? 'scale(1.05)' : 'scale(1)',
+//                     transformOrigin: 'center',
+//                     transition: 'all 0.3s ease'
+//                   }}
+//                 />
+//               ))}
+//             </Pie>
+//           </PieChart>
+//         </ResponsiveContainer>
+//       </div>
+
+//       {/* Legend */}
+//       <div className="space-y-3 ml-4">
+//         {data.map((item, index) => (
+//           <div 
+//             key={index} 
+//             className={`flex items-center gap-3 p-2 rounded-lg transition-all cursor-pointer ${activeIndex === index ? 'bg-white/5' : ''}`}
+//             onMouseEnter={() => setActiveIndex(index)}
+//             onMouseLeave={() => setActiveIndex(null)}
+//           >
+//             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color, boxShadow: `0 0 10px ${item.color}50` }} />
+//             <div>
+//               <p className="text-white text-sm font-medium">{item.name} ({item.percent})</p>
+//               <div className="flex items-center gap-2">
+//                 <span className="text-slate-400 text-xs">{item.value.toLocaleString()}</span>
+//                 <span className={`text-xs ${item.change?.startsWith('+') ? 'text-emerald-400' : 'text-red-400'}`}>{item.change}</span>
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Gradient Area Chart
+// const GradientAreaChart = ({ data }) => (
+//   <ResponsiveContainer width="100%" height={280}>
+//     <AreaChart data={data}>
+//       <defs>
+//         <linearGradient id="kunduzgiGrad" x1="0" y1="0" x2="0" y2="1">
+//           <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.4} />
+//           <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
+//         </linearGradient>
+//         <linearGradient id="sirtqiGrad" x1="0" y1="0" x2="0" y2="1">
+//           <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.4} />
+//           <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
+//         </linearGradient>
+//         <filter id="glow">
+//           <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+//           <feMerge>
+//             <feMergeNode in="coloredBlur"/>
+//             <feMergeNode in="SourceGraphic"/>
+//           </feMerge>
+//         </filter>
+//       </defs>
+//       <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+//       <XAxis dataKey="month" stroke="#64748b" fontSize={11} axisLine={false} tickLine={false} />
+//       <YAxis stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} tickFormatter={(v) => `${(v/1000).toFixed(0)}K`} />
+//       <Tooltip 
+//         contentStyle={{ 
+//           backgroundColor: 'rgba(15, 23, 42, 0.9)', 
+//           border: '1px solid rgba(255,255,255,0.1)', 
+//           borderRadius: '12px',
+//           backdropFilter: 'blur(10px)'
+//         }}
+//         labelStyle={{ color: '#fff' }}
+//       />
+//       <Area 
+//         type="monotone" 
+//         dataKey="kunduzgi" 
+//         name="Kunduzgi"
+//         stroke="#06b6d4" 
+//         strokeWidth={2}
+//         fill="url(#kunduzgiGrad)"
+//         dot={{ r: 4, fill: '#06b6d4', strokeWidth: 2, stroke: '#0f172a' }}
+//         activeDot={{ r: 6, fill: '#06b6d4', filter: 'url(#glow)' }}
+//         animationDuration={1500}
+//       />
+//       <Area 
+//         type="monotone" 
+//         dataKey="sirtqi" 
+//         name="Sirtqi"
+//         stroke="#8b5cf6" 
+//         strokeWidth={2}
+//         fill="url(#sirtqiGrad)"
+//         dot={{ r: 4, fill: '#8b5cf6', strokeWidth: 2, stroke: '#0f172a' }}
+//         activeDot={{ r: 6, fill: '#8b5cf6', filter: 'url(#glow)' }}
+//         animationDuration={1500}
+//       />
+//       <Legend 
+//         wrapperStyle={{ paddingTop: 15 }}
+//         formatter={(value) => <span className="text-slate-400 text-xs">{value}</span>}
+//       />
+//     </AreaChart>
+//   </ResponsiveContainer>
+// );
+
+// // Regional Heatmap (Uzbekistan style)
+// const RegionalHeatmap = ({ locations }) => {
+//   const [hoveredLocation, setHoveredLocation] = useState(null);
+
+//   return (
+//     <div className="relative h-64 rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800">
+//       {/* Uzbekistan simplified map outline */}
+//       <svg viewBox="0 0 100 70" className="w-full h-full">
+//         <defs>
+//           <radialGradient id="pointGlow">
+//             <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+//             <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+//           </radialGradient>
+//           <filter id="mapGlow" x="-50%" y="-50%" width="200%" height="200%">
+//             <feGaussianBlur stdDeviation="1" result="blur" />
+//             <feMerge>
+//               <feMergeNode in="blur" />
+//               <feMergeNode in="SourceGraphic" />
+//             </feMerge>
+//           </filter>
+//         </defs>
+
+//         {/* Simplified Uzbekistan border */}
+//         <path 
+//           d="M 10 25 Q 15 15 25 18 L 40 12 Q 55 8 70 15 L 85 20 Q 95 25 92 35 L 88 45 Q 85 55 75 58 L 60 62 Q 45 65 35 58 L 20 50 Q 10 45 8 35 Z"
+//           fill="rgba(59, 130, 246, 0.05)"
+//           stroke="rgba(59, 130, 246, 0.3)"
+//           strokeWidth="0.5"
+//         />
+
+//         {/* Connection lines */}
+//         {locations.map((loc, i) => (
+//           locations.slice(i + 1).map((loc2, j) => (
+//             <line
+//               key={`${i}-${j}`}
+//               x1={loc.x}
+//               y1={loc.y}
+//               x2={loc2.x}
+//               y2={loc2.y}
+//               stroke="rgba(59, 130, 246, 0.1)"
+//               strokeWidth="0.3"
+//             />
+//           ))
+//         ))}
+
+//         {/* Location points */}
+//         {locations.map((loc) => {
+//           const isHovered = hoveredLocation?.id === loc.id;
+//           const size = 2 + loc.intensity * 3;
+          
+//           return (
+//             <g 
+//               key={loc.id}
+//               onMouseEnter={() => setHoveredLocation(loc)}
+//               onMouseLeave={() => setHoveredLocation(null)}
+//               className="cursor-pointer"
+//             >
+//               {/* Glow effect */}
+//               <circle
+//                 cx={loc.x}
+//                 cy={loc.y}
+//                 r={size * 3}
+//                 fill={`rgba(59, 130, 246, ${loc.intensity * 0.3})`}
+//               >
+//                 <animate attributeName="r" values={`${size * 2};${size * 4};${size * 2}`} dur="3s" repeatCount="indefinite" />
+//                 <animate attributeName="opacity" values="0.3;0.1;0.3" dur="3s" repeatCount="indefinite" />
+//               </circle>
+              
+//               {/* Main point */}
+//               <circle
+//                 cx={loc.x}
+//                 cy={loc.y}
+//                 r={isHovered ? size * 1.5 : size}
+//                 fill="#3b82f6"
+//                 filter="url(#mapGlow)"
+//                 style={{ transition: 'all 0.3s ease' }}
+//               >
+//                 <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite" />
+//               </circle>
+              
+//               {/* Center highlight */}
+//               <circle
+//                 cx={loc.x - size * 0.2}
+//                 cy={loc.y - size * 0.2}
+//                 r={size * 0.3}
+//                 fill="white"
+//                 opacity="0.5"
+//               />
+//             </g>
+//           );
+//         })}
+//       </svg>
+
+//       {/* Tooltip */}
+//       {hoveredLocation && (
+//         <div 
+//           className="absolute bg-slate-900/90 border border-white/10 rounded-lg px-3 py-2 pointer-events-none backdrop-blur-sm"
+//           style={{ 
+//             left: `${hoveredLocation.x}%`, 
+//             top: `${hoveredLocation.y - 15}%`,
+//             transform: 'translate(-50%, -100%)'
+//           }}
+//         >
+//           <p className="text-white text-sm font-medium">{hoveredLocation.name}</p>
+//           <p className="text-blue-400 text-xs">{hoveredLocation.students.toLocaleString()} talaba</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// // Attendance Mini Bars
+// const AttendanceBars = ({ data }) => (
+//   <div className="space-y-3">
+//     {data.map((item, index) => (
+//       <div key={index} className="group">
+//         <div className="flex justify-between text-xs mb-1">
+//           <span className="text-slate-400">{item.range} soat</span>
+//           <span className="text-white font-medium">{item.count} talaba</span>
+//         </div>
+//         <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+//           <div 
+//             className="h-full rounded-full transition-all duration-1000 group-hover:opacity-80"
+//             style={{ 
+//               width: `${(item.count / 234) * 100}%`, 
+//               backgroundColor: item.fill,
+//               boxShadow: `0 0 10px ${item.fill}`
+//             }}
+//           />
+//         </div>
+//       </div>
+//     ))}
+//   </div>
+// );
+
+// // Main Dashboard
+// export default function Billing() {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+//   const [activeNav, setActiveNav] = useState('dashboard');
+
+//   const navItems = [
+//     { id: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
+//     { id: 'reports', label: 'Hisobotlar', icon: <ReportIcon /> },
+//     { id: 'students', label: 'Talabalar', icon: <UsersIcon /> },
+//     { id: 'statistics', label: 'Statistika', icon: <ChartIcon /> },
+//     { id: 'map', label: 'Xarita', icon: <MapIcon /> },
+//     { id: 'settings', label: 'Sozlamalar', icon: <SettingsIcon /> }
+//   ];
+
+//   const currentDate = new Date().toLocaleDateString('uz-UZ', { 
+//     weekday: 'long', 
+//     year: 'numeric', 
+//     month: 'long', 
+//     day: 'numeric' 
+//   });
+
+//   return (
+//     <div className="min-h-screen bg-[#0a0f1a] text-white">
+//       {/* Background gradient */}
+//       <div className="fixed inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none" />
+      
+//       {/* Mobile Header */}
+//       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-900/80 backdrop-blur-xl border-b border-white/10 z-50 flex items-center justify-between px-4">
+//         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2 hover:bg-white/5 rounded-lg">
+//           {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
+//         </button>
+//         <h1 className="text-lg font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">HEMIS</h1>
+//         <button className="p-2 hover:bg-white/5 rounded-lg relative">
+//           <BellIcon />
+//           <span className="absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full" />
+//         </button>
+//       </div>
+
+//       {sidebarOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSidebarOpen(false)} />}
+
+//       {/* Sidebar */}
+//       <aside className={`fixed top-0 left-0 h-full w-56 bg-slate-900/50 backdrop-blur-xl border-r border-white/10 z-50 transform transition-transform duration-300 ${
+//         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+//       }`}>
+//         {/* Logo */}
+//         <div className="p-5 border-b border-white/10">
+//           <div className="flex items-center gap-3">
+//             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+//               <span className="text-white font-bold text-sm">H</span>
+//             </div>
+//             <div>
+//               <h1 className="font-bold text-white">HEMIS</h1>
+//               <p className="text-[10px] text-slate-500">Admin Dashboard</p>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Navigation */}
+//         <nav className="p-3 space-y-1">
+//           <p className="text-[10px] uppercase tracking-wider text-slate-600 px-3 mb-2">MENU</p>
+//           {navItems.slice(0, 5).map((item) => (
+//             <button
+//               key={item.id}
+//               onClick={() => { setActiveNav(item.id); setSidebarOpen(false); }}
+//               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
+//                 activeNav === item.id 
+//                   ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25' 
+//                   : 'text-slate-400 hover:bg-white/5 hover:text-white'
+//               }`}
+//             >
+//               {item.icon}
+//               <span>{item.label}</span>
+//             </button>
+//           ))}
+          
+//           <p className="text-[10px] uppercase tracking-wider text-slate-600 px-3 mt-4 mb-2">SOZLAMALAR</p>
+//           {navItems.slice(5).map((item) => (
+//             <button
+//               key={item.id}
+//               onClick={() => { setActiveNav(item.id); setSidebarOpen(false); }}
+//               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
+//                 activeNav === item.id 
+//                   ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white' 
+//                   : 'text-slate-400 hover:bg-white/5 hover:text-white'
+//               }`}
+//             >
+//               {item.icon}
+//               <span>{item.label}</span>
+//             </button>
+//           ))}
+//         </nav>
+
+//         {/* Upgrade Card */}
+//         <div className="absolute bottom-4 left-3 right-3">
+//           <GlassCard className="p-4" glow>
+//             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-3">
+//               <span className="text-lg">✨</span>
+//             </div>
+//             <h4 className="text-white font-medium text-sm">Premium</h4>
+//             <p className="text-slate-400 text-xs mt-1 mb-3">Kengaytirilgan imkoniyatlar</p>
+//             <button className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-medium hover:opacity-90 transition-opacity">
+//               Yangilash
+//             </button>
+//           </GlassCard>
+//         </div>
+//       </aside>
+
+//       {/* Main Content */}
+//       <main className="lg:ml-56 pt-16 lg:pt-0 min-h-screen p-4 lg:p-6">
+//         {/* Header */}
+//         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+//           <div>
+//             <h1 className="text-2xl lg:text-3xl font-bold text-white">Ta'lim Statistikasi - 2024/2025</h1>
+//             <p className="text-slate-500 text-sm mt-1">{currentDate}</p>
+//           </div>
+//           <div className="flex items-center gap-3">
+//             <div className="relative">
+//               <SearchIcon />
+//               <input 
+//                 type="text" 
+//                 placeholder="Qidirish..." 
+//                 className="hidden lg:block w-48 bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500/50"
+//               />
+//             </div>
+//             <button className="p-2.5 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-colors relative">
+//               <BellIcon />
+//               <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full" />
+//             </button>
+//             <div className="flex items-center gap-3 pl-3 border-l border-white/10">
+//               <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+//                 <span className="text-sm font-bold">A</span>
+//               </div>
+//               <div className="hidden lg:block">
+//                 <p className="text-white text-sm font-medium">Admin User</p>
+//                 <p className="text-slate-500 text-xs">Super Admin</p>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+
+//         {/* Stats Cards */}
+//         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+//           <StatCard 
+//             icon={<UsersIcon />}
+//             label="Jami Talabalar"
+//             value={12847}
+//             change="+5.2%"
+//             positive={true}
+//           />
+//           <StatCard 
+//             icon={<ChartIcon />}
+//             label="O'sish"
+//             value={38}
+//             change="+12%"
+//             positive={true}
+//           />
+//           <StatCard 
+//             icon={<DashboardIcon />}
+//             label="Kunduzgi"
+//             value={8234}
+//             change="+3.1%"
+//             positive={true}
+//           />
+//           <StatCard 
+//             icon={<ReportIcon />}
+//             label="Davomat"
+//             value={94}
+//             change="+2%"
+//             positive={true}
+//           />
+//           <StatCard 
+//             icon={<MapIcon />}
+//             label="Yotoqxona"
+//             value={3421}
+//             change="-2.1%"
+//             positive={false}
+//           />
+//         </div>
+
+//         {/* Main Charts Row */}
+//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+//           {/* Area Chart */}
+//           <GlassCard className="lg:col-span-2 p-5" glow>
+//             <div className="flex items-center justify-between mb-4">
+//               <div>
+//                 <h3 className="text-white font-semibold">Talabalar Dinamikasi</h3>
+//                 <p className="text-slate-500 text-xs mt-0.5">Oylik o'zgarishlar</p>
+//               </div>
+//               <div className="flex items-center gap-4 text-xs">
+//                 <div className="flex items-center gap-1.5">
+//                   <div className="w-2 h-2 rounded-full bg-cyan-500" />
+//                   <span className="text-slate-400">Kunduzgi</span>
+//                 </div>
+//                 <div className="flex items-center gap-1.5">
+//                   <div className="w-2 h-2 rounded-full bg-purple-500" />
+//                   <span className="text-slate-400">Sirtqi</span>
+//                 </div>
+//                 <select className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-slate-400 text-xs">
+//                   <option>Bu yil</option>
+//                   <option>O'tgan yil</option>
+//                 </select>
+//               </div>
+//             </div>
+//             <GradientAreaChart data={monthlyData} />
+//           </GlassCard>
+
+//           {/* 3D Pie Chart - Housing */}
+//           <GlassCard className="p-5" glow>
+//             <div className="flex items-center justify-between mb-4">
+//               <div>
+//                 <h3 className="text-white font-semibold">Turar Joy Turi</h3>
+//                 <p className="text-slate-500 text-xs mt-0.5">Talabalar taqsimoti</p>
+//               </div>
+//             </div>
+//             <Pie3DChart data={housingData} />
+//           </GlassCard>
+//         </div>
+
+//         {/* Second Row */}
+//         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+//           {/* Courses Chart */}
+//           <GlassCard className="p-5" glow>
+//             <div className="flex items-center justify-between mb-4">
+//               <div>
+//                 <h3 className="text-white font-semibold">Kurslar Kesimida</h3>
+//                 <p className="text-slate-500 text-xs mt-0.5">Talabalar soni</p>
+//               </div>
+//             </div>
+//             <div className="space-y-3">
+//               {courseData.map((course, index) => (
+//                 <div key={index} className="group">
+//                   <div className="flex justify-between items-center mb-1.5">
+//                     <div className="flex items-center gap-2">
+//                       <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: course.color }} />
+//                       <span className="text-slate-300 text-sm">{course.name}</span>
+//                     </div>
+//                     <div className="flex items-center gap-2">
+//                       <span className="text-white font-medium text-sm">{course.value.toLocaleString()}</span>
+//                       <span className="text-slate-500 text-xs">{course.percent}</span>
+//                     </div>
+//                   </div>
+//                   <div className="h-2 bg-slate-800 rounded-full overflow-hidden">
+//                     <div 
+//                       className="h-full rounded-full transition-all duration-1000"
+//                       style={{ 
+//                         width: `${(course.value / 3500) * 100}%`,
+//                         background: `linear-gradient(90deg, ${course.color}, ${course.color}80)`,
+//                         boxShadow: `0 0 10px ${course.color}50`
+//                       }}
+//                     />
+//                   </div>
+//                 </div>
+//               ))}
+//             </div>
+//           </GlassCard>
+
+//           {/* Attendance */}
+//           <GlassCard className="p-5" glow>
+//             <div className="flex items-center justify-between mb-4">
+//               <div>
+//                 <h3 className="text-white font-semibold">Dars Qoldirish</h3>
+//                 <p className="text-slate-500 text-xs mt-0.5">Soatlar bo'yicha</p>
+//               </div>
+//               <span className="text-xs text-slate-500 bg-white/5 px-2 py-1 rounded-lg">526 talaba</span>
+//             </div>
+//             <AttendanceBars data={attendanceData} />
+//           </GlassCard>
+
+//           {/* Regional Heatmap */}
+//           <GlassCard className="p-5" glow>
+//             <div className="flex items-center justify-between mb-4">
+//               <div>
+//                 <h3 className="text-white font-semibold">Viloyatlar Xaritasi</h3>
+//                 <p className="text-slate-500 text-xs mt-0.5">Talabalar joylashuvi</p>
+//               </div>
+//               <select className="bg-white/5 border border-white/10 rounded-lg px-2 py-1 text-slate-400 text-xs">
+//                 <option>Bugun</option>
+//                 <option>Bu hafta</option>
+//               </select>
+//             </div>
+//             <RegionalHeatmap locations={mapLocations} />
+//           </GlassCard>
+//         </div>
+
+//         {/* Third Row - Regions Bar */}
+//         <GlassCard className="p-5" glow>
+//           <div className="flex items-center justify-between mb-4">
+//             <div>
+//               <h3 className="text-white font-semibold">Viloyatlar Bo'yicha Talabalar</h3>
+//               <p className="text-slate-500 text-xs mt-0.5">Doimiy yashash joyi</p>
+//             </div>
+//           </div>
+//           <ResponsiveContainer width="100%" height={200}>
+//             <BarChart data={regionData} barCategoryGap="20%">
+//               <defs>
+//                 <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+//                   <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
+//                   <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.6} />
+//                 </linearGradient>
+//               </defs>
+//               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+//               <XAxis dataKey="name" stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
+//               <YAxis stroke="#64748b" fontSize={10} axisLine={false} tickLine={false} />
+//               <Tooltip 
+//                 contentStyle={{ 
+//                   backgroundColor: 'rgba(15, 23, 42, 0.9)', 
+//                   border: '1px solid rgba(255,255,255,0.1)', 
+//                   borderRadius: '12px' 
+//                 }}
+//               />
+//               <Bar 
+//                 dataKey="value" 
+//                 fill="url(#barGrad)" 
+//                 radius={[6, 6, 0, 0]}
+//                 animationDuration={1500}
+//               />
+//             </BarChart>
+//           </ResponsiveContainer>
+//         </GlassCard>
+//       </main>
+//     </div>
+//   );
+// }
+
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+
+
+
+// import React, { useState, useEffect } from 'react';
+// import { 
+//   PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
+//   ResponsiveContainer, AreaChart, Area
+// } from 'recharts';
+
+// // Data
+// const housingData = [
+//   { name: 'Yotoqxona', value: 3421, color: '#6366f1', percent: '27%', change: '+5.2%' },
+//   { name: 'Ijara', value: 4256, color: '#22d3ee', percent: '33%', change: '+3.1%' },
+//   { name: 'Ota-ona', value: 3876, color: '#a855f7', percent: '30%', change: '-1.2%' },
+//   { name: 'Qarindosh', value: 1294, color: '#f472b6', percent: '10%', change: '+2.4%' }
+// ];
+
+// const monthlyData = [
+//   { month: 'Sen', kunduzgi: 28000, sirtqi: 22000 },
+//   { month: 'Okt', kunduzgi: 25000, sirtqi: 26000 },
+//   { month: 'Noy', kunduzgi: 32000, sirtqi: 24000 },
+//   { month: 'Dek', kunduzgi: 28000, sirtqi: 30000 },
+//   { month: 'Yan', kunduzgi: 42000, sirtqi: 35000 },
+//   { month: 'Fev', kunduzgi: 48000, sirtqi: 40000 }
+// ];
+
+// const courseData = [
+//   { name: '1-kurs', value: 3456, color: '#3b82f6', percent: '27%' },
+//   { name: '2-kurs', value: 3234, color: '#06b6d4', percent: '25%' },
+//   { name: '3-kurs', value: 3012, color: '#8b5cf6', percent: '23%' },
+//   { name: '4-kurs', value: 3145, color: '#10b981', percent: '25%' }
+// ];
+
+// const regionData = [
+//   { name: 'Toshkent', value: 2845 },
+//   { name: 'Samarqand', value: 1923 },
+//   { name: "Farg'ona", value: 1756 },
+//   { name: 'Andijon', value: 1634 },
+//   { name: 'Namangan', value: 1423 },
+//   { name: 'Buxoro', value: 1234 },
+//   { name: 'Boshqa', value: 2032 }
+// ];
+
+// const attendanceData = [
+//   { range: '30-40', count: 234, fill: '#3b82f6' },
+//   { range: '40-50', count: 156, fill: '#f59e0b' },
+//   { range: '50-70', count: 89, fill: '#f97316' },
+//   { range: '70+', count: 47, fill: '#ef4444' }
+// ];
+
+// const mapLocations = [
+//   { id: 1, name: 'Toshkent', x: 68, y: 28, students: 2845, intensity: 1 },
+//   { id: 2, name: 'Samarqand', x: 45, y: 35, students: 1923, intensity: 0.8 },
+//   { id: 3, name: "Farg'ona", x: 85, y: 32, students: 1756, intensity: 0.7 },
+//   { id: 4, name: 'Andijon', x: 90, y: 28, students: 1634, intensity: 0.65 },
+//   { id: 5, name: 'Namangan', x: 82, y: 24, students: 1423, intensity: 0.55 },
+//   { id: 6, name: 'Buxoro', x: 32, y: 40, students: 1234, intensity: 0.5 },
+//   { id: 7, name: 'Xorazm', x: 22, y: 28, students: 890, intensity: 0.4 },
+//   { id: 8, name: 'Qarshi', x: 42, y: 48, students: 756, intensity: 0.35 },
+//   { id: 9, name: 'Nukus', x: 18, y: 18, students: 534, intensity: 0.25 },
+//   { id: 10, name: 'Termiz', x: 50, y: 62, students: 445, intensity: 0.2 },
+// ];
+
+// // Icons
+// const DashboardIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>;
+// const ReportIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>;
+// const UsersIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+// const ChartIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+// const MapIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+// const SettingsIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>;
+// const SearchIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
+// const BellIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>;
+// const MenuIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
+// const CloseIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+// const SunIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
+// const MoonIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
+
+// // Theme Context
+// const ThemeContext = React.createContext();
+// const useTheme = () => React.useContext(ThemeContext);
+
+// // Animated Counter
+// const AnimatedCounter = ({ value, duration = 2000 }) => {
+//   const [count, setCount] = useState(0);
+//   useEffect(() => {
+//     let start = 0;
+//     const increment = Math.ceil(value / 60);
+//     const timer = setInterval(() => {
+//       start += increment;
+//       if (start >= value) { setCount(value); clearInterval(timer); }
+//       else { setCount(start); }
+//     }, duration / 60);
+//     return () => clearInterval(timer);
+//   }, [value, duration]);
+//   return <span>{count.toLocaleString()}</span>;
+// };
+
+// // Glass Card
+// const GlassCard = ({ children, className = '', glow = false }) => {
+//   const { isDark } = useTheme();
+//   return (
+//     <div className={`relative rounded-2xl border overflow-hidden transition-all duration-300 ${
+//       isDark 
+//         ? 'border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-xl' 
+//         : 'border-slate-200 bg-white shadow-lg shadow-slate-200/50'
+//     } ${className}`}>
+//       {glow && isDark && <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none" />}
+//       <div className="relative z-10">{children}</div>
+//     </div>
+//   );
+// };
+
+// // Stat Card
+// const StatCard = ({ icon, label, value, change, positive }) => {
+//   const { isDark } = useTheme();
+//   return (
+//     <GlassCard className="p-4 hover:scale-[1.02] transition-all duration-300 group" glow>
+//       <div className="flex items-start justify-between">
+//         <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 ${
+//           isDark 
+//             ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 text-blue-400' 
+//             : 'bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 text-blue-600'
+//         }`}>
+//           {icon}
+//         </div>
+//         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+//           positive 
+//             ? (isDark ? 'text-emerald-400 bg-emerald-400/10' : 'text-emerald-600 bg-emerald-50') 
+//             : (isDark ? 'text-red-400 bg-red-400/10' : 'text-red-600 bg-red-50')
+//         }`}>
+//           {change}
+//         </span>
+//       </div>
+//       <div className="mt-3">
+//         <p className={`text-xs mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{label}</p>
+//         <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+//           <AnimatedCounter value={value} />
+//         </p>
+//       </div>
+//     </GlassCard>
+//   );
+// };
+
+// // 3D Pie Chart (Improved with perspective)
+// const Pie3DChart = ({ data }) => {
+//   const { isDark } = useTheme();
+//   const [activeIndex, setActiveIndex] = useState(null);
+//   const total = data.reduce((sum, item) => sum + item.value, 0);
+
+//   return (
+//     <div className="flex flex-col lg:flex-row items-center gap-6">
+//       {/* 3D Pie */}
+//       <div className="relative" style={{ perspective: '800px' }}>
+//         {/* Shadow ellipse */}
+//         <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-36 h-8 rounded-full blur-md" 
+//           style={{ background: 'radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%)' }} 
+//         />
+        
+//         {/* 3D layers for depth effect */}
+//         {[...Array(8)].map((_, i) => (
+//           <div 
+//             key={i} 
+//             className="absolute"
+//             style={{ 
+//               top: `${i * 20}px`,
+//               left: 0,
+//               opacity: 0.15 - i * 15,
+//               transform: `rotateX(55deg)`
+//             }}
+//           >
+//             <svg width="180" height="180" viewBox="0 0 180 180">
+//               {data.map((entry, index) => {
+//                 const startAngle = data.slice(0, index).reduce((sum, d) => sum + (d.value / total) * 360, -90);
+//                 const endAngle = startAngle + (entry.value / total) * 360;
+//                 const largeArc = (entry.value / total) > 0.5 ? 1 : 0;
+                
+//                 const startRad = (startAngle * Math.PI) / 180;
+//                 const endRad = (endAngle * Math.PI) / 180;
+                
+//                 const x1 = 90 + 70 * Math.cos(startRad);
+//                 const y1 = 90 + 70 * Math.sin(startRad);
+//                 const x2 = 90 + 70 * Math.cos(endRad);
+//                 const y2 = 90 + 70 * Math.sin(endRad);
+
+
+//                 return (
+//                   <path
+//                     key={index}
+//                     d={`M 90 90 L ${x1} ${y1} A 70 70 0 ${largeArc} 1 ${x2} ${y2} Z`}
+//                     fill={entry.color}
+//                   />
+//                 );
+//               })}
+//             </svg>
+//           </div>
+//         ))}
+        
+// //         {/* Main pie */}
+//         <div style={{ transform: 'rotateX(55deg)' }}>
+//           <ResponsiveContainer width={180} height={180}>
+//             <PieChart>
+//               <defs>
+//                 {data.map((entry, index) => (
+//                   <React.Fragment key={index}>
+//                     <linearGradient id={`pieGrad3d${index}`} x1="0" y1="0" x2="1" y2="1">
+//                       <stop offset="0%" stopColor={entry.color} stopOpacity={1} />
+//                       <stop offset="100%" stopColor={entry.color} stopOpacity={0.7} />
+//                     </linearGradient>
+//                     <filter id={`glow3d${index}`}>
+//                       <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+//                       <feMerge>
+//                         <feMergeNode in="coloredBlur"/>
+//                         <feMergeNode in="SourceGraphic"/>
+//                       </feMerge>
+//                     </filter>
+//                   </React.Fragment>
+//                 ))}
+//               </defs>
+//               <Pie
+//                 data={data}
+//                 cx="50%"
+//                 cy="50%"
+//                 innerRadius={40}
+//                 outerRadius={activeIndex !== null ? 75 : 70}
+//                 paddingAngle={2}
+//                 dataKey="value"
+//                 onMouseEnter={(_, index) => setActiveIndex(index)}
+//                 onMouseLeave={() => setActiveIndex(null)}
+//                 animationBegin={0}
+//                 animationDuration={1200}
+//               >
+//                 {data.map((entry, index) => (
+//                   <Cell 
+//                     key={index} 
+//                     fill={`url(#pieGrad3d${index})`}
+//                     stroke={isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.5)'}
+//                     strokeWidth={2}
+//                     filter={activeIndex === index ? `url(#glow3d${index})` : undefined}
+//                     style={{
+//                       transition: 'all 0.3s ease',
+//                       cursor: 'pointer'
+//                     }}
+//                   />
+//                 ))}
+//               </Pie>
+//             </PieChart>
+//           </ResponsiveContainer>
+//         </div>
+//       </div>
+
+//       {/* Legend - Right side */}
+//       <div className="space-y-3 flex-1">
+//         {data.map((item, index) => (
+//           <div 
+//             key={index} 
+//             className={`flex items-center gap-3 p-2.5 rounded-xl transition-all cursor-pointer ${
+//               activeIndex === index 
+//                 ? (isDark ? 'bg-white/5' : 'bg-slate-50') 
+//                 : ''
+//             }`}
+//             onMouseEnter={() => setActiveIndex(index)}
+//             onMouseLeave={() => setActiveIndex(null)}
+//           >
+//             <div 
+//               className="w-4 h-4 rounded-full flex-shrink-0" 
+//               style={{ 
+//                 backgroundColor: item.color, 
+//                 boxShadow: activeIndex === index ? `0 0 15px ${item.color}` : 'none' 
+//               }} 
+//             />
+//             <div className="flex-1 min-w-0">
+//               <div className="flex items-center justify-between">
+//                 <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+//                   {item.name} <span className={isDark ? 'text-slate-500' : 'text-slate-400'}>({item.percent})</span>
+//                 </p>
+//               </div>
+//               <div className="flex items-center gap-2 mt-0.5">
+//                 <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+//                   {item.value.toLocaleString()}
+//                 </span>
+//                 <span className={`text-xs font-medium ${
+//                   item.change?.startsWith('+') 
+//                     ? 'text-emerald-500' 
+//                     : 'text-red-500'
+//                 }`}>
+//                   {item.change}
+//                 </span>
+//               </div>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+// // const chartData = [
+// //     { name: "A", value: 40, color: "#ff4d4f" },
+// //     { name: "B", value: 25, color: "#40a9ff" },
+// //     { name: "C", value: 20, color: "#36cfc9" },
+// //     { name: "D", value: 15, color: "#ffc53d" },
+// //   ];
+// // const Pie3DChart = ({ data }) => {
+// //   const total = data.reduce((a, b) => a + b.value, 0);
+
+// //   let currentAngle = 0;
+
+// //   return (
+// //     <div className="pie-3d-container">
+// //       <div className="pie-3d" style={{ transform: "rotateX(60deg)" }}>
+// //         {data.map((slice, i) => {
+// //           const angle = (slice.value / total) * 360;
+// //           const sliceStyle = {
+// //             transform: `
+// //               rotate(${currentAngle}deg)
+// //               translateZ(40px)
+// //             `,
+// //             "--slice-angle": `${angle}deg`,
+// //             background: slice.color,
+// //           };
+
+// //           currentAngle += angle;
+
+// //           return (
+// //             <div
+// //               key={i}
+// //               className="pie-3d-slice"
+// //               style={sliceStyle}
+// //               title={`${slice.name}: ${slice.value}`}
+// //             />
+// //           );
+// //         })}
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+// // Dynamic Area Chart (with more variation)
+// const DynamicAreaChart = ({ data }) => {
+//   const { isDark } = useTheme();
+  
+//   return (
+//     <ResponsiveContainer width="100%" height={300}>
+//       <AreaChart data={data}>
+//         <defs>
+//           <linearGradient id="kunduzgiGradient" x1="0" y1="0" x2="0" y2="1">
+//             <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.5} />
+//             <stop offset="50%" stopColor="#06b6d4" stopOpacity={0.2} />
+//             <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
+//           </linearGradient>
+//           <linearGradient id="sirtqiGradient" x1="0" y1="0" x2="0" y2="1">
+//             <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.5} />
+//             <stop offset="50%" stopColor="#8b5cf6" stopOpacity={0.2} />
+//             <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
+//           </linearGradient>
+//           <filter id="lineGlow">
+//             <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+//             <feMerge>
+//               <feMergeNode in="coloredBlur"/>
+//               <feMergeNode in="SourceGraphic"/>
+//             </feMerge>
+//           </filter>
+//         </defs>
+//         <CartesianGrid 
+//           strokeDasharray="3 3" 
+//           stroke={isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'} 
+//           vertical={false} 
+//         />
+//         <XAxis 
+//           dataKey="month" 
+//           stroke={isDark ? '#64748b' : '#94a3b8'} 
+//           fontSize={11} 
+//           axisLine={false} 
+//           tickLine={false} 
+//         />
+//         <YAxis 
+//           stroke={isDark ? '#64748b' : '#94a3b8'} 
+//           fontSize={10} 
+//           axisLine={false} 
+//           tickLine={false} 
+//           tickFormatter={(v) => `${(v/1000).toFixed(0)}K`}
+//         />
+//         <Tooltip 
+//           contentStyle={{ 
+//             backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255,255,255,0.95)', 
+//             border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)', 
+//             borderRadius: '12px',
+//             backdropFilter: 'blur(10px)',
+//             boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
+//           }}
+//           labelStyle={{ color: isDark ? '#fff' : '#1e293b', fontWeight: 600 }}
+//           itemStyle={{ color: isDark ? '#94a3b8' : '#64748b' }}
+//           formatter={(value) => [`${value.toLocaleString()} ta`, '']}
+//         />
+        
+//         {/* Kunduzgi Area */}
+//         <Area 
+//           type="monotone" 
+//           dataKey="kunduzgi" 
+//           name="Kunduzgi"
+//           stroke="#06b6d4" 
+//           strokeWidth={3}
+//           fill="url(#kunduzgiGradient)"
+//           dot={{ 
+//             r: 5, 
+//             fill: '#06b6d4', 
+//             strokeWidth: 3, 
+//             stroke: isDark ? '#0f172a' : '#fff' 
+//           }}
+//           activeDot={{ 
+//             r: 8, 
+//             fill: '#06b6d4', 
+//             stroke: isDark ? '#0f172a' : '#fff',
+//             strokeWidth: 3,
+//             filter: 'url(#lineGlow)' 
+//           }}
+//           animationDuration={2000}
+//           animationEasing="ease-out"
+//         />
+        
+//         {/* Sirtqi Area */}
+//         <Area 
+//           type="monotone" 
+//           dataKey="sirtqi" 
+//           name="Sirtqi"
+//           stroke="#8b5cf6" 
+//           strokeWidth={3}
+//           fill="url(#sirtqiGradient)"
+//           dot={{ 
+//             r: 5, 
+//             fill: '#8b5cf6', 
+//             strokeWidth: 3, 
+//             stroke: isDark ? '#0f172a' : '#fff' 
+//           }}
+//           activeDot={{ 
+//             r: 8, 
+//             fill: '#8b5cf6', 
+//             stroke: isDark ? '#0f172a' : '#fff',
+//             strokeWidth: 3,
+//             filter: 'url(#lineGlow)' 
+//           }}
+//           animationDuration={2000}
+//           animationEasing="ease-out"
+//         />
+//       </AreaChart>
+//     </ResponsiveContainer>
+//   );
+// };
+
+// // Regional Heatmap
+// const RegionalHeatmap = ({ locations }) => {
+//   const { isDark } = useTheme();
+//   const [hoveredLocation, setHoveredLocation] = useState(null);
+
+//   return (
+//     <div className={`relative h-64 rounded-xl overflow-hidden ${
+//       isDark ? 'bg-gradient-to-br from-slate-900 to-slate-800' : 'bg-gradient-to-br from-slate-100 to-blue-50'
+//     }`}>
+//       <svg viewBox="0 0 100 70" className="w-full h-full">
+//         <defs>
+//           <filter id="mapGlowEffect" x="-50%" y="-50%" width="200%" height="200%">
+//             <feGaussianBlur stdDeviation="1.5" result="blur" />
+//             <feMerge>
+//               <feMergeNode in="blur" />
+//               <feMergeNode in="SourceGraphic" />
+//             </feMerge>
+//           </filter>
+//         </defs>
+
+//         {/* Uzbekistan border */}
+//         <path 
+//           d="M 10 25 Q 15 15 25 18 L 40 12 Q 55 8 70 15 L 85 20 Q 95 25 92 35 L 88 45 Q 85 55 75 58 L 60 62 Q 45 65 35 58 L 20 50 Q 10 45 8 35 Z"
+//           fill={isDark ? 'rgba(59, 130, 246, 0.08)' : 'rgba(59, 130, 246, 0.1)'}
+//           stroke={isDark ? 'rgba(59, 130, 246, 0.3)' : 'rgba(59, 130, 246, 0.4)'}
+//           strokeWidth="0.5"
+//         />
+
+//         {/* Connection lines */}
+//         {locations.map((loc, i) => (
+//           locations.slice(i + 1).map((loc2, j) => (
+//             <line
+//               key={`${i}-${j}`}
+//               x1={loc.x} y1={loc.y}
+//               x2={loc2.x} y2={loc2.y}
+//               stroke={isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(59, 130, 246, 0.2)'}
+//               strokeWidth="0.3"
+//             />
+//           ))
+//         ))}
+
+//         {/* Location points */}
+//         {locations.map((loc) => {
+//           const isHovered = hoveredLocation?.id === loc.id;
+//           const size = 2 + loc.intensity * 3;
+          
+//           return (
+//             <g 
+//               key={loc.id}
+//               onMouseEnter={() => setHoveredLocation(loc)}
+//               onMouseLeave={() => setHoveredLocation(null)}
+//               className="cursor-pointer"
+//             >
+//               <circle
+//                 cx={loc.x} cy={loc.y}
+//                 r={size * 3}
+//                 fill={`rgba(59, 130, 246, ${loc.intensity * 0.2})`}
+//               >
+//                 <animate attributeName="r" values={`${size * 2};${size * 4};${size * 2}`} dur="3s" repeatCount="indefinite" />
+//               </circle>
+              
+//               <circle
+//                 cx={loc.x} cy={loc.y}
+//                 r={isHovered ? size * 1.5 : size}
+//                 fill="#3b82f6"
+//                 filter="url(#mapGlowEffect)"
+//                 style={{ transition: 'all 0.3s ease' }}
+//               />
+              
+//               <circle
+//                 cx={loc.x - size * 0.2} cy={loc.y - size * 0.2}
+//                 r={size * 0.3}
+//                 fill="white"
+//                 opacity="0.6"
+//               />
+//             </g>
+//           );
+//         })}
+//       </svg>
+
+//       {hoveredLocation && (
+//         <div 
+//           className={`absolute px-3 py-2 rounded-lg pointer-events-none ${
+//             isDark ? 'bg-slate-900/90 border border-white/10' : 'bg-white/90 border border-slate-200 shadow-lg'
+//           }`}
+//           style={{ 
+//             left: `${hoveredLocation.x}%`, 
+//             top: `${hoveredLocation.y - 15}%`,
+//             transform: 'translate(-50%, -100%)'
+//           }}
+//         >
+//           <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>{hoveredLocation.name}</p>
+//           <p className="text-blue-500 text-xs font-medium">{hoveredLocation.students.toLocaleString()} talaba</p>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// // Progress Bars for Courses
+// const CourseProgressBars = ({ data }) => {
+//   const { isDark } = useTheme();
+//   const maxValue = Math.max(...data.map(d => d.value));
+  
+//   return (
+//     <div className="space-y-4">
+//       {data.map((course, index) => (
+//         <div key={index} className="group">
+//           <div className="flex justify-between items-center mb-2">
+//             <div className="flex items-center gap-2">
+//               <div 
+//                 className="w-3 h-3 rounded-full" 
+//                 style={{ backgroundColor: course.color, boxShadow: `0 0 8px ${course.color}50` }} 
+//               />
+//               <span className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+//                 {course.name}
+//               </span>
+//             </div>
+//             <div className="flex items-center gap-2">
+//               <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+//                 {course.value.toLocaleString()}
+//               </span>
+//               <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+//                 {course.percent}
+//               </span>
+//             </div>
+//           </div>
+//           <div className={`h-2.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
+//             <div 
+//               className="h-full rounded-full transition-all duration-1000 ease-out"
+//               style={{ 
+//                 width: `${(course.value / maxValue) * 100}%`,
+//                 background: `linear-gradient(90deg, ${course.color}, ${course.color}99)`,
+//                 boxShadow: `0 0 15px ${course.color}40`
+//               }}
+//             />
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// // Attendance Bars
+// const AttendanceBars = ({ data }) => {
+//   const { isDark } = useTheme();
+//   const maxCount = Math.max(...data.map(d => d.count));
+  
+//   return (
+//     <div className="space-y-3">
+//       {data.map((item, index) => (
+//         <div key={index}>
+//           <div className="flex justify-between text-xs mb-1.5">
+//             <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>{item.range} soat</span>
+//             <span className={`font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>{item.count} talaba</span>
+//           </div>
+//           <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
+//             <div 
+//               className="h-full rounded-full transition-all duration-1000"
+//               style={{ 
+//                 width: `${(item.count / maxCount) * 100}%`, 
+//                 backgroundColor: item.fill,
+//                 boxShadow: `0 0 10px ${item.fill}50`
+//               }}
+//             />
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// // Main Dashboard
+// export default function HemisDashboard() {
+//   const [sidebarOpen, setSidebarOpen] = useState(false);
+//   const [activeNav, setActiveNav] = useState('dashboard');
+//   const [isDark, setIsDark] = useState(true);
+
+//   const navItems = [
+//     { id: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
+//     { id: 'reports', label: 'Hisobotlar', icon: <ReportIcon /> },
+//     { id: 'students', label: 'Talabalar', icon: <UsersIcon /> },
+//     { id: 'statistics', label: 'Statistika', icon: <ChartIcon /> },
+//     { id: 'map', label: 'Xarita', icon: <MapIcon /> },
+//   ];
+
+//   const currentDate = new Date().toLocaleDateString('uz-UZ', { 
+//     weekday: 'long', 
+//     year: 'numeric', 
+//     month: 'long', 
+//     day: 'numeric' 
+//   });
+
+//   return (
+//     <ThemeContext.Provider value={{ isDark }}>
+//       <div className={`min-h-screen transition-colors duration-500 ${
+//         isDark ? 'bg-[#0a0f1a]' : 'bg-slate-50'
+//       }`}>
+//         {/* Background gradient */}
+//         {isDark && (
+//           <div className="fixed inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none" />
+//         )}
+        
+//         {/* Mobile Header */}
+//         <div className={`lg:hidden fixed top-0 left-0 right-0 h-16 backdrop-blur-xl border-b z-50 flex items-center justify-between px-4 ${
+//           isDark ? 'bg-slate-900/80 border-white/10' : 'bg-white/80 border-slate-200'
+//         }`}>
+//           <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`p-2 rounded-lg ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-100'}`}>
+//             {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
+//           </button>
+//           <h1 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
+//           <button 
+//             onClick={() => setIsDark(!isDark)}
+//             className={`p-2 rounded-lg ${isDark ? 'hover:bg-white/5 text-yellow-400' : 'hover:bg-slate-100 text-slate-600'}`}
+//           >
+//             {isDark ? <SunIcon /> : <MoonIcon />}
+//           </button>
+//         </div>
+
+//         {sidebarOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSidebarOpen(false)} />}
+
+//         {/* Sidebar */}
+//         <aside className={`fixed top-0 left-0 h-full w-56 backdrop-blur-xl border-r z-50 transform transition-transform duration-300 ${
+//           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+//         } ${isDark ? 'bg-slate-900/50 border-white/10' : 'bg-white border-slate-200'}`}>
+//           <div className={`p-5 border-b ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
+//             <div className="flex items-center gap-3">
+//               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/25">
+//                 <span className="text-white font-bold text-sm">H</span>
+//               </div>
+//               <div>
+//                 <h1 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>HEMIS</h1>
+//                 <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Admin Dashboard</p>
+//               </div>
+//             </div>
+//           </div>
+
+//           <nav className="p-3 space-y-1">
+//             <p className={`text-[10px] uppercase tracking-wider px-3 mb-2 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>MENU</p>
+//             {navItems.map((item) => (
+//               <button
+//                 key={item.id}
+//                 onClick={() => { setActiveNav(item.id); setSidebarOpen(false); }}
+//                 className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
+//                   activeNav === item.id 
+//                     ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25' 
+//                     : isDark 
+//                       ? 'text-slate-400 hover:bg-white/5 hover:text-white' 
+//                       : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+//                 }`}
+//               >
+//                 {item.icon}
+//                 <span>{item.label}</span>
+//               </button>
+//             ))}
+            
+//             <p className={`text-[10px] uppercase tracking-wider px-3 mt-4 mb-2 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>SOZLAMALAR</p>
+//             <button className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
+//               isDark ? 'text-slate-400 hover:bg-white/5 hover:text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+//             }`}>
+//               <SettingsIcon />
+//               <span>Sozlamalar</span>
+//             </button>
+//           </nav>
+
+//           {/* Theme Toggle */}
+//           <div className={`absolute bottom-20 left-3 right-3 p-3 rounded-xl ${isDark ? 'bg-white/5' : 'bg-slate-100'}`}>
+//             <div className="flex items-center justify-between">
+//               <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+//                 {isDark ? 'Tungi rejim' : 'Kunduzgi rejim'}
+//               </span>
+//               <button
+//                 onClick={() => setIsDark(!isDark)}
+//                 className={`p-2 rounded-lg transition-colors ${
+//                   isDark ? 'bg-slate-800 text-yellow-400' : 'bg-white text-slate-600 shadow'
+//                 }`}
+//               >
+//                 {isDark ? <SunIcon /> : <MoonIcon />}
+//               </button>
+//             </div>
+//           </div>
+
+//           {/* Upgrade Card */}
+//           {/* <div className="absolute bottom-4 left-3 right-3 hidden lg:block">
+//             <GlassCard className="p-4" glow>
+//               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-3">
+//                 <span className="text-lg">✨</span>
+//               </div>
+//               <h4 className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Premium</h4>
+//               <p className={`text-xs mt-1 mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Kengaytirilgan imkoniyatlar</p>
+//               <button className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-medium hover:opacity-90 transition-opacity">
+//                 Yangilash
+//               </button>
+//             </GlassCard>
+//           </div> */}
+//         </aside>
+
+//         {/* Main Content */}
+//         <main className="lg:ml-56 pt-16 lg:pt-0 min-h-screen p-4 lg:p-6">
+//           {/* Header */}
+//           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+//             <div>
+//               <h1 className={`text-2xl lg:text-3xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+//                 Ta'lim Statistikasi - 2024/2025
+//               </h1>
+//               <p className={`text-sm mt-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{currentDate}</p>
+//             </div>
+//             <div className="flex items-center gap-3">
+//               <div className={`relative hidden lg:flex items-center ${
+//                 isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'
+//               } border rounded-xl`}>
+//                 <span className="pl-3 text-slate-400"><SearchIcon /></span>
+//                 <input 
+//                   type="text" 
+//                   placeholder="Qidirish..." 
+//                   className={`w-48 py-2 pl-2 pr-4 text-sm bg-transparent focus:outline-none ${
+//                     isDark ? 'text-white placeholder-slate-500' : 'text-slate-800 placeholder-slate-400'
+//                   }`}
+//                 />
+//               </div>
+//               <button className={`p-2.5 rounded-xl relative ${
+//                 isDark ? 'bg-white/5 border border-white/10 hover:bg-white/10' : 'bg-white border border-slate-200 hover:bg-slate-50'
+//               }`}>
+//                 <BellIcon />
+//                 <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full" />
+//               </button>
+//               <div className={`flex items-center gap-3 pl-3 border-l ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
+//                 <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+//                   <span className="text-sm font-bold text-white">A</span>
+//                 </div>
+//                 <div className="hidden lg:block">
+//                   <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Admin User</p>
+//                   <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Super Admin</p>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Stats Cards */}
+//           <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+//             <StatCard icon={<UsersIcon />} label="Jami Talabalar" value={12847} change="+5.2%" positive={true} />
+//             <StatCard icon={<ChartIcon />} label="O'sish (%)" value={38} change="+12%" positive={true} />
+//             <StatCard icon={<DashboardIcon />} label="Kunduzgi" value={8234} change="+3.1%" positive={true} />
+//             <StatCard icon={<ReportIcon />} label="Davomat (%)" value={94} change="+2%" positive={true} />
+//             <StatCard icon={<MapIcon />} label="Yotoqxona" value={3421} change="-2.1%" positive={false} />
+//           </div>
+
+//           {/* Main Charts Row */}
+//           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+//             {/* Area Chart */}
+//             <GlassCard className="lg:col-span-2 p-5" glow>
+//               <div className="flex items-center justify-between mb-4">
+//                 <div>
+//                   <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Talabalar Dinamikasi</h3>
+//                   <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Oylik o'zgarishlar</p>
+//                 </div>
+//                 <div className="flex items-center gap-4 text-xs">
+//                   <div className="flex items-center gap-1.5">
+//                     <div className="w-3 h-3 rounded-full bg-cyan-500" />
+//                     <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>Kunduzgi</span>
+//                   </div>
+//                   <div className="flex items-center gap-1.5">
+//                     <div className="w-3 h-3 rounded-full bg-purple-500" />
+//                     <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>Sirtqi</span>
+//                   </div>
+//                   <select className={`rounded-lg px-2 py-1 text-xs ${
+//                     isDark ? 'bg-white/5 border border-white/10 text-slate-400' : 'bg-slate-100 border border-slate-200 text-slate-600'
+//                   }`}>
+//                     <option>Bu yil</option>
+//                   </select>
+//                 </div>
+//               </div>
+//               <DynamicAreaChart data={monthlyData} />
+//             </GlassCard>
+
+//             {/* 3D Pie Chart */}
+//             <GlassCard className="p-5" glow>
+//               <div className="flex items-center justify-between mb-4">
+//                 <div>
+//                   <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Turar Joy Turi</h3>
+//                   <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Talabalar taqsimoti</p>
+//                 </div>
+//               </div>
+//               <Pie3DChart data={housingData} />
+//             </GlassCard>
+//           </div>
+
+//           {/* Second Row */}
+//           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+//             {/* Courses */}
+//             <GlassCard className="p-5" glow>
+//               <div className="flex items-center justify-between mb-4">
+//                 <div>
+//                   <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Kurslar Kesimida</h3>
+//                   <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Talabalar soni</p>
+//                 </div>
+//               </div>
+//               <CourseProgressBars data={courseData} />
+//             </GlassCard>
+
+//             {/* Attendance */}
+//             <GlassCard className="p-5" glow>
+//               <div className="flex items-center justify-between mb-4">
+//                 <div>
+//                   <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Dars Qoldirish</h3>
+//                   <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Soatlar bo'yicha</p>
+//                 </div>
+//                 <span className={`text-xs px-2 py-1 rounded-lg ${isDark ? 'text-slate-400 bg-white/5' : 'text-slate-600 bg-slate-100'}`}>
+//                   526 talaba
+//                 </span>
+//               </div>
+//               <AttendanceBars data={attendanceData} />
+//             </GlassCard>
+
+//             {/* Heatmap */}
+//             <GlassCard className="p-5" glow>
+//               <div className="flex items-center justify-between mb-4">
+//                 <div>
+//                   <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Viloyatlar Xaritasi</h3>
+//                   <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Talabalar joylashuvi</p>
+//                 </div>
+//                 <select className={`rounded-lg px-2 py-1 text-xs ${
+//                   isDark ? 'bg-white/5 border border-white/10 text-slate-400' : 'bg-slate-100 border border-slate-200 text-slate-600'
+//                 }`}>
+//                   <option>Bugun</option>
+//                 </select>
+//               </div>
+//               <RegionalHeatmap locations={mapLocations} />
+//             </GlassCard>
+//           </div>
+
+//           {/* Bar Chart */}
+//           <GlassCard className="p-5" glow>
+//             <div className="flex items-center justify-between mb-4">
+//               <div>
+//                 <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Viloyatlar Bo'yicha Talabalar</h3>
+//                 <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Doimiy yashash joyi</p>
+//               </div>
+//             </div>
+//             <ResponsiveContainer width="100%" height={200}>
+//               <BarChart data={regionData} barCategoryGap="20%">
+//                 <defs>
+//                   <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+//                     <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
+//                     <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.8} />
+//                   </linearGradient>
+//                 </defs>
+//                 <CartesianGrid strokeDasharray="3 3" stroke={isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'} vertical={false} />
+//                 <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} axisLine={false} tickLine={false} />
+//                 <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} axisLine={false} tickLine={false} />
+//                 <Tooltip 
+//                   contentStyle={{ 
+//                     backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255,255,255,0.95)', 
+//                     border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)', 
+//                     borderRadius: '12px' 
+//                   }}
+//                 />
+//                 <Bar dataKey="value" fill="url(#barGradient)" radius={[6, 6, 0, 0]} animationDuration={1500} />
+//               </BarChart>
+//             </ResponsiveContainer>
+//           </GlassCard>
+//         </main>
+//       </div>
+//     </ThemeContext.Provider>
+//   );
+// }
+
+
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+
+
+
+import React, { useState, useEffect } from 'react';
 import { 
-  PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, 
-  ResponsiveContainer, AreaChart, Area, RadialBarChart, RadialBar, ComposedChart, Line,
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Treemap
+  PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip,  
+  ResponsiveContainer, AreaChart, Area
 } from 'recharts';
 
 // Data
-const genderData = [
-  { name: 'Erkak', value: 7234, color: '#3b82f6' },
-  { name: 'Ayol', value: 5613, color: '#a855f7' }
+const housingData = [
+  { name: 'Yotoqxona', value: 3421, color: '#6366f1', percent: '27%', change: '+5.2%' },
+  { name: 'Ijara', value: 4256, color: '#22d3ee', percent: '33%', change: '+3.1%' },
+  { name: 'Ota-ona', value: 3876, color: '#a855f7', percent: '30%', change: '-1.2%' },
+  { name: 'Qarindosh', value: 1294, color: '#f472b6', percent: '10%', change: '+2.4%' }
 ];
 
-const educationFormData = [
-  { name: 'Kunduzgi', students: 8234, color: '#3b82f6' },
-  { name: 'Sirtqi', students: 4613, color: '#8b5cf6' }
+const monthlyData = [
+  { month: 'Sen', kunduzgi: 28000, sirtqi: 22000 },
+  { month: 'Okt', kunduzgi: 25000, sirtqi: 26000 },
+  { month: 'Noy', kunduzgi: 32000, sirtqi: 24000 },
+  { month: 'Dek', kunduzgi: 28000, sirtqi: 30000 },
+  { month: 'Yan', kunduzgi: 42000, sirtqi: 35000 },
+  { month: 'Fev', kunduzgi: 48000, sirtqi: 40000 }
 ];
 
 const courseData = [
-  { subject: '1-kurs', A: 3456, fullMark: 4000 },
-  { subject: '2-kurs', A: 3234, fullMark: 4000 },
-  { subject: '3-kurs', A: 3012, fullMark: 4000 },
-  { subject: '4-kurs', A: 3145, fullMark: 4000 }
+  { name: '1-kurs', value: 3456, color: '#3b82f6', percent: '27%' },
+  { name: '2-kurs', value: 3234, color: '#06b6d4', percent: '25%' },
+  { name: '3-kurs', value: 3012, color: '#8b5cf6', percent: '23%' },
+  { name: '4-kurs', value: 3145, color: '#10b981', percent: '25%' }
 ];
 
 const regionData = [
@@ -6813,65 +9328,42 @@ const regionData = [
   { name: 'Andijon', value: 1634 },
   { name: 'Namangan', value: 1423 },
   { name: 'Buxoro', value: 1234 },
-  { name: 'Qashqadaryo', value: 1032 }
-];
-
-const districtData = [
-  { name: 'Chilonzor', talabalar: 2134, yotoqxona: 856 },
-  { name: 'Yunusobod', talabalar: 1876, yotoqxona: 654 },
-  { name: 'M.Ulug\'bek', talabalar: 1654, yotoqxona: 534 },
-  { name: 'Sergeli', talabalar: 1432, yotoqxona: 423 },
-  { name: 'Yakkasaroy', talabalar: 1234, yotoqxona: 312 },
-  { name: 'Shayxontohur', talabalar: 987, yotoqxona: 234 }
-];
-
-const housingTypeData = [
-  { name: 'Yotoqxona', value: 3421, color: '#3b82f6' },
-  { name: 'Ijara', value: 4256, color: '#10b981' },
-  { name: 'Ota-ona bilan', value: 3876, color: '#f59e0b' },
-  { name: 'Qarindoshlar', value: 1294, color: '#ef4444' }
-];
-
-const housingStatusData = [
-  { name: '1-kurs', taminlangan: 2845, navbatda: 432, taminlanmagan: 179 },
-  { name: '2-kurs', taminlangan: 2654, navbatda: 389, taminlanmagan: 191 },
-  { name: '3-kurs', taminlangan: 2512, navbatda: 312, taminlanmagan: 188 },
-  { name: '4-kurs', taminlangan: 2634, navbatda: 298, taminlanmagan: 213 }
+  { name: 'Boshqa', value: 2032 }
 ];
 
 const attendanceData = [
-  { range: '30-40 soat', count: 234, fill: '#3b82f6' },
-  { range: '40-50 soat', count: 156, fill: '#f59e0b' },
-  { range: '50-70 soat', count: 89, fill: '#f97316' },
-  { range: '70+ soat', count: 47, fill: '#ef4444' }
+  { range: '30-40', count: 234, fill: '#3b82f6' },
+  { range: '40-50', count: 156, fill: '#f59e0b' },
+  { range: '50-70', count: 89, fill: '#f97316' },
+  { range: '70+', count: 47, fill: '#ef4444' }
 ];
 
 const mapLocations = [
-  { id: 1, name: 'Yotoqxona 1', type: 'Yotoqxona', students: 450, lat: 41.3111, lng: 69.2797, color: '#3b82f6' },
-  { id: 2, name: 'Yotoqxona 2', type: 'Yotoqxona', students: 380, lat: 41.3275, lng: 69.2145, color: '#3b82f6' },
-  { id: 3, name: 'Yotoqxona 3', type: 'Yotoqxona', students: 520, lat: 41.2995, lng: 69.2401, color: '#3b82f6' },
-  { id: 4, name: 'Chilonzor', type: 'Ijara', students: 890, lat: 41.3156, lng: 69.2934, color: '#10b981' },
-  { id: 5, name: 'Yunusobod', type: 'Ijara', students: 760, lat: 41.3411, lng: 69.1876, color: '#10b981' },
-  { id: 6, name: 'Sergeli', type: 'Ijara', students: 540, lat: 41.2650, lng: 69.2200, color: '#10b981' },
-  { id: 7, name: 'M.Ulug\'bek', type: 'Ota-ona', students: 1200, lat: 41.3400, lng: 69.2850, color: '#f59e0b' },
-  { id: 8, name: 'Yakkasaroy', type: 'Ota-ona', students: 980, lat: 41.2900, lng: 69.2650, color: '#f59e0b' },
-  { id: 9, name: 'Shayxontohur', type: 'Qarindosh', students: 320, lat: 41.3200, lng: 69.2350, color: '#ef4444' },
-  { id: 10, name: 'Olmazor', type: 'Qarindosh', students: 280, lat: 41.3350, lng: 69.1950, color: '#ef4444' },
-  { id: 11, name: 'Bektemir', type: 'Ijara', students: 420, lat: 41.2750, lng: 69.3100, color: '#10b981' },
-  { id: 12, name: 'Uchtepa', type: 'Ota-ona', students: 650, lat: 41.3050, lng: 69.1750, color: '#f59e0b' },
+  { id: 1, name: 'Toshkent', x: 68, y: 28, students: 2845, intensity: 1 },
+  { id: 2, name: 'Samarqand', x: 45, y: 35, students: 1923, intensity: 0.8 },
+  { id: 3, name: "Farg'ona", x: 85, y: 32, students: 1756, intensity: 0.7 },
+  { id: 4, name: 'Andijon', x: 90, y: 28, students: 1634, intensity: 0.65 },
+  { id: 5, name: 'Namangan', x: 82, y: 24, students: 1423, intensity: 0.55 },
+  { id: 6, name: 'Buxoro', x: 32, y: 40, students: 1234, intensity: 0.5 },
+  { id: 7, name: 'Xorazm', x: 22, y: 28, students: 890, intensity: 0.4 },
+  { id: 8, name: 'Qarshi', x: 42, y: 48, students: 756, intensity: 0.35 },
+  { id: 9, name: 'Nukus', x: 18, y: 18, students: 534, intensity: 0.25 },
+  { id: 10, name: 'Termiz', x: 50, y: 62, students: 445, intensity: 0.2 },
 ];
 
 // Icons
-const DashboardIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>;
-const UsersIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
-const ChartIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
-const MapIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
-const MenuIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
-const CloseIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
-const SunIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
-const MoonIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
-const TrendUpIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>;
-const TrendDownIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>;
+const DashboardIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>;
+const ReportIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>;
+const UsersIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>;
+const ChartIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>;
+const MapIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>;
+const SettingsIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>;
+const SearchIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>;
+const BellIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>;
+const MenuIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>;
+const CloseIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
+const SunIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
+const MoonIcon = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
 
 // Theme Context
 const ThemeContext = React.createContext();
@@ -6882,134 +9374,208 @@ const AnimatedCounter = ({ value, duration = 2000 }) => {
   const [count, setCount] = useState(0);
   useEffect(() => {
     let start = 0;
-    const increment = Math.ceil(value / 80);
+    const increment = Math.ceil(value / 60);
     const timer = setInterval(() => {
       start += increment;
       if (start >= value) { setCount(value); clearInterval(timer); }
       else { setCount(start); }
-    }, duration / 80);
+    }, duration / 60);
     return () => clearInterval(timer);
   }, [value, duration]);
   return <span>{count.toLocaleString()}</span>;
 };
 
-// Stat Card
-const StatCard = ({ label, value, change, positive, gradient }) => {
+// Glass Card
+const GlassCard = ({ children, className = '', glow = false }) => {
   const { isDark } = useTheme();
   return (
-    <div className={`relative overflow-hidden rounded-xl p-4 lg:p-5 border transition-all duration-300 hover:scale-[1.02] ${
-      isDark ? `border-slate-800 bg-gradient-to-br ${gradient}` : 'border-slate-200 bg-white shadow-sm hover:shadow-md'
-    }`}>
-      <div className="relative z-10">
-        <p className={`text-xs uppercase tracking-wide mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{label}</p>
-        <p className={`text-2xl lg:text-3xl font-bold mb-1 font-mono ${isDark ? 'text-white' : 'text-slate-800'}`}>
+    <div className={`relative rounded-2xl border overflow-hidden transition-all duration-300 ${
+      isDark 
+        ? 'border-white/10 bg-gradient-to-br from-slate-900/80 to-slate-800/50 backdrop-blur-xl' 
+        : 'border-slate-200 bg-white shadow-lg shadow-slate-200/50'
+    } ${className}`}>
+      {glow && isDark && <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none" />}
+      <div className="relative z-10">{children}</div>
+    </div>
+  );
+};
+
+// Stat Card
+const StatCard = ({ icon, label, value, change, positive }) => {
+  const { isDark } = useTheme();
+  return (
+    <GlassCard className="p-4 hover:scale-[1.02] transition-all duration-300 group" glow>
+      <div className="flex items-start justify-between">
+        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 ${
+          isDark 
+            ? 'bg-gradient-to-br from-blue-500/20 to-purple-500/20 border border-white/10 text-blue-400' 
+            : 'bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 text-blue-600'
+        }`}>
+          {icon}
+        </div>
+        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+          positive 
+            ? (isDark ? 'text-emerald-400 bg-emerald-400/10' : 'text-emerald-600 bg-emerald-50') 
+            : (isDark ? 'text-red-400 bg-red-400/10' : 'text-red-600 bg-red-50')
+        }`}>
+          {change}
+        </span>
+      </div>
+      <div className="mt-3">
+        <p className={`text-xs mb-1 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{label}</p>
+        <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
           <AnimatedCounter value={value} />
         </p>
-        <div className={`flex items-center gap-1 text-xs ${positive ? 'text-emerald-500' : 'text-red-500'}`}>
-          {positive ? <TrendUpIcon /> : <TrendDownIcon />}
-          <span>{change}</span>
-        </div>
       </div>
-      {isDark && <div className="absolute -right-4 -bottom-4 w-24 h-24 rounded-full bg-white/5 blur-2xl"></div>}
-    </div>
+    </GlassCard>
   );
 };
 
-// Chart Card
-const ChartCard = ({ title, subtitle, children, className = '' }) => {
+// 3D Pie Chart (Improved with perspective)
+const Pie3DChart = ({ data }) => {
   const { isDark } = useTheme();
+  const [activeIndex, setActiveIndex] = useState(null);
+  const total = data.reduce((sum, item) => sum + item.value, 0);
+
   return (
-    <div className={`rounded-xl p-4 lg:p-5 transition-all duration-300 ${
-      isDark ? 'bg-slate-900/50 backdrop-blur border border-slate-800 hover:border-slate-700' : 'bg-white border border-slate-200 shadow-sm hover:shadow-md'
-    } ${className}`}>
-      <div className="mb-3">
-        <h3 className={`text-sm lg:text-base font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>{title}</h3>
-        {subtitle && <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{subtitle}</p>}
-      </div>
-      {children}
-    </div>
-  );
-};
-
-// Custom Tooltip
-const CustomTooltip = ({ active, payload, label }) => {
-  const { isDark } = useTheme();
-  if (active && payload && payload.length) {
-    return (
-      <div className={`rounded-lg p-3 shadow-xl border text-xs ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200'}`}>
-        <p className={`font-semibold mb-1.5 ${isDark ? 'text-white' : 'text-slate-800'}`}>{label}</p>
-        {payload.map((entry, index) => (
-          <div key={index} className="flex items-center gap-2 mb-0.5">
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.color || entry.fill }}></div>
-            <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>{entry.name}:</span>
-            <span className="font-bold" style={{ color: entry.color || entry.fill }}>{entry.value?.toLocaleString()}</span>
+    <div className="flex flex-col lg:flex-row items-center gap-6">
+      {/* 3D Pie */}
+      <div className="relative" style={{ perspective: '800px' }}>
+        {/* Shadow ellipse */}
+        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-36 h-8 rounded-full blur-md" 
+          style={{ background: 'radial-gradient(ellipse, rgba(0,0,0,0.3) 0%, transparent 70%)' }} 
+        />
+        
+        {/* 3D layers for depth effect */}
+        {[...Array(8)].map((_, i) => (
+          <div 
+            key={i} 
+            className="absolute"
+            style={{ 
+              top: `${i * 2}px`,
+              left: 0,
+              opacity: 0.15 - i * 0.015,
+              transform: `rotateX(55deg)`
+            }}
+          >
+            <svg width="180" height="180" viewBox="0 0 180 180">
+              {data.map((entry, index) => {
+                const startAngle = data.slice(0, index).reduce((sum, d) => sum + (d.value / total) * 360, -90);
+                const endAngle = startAngle + (entry.value / total) * 360;
+                const largeArc = (entry.value / total) > 0.5 ? 1 : 0;
+                
+                const startRad = (startAngle * Math.PI) / 180;
+                const endRad = (endAngle * Math.PI) / 180;
+                
+                const x1 = 90 + 70 * Math.cos(startRad);
+                const y1 = 90 + 70 * Math.sin(startRad);
+                const x2 = 90 + 70 * Math.cos(endRad);
+                const y2 = 90 + 70 * Math.sin(endRad);
+                
+                return (
+                  <path
+                    key={index}
+                    d={`M 90 90 L ${x1} ${y1} A 70 70 0 ${largeArc} 1 ${x2} ${y2} Z`}
+                    fill={entry.color}
+                  />
+                );
+              })}
+            </svg>
           </div>
         ))}
+        
+        {/* Main pie */}
+        <div style={{ transform: 'rotateX(55deg)' }}>
+          <ResponsiveContainer width={180} height={180}>
+            <PieChart>
+              <defs>
+                {data.map((entry, index) => (
+                  <React.Fragment key={index}>
+                    <linearGradient id={`pieGrad3d${index}`} x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor={entry.color} stopOpacity={1} />
+                      <stop offset="100%" stopColor={entry.color} stopOpacity={0.7} />
+                    </linearGradient>
+                    <filter id={`glow3d${index}`}>
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </React.Fragment>
+                ))}
+              </defs>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                innerRadius={40}
+                outerRadius={activeIndex !== null ? 75 : 70}
+                paddingAngle={2}
+                dataKey="value"
+                onMouseEnter={(_, index) => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(null)}
+                animationBegin={0}
+                animationDuration={1200}
+              >
+                {data.map((entry, index) => (
+                  <Cell 
+                    key={index} 
+                    fill={`url(#pieGrad3d${index})`}
+                    stroke={isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.5)'}
+                    strokeWidth={2}
+                    filter={activeIndex === index ? `url(#glow3d${index})` : undefined}
+                    style={{
+                      transition: 'all 0.3s ease',
+                      cursor: 'pointer'
+                    }}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-    );
-  }
-  return null;
-};
 
-// Enhanced Donut Chart with Animation
-const EnhancedDonutChart = ({ data }) => {
-  const { isDark } = useTheme();
-  const total = data.reduce((sum, item) => sum + item.value, 0);
-  const [activeIndex, setActiveIndex] = useState(null);
-
-  return (
-    <div className="relative">
-      <ResponsiveContainer width="100%" height={220}>
-        <PieChart>
-          <defs>
-            {data.map((entry, index) => (
-              <linearGradient key={index} id={`gradient-${index}`} x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor={entry.color} stopOpacity={1} />
-                <stop offset="100%" stopColor={entry.color} stopOpacity={0.6} />
-              </linearGradient>
-            ))}
-          </defs>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={activeIndex !== null ? 90 : 85}
-            paddingAngle={3}
-            dataKey="value"
-            animationBegin={0}
-            animationDuration={1500}
-            animationEasing="ease-out"
-            onMouseEnter={(_, index) => setActiveIndex(index)}
+      {/* Legend - Right side */}
+      <div className="space-y-3 flex-1">
+        {data.map((item, index) => (
+          <div 
+            key={index} 
+            className={`flex items-center gap-3 p-2.5 rounded-xl transition-all cursor-pointer ${
+              activeIndex === index 
+                ? (isDark ? 'bg-white/5' : 'bg-slate-50') 
+                : ''
+            }`}
+            onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
           >
-            {data.map((entry, index) => (
-              <Cell 
-                key={index} 
-                fill={`url(#gradient-${index})`}
-                stroke={isDark ? '#0f172a' : '#fff'}
-                strokeWidth={2}
-                style={{ 
-                  filter: activeIndex === index ? 'drop-shadow(0 0 8px ' + entry.color + ')' : 'none',
-                  transition: 'all 0.3s ease'
-                }}
-              />
-            ))}
-          </Pie>
-          <Tooltip content={<CustomTooltip />} />
-        </PieChart>
-      </ResponsiveContainer>
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="text-center">
-          <p className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{total.toLocaleString()}</p>
-          <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Jami</p>
-        </div>
-      </div>
-      <div className="flex justify-center gap-4 mt-3">
-        {data.map((item, index) => (
-          <div key={index} className="flex items-center gap-2 cursor-pointer" onMouseEnter={() => setActiveIndex(index)} onMouseLeave={() => setActiveIndex(null)}>
-            <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: item.color }}></div>
-            <span className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{item.name}</span>
+            <div 
+              className="w-4 h-4 rounded-full flex-shrink-0" 
+              style={{ 
+                backgroundColor: item.color, 
+                boxShadow: activeIndex === index ? `0 0 15px ${item.color}` : 'none' 
+              }} 
+            />
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between">
+                <p className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                  {item.name} <span className={isDark ? 'text-slate-500' : 'text-slate-400'}>({item.percent})</span>
+                </p>
+              </div>
+              <div className="flex items-center gap-2 mt-0.5">
+                <span className={`text-lg font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                  {item.value.toLocaleString()}
+                </span>
+                <span className={`text-xs font-medium ${
+                  item.change?.startsWith('+') 
+                    ? 'text-emerald-500' 
+                    : 'text-red-500'
+                }`}>
+                  {item.change}
+                </span>
+              </div>
+            </div>
           </div>
         ))}
       </div>
@@ -7017,80 +9583,25 @@ const EnhancedDonutChart = ({ data }) => {
   );
 };
 
-// Semi-circle Gauge Chart for Courses
-const SemiCircleGauge = ({ data }) => {
+// Dynamic Area Chart (with more variation)
+const DynamicAreaChart = ({ data }) => {
   const { isDark } = useTheme();
-  const total = data.reduce((sum, item) => sum + item.A, 0);
-  const colors = ['#3b82f6', '#06b6d4', '#8b5cf6', '#10b981'];
   
-  // Calculate angles for each segment
-  let currentAngle = 180;
-  const segments = data.map((item, index) => {
-    const percentage = (item.A / total) * 180;
-    const segment = {
-      ...item,
-      startAngle: currentAngle,
-      endAngle: currentAngle - percentage,
-      color: colors[index],
-      percentage: ((item.A / total) * 100).toFixed(1)
-    };
-    currentAngle -= percentage;
-    return segment;
-  });
-
-  const createArc = (startAngle, endAngle, innerRadius, outerRadius) => {
-    const startRad = (startAngle * Math.PI) / 180;
-    const endRad = (endAngle * Math.PI) / 180;
-    
-    const x1 = 50 + outerRadius * Math.cos(startRad);
-    const y1 = 50 - outerRadius * Math.sin(startRad);
-    const x2 = 50 + outerRadius * Math.cos(endRad);
-    const y2 = 50 - outerRadius * Math.sin(endRad);
-    const x3 = 50 + innerRadius * Math.cos(endRad);
-    const y3 = 50 - innerRadius * Math.sin(endRad);
-    const x4 = 50 + innerRadius * Math.cos(startRad);
-    const y4 = 50 - innerRadius * Math.sin(startRad);
-    
-    const largeArc = Math.abs(endAngle - startAngle) > 180 ? 1 : 0;
-    
-    return `M ${x1} ${y1} A ${outerRadius} ${outerRadius} 0 ${largeArc} 1 ${x2} ${y2} L ${x3} ${y3} A ${innerRadius} ${innerRadius} 0 ${largeArc} 0 ${x4} ${y4} Z`;
-  };
-
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [animationProgress, setAnimationProgress] = useState(0);
-
-  useEffect(() => {
-    const duration = 1500;
-    const startTime = Date.now();
-    
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const easeOut = 1 - Math.pow(1 - progress, 3);
-      setAnimationProgress(easeOut);
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-    
-    requestAnimationFrame(animate);
-  }, []);
-
   return (
-    <div className="relative">
-      <svg viewBox="0 0 100 60" className="w-full h-48">
+    <ResponsiveContainer width="100%" height={300}>
+      <AreaChart data={data}>
         <defs>
-          {colors.map((color, i) => (
-            <linearGradient key={i} id={`gaugeGrad${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor={color} stopOpacity={1} />
-              <stop offset="100%" stopColor={color} stopOpacity={0.7} />
-            </linearGradient>
-          ))}
-          <filter id="gaugeShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="1" stdDeviation="1" floodOpacity="0.3"/>
-          </filter>
-          <filter id="gaugeGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <linearGradient id="kunduzgiGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.5} />
+            <stop offset="50%" stopColor="#06b6d4" stopOpacity={0.2} />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
+          </linearGradient>
+          <linearGradient id="sirtqiGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.5} />
+            <stop offset="50%" stopColor="#8b5cf6" stopOpacity={0.2} />
+            <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
+          </linearGradient>
+          <filter id="lineGlow">
             <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
             <feMerge>
               <feMergeNode in="coloredBlur"/>
@@ -7098,327 +9609,307 @@ const SemiCircleGauge = ({ data }) => {
             </feMerge>
           </filter>
         </defs>
-        
-        {/* Background arc */}
-        <path
-          d={createArc(180, 0, 28, 42)}
-          fill={isDark ? '#1e293b' : '#e2e8f0'}
+        <CartesianGrid 
+          strokeDasharray="3 3" 
+          stroke={isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'} 
+          vertical={false} 
+        />
+        <XAxis 
+          dataKey="month" 
+          stroke={isDark ? '#64748b' : '#94a3b8'} 
+          fontSize={11} 
+          axisLine={false} 
+          tickLine={false} 
+        />
+        <YAxis 
+          stroke={isDark ? '#64748b' : '#94a3b8'} 
+          fontSize={10} 
+          axisLine={false} 
+          tickLine={false} 
+          tickFormatter={(v) => `${(v/1000).toFixed(0)}K`}
+        />
+        <Tooltip 
+          contentStyle={{ 
+            backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255,255,255,0.95)', 
+            border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)', 
+            borderRadius: '12px',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.2)'
+          }}
+          labelStyle={{ color: isDark ? '#fff' : '#1e293b', fontWeight: 600 }}
+          itemStyle={{ color: isDark ? '#94a3b8' : '#64748b' }}
+          formatter={(value) => [`${value.toLocaleString()} ta`, '']}
         />
         
-        {/* Segments */}
-        {segments.map((segment, index) => {
-          const animatedEndAngle = segment.startAngle - (segment.startAngle - segment.endAngle) * animationProgress;
-          return (
-            <path
-              key={index}
-              d={createArc(segment.startAngle, animatedEndAngle, 28, 42)}
-              fill={`url(#gaugeGrad${index})`}
-              filter={hoveredIndex === index ? "url(#gaugeGlow)" : "url(#gaugeShadow)"}
-              style={{ 
-                transition: 'filter 0.3s ease',
-                cursor: 'pointer'
-              }}
-              onMouseEnter={() => setHoveredIndex(index)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            />
-          );
-        })}
+        {/* Kunduzgi Area */}
+        <Area 
+          type="monotone" 
+          dataKey="kunduzgi" 
+          name="Kunduzgi"
+          stroke="#06b6d4" 
+          strokeWidth={3}
+          fill="url(#kunduzgiGradient)"
+          dot={{ 
+            r: 5, 
+            fill: '#06b6d4', 
+            strokeWidth: 3, 
+            stroke: isDark ? '#0f172a' : '#fff' 
+          }}
+          activeDot={{ 
+            r: 8, 
+            fill: '#06b6d4', 
+            stroke: isDark ? '#0f172a' : '#fff',
+            strokeWidth: 3,
+            filter: 'url(#lineGlow)' 
+          }}
+          animationDuration={2000}
+          animationEasing="ease-out"
+        />
         
-        {/* Center decoration */}
-        <circle cx="50" cy="50" r="24" fill={isDark ? '#0f172a' : '#fff'} />
-        <circle cx="50" cy="50" r="22" fill={isDark ? '#1e293b' : '#f8fafc'} />
-        
-        {/* Center text */}
-        <text x="50" y="46" textAnchor="middle" fontSize="8" fontWeight="bold" fill={isDark ? '#fff' : '#1e293b'}>
-          {total.toLocaleString()}
-        </text>
-        <text x="50" y="54" textAnchor="middle" fontSize="4" fill={isDark ? '#64748b' : '#94a3b8'}>
-          Jami talabalar
-        </text>
-        
-        {/* Tick marks */}
-        {[0, 45, 90, 135, 180].map((angle, i) => {
-          const rad = (angle * Math.PI) / 180;
-          const x1 = 50 + 44 * Math.cos(rad);
-          const y1 = 50 - 44 * Math.sin(rad);
-          const x2 = 50 + 47 * Math.cos(rad);
-          const y2 = 50 - 47 * Math.sin(rad);
-          return (
-            <line
-              key={i}
-              x1={x1} y1={y1} x2={x2} y2={y2}
-              stroke={isDark ? '#475569' : '#cbd5e1'}
-              strokeWidth="0.5"
-            />
-          );
-        })}
-      </svg>
-      
-      {/* Legend */}
-      <div className="grid grid-cols-4 gap-2 mt-2">
-        {segments.map((segment, index) => (
-          <div 
-            key={index}
-            className={`text-center p-2 rounded-lg transition-all cursor-pointer ${
-              hoveredIndex === index 
-                ? (isDark ? 'bg-slate-800' : 'bg-slate-100') 
-                : ''
-            }`}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
-          >
-            <div className="flex items-center justify-center gap-1.5 mb-1">
-              <div 
-                className="w-2.5 h-2.5 rounded-full"
-                style={{ backgroundColor: segment.color }}
-              />
-              <span className={`text-xs font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
-                {segment.subject}
-              </span>
-            </div>
-            <p className="text-sm font-bold font-mono" style={{ color: segment.color }}>
-              {segment.A.toLocaleString()}
-            </p>
-            <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>
-              {segment.percentage}%
-            </p>
-          </div>
-        ))}
-      </div>
-    </div>
+        {/* Sirtqi Area */}
+        <Area 
+          type="monotone" 
+          dataKey="sirtqi" 
+          name="Sirtqi"
+          stroke="#8b5cf6" 
+          strokeWidth={3}
+          fill="url(#sirtqiGradient)"
+          dot={{ 
+            r: 5, 
+            fill: '#8b5cf6', 
+            strokeWidth: 3, 
+            stroke: isDark ? '#0f172a' : '#fff' 
+          }}
+          activeDot={{ 
+            r: 8, 
+            fill: '#8b5cf6', 
+            stroke: isDark ? '#0f172a' : '#fff',
+            strokeWidth: 3,
+            filter: 'url(#lineGlow)' 
+          }}
+          animationDuration={2000}
+          animationEasing="ease-out"
+        />
+      </AreaChart>
+    </ResponsiveContainer>
   );
 };
 
-// Interactive Map with Leaflet-like style
-const InteractiveMap = ({ locations }) => {
+// Regional Heatmap
+const RegionalHeatmap = ({ locations }) => {
   const { isDark } = useTheme();
-  const [selectedLocation, setSelectedLocation] = useState(null);
   const [hoveredLocation, setHoveredLocation] = useState(null);
-  
-  const normalizeCoords = (lat, lng) => {
-    const minLat = 41.24, maxLat = 41.38, minLng = 69.12, maxLng = 69.36;
-    return {
-      x: ((lng - minLng) / (maxLng - minLng)) * 100,
-      y: ((maxLat - lat) / (maxLat - minLat)) * 100
-    };
-  };
-
-  const getMarkerSize = (students) => {
-    if (students > 1000) return 12;
-    if (students > 500) return 9;
-    return 6;
-  };
 
   return (
-    <div className={`relative rounded-xl overflow-hidden ${isDark ? 'bg-slate-800/30' : 'bg-slate-100'}`}>
-      {/* Map Header */}
-      <div className={`px-4 py-2 border-b ${isDark ? 'border-slate-700 bg-slate-800/50' : 'border-slate-200 bg-white/80'}`}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <MapIcon />
-            <span className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Toshkent shahri</span>
-          </div>
-          <div className="flex gap-3">
-            {[
-              { name: 'Yotoqxona', color: '#3b82f6', count: locations.filter(l => l.type === 'Yotoqxona').length },
-              { name: 'Ijara', color: '#10b981', count: locations.filter(l => l.type === 'Ijara').length },
-              { name: 'Ota-ona', color: '#f59e0b', count: locations.filter(l => l.type === 'Ota-ona').length },
-              { name: 'Qarindosh', color: '#ef4444', count: locations.filter(l => l.type === 'Qarindosh').length }
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-1">
-                <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }}></div>
-                <span className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{item.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Map SVG */}
-      <svg viewBox="0 0 100 100" className="w-full h-72 lg:h-80">
+    <div className={`relative h-80 rounded-xl overflow-hidden ${
+      isDark ? 'bg-gradient-to-br from-slate-900 to-slate-800' : 'bg-gradient-to-br from-slate-100 to-blue-50'
+    }`}>
+      <svg viewBox="0 0 100 70" className="w-full h-full">
         <defs>
-          <pattern id="gridPattern" width="5" height="5" patternUnits="userSpaceOnUse">
-            <path d="M 5 0 L 0 0 0 5" fill="none" stroke={isDark ? '#1e293b' : '#e2e8f0'} strokeWidth="0.2"/>
-          </pattern>
-          <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+          <filter id="mapGlowEffect" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1.5" result="blur" />
             <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <filter id="shadowFilter">
-            <feDropShadow dx="0" dy="1" stdDeviation="1" floodOpacity="0.3"/>
-          </filter>
-          {/* Road paths */}
-          <linearGradient id="roadGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={isDark ? '#334155' : '#cbd5e1'} />
-            <stop offset="50%" stopColor={isDark ? '#475569' : '#94a3b8'} />
-            <stop offset="100%" stopColor={isDark ? '#334155' : '#cbd5e1'} />
-          </linearGradient>
         </defs>
-        
-        {/* Background */}
-        <rect width="100%" height="100%" fill="url(#gridPattern)"/>
-        
-        {/* Simplified road network */}
-        <g stroke="url(#roadGradient)" strokeWidth="0.4" fill="none" opacity="0.6">
-          <path d="M 0 50 Q 25 45 50 50 T 100 50" />
-          <path d="M 50 0 Q 55 25 50 50 T 50 100" />
-          <path d="M 20 20 Q 35 35 50 50 T 80 80" />
-          <path d="M 80 20 Q 65 35 50 50 T 20 80" />
-          <circle cx="50" cy="50" r="15" />
-          <circle cx="50" cy="50" r="30" />
-        </g>
 
-        {/* Location markers */}
-        {locations.map((location) => {
-          const { x, y } = normalizeCoords(location.lat, location.lng);
-          const size = getMarkerSize(location.students);
-          const isHovered = hoveredLocation?.id === location.id;
-          const isSelected = selectedLocation?.id === location.id;
+        {/* Uzbekistan border */}
+        <path 
+          d="M 10 25 Q 15 15 25 18 L 40 12 Q 55 8 70 15 L 85 20 Q 95 25 92 35 L 88 45 Q 85 55 75 58 L 60 62 Q 45 65 35 58 L 20 50 Q 10 45 8 35 Z"
+          fill={isDark ? 'rgba(59, 130, 246, 0.08)' : 'rgba(59, 130, 246, 0.1)'}
+          stroke={isDark ? 'rgba(59, 130, 246, 0.3)' : 'rgba(59, 130, 246, 0.4)'}
+          strokeWidth="0.5"
+        />
+
+        {/* Connection lines */}
+        {locations.map((loc, i) => (
+          locations.slice(i + 1).map((loc2, j) => (
+            <line
+              key={`${i}-${j}`}
+              x1={loc.x} y1={loc.y}
+              x2={loc2.x} y2={loc2.y}
+              stroke={isDark ? 'rgba(59, 130, 246, 0.15)' : 'rgba(59, 130, 246, 0.2)'}
+              strokeWidth="0.3"
+            />
+          ))
+        ))}
+
+        {/* Location points */}
+        {locations.map((loc) => {
+          const isHovered = hoveredLocation?.id === loc.id;
+          const size = 2 + loc.intensity * 3;
           
           return (
             <g 
-              key={location.id} 
-              className="cursor-pointer"
-              onMouseEnter={() => setHoveredLocation(location)}
+              key={loc.id}
+              onMouseEnter={() => setHoveredLocation(loc)}
               onMouseLeave={() => setHoveredLocation(null)}
-              onClick={() => setSelectedLocation(selectedLocation?.id === location.id ? null : location)}
+              className="cursor-pointer"
             >
-              {/* Pulse animation ring */}
-              <circle cx={x} cy={y} r={size + 4} fill="none" stroke={location.color} strokeWidth="0.5" opacity="0.3">
-                <animate attributeName="r" values={`${size};${size + 8};${size}`} dur="2s" repeatCount="indefinite"/>
-                <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite"/>
-              </circle>
-              
-              {/* Main marker */}
-              <circle 
-                cx={x} 
-                cy={y} 
-                r={isHovered || isSelected ? size + 2 : size}
-                fill={location.color}
-                filter={isHovered || isSelected ? "url(#glowFilter)" : "url(#shadowFilter)"}
-                style={{ transition: 'all 0.2s ease' }}
+              <circle
+                cx={loc.x} cy={loc.y}
+                r={size * 3}
+                fill={`rgba(59, 130, 246, ${loc.intensity * 0.2})`}
               >
-                <animate attributeName="opacity" values="0.8;1;0.8" dur="3s" repeatCount="indefinite"/>
+                <animate attributeName="r" values={`${size * 2};${size * 4};${size * 2}`} dur="3s" repeatCount="indefinite" />
               </circle>
               
-              {/* Inner highlight */}
-              <circle cx={x - size/4} cy={y - size/4} r={size/3} fill="white" opacity="0.3"/>
+              <circle
+                cx={loc.x} cy={loc.y}
+                r={isHovered ? size * 1.5 : size}
+                fill="#3b82f6"
+                filter="url(#mapGlowEffect)"
+                style={{ transition: 'all 0.3s ease' }}
+              />
               
-              {/* Label on hover */}
-              {(isHovered || isSelected) && (
-                <g>
-                  <rect 
-                    x={x + size + 3} 
-                    y={y - 8} 
-                    width={location.name.length * 3 + 10} 
-                    height="16" 
-                    rx="3"
-                    fill={isDark ? '#1e293b' : '#fff'}
-                    stroke={location.color}
-                    strokeWidth="0.5"
-                  />
-                  <text 
-                    x={x + size + 8} 
-                    y={y + 1} 
-                    fontSize="4" 
-                    fill={isDark ? '#fff' : '#334155'}
-                    fontWeight="500"
-                  >
-                    {location.name}
-                  </text>
-                </g>
-              )}
+              <circle
+                cx={loc.x - size * 0.2} cy={loc.y - size * 0.2}
+                r={size * 0.3}
+                fill="white"
+                opacity="0.6"
+              />
             </g>
           );
         })}
       </svg>
 
-      {/* Info Panel */}
-      {selectedLocation && (
-        <div className={`absolute bottom-3 left-3 right-3 rounded-lg p-3 border backdrop-blur-sm ${
-          isDark ? 'bg-slate-900/90 border-slate-700' : 'bg-white/90 border-slate-200 shadow-lg'
-        }`}>
-          <div className="flex justify-between items-start">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: selectedLocation.color + '20' }}>
-                <div className="w-4 h-4 rounded-full" style={{ backgroundColor: selectedLocation.color }}></div>
-              </div>
-              <div>
-                <p className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>{selectedLocation.name}</p>
-                <p className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>{selectedLocation.type}</p>
-                <p className="text-sm mt-1">
-                  <span className="font-bold" style={{ color: selectedLocation.color }}>{selectedLocation.students.toLocaleString()}</span>
-                  <span className={`ml-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>talaba</span>
-                </p>
-              </div>
-            </div>
-            <button 
-              onClick={() => setSelectedLocation(null)} 
-              className={`p-1.5 rounded-lg transition-colors ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}
-            >
-              <CloseIcon />
-            </button>
-          </div>
+      {hoveredLocation && (
+        <div 
+          className={`absolute px-3 py-2 rounded-lg pointer-events-none ${
+            isDark ? 'bg-slate-900/90 border border-white/10' : 'bg-white/90 border border-slate-200 shadow-lg'
+          }`}
+          style={{ 
+            left: `${hoveredLocation.x}%`, 
+            top: `${hoveredLocation.y - 15}%`,
+            transform: 'translate(-50%, -100%)'
+          }}
+        >
+          <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>{hoveredLocation.name}</p>
+          <p className="text-blue-500 text-xs font-medium">{hoveredLocation.students.toLocaleString()} talaba</p>
         </div>
       )}
     </div>
   );
 };
 
-// Gradient Bar Chart
-const GradientBarChart = ({ data, dataKey, fill }) => {
+// Progress Bars for Courses
+const CourseProgressBars = ({ data }) => {
   const { isDark } = useTheme();
+  const maxValue = Math.max(...data.map(d => d.value));
+  
   return (
-    <ResponsiveContainer width="100%" height={220}>
-      <BarChart data={data} layout="vertical" barCategoryGap="20%">
-        <defs>
-          <linearGradient id="barGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor={fill} stopOpacity={1} />
-            <stop offset="100%" stopColor={fill} stopOpacity={0.5} />
-          </linearGradient>
-        </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} horizontal={false} />
-        <XAxis type="number" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} axisLine={false} tickLine={false} />
-        <YAxis type="category" dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={11} width={70} axisLine={false} tickLine={false} />
-        <Tooltip content={<CustomTooltip />} cursor={{ fill: isDark ? '#1e293b' : '#f1f5f9' }} />
-        <Bar dataKey={dataKey} fill="url(#barGradient)" radius={[0, 6, 6, 0]} animationDuration={1500} />
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="space-y-4">
+      {data.map((course, index) => (
+        <div key={index} className="group">
+          <div className="flex justify-between items-center mb-2">
+            <div className="flex items-center gap-2">
+              <div 
+                className="w-3 h-3 rounded-full" 
+                style={{ backgroundColor: course.color, boxShadow: `0 0 8px ${course.color}50` }} 
+              />
+              <span className={`text-sm font-medium ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
+                {course.name}
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                {course.value.toLocaleString()}
+              </span>
+              <span className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
+                {course.percent}
+              </span>
+            </div>
+          </div>
+          <div className={`h-2.5 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
+            <div 
+              className="h-full rounded-full transition-all duration-1000 ease-out"
+              style={{ 
+                width: `${(course.value / maxValue) * 100}%`,
+                background: `linear-gradient(90deg, ${course.color}, ${course.color}99)`,
+                boxShadow: `0 0 15px ${course.color}40`
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// Attendance Bars
+const AttendanceBars = ({ data }) => {
+  const { isDark } = useTheme();
+  const maxCount = Math.max(...data.map(d => d.count));
+  
+  return (
+    <div className="space-y-3">
+      {data.map((item, index) => (
+        <div key={index}>
+          <div className="flex justify-between text-xs mb-1.5">
+            <span className={isDark ? 'text-slate-400' : 'text-slate-500'}>{item.range} soat</span>
+            <span className={`font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>{item.count} talaba</span>
+          </div>
+          <div className={`h-2 rounded-full overflow-hidden ${isDark ? 'bg-slate-800' : 'bg-slate-100'}`}>
+            <div 
+              className="h-full rounded-full transition-all duration-1000"
+              style={{ 
+                width: `${(item.count / maxCount) * 100}%`, 
+                backgroundColor: item.fill,
+                boxShadow: `0 0 10px ${item.fill}50`
+              }}
+            />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
 // Main Dashboard
-// Main Dashboard
-// Main Dashboard
-export default function Billing() {
+export default function HemisDashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeNav, setActiveNav] = useState('dashboard');
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
+    { id: 'reports', label: 'Hisobotlar', icon: <ReportIcon /> },
     { id: 'students', label: 'Talabalar', icon: <UsersIcon /> },
     { id: 'statistics', label: 'Statistika', icon: <ChartIcon /> },
-    { id: 'map', label: 'Xarita', icon: <MapIcon /> }
+    { id: 'map', label: 'Xarita', icon: <MapIcon /> },
   ];
+
+  const currentDate = new Date().toLocaleDateString('uz-UZ', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
 
   return (
     <ThemeContext.Provider value={{ isDark }}>
-      <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+      <div className={`min-h-screen transition-colors duration-500 ${
+        isDark ? 'bg-[#0a0f1a]' : 'bg-slate-50'
+      }`}>
+        {/* Background gradient */}
+        {isDark && (
+          <div className="fixed inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-purple-900/20 pointer-events-none" />
+        )}
+        
         {/* Mobile Header */}
-        <div className={`lg:hidden fixed top-0 left-0 right-0 h-14 backdrop-blur border-b z-50 flex items-center justify-between px-4 ${
-          isDark ? 'bg-slate-900/95 border-slate-800' : 'bg-white/95 border-slate-200'
+        <div className={`lg:hidden fixed top-0 left-0 right-0 h-16 backdrop-blur-xl border-b z-50 flex items-center justify-between px-4 ${
+          isDark ? 'bg-slate-900/80 border-white/10' : 'bg-white/80 border-slate-200'
         }`}>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`p-2 rounded-lg ${isDark ? 'hover:bg-slate-800' : 'hover:bg-slate-100'}`}>
-              {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
-            </button>
-            <h1 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
-          </div>
-          <button onClick={() => setIsDark(!isDark)} className={`p-2 rounded-lg ${isDark ? 'bg-slate-800 text-yellow-400' : 'bg-slate-100 text-slate-600'}`}>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className={`p-2 rounded-lg ${isDark ? 'hover:bg-white/5' : 'hover:bg-slate-100'}`}>
+            {sidebarOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+          <h1 className="text-lg font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
+          <button 
+            onClick={() => setIsDark(!isDark)}
+            className={`p-2 rounded-lg ${isDark ? 'hover:bg-white/5 text-yellow-400' : 'hover:bg-slate-100 text-slate-600'}`}
+          >
             {isDark ? <SunIcon /> : <MoonIcon />}
           </button>
         </div>
@@ -7426,178 +9917,265 @@ export default function Billing() {
         {sidebarOpen && <div className="lg:hidden fixed inset-0 bg-black/50 z-40" onClick={() => setSidebarOpen(false)} />}
 
         {/* Sidebar */}
-        <aside className={`fixed top-0 left-0 h-full w-60 border-r z-50 transform transition-transform duration-300 ${
+        <aside className={`fixed top-0 left-0 h-full w-56 backdrop-blur-xl border-r z-50 transform transition-transform duration-300 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        } ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
-          <div className={`p-5 border-b ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
-            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-cyan-500 bg-clip-text text-transparent">HEMIS</h1>
-            <p className={`text-[10px] uppercase tracking-widest mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Admin Dashboard</p>
+        } ${isDark ? 'bg-slate-900/50 border-white/10' : 'bg-white border-slate-200'}`}>
+          <div className={`p-5 border-b ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg shadow-blue-500/25">
+                <span className="text-white font-bold text-sm">H</span>
+              </div>
+              <div>
+                <h1 className={`font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>HEMIS</h1>
+                <p className={`text-[10px] ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Admin Dashboard</p>
+              </div>
+            </div>
           </div>
-          
-          <nav className="p-3">
-            <p className={`text-[10px] uppercase tracking-wider mb-2 px-3 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>Asosiy</p>
+
+          <nav className="p-3 space-y-1">
+            <p className={`text-[10px] uppercase tracking-wider px-3 mb-2 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>MENU</p>
             {navItems.map((item) => (
-              <button key={item.id} onClick={() => { setActiveNav(item.id); setSidebarOpen(false); }}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg mb-1 text-sm transition-all ${
+              <button
+                key={item.id}
+                onClick={() => { setActiveNav(item.id); setSidebarOpen(false); }}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
                   activeNav === item.id 
-                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-500/20' 
-                    : isDark ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                }`}>
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow-lg shadow-blue-500/25' 
+                    : isDark 
+                      ? 'text-slate-400 hover:bg-white/5 hover:text-white' 
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                }`}
+              >
                 {item.icon}
-                <span className="font-medium">{item.label}</span>
+                <span>{item.label}</span>
               </button>
             ))}
+            
+            <p className={`text-[10px] uppercase tracking-wider px-3 mt-4 mb-2 ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>SOZLAMALAR</p>
+            <button className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm transition-all ${
+              isDark ? 'text-slate-400 hover:bg-white/5 hover:text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+            }`}>
+              <SettingsIcon />
+              <span>Sozlamalar</span>
+            </button>
           </nav>
 
-          <div className={`hidden lg:block absolute bottom-0 left-0 right-0 p-3 border-t ${isDark ? 'border-slate-800' : 'border-slate-200'}`}>
-            <button onClick={() => setIsDark(!isDark)}
-              className={`w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-sm transition-all ${
-                isDark ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}>
-              {isDark ? <SunIcon /> : <MoonIcon />}
-              <span>{isDark ? 'Kunduzgi rejim' : 'Tungi rejim'}</span>
-            </button>
+          {/* Theme Toggle */}
+          <div className={`absolute bottom-20 left-3 right-3 p-3 rounded-xl ${isDark ? 'bg-white/5' : 'bg-slate-100'}`}>
+            <div className="flex items-center justify-between">
+              <span className={`text-sm ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                {isDark ? 'Tungi rejim' : 'Kunduzgi rejim'}
+              </span>
+              <button
+                onClick={() => setIsDark(!isDark)}
+                className={`p-2 rounded-lg transition-colors ${
+                  isDark ? 'bg-slate-800 text-yellow-400' : 'bg-white text-slate-600 shadow'
+                }`}
+              >
+                {isDark ? <SunIcon /> : <MoonIcon />}
+              </button>
+            </div>
           </div>
+
+          {/* Upgrade Card */}
+          {/* <div className="absolute bottom-4 left-3 right-3 hidden lg:block">
+            <GlassCard className="p-4" glow>
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-3">
+                <span className="text-lg">✨</span>
+              </div>
+              <h4 className={`font-medium text-sm ${isDark ? 'text-white' : 'text-slate-800'}`}>Premium</h4>
+              <p className={`text-xs mt-1 mb-3 ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Kengaytirilgan imkoniyatlar</p>
+              <button className="w-full py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-medium hover:opacity-90 transition-opacity">
+                Yangilash
+              </button>
+            </GlassCard>
+          </div> */}
         </aside>
 
         {/* Main Content */}
-        <main className="lg:ml-60 pt-14 lg:pt-0 min-h-screen">
-          <div className="p-4 lg:p-5">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-5">
-              <div>
-                <h2 className={`text-xl lg:text-2xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>Dashboard</h2>
-                <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>2024-2025 o'quv yili statistikasi</p>
+        <main className="lg:ml-56 pt-16 lg:pt-0 min-h-screen p-4 lg:p-6">
+          {/* Header */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+            <div>
+              <h1 className={`text-2xl lg:text-3xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>
+                Ta'lim Statistikasi - 2024/2025
+              </h1>
+              <p className={`text-sm mt-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{currentDate}</p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className={`relative hidden lg:flex items-center ${
+                isDark ? 'bg-white/5 border-white/10' : 'bg-white border-slate-200'
+              } border rounded-xl`}>
+                <span className="pl-3 text-slate-400"><SearchIcon /></span>
+                <input 
+                  type="text" 
+                  placeholder="Qidirish..." 
+                  className={`w-48 py-2 pl-2 pr-4 text-sm bg-transparent focus:outline-none ${
+                    isDark ? 'text-white placeholder-slate-500' : 'text-slate-800 placeholder-slate-400'
+                  }`}
+                />
               </div>
-              <div className="flex gap-2">
-                <button className={`px-3 py-2 rounded-lg text-xs font-medium border ${isDark ? 'bg-slate-800 border-slate-700 hover:bg-slate-700' : 'bg-white border-slate-200 hover:bg-slate-50'}`}>
-                  Export
-                </button>
-                <button className="px-3 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg text-xs font-medium text-white shadow-lg shadow-blue-500/20">
-                  Yangilash
-                </button>
+              <button className={`p-2.5 rounded-xl relative ${
+                isDark ? 'bg-white/5 border border-white/10 hover:bg-white/10' : 'bg-white border border-slate-200 hover:bg-slate-50'
+              }`}>
+                <BellIcon />
+                <span className="absolute top-2 right-2 w-2 h-2 bg-blue-500 rounded-full" />
+              </button>
+              <div className={`flex items-center gap-3 pl-3 border-l ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
+                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+                  <span className="text-sm font-bold text-white">A</span>
+                </div>
+                <div className="hidden lg:block">
+                  <p className={`text-sm font-medium ${isDark ? 'text-white' : 'text-slate-800'}`}>Admin User</p>
+                  <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Super Admin</p>
+                </div>
               </div>
             </div>
+          </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-5">
-              <StatCard label="Jami talabalar" value={12847} change="+5.2% o'tgan yilga" positive={true} gradient="from-slate-900 to-blue-900/20" />
-              <StatCard label="Kunduzgi ta'lim" value={8234} change="64% jami talabalar" positive={true} gradient="from-slate-900 to-purple-900/20" />
-              <StatCard label="Sirtqi ta'lim" value={4613} change="36% jami talabalar" positive={true} gradient="from-slate-900 to-cyan-900/20" />
-              <StatCard label="Yotoqxonada" value={3421} change="-2.1% joy yetishmovchi" positive={false} gradient="from-slate-900 to-orange-900/20" />
-            </div>
+          {/* Stats Cards */}
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-5">
+            <StatCard icon={<UsersIcon />} label="Jami Talabalar" value={12847} change="+5.2%" positive={true} />
+            <StatCard icon={<ChartIcon />} label="O'sish (%)" value={38} change="+12%" positive={true} />
+            <StatCard icon={<DashboardIcon />} label="Kunduzgi" value={8234} change="+3.1%" positive={true} />
+            <StatCard icon={<ReportIcon />} label="Davomat (%)" value={94} change="+2%" positive={true} />
+            <StatCard icon={<MapIcon />} label="Yotoqxona" value={3421} change="-2.1%" positive={false} />
+          </div>
 
-            {/* Row 1 */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mb-3">
-              <ChartCard title="Jins kesimida" subtitle="Talabalar taqsimoti">
-                <EnhancedDonutChart data={genderData} />
-              </ChartCard>
+          {/* Main Charts Row */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
+            {/* Area Chart */}
+            <GlassCard className="lg:col-span-2 p-5" glow>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Talabalar Dinamikasi</h3>
+                  <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Oylik o'zgarishlar</p>
+                </div>
+                <div className="flex items-center gap-4 text-xs">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-cyan-500" />
+                    <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>Kunduzgi</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-purple-500" />
+                    <span className={isDark ? 'text-slate-400' : 'text-slate-600'}>Sirtqi</span>
+                  </div>
+                  <select className={`rounded-lg px-2 py-1 text-xs ${
+                    isDark ? 'bg-white/5 border border-white/10 text-slate-400' : 'bg-slate-100 border border-slate-200 text-slate-600'
+                  }`}>
+                    <option>Bu yil</option>
+                  </select>
+                </div>
+              </div>
+              <DynamicAreaChart data={monthlyData} />
+            </GlassCard>
 
-              <ChartCard title="Ta'lim shakli" subtitle="Kunduzgi va sirtqi">
-                <GradientBarChart data={educationFormData} dataKey="students" fill="#3b82f6" />
-              </ChartCard>
+            {/* 3D Pie Chart */}
+            <GlassCard className="p-5" glow>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Turar Joy Turi</h3>
+                  <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Talabalar taqsimoti</p>
+                </div>
+              </div>
+              <Pie3DChart data={housingData} />
+            </GlassCard>
+          </div>
 
-              <ChartCard title="Kurslar kesimida" subtitle="Yarim doira ko'rinishi">
-                <SemiCircleGauge data={courseData} />
-              </ChartCard>
-            </div>
-
-            {/* Row 2 */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
-              <ChartCard title="Doimiy yashash viloyati" subtitle="Talabalar kelib chiqqan viloyatlar">
-                <ResponsiveContainer width="100%" height={220}>
-                  <AreaChart data={regionData}>
-                    <defs>
-                      <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.8}/>
-                        <stop offset="50%" stopColor="#8b5cf6" stopOpacity={0.4}/>
-                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
-                    <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={9} angle={-45} textAnchor="end" height={50} />
-                    <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Area type="monotone" dataKey="value" stroke="#3b82f6" strokeWidth={2} fill="url(#areaGradient)" animationDuration={1500} />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </ChartCard>
-
-              <ChartCard title="Joriy yashash tumani" subtitle="Talabalar va yotoqxona">
-                <ResponsiveContainer width="100%" height={220}>
-                  <ComposedChart data={districtData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
-                    <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={9} />
-                    <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend wrapperStyle={{ fontSize: 10 }} />
-                    <Bar dataKey="talabalar" name="Talabalar" fill="#8b5cf6" radius={[4, 4, 0, 0]} animationDuration={1200} />
-                    <Line type="monotone" dataKey="yotoqxona" name="Yotoqxona" stroke="#06b6d4" strokeWidth={3} dot={{ fill: '#06b6d4', r: 4, strokeWidth: 2, stroke: isDark ? '#0f172a' : '#fff' }} animationDuration={1500} />
-                  </ComposedChart>
-                </ResponsiveContainer>
-              </ChartCard>
-            </div>
-
-            {/* Row 3 */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
-              <ChartCard title="Turar joy turi" subtitle="Yashash sharoitlari">
-                <EnhancedDonutChart data={housingTypeData} />
-              </ChartCard>
-
-              <ChartCard title="Yashash joyi statusi" subtitle="Kurslar bo'yicha">
-                <ResponsiveContainer width="100%" height={220}>
-                  <BarChart data={housingStatusData} barCategoryGap="15%">
-                    <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
-                    <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
-                    <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend wrapperStyle={{ fontSize: 10 }} />
-                    <Bar dataKey="taminlangan" name="Ta'minlangan" stackId="a" fill="#10b981" animationDuration={1200} />
-                    <Bar dataKey="navbatda" name="Navbatda" stackId="a" fill="#f59e0b" animationDuration={1200} />
-                    <Bar dataKey="taminlanmagan" name="Ta'minlanmagan" stackId="a" fill="#ef4444" radius={[4, 4, 0, 0]} animationDuration={1200} />
-                  </BarChart>
-                </ResponsiveContainer>
-              </ChartCard>
-            </div>
+          {/* Second Row */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+            {/* Courses */}
+            <GlassCard className="p-5" glow>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Kurslar Kesimida</h3>
+                  <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Talabalar soni</p>
+                </div>
+              </div>
+              <CourseProgressBars data={courseData} />
+            </GlassCard>
 
             {/* Attendance */}
-            <ChartCard title="Dars qoldirish statistikasi" subtitle="Soatlar bo'yicha taqsimot" className="mb-3">
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
-                {attendanceData.map((item, i) => (
-                  <div key={i} className={`rounded-lg p-3 text-center border transition-all hover:scale-105 ${
-                    isDark ? 'bg-slate-800/50 border-slate-700/50' : 'bg-white border-slate-200 shadow-sm'
-                  }`}>
-                    <p className={`text-xs mb-1 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>{item.range}</p>
-                    <p className="text-xl lg:text-2xl font-bold font-mono" style={{ color: item.fill }}>
-                      <AnimatedCounter value={item.count} duration={1500} />
-                    </p>
-                    <p className={`text-[10px] ${isDark ? 'text-slate-600' : 'text-slate-400'}`}>talaba</p>
-                  </div>
-                ))}
+            <GlassCard className="p-5" glow>
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Dars Qoldirish</h3>
+                  <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Soatlar bo'yicha</p>
+                </div>
+                <span className={`text-xs px-2 py-1 rounded-lg ${isDark ? 'text-slate-400 bg-white/5' : 'text-slate-600 bg-slate-100'}`}>
+                  526 talaba
+                </span>
               </div>
-              <ResponsiveContainer width="100%" height={150}>
-                <BarChart data={attendanceData} barCategoryGap="25%">
-                  <CartesianGrid strokeDasharray="3 3" stroke={isDark ? '#1e293b' : '#e2e8f0'} />
-                  <XAxis dataKey="range" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
-                  <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="count" radius={[6, 6, 0, 0]} animationDuration={1200}>
-                    {attendanceData.map((entry, i) => <Cell key={i} fill={entry.fill} />)}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            </ChartCard>
-
-            {/* Map */}
-            <ChartCard title="Talabalar joylashuvi xaritasi" subtitle="Turar joylar geografik ko'rinishi">
-              <InteractiveMap locations={mapLocations} />
-            </ChartCard>
+              <AttendanceBars data={attendanceData} />
+            </GlassCard>
           </div>
+
+          {/* Heatmap - Full Width */}
+          <GlassCard className="p-5 mb-4" glow>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Viloyatlar Xaritasi</h3>
+                <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Talabalar joylashuvi bo'yicha</p>
+              </div>
+              <select className={`rounded-lg px-2 py-1 text-xs ${
+                isDark ? 'bg-white/5 border border-white/10 text-slate-400' : 'bg-slate-100 border border-slate-200 text-slate-600'
+              }`}>
+                <option>Bugun</option>
+              </select>
+            </div>
+            <RegionalHeatmap locations={mapLocations} />
+          </GlassCard>
+
+          {/* Bar Chart */}
+          <GlassCard className="p-5" glow>
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-slate-800'}`}>Viloyatlar Bo'yicha Talabalar</h3>
+                <p className={`text-xs mt-0.5 ${isDark ? 'text-slate-500' : 'text-slate-500'}`}>Doimiy yashash joyi</p>
+              </div>
+            </div>
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={regionData} barCategoryGap="20%">
+                <defs>
+                  <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={1} />
+                    <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0.8} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" stroke={isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'} vertical={false} />
+                <XAxis dataKey="name" stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} axisLine={false} tickLine={false} />
+                <YAxis stroke={isDark ? '#64748b' : '#94a3b8'} fontSize={10} axisLine={false} tickLine={false} />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255,255,255,0.95)', 
+                    border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(0,0,0,0.1)', 
+                    borderRadius: '12px' 
+                  }}
+                />
+                <Bar dataKey="value" fill="url(#barGradient)" radius={[6, 6, 0, 0]} animationDuration={1500} />
+              </BarChart>
+            </ResponsiveContainer>
+          </GlassCard>
         </main>
       </div>
     </ThemeContext.Provider>
   );
 }
+
+
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// =========================================================================================================================
 
 
 
