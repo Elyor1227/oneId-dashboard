@@ -739,21 +739,21 @@ export default function TyutorHemis() {
   const navItems = ['Bosh sahifa', 'Tanlovlar', 'Tyutor minbari', 'Maqolalar', 'Yangiliklar', 'Hujjatlar'];
 
   const kunlikVazifalar = [
-    { time: '08:00 - 09:00', task: 'Ish yuzga o\'qishda yetib kelish, kundalik rejasidan talabalar bilan uchrashish', icon: '🌅' },
-    { time: '10:00 - 12:00', task: 'Professor-o\'qituvchilar bilan uchrashish guruhidagi o\'qish masalasi', icon: '👨‍🏫' },
-    { time: '14:00 - 16:00', task: 'Talabaning bir tili anglash imkoniyatini turishi alloqa quvvatlash', icon: '💬' },
-    { time: '16:00 - 17:00', task: 'Ijara xonalaridan talabalar TTJlarni o\'rganish', icon: '🏠' },
-    { time: '09:00 - 10:00', task: 'Ta\'labaning darslargi ishtirokini kuzatish, davomat omillarni', icon: '📊' },
-    { time: '12:00 - 13:00', task: 'Talablar bilan yakka tartibda yetib guruh saflarda qo\'llab-quvvatlash', icon: '🤝' },
-    { time: '17:00 - 18:00', task: 'Ma\'ruza kitob, mustaqil tayish, huquqiylarni o\'kitish', icon: '📚' },
-    { time: '18:00 - 18:30', task: 'Keyingi kun va kun-rep tavliq, kunlik ish safladan tahlil qilisga', icon: '📝' }
+    { time: '08:30 - 09:00', task: 'Ish joyiga o\'z vaqtida yetib kelish, kundalik reja asosida ishlarni tashkil etish choralarini ko\'rish, davomat jurnali va hujjatlarni tayyorlash', icon: '🌅' },
+    { time: '09:00 - 10:00', task: 'Ta\'labalarning darsdagi ishtirokini tekshirish, davomatini aniqlash, sababsiz kelmaganlar bilan bog\'lanish', icon: '👨‍🏫' },
+    { time: '10:00 - 11:00', task: 'Professor-o\'qituvchilar bilan uchrashuv: guruhdagi o\'quv intizomi va baholash natijalari bo\'yicha fikr almashish', icon: '💬' },
+    { time: '11:00 - 13:00', task: 'Talabalar bilan yakka tartibda yoki guruh suhbatlar: o\'qishdagi muammolar, shaxsiy masalalar bo\'yicha maslahat berish', icon: '🏠' },
+    { time: '14:00 - 14:30', task: 'Talabaning bo\'sh vaqtini mazmunli tashkil etishga qaratilgan ijtimoiy-ma\'naviy tadbirlar, uchrashuvlar, davra suhbatari tashkil etish', icon: '📊' },
+    { time: '14:30 - 15:00', task: 'Ma\'muriy ishlar: hisobot yozish, hujjatlarni to\'ldirish, ota-onalar bilan aloqa', icon: '🤝' },
+    { time: '15:00 - 17:00', task: 'Ijara xonadonlari hamda TTJlarni o\'rganish', icon: '📚' },
+    { time: '17:00 - 18:00', task: 'Keyingi kun uchun reja tuzish, kunlik ish natijalarini tahlil qilish, yakuniy hisobot tayyorlash', icon: '📝' }
   ];
 
   const kasbiyMaqsadlar = [
-    'Talaba yoshlarni vatanparvarlik va milliy qadriyatlarini sinfga rivojlantirish',
-    'Ta\'lim tizimi jarayonlariga ma\'naviyatlarni qo\'llab-quvvatlash hamda tuzli mustahkamlash',
-    'Ularning shuning hamada kasbiy rangsizlarning yoqonlar yoshish',
-    'Talabalarning akademik muvaffaqiyatlarini oshirish va ularga professional yondan ko\'rsatish'
+    'Talaba-yoshlarni vatanparvarlik va milliy qadriyatlarga sadoqat ruhida tarbiyalash',
+    'Ularning shaxsiy hamda kasbiy rivojlanishiga yaqindan yordam berish',
+    'Ta\'lim tarbiya jarayonlariga moslashuvini qo\'llab-quvvatlash hamda bo\'sh vaqtlarini mazmunli tashkil etish',
+    'Talabalarning akademik muvaffaqiyatini oshirish va ularga professional yo\'nalishda yordam ko\'rsatish'
   ];
 
   const testimonials = [
@@ -1203,7 +1203,7 @@ export default function TyutorHemis() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6" style={{ fontFamily: "'Playfair Display', serif" }}>
                 <span className="inline-block hover:scale-105 transition-transform">Tyutorlar</span>{' '}
                 <span className="inline-block hover:scale-105 transition-transform">—</span>{' '}
-                <span className="text-gradient inline-block hover:scale-105 transition-transform">
+                <span className="text-gradient inline-block hover:scale-105 transition-transform pb-5">
                   yuksak mas'uliyat
                 </span>{' '}
                 <span className="inline-block hover:scale-105 transition-transform">egalari!</span>
@@ -1217,7 +1217,7 @@ export default function TyutorHemis() {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <button className="btn-shine group flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-teal-400 to-teal-500 text-slate-900 font-bold rounded-2xl shadow-xl shadow-teal-500/30 hover:shadow-teal-500/50 transition-all hover:-translate-y-1 hover:scale-105 animate-gradient">
-                  Tyutor bo'lish
+                  Tizimga kirish
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                 </button>
                 <button className="group flex items-center justify-center gap-2 px-8 py-4 bg-white/10 border border-white/20 text-white font-semibold rounded-2xl hover:bg-white/20 transition-all hover:scale-105 ripple-effect">
