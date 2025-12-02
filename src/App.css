@@ -430,3 +430,132 @@ header, main, .hint, footer {
     touch-action: pan-y;
   }
 }
+
+
+/* OceanLogin.css qo'shimchalar */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+
+/* Tungi rejim uchun matn ranglari */
+.night-mode {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Kunduzgi rejim uchun matn ranglari */
+.day-mode {
+  color: rgba(30, 30, 30, 0.9);
+}
+
+/* Login kartasi ranglarini rejimga moslash */
+.day-mode .login-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.day-mode .login-title {
+  color: #1e3a8a;
+}
+
+.day-mode .login-title span {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.day-mode .login-subtitle {
+  color: black;
+}
+
+.day-mode .oneid-btn {
+  background: linear-gradient(135deg, #1d4ed8 0%, #3b82f6 100%);
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+}
+
+.day-mode .oneid-btn:hover {
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.4), 0 0 60px rgba(59, 130, 246, 0.2);
+}
+
+.day-mode .badge-text {
+  color: #1d4ed8;
+}
+
+.day-mode .badge-dot {
+  background: #1d4ed8;
+}
+
+.day-mode .divider-text {
+  color: rgba(30, 58, 138, 0.4);
+}
+
+.day-mode .help-link {
+  color: rgba(30, 58, 138, 0.6);
+}
+
+.day-mode .help-link:hover {
+  color: #1d4ed8;
+}
+
+.day-mode .feature {
+  color: rgba(30, 58, 138, 0.6);
+}
+
+.day-mode .feature-icon {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.day-mode .ministry-name {
+  color: rgba(30, 58, 138, 0.8);
+}
+
+.day-mode footer {
+  color: rgba(30, 58, 138, 0.5);
+}
+
+.day-mode .hint {
+  color: rgba(30, 58, 138, 0.6);
+}
+
+/* Mobile uchun moslashuv */
+@media (max-width: 768px) {
+  .header-controls {
+    gap: 10px;
+  }
+  
+  .theme-toggle-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}
