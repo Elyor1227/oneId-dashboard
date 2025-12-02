@@ -1,8 +1,311 @@
+// import React, { useEffect, useRef, useState } from 'react';
+// const HemisDashboard = () => {
+//   const [activeLang, setActiveLang] = useState('UZ');
+//   const canvasRef = useRef(null);
+//   const animationRef = useRef(null);
+  
+//   const languages = ['UZ', 'РУ', 'EN'];
+  
+//   // Canvas animation
+//   useEffect(() => {
+//     const canvas = canvasRef.current;
+//     if (!canvas) return;
+    
+//     const ctx = canvas.getContext('2d');
+//     let ripples = [];
+//     let waves = [];
+//     let time = 0;
+    
+//     const resize = () => {
+//       canvas.width = window.innerWidth;
+//       canvas.height = window.innerHeight;
+//       initWaves();
+//     };
+    
+//     const initWaves = () => {
+//       waves = [];
+//       for (let i = 0; i < 5; i++) {
+//         waves.push({
+//           y: canvas.height * (0.5 + i * 0.1),
+//           amplitude: 20 + i * 10,
+//           frequency: 0.02 - i * 0.003,
+//           speed: 0.02 + i * 0.005,
+//           offset: i * 50,
+//           alpha: 0.08 - i * 0.012
+//         });
+//       }
+//     };
+    
+//     const handleCanvasClick = (e) => {
+//       const rect = canvas.getBoundingClientRect();
+//       ripples.push({
+//         x: e.clientX - rect.left,
+//         y: e.clientY - rect.top,
+//         radius: 0,
+//         maxRadius: 400,
+//         strength: 1
+//       });
+//     };
+    
+//     const handleCanvasMouseMove = (e) => {
+//       if (Math.random() < 0.05) {
+//         const rect = canvas.getBoundingClientRect();
+//         ripples.push({
+//           x: e.clientX - rect.left,
+//           y: e.clientY - rect.top,
+//           radius: 0,
+//           maxRadius: 150,
+//           strength: 0.3
+//         });
+//       }
+//     };
+    
+//     const animate = () => {
+//       if (!ctx) return;
+      
+//       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+//       // Draw gradient background
+//       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+//       gradient.addColorStop(0, '#0a1628');
+//       gradient.addColorStop(0.4, '#1a365d');
+//       gradient.addColorStop(0.7, '#1e4976');
+//       gradient.addColorStop(1, '#0c4a6e');
+//       ctx.fillStyle = gradient;
+//       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+//       // Draw stars
+//       for (let i = 0; i < 50; i++) {
+//         const x = (i * 137.5) % canvas.width;
+//         const y = (i * 73.3) % (canvas.height * 0.4);
+//         const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
+//         ctx.beginPath();
+//         ctx.arc(x, y, 1, 0, Math.PI * 2);
+//         ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
+//         ctx.fill();
+//       }
+      
+//       // Draw moon glow
+//       const moonX = canvas.width * 0.85;
+//       const moonY = canvas.height * 0.15;
+//       const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
+//       moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+//       moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
+//       moonGlow.addColorStop(1, 'transparent');
+//       ctx.fillStyle = moonGlow;
+//       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+//       // Draw moon
+//       ctx.beginPath();
+//       ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
+//       ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+//       ctx.fill();
+      
+//       // Draw calm ocean waves
+//       waves.forEach((wave, index) => {
+//         ctx.beginPath();
+//         ctx.moveTo(0, canvas.height);
+        
+//         for (let x = 0; x <= canvas.width; x += 3) {
+//           let y = wave.y + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude;
+          
+//           // Add ripple effect
+//           ripples.forEach(ripple => {
+//             const dx = x - ripple.x;
+//             const dy = y - ripple.y;
+//             const distance = Math.sqrt(dx * dx + dy * dy);
+            
+//             if (distance < ripple.maxRadius && distance > ripple.radius - 150) {
+//               const waveEffect = Math.sin((distance - ripple.radius) * 0.03) * ripple.strength * 30;
+//               y += waveEffect * (1 - distance / ripple.maxRadius);
+//             }
+//           });
+          
+//           ctx.lineTo(x, y);
+//         }
+        
+//         ctx.lineTo(canvas.width, canvas.height);
+//         ctx.closePath();
+        
+//         const waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, canvas.height);
+//         waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
+//         waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
+//         waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
+//         ctx.fillStyle = waveGradient;
+//         ctx.fill();
+//       });
+      
+//       // Update and draw ripples
+//       const activeRipples = [];
+//       ripples.forEach(ripple => {
+//         ripple.radius += 3;
+//         ripple.strength *= 0.985;
+        
+//         if (ripple.radius < ripple.maxRadius && ripple.strength > 0.05) {
+//           // Draw multiple ripple rings
+//           for (let i = 0; i < 3; i++) {
+//             const ringRadius = ripple.radius - i * 40;
+//             if (ringRadius > 0) {
+//               ctx.beginPath();
+//               ctx.arc(ripple.x, ripple.y, ringRadius, 0, Math.PI * 2);
+//               ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`;
+//               ctx.lineWidth = 2 - i * 0.5;
+//               ctx.stroke();
+//             }
+//           }
+          
+//           // Add sparkle effect at ripple edge
+//           const sparkleCount = 8;
+//           for (let i = 0; i < sparkleCount; i++) {
+//             const angle = (i / sparkleCount) * Math.PI * 2 + time * 0.02;
+//             const sparkleX = ripple.x + Math.cos(angle) * ripple.radius;
+//             const sparkleY = ripple.y + Math.sin(angle) * ripple.radius;
+            
+//             ctx.beginPath();
+//             ctx.arc(sparkleX, sparkleY, 2 * ripple.strength, 0, Math.PI * 2);
+//             ctx.fillStyle = `rgba(255, 255, 255, ${ripple.strength * 0.5})`;
+//             ctx.fill();
+//           }
+          
+//           activeRipples.push(ripple);
+//         }
+//       });
+      
+//       ripples = activeRipples;
+//       time += 1;
+//       animationRef.current = requestAnimationFrame(animate);
+//     };
+    
+//     // Initialize
+//     resize();
+//     initWaves();
+    
+//     // Event listeners
+//     canvas.addEventListener('click', handleCanvasClick);
+//     canvas.addEventListener('mousemove', handleCanvasMouseMove);
+//     window.addEventListener('resize', resize);
+    
+//     // Start animation
+//     animate();
+    
+//     // Cleanup
+//     return () => {
+//       if (animationRef.current) {
+//         cancelAnimationFrame(animationRef.current);
+//       }
+//       canvas.removeEventListener('click', handleCanvasClick);
+//       canvas.removeEventListener('mousemove', handleCanvasMouseMove);
+//       window.removeEventListener('resize', resize);
+//     };
+//   }, []);
+  
+//   const handleOneIDLogin = () => {
+//     alert('ONE ID orqali kirish amalga oshirilmoqda...');
+//     // Bu yerda haqiqiy ONE ID login logikasi bo'lishi kerak
+//   };
+  
+//   return (
+//     <div className="ocean-login">
+//       <canvas 
+//         ref={canvasRef} 
+//         id="oceanCanvas"
+//         className="ocean-canvas"
+//       />
+      
+//       <header>
+//         <div className="logo-section">
+//           <div className="emblem">🏛️</div>
+//           <div className="ministry-name">
+//             O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
+//           </div>
+//         </div>
+//         <div className="lang-switch">
+//           {languages.map(lang => (
+//             <button
+//               key={lang}
+//               className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
+//               onClick={() => setActiveLang(lang)}
+//             >
+//               {lang}
+//             </button>
+//           ))}
+//         </div>
+//       </header>
+      
+//       <main>
+//         <div className="login-container">
+//           <div className="system-badge">
+//             <div className="badge-dot"></div>
+//             <span className="badge-text">Rasmiy tizim</span>
+//           </div>
+          
+//           <h1 className="login-title">
+//             <span>EMIS</span>
+//           </h1>
+//           <p className="login-subtitle">
+//             Akademik litseylarda ta'lim jarayonlarini boshqarish tizimi
+//           </p>
+          
+//           <div className="login-card">
+//             <button className="oneid-btn" onClick={handleOneIDLogin}>
+//               <div className="oneid-logo">ONE ID</div>
+//               <div className="oneid-content">
+//                 <div className="oneid-title">ONE ID orqali kirish</div>
+//                 <div className="oneid-desc">Yagona identifikatsiya tizimi</div>
+//               </div>
+//               <div className="oneid-arrow">→</div>
+//             </button>
+            
+//             <div className="divider">
+//               <div className="divider-line"></div>
+//               <span className="divider-text">Yordam</span>
+//               <div className="divider-line"></div>
+//             </div>
+            
+//             <div className="help-links">
+//               <a href="#" className="help-link">❓ Qo'llanma</a>
+//               <a href="#" className="help-link">📞 Qo'llab-quvvatlash</a>
+//             </div>
+            
+//             <div className="features">
+//               <div className="feature">
+//                 <div className="feature-icon">🔒</div>
+//                 <span>Xavfsiz</span>
+//               </div>
+//               <div className="feature">
+//                 <div className="feature-icon">⚡</div>
+//                 <span>Tezkor</span>
+//               </div>
+//               <div className="feature">
+//                 <div className="feature-icon">🛡️</div>
+//                 <span>Himoyalangan</span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </main>
+      
+//       <div className="hint">
+//         👆 Ekranga bosing — to'lqinlar paydo bo'ladi
+//       </div>
+      
+//       <footer>
+//         © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
+//       </footer>
+//     </div>
+//   );
+// };
+
+// export default HemisDashboard;
+
 import React, { useEffect, useRef, useState } from 'react';
+
 const HemisDashboard = () => {
   const [activeLang, setActiveLang] = useState('UZ');
   const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const animationRef = useRef(null);
+  const ripplesRef = useRef([]);
   
   const languages = ['UZ', 'РУ', 'EN'];
   
@@ -12,21 +315,31 @@ const HemisDashboard = () => {
     if (!canvas) return;
     
     const ctx = canvas.getContext('2d');
-    let ripples = [];
     let waves = [];
     let time = 0;
     
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    // Canvas o'lchamlarini sozlash
+    const setCanvasSize = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const rect = canvas.getBoundingClientRect();
+      
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      
+      canvas.style.width = `${rect.width}px`;
+      canvas.style.height = `${rect.height}px`;
+      
+      ctx.scale(dpr, dpr);
+      
       initWaves();
     };
     
     const initWaves = () => {
+      const rect = canvas.getBoundingClientRect();
       waves = [];
       for (let i = 0; i < 5; i++) {
         waves.push({
-          y: canvas.height * (0.5 + i * 0.1),
+          y: rect.height * (0.5 + i * 0.1),
           amplitude: 20 + i * 10,
           frequency: 0.02 - i * 0.003,
           speed: 0.02 + i * 0.005,
@@ -36,23 +349,70 @@ const HemisDashboard = () => {
       }
     };
     
-    const handleCanvasClick = (e) => {
+    // Koordinatalarni to'g'ri olish
+    const getCanvasCoordinates = (clientX, clientY) => {
       const rect = canvas.getBoundingClientRect();
-      ripples.push({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+      const dpr = window.devicePixelRatio || 1;
+      
+      return {
+        x: (clientX - rect.left) * dpr,
+        y: (clientY - rect.top) * dpr
+      };
+    };
+    
+    const handleClick = (e) => {
+      const coords = getCanvasCoordinates(e.clientX, e.clientY);
+      
+      console.log('Click at canvas:', coords.x, coords.y);
+      console.log('Canvas rect:', canvas.getBoundingClientRect());
+      
+      ripplesRef.current.push({
+        x: coords.x,
+        y: coords.y,
         radius: 0,
         maxRadius: 400,
         strength: 1
       });
     };
     
-    const handleCanvasMouseMove = (e) => {
+    const handleMouseMove = (e) => {
       if (Math.random() < 0.05) {
-        const rect = canvas.getBoundingClientRect();
-        ripples.push({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
+        const coords = getCanvasCoordinates(e.clientX, e.clientY);
+        
+        ripplesRef.current.push({
+          x: coords.x,
+          y: coords.y,
+          radius: 0,
+          maxRadius: 150,
+          strength: 0.3
+        });
+      }
+    };
+    
+    // Touch event uchun
+    const handleTouchStart = (e) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+      
+      ripplesRef.current.push({
+        x: coords.x,
+        y: coords.y,
+        radius: 0,
+        maxRadius: 400,
+        strength: 1
+      });
+    };
+    
+    const handleTouchMove = (e) => {
+      e.preventDefault();
+      if (Math.random() < 0.1) {
+        const touch = e.touches[0];
+        const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+        
+        ripplesRef.current.push({
+          x: coords.x,
+          y: coords.y,
           radius: 0,
           maxRadius: 150,
           strength: 0.3
@@ -61,23 +421,29 @@ const HemisDashboard = () => {
     };
     
     const animate = () => {
-      if (!ctx) return;
+      if (!ctx || !canvas) return;
       
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      const width = rect.width;
+      const height = rect.height;
+      
+      // Clear canvas
+      ctx.clearRect(0, 0, width * dpr, height * dpr);
       
       // Draw gradient background
-      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+      const gradient = ctx.createLinearGradient(0, 0, 0, height);
       gradient.addColorStop(0, '#0a1628');
       gradient.addColorStop(0.4, '#1a365d');
       gradient.addColorStop(0.7, '#1e4976');
       gradient.addColorStop(1, '#0c4a6e');
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, width, height);
       
       // Draw stars
       for (let i = 0; i < 50; i++) {
-        const x = (i * 137.5) % canvas.width;
-        const y = (i * 73.3) % (canvas.height * 0.4);
+        const x = (i * 137.5) % width;
+        const y = (i * 73.3) % (height * 0.4);
         const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
         ctx.beginPath();
         ctx.arc(x, y, 1, 0, Math.PI * 2);
@@ -86,14 +452,14 @@ const HemisDashboard = () => {
       }
       
       // Draw moon glow
-      const moonX = canvas.width * 0.85;
-      const moonY = canvas.height * 0.15;
+      const moonX = width * 0.85;
+      const moonY = height * 0.15;
       const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
       moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
       moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
       moonGlow.addColorStop(1, 'transparent');
       ctx.fillStyle = moonGlow;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, width, height);
       
       // Draw moon
       ctx.beginPath();
@@ -102,17 +468,17 @@ const HemisDashboard = () => {
       ctx.fill();
       
       // Draw calm ocean waves
-      waves.forEach((wave, index) => {
+      waves.forEach((wave) => {
         ctx.beginPath();
-        ctx.moveTo(0, canvas.height);
+        ctx.moveTo(0, height);
         
-        for (let x = 0; x <= canvas.width; x += 3) {
+        for (let x = 0; x <= width; x += 3) {
           let y = wave.y + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude;
           
           // Add ripple effect
-          ripples.forEach(ripple => {
-            const dx = x - ripple.x;
-            const dy = y - ripple.y;
+          ripplesRef.current.forEach(ripple => {
+            const dx = x - ripple.x / dpr;
+            const dy = y - ripple.y / dpr;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             if (distance < ripple.maxRadius && distance > ripple.radius - 150) {
@@ -124,10 +490,10 @@ const HemisDashboard = () => {
           ctx.lineTo(x, y);
         }
         
-        ctx.lineTo(canvas.width, canvas.height);
+        ctx.lineTo(width, height);
         ctx.closePath();
         
-        const waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, canvas.height);
+        const waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
         waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
         waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
         waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
@@ -137,7 +503,7 @@ const HemisDashboard = () => {
       
       // Update and draw ripples
       const activeRipples = [];
-      ripples.forEach(ripple => {
+      ripplesRef.current.forEach(ripple => {
         ripple.radius += 3;
         ripple.strength *= 0.985;
         
@@ -147,7 +513,7 @@ const HemisDashboard = () => {
             const ringRadius = ripple.radius - i * 40;
             if (ringRadius > 0) {
               ctx.beginPath();
-              ctx.arc(ripple.x, ripple.y, ringRadius, 0, Math.PI * 2);
+              ctx.arc(ripple.x / dpr, ripple.y / dpr, ringRadius, 0, Math.PI * 2);
               ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`;
               ctx.lineWidth = 2 - i * 0.5;
               ctx.stroke();
@@ -158,8 +524,8 @@ const HemisDashboard = () => {
           const sparkleCount = 8;
           for (let i = 0; i < sparkleCount; i++) {
             const angle = (i / sparkleCount) * Math.PI * 2 + time * 0.02;
-            const sparkleX = ripple.x + Math.cos(angle) * ripple.radius;
-            const sparkleY = ripple.y + Math.sin(angle) * ripple.radius;
+            const sparkleX = (ripple.x / dpr) + Math.cos(angle) * ripple.radius;
+            const sparkleY = (ripple.y / dpr) + Math.sin(angle) * ripple.radius;
             
             ctx.beginPath();
             ctx.arc(sparkleX, sparkleY, 2 * ripple.strength, 0, Math.PI * 2);
@@ -171,19 +537,20 @@ const HemisDashboard = () => {
         }
       });
       
-      ripples = activeRipples;
+      ripplesRef.current = activeRipples;
       time += 1;
       animationRef.current = requestAnimationFrame(animate);
     };
     
     // Initialize
-    resize();
-    initWaves();
+    setCanvasSize();
     
     // Event listeners
-    canvas.addEventListener('click', handleCanvasClick);
-    canvas.addEventListener('mousemove', handleCanvasMouseMove);
-    window.addEventListener('resize', resize);
+    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+    window.addEventListener('resize', setCanvasSize);
     
     // Start animation
     animate();
@@ -193,22 +560,38 @@ const HemisDashboard = () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      canvas.removeEventListener('click', handleCanvasClick);
-      canvas.removeEventListener('mousemove', handleCanvasMouseMove);
-      window.removeEventListener('resize', resize);
+      canvas.removeEventListener('click', handleClick);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('touchstart', handleTouchStart);
+      canvas.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('resize', setCanvasSize);
     };
   }, []);
   
+  // Hover effektini tekshirish uchun test funksiyasi
+  const addRippleAtCenter = () => {
+    if (canvasRef.current) {
+      const rect = canvasRef.current.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      
+      ripplesRef.current.push({
+        x: (rect.width / 2) * dpr,
+        y: (rect.height / 2) * dpr,
+        radius: 0,
+        maxRadius: 400,
+        strength: 1
+      });
+    }
+  };
+  
   const handleOneIDLogin = () => {
     alert('ONE ID orqali kirish amalga oshirilmoqda...');
-    // Bu yerda haqiqiy ONE ID login logikasi bo'lishi kerak
   };
   
   return (
-    <div className="ocean-login">
+    <div className="ocean-login" ref={containerRef}>
       <canvas 
         ref={canvasRef} 
-        id="oceanCanvas"
         className="ocean-canvas"
       />
       
@@ -291,14 +674,12 @@ const HemisDashboard = () => {
       
       <footer>
         © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
-      </footer>
+      </footer>     
     </div>
   );
 };
 
 export default HemisDashboard;
-
-
 // ==============================================================================================================
 // ==============================================================================================================
 // ==============================================================================================================

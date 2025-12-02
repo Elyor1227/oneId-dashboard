@@ -398,3 +398,35 @@ footer {
     gap: 20px;
   }
 }
+
+/* OceanLogin.css qo'shimchalar */
+/* OceanLogin.css */
+.ocean-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  cursor: pointer;
+  display: block;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+/* Barcha elementlarni canvas ustida ko'rinishini ta'minlash */
+header, main, .hint, footer {
+  pointer-events: none;
+}
+
+/* Faqat tugmalar va linklarda pointer-events yoqish */
+.lang-btn, .oneid-btn, .help-link {
+  pointer-events: auto;
+}
+
+/* Mobil qurilmalar uchun optimallashtirish */
+@media (max-width: 768px) {
+  .ocean-canvas {
+    touch-action: pan-y;
+  }
+}
