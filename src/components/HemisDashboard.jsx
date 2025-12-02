@@ -603,7 +603,7 @@ const HemisDashboard = () => {
           </div>
         </div>
         <div className="lang-switch">
-          {languages.map(lang => (
+          {/* {languages.map(lang => (
             <button
               key={lang}
               className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
@@ -611,17 +611,12 @@ const HemisDashboard = () => {
             >
               {lang}
             </button>
-          ))}
+          ))} */}
         </div>
       </header>
       
       <main>
         <div className="login-container">
-          <div className="system-badge">
-            <div className="badge-dot"></div>
-            <span className="badge-text">Rasmiy tizim</span>
-          </div>
-          
           <h1 className="login-title">
             <span>EMIS</span>
           </h1>
@@ -666,12 +661,7 @@ const HemisDashboard = () => {
             </div>
           </div>
         </div>
-      </main>
-      
-      <div className="hint">
-        👆 Ekranga bosing — to'lqinlar paydo bo'ladi
-      </div>
-      
+      </main>      
       <footer>
         © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
       </footer>     
