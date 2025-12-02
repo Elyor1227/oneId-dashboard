@@ -298,384 +298,10 @@
 
 // export default HemisDashboard;
 
-// import React, { useEffect, useRef, useState } from 'react';
-
-// const HemisDashboard = () => {
-//   const [activeLang, setActiveLang] = useState('UZ');
-//   const canvasRef = useRef(null);
-//   const containerRef = useRef(null);
-//   const animationRef = useRef(null);
-//   const ripplesRef = useRef([]);
-  
-//   const languages = ['UZ', 'РУ', 'EN'];
-  
-//   // Canvas animation
-//   useEffect(() => {
-//     const canvas = canvasRef.current;
-//     if (!canvas) return;
-    
-//     const ctx = canvas.getContext('2d');
-//     let waves = [];
-//     let time = 0;
-    
-//     // Canvas o'lchamlarini sozlash
-//     const setCanvasSize = () => {
-//       const dpr = window.devicePixelRatio || 1;
-//       const rect = canvas.getBoundingClientRect();
-      
-//       canvas.width = rect.width * dpr;
-//       canvas.height = rect.height * dpr;
-      
-//       canvas.style.width = `${rect.width}px`;
-//       canvas.style.height = `${rect.height}px`;
-      
-//       ctx.scale(dpr, dpr);
-      
-//       initWaves();
-//     };
-    
-//     const initWaves = () => {
-//       const rect = canvas.getBoundingClientRect();
-//       waves = [];
-//       for (let i = 0; i < 5; i++) {
-//         waves.push({
-//           y: rect.height * (0.5 + i * 0.1),
-//           amplitude: 20 + i * 10,
-//           frequency: 0.02 - i * 0.003,
-//           speed: 0.02 + i * 0.005,
-//           offset: i * 50,
-//           alpha: 0.08 - i * 0.012
-//         });
-//       }
-//     };
-    
-//     // Koordinatalarni to'g'ri olish
-//     const getCanvasCoordinates = (clientX, clientY) => {
-//       const rect = canvas.getBoundingClientRect();
-//       const dpr = window.devicePixelRatio || 1;
-      
-//       return {
-//         x: (clientX - rect.left) * dpr,
-//         y: (clientY - rect.top) * dpr
-//       };
-//     };
-    
-//     const handleClick = (e) => {
-//       const coords = getCanvasCoordinates(e.clientX, e.clientY);
-      
-//       console.log('Click at canvas:', coords.x, coords.y);
-//       console.log('Canvas rect:', canvas.getBoundingClientRect());
-      
-//       ripplesRef.current.push({
-//         x: coords.x,
-//         y: coords.y,
-//         radius: 0,
-//         maxRadius: 400,
-//         strength: 1
-//       });
-//     };
-    
-//     const handleMouseMove = (e) => {
-//       if (Math.random() < 0.05) {
-//         const coords = getCanvasCoordinates(e.clientX, e.clientY);
-        
-//         ripplesRef.current.push({
-//           x: coords.x,
-//           y: coords.y,
-//           radius: 0,
-//           maxRadius: 150,
-//           strength: 0.3
-//         });
-//       }
-//     };
-    
-//     // Touch event uchun
-//     const handleTouchStart = (e) => {
-//       e.preventDefault();
-//       const touch = e.touches[0];
-//       const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
-      
-//       ripplesRef.current.push({
-//         x: coords.x,
-//         y: coords.y,
-//         radius: 0,
-//         maxRadius: 400,
-//         strength: 1
-//       });
-//     };
-    
-//     const handleTouchMove = (e) => {
-//       e.preventDefault();
-//       if (Math.random() < 0.1) {
-//         const touch = e.touches[0];
-//         const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
-        
-//         ripplesRef.current.push({
-//           x: coords.x,
-//           y: coords.y,
-//           radius: 0,
-//           maxRadius: 150,
-//           strength: 0.3
-//         });
-//       }
-//     };
-    
-//     const animate = () => {
-//       if (!ctx || !canvas) return;
-      
-//       const rect = canvas.getBoundingClientRect();
-//       const dpr = window.devicePixelRatio || 1;
-//       const width = rect.width;
-//       const height = rect.height;
-      
-//       // Clear canvas
-//       ctx.clearRect(0, 0, width * dpr, height * dpr);
-      
-//       // Draw gradient background
-//       const gradient = ctx.createLinearGradient(0, 0, 0, height);
-//       gradient.addColorStop(0, '#0a1628');
-//       gradient.addColorStop(0.4, '#1a365d');
-//       gradient.addColorStop(0.7, '#1e4976');
-//       gradient.addColorStop(1, '#0c4a6e');
-//       ctx.fillStyle = gradient;
-//       ctx.fillRect(0, 0, width, height);
-      
-//       // Draw stars
-//       for (let i = 0; i < 50; i++) {
-//         const x = (i * 137.5) % width;
-//         const y = (i * 73.3) % (height * 0.4);
-//         const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
-//         ctx.beginPath();
-//         ctx.arc(x, y, 1, 0, Math.PI * 2);
-//         ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
-//         ctx.fill();
-//       }
-      
-//       // Draw moon glow
-//       const moonX = width * 0.85;
-//       const moonY = height * 0.15;
-//       const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
-//       moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
-//       moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
-//       moonGlow.addColorStop(1, 'transparent');
-//       ctx.fillStyle = moonGlow;
-//       ctx.fillRect(0, 0, width, height);
-      
-//       // Draw moon
-//       ctx.beginPath();
-//       ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
-//       ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-//       ctx.fill();
-      
-//       // Draw calm ocean waves
-//       waves.forEach((wave) => {
-//         ctx.beginPath();
-//         ctx.moveTo(0, height);
-        
-//         for (let x = 0; x <= width; x += 3) {
-//           let y = wave.y + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude;
-          
-//           // Add ripple effect
-//           ripplesRef.current.forEach(ripple => {
-//             const dx = x - ripple.x / dpr;
-//             const dy = y - ripple.y / dpr;
-//             const distance = Math.sqrt(dx * dx + dy * dy);
-            
-//             if (distance < ripple.maxRadius && distance > ripple.radius - 150) {
-//               const waveEffect = Math.sin((distance - ripple.radius) * 0.03) * ripple.strength * 30;
-//               y += waveEffect * (1 - distance / ripple.maxRadius);
-//             }
-//           });
-          
-//           ctx.lineTo(x, y);
-//         }
-        
-//         ctx.lineTo(width, height);
-//         ctx.closePath();
-        
-//         const waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
-//         waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
-//         waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
-//         waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
-//         ctx.fillStyle = waveGradient;
-//         ctx.fill();
-//       });
-      
-//       // Update and draw ripples
-//       const activeRipples = [];
-//       ripplesRef.current.forEach(ripple => {
-//         ripple.radius += 3;
-//         ripple.strength *= 0.985;
-        
-//         if (ripple.radius < ripple.maxRadius && ripple.strength > 0.05) {
-//           // Draw multiple ripple rings
-//           for (let i = 0; i < 3; i++) {
-//             const ringRadius = ripple.radius - i * 40;
-//             if (ringRadius > 0) {
-//               ctx.beginPath();
-//               ctx.arc(ripple.x / dpr, ripple.y / dpr, ringRadius, 0, Math.PI * 2);
-//               ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`;
-//               ctx.lineWidth = 2 - i * 0.5;
-//               ctx.stroke();
-//             }
-//           }
-          
-//           // Add sparkle effect at ripple edge
-//           const sparkleCount = 8;
-//           for (let i = 0; i < sparkleCount; i++) {
-//             const angle = (i / sparkleCount) * Math.PI * 2 + time * 0.02;
-//             const sparkleX = (ripple.x / dpr) + Math.cos(angle) * ripple.radius;
-//             const sparkleY = (ripple.y / dpr) + Math.sin(angle) * ripple.radius;
-            
-//             ctx.beginPath();
-//             ctx.arc(sparkleX, sparkleY, 2 * ripple.strength, 0, Math.PI * 2);
-//             ctx.fillStyle = `rgba(255, 255, 255, ${ripple.strength * 0.5})`;
-//             ctx.fill();
-//           }
-          
-//           activeRipples.push(ripple);
-//         }
-//       });
-      
-//       ripplesRef.current = activeRipples;
-//       time += 1;
-//       animationRef.current = requestAnimationFrame(animate);
-//     };
-    
-//     // Initialize
-//     setCanvasSize();
-    
-//     // Event listeners
-//     canvas.addEventListener('click', handleClick);
-//     canvas.addEventListener('mousemove', handleMouseMove);
-//     canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-//     canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-//     window.addEventListener('resize', setCanvasSize);
-    
-//     // Start animation
-//     animate();
-    
-//     // Cleanup
-//     return () => {
-//       if (animationRef.current) {
-//         cancelAnimationFrame(animationRef.current);
-//       }
-//       canvas.removeEventListener('click', handleClick);
-//       canvas.removeEventListener('mousemove', handleMouseMove);
-//       canvas.removeEventListener('touchstart', handleTouchStart);
-//       canvas.removeEventListener('touchmove', handleTouchMove);
-//       window.removeEventListener('resize', setCanvasSize);
-//     };
-//   }, []);
-  
-//   // Hover effektini tekshirish uchun test funksiyasi
-//   const addRippleAtCenter = () => {
-//     if (canvasRef.current) {
-//       const rect = canvasRef.current.getBoundingClientRect();
-//       const dpr = window.devicePixelRatio || 1;
-      
-//       ripplesRef.current.push({
-//         x: (rect.width / 2) * dpr,
-//         y: (rect.height / 2) * dpr,
-//         radius: 0,
-//         maxRadius: 400,
-//         strength: 1
-//       });
-//     }
-//   };
-  
-//   const handleOneIDLogin = () => {
-//     alert('ONE ID orqali kirish amalga oshirilmoqda...');
-//   };
-  
-//   return (
-//     <div className="ocean-login" ref={containerRef}>
-//       <canvas 
-//         ref={canvasRef} 
-//         className="ocean-canvas"
-//       />
-      
-//       <header>
-//         <div className="logo-section">
-//           <div className="emblem">🏛️</div>
-//           <div className="ministry-name">
-//             O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
-//           </div>
-//         </div>
-//         <div className="lang-switch">
-//           {/* {languages.map(lang => (
-//             <button
-//               key={lang}
-//               className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
-//               onClick={() => setActiveLang(lang)}
-//             >
-//               {lang}
-//             </button>
-//           ))} */}
-//         </div>
-//       </header>
-      
-//       <main>
-//         <div className="login-container">
-//           <h1 className="login-title">
-//             <span>EMIS</span>
-//           </h1>
-//           <p className="login-subtitle">
-//             Akademik litseylarda ta'lim jarayonlarini boshqarish tizimi
-//           </p>
-          
-//           <div className="login-card">
-//             <button className="oneid-btn" onClick={handleOneIDLogin}>
-//               <div className="oneid-logo">ONE ID</div>
-//               <div className="oneid-content">
-//                 <div className="oneid-title">ONE ID orqali kirish</div>
-//                 <div className="oneid-desc">Yagona identifikatsiya tizimi</div>
-//               </div>
-//               <div className="oneid-arrow">→</div>
-//             </button>
-            
-//             <div className="divider">
-//               <div className="divider-line"></div>
-//               <span className="divider-text">Yordam</span>
-//               <div className="divider-line"></div>
-//             </div>
-            
-//             <div className="help-links">
-//               <a href="#" className="help-link">❓ Qo'llanma</a>
-//               <a href="#" className="help-link">📞 Qo'llab-quvvatlash</a>
-//             </div>
-            
-//             <div className="features">
-//               <div className="feature">
-//                 <div className="feature-icon">🔒</div>
-//                 <span>Xavfsiz</span>
-//               </div>
-//               <div className="feature">
-//                 <div className="feature-icon">⚡</div>
-//                 <span>Tezkor</span>
-//               </div>
-//               <div className="feature">
-//                 <div className="feature-icon">🛡️</div>
-//                 <span>Himoyalangan</span>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </main>      
-//       <footer>
-//         © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
-//       </footer>     
-//     </div>
-//   );
-// };
-
-// export default HemisDashboard;
-
 import React, { useEffect, useRef, useState } from 'react';
 
 const HemisDashboard = () => {
   const [activeLang, setActiveLang] = useState('UZ');
-  const [isNightMode, setIsNightMode] = useState(true); // true = tungi, false = kunduz
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const animationRef = useRef(null);
@@ -691,7 +317,6 @@ const HemisDashboard = () => {
     const ctx = canvas.getContext('2d');
     let waves = [];
     let time = 0;
-    let sunPosition = 0;
     
     // Canvas o'lchamlarini sozlash
     const setCanvasSize = () => {
@@ -737,6 +362,9 @@ const HemisDashboard = () => {
     
     const handleClick = (e) => {
       const coords = getCanvasCoordinates(e.clientX, e.clientY);
+      
+      console.log('Click at canvas:', coords.x, coords.y);
+      console.log('Canvas rect:', canvas.getBoundingClientRect());
       
       ripplesRef.current.push({
         x: coords.x,
@@ -803,108 +431,43 @@ const HemisDashboard = () => {
       // Clear canvas
       ctx.clearRect(0, 0, width * dpr, height * dpr);
       
-      // Fon ranglarini tanlash
-      let gradient;
-      if (isNightMode) {
-        // Tungi fon
-        gradient = ctx.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(0, '#0a1628');
-        gradient.addColorStop(0.4, '#1a365d');
-        gradient.addColorStop(0.7, '#1e4976');
-        gradient.addColorStop(1, '#0c4a6e');
-      } else {
-        // Kunduzgi fon
-        gradient = ctx.createLinearGradient(0, 0, 0, height);
-        gradient.addColorStop(0, '#4facfe');
-        gradient.addColorStop(0.4, '#00c6fb');
-        gradient.addColorStop(0.7, '#1e90ff');
-        gradient.addColorStop(1, '#1e3a8a');
-      }
-      
+      // Draw gradient background
+      const gradient = ctx.createLinearGradient(0, 0, 0, height);
+      gradient.addColorStop(0, '#0a1628');
+      gradient.addColorStop(0.4, '#1a365d');
+      gradient.addColorStop(0.7, '#1e4976');
+      gradient.addColorStop(1, '#0c4a6e');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
       
-      if (isNightMode) {
-        // Tungi rejim - yulduzlar va oy
-        for (let i = 0; i < 50; i++) {
-          const x = (i * 137.5) % width;
-          const y = (i * 73.3) % (height * 0.4);
-          const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
-          ctx.beginPath();
-          ctx.arc(x, y, 1, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
-          ctx.fill();
-        }
-        
-        // Oy uchun nur
-        const moonX = width * 0.85;
-        const moonY = height * 0.15;
-        const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
-        moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
-        moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
-        moonGlow.addColorStop(1, 'transparent');
-        ctx.fillStyle = moonGlow;
-        ctx.fillRect(0, 0, width, height);
-        
-        // Oy
+      // Draw stars
+      for (let i = 0; i < 50; i++) {
+        const x = (i * 137.5) % width;
+        const y = (i * 73.3) % (height * 0.4);
+        const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
         ctx.beginPath();
-        ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+        ctx.arc(x, y, 1, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
         ctx.fill();
-      } else {
-        // Kunduzgi rejim - quyosh
-        sunPosition = (sunPosition + 0.00000000002) % (Math.PI * 2);
-        const sunX = width * 0.5 + Math.cos(sunPosition) * width * 0.35;
-        const sunY = height * 0.25 + Math.sin(sunPosition) * height * 0.1;
-        
-        // Quyosh nuri
-        const sunGlow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, 200);
-        sunGlow.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
-        sunGlow.addColorStop(0.3, 'rgba(255, 215, 0, 0.4)');
-        sunGlow.addColorStop(0.6, 'rgba(255, 165, 0, 0.2)');
-        sunGlow.addColorStop(1, 'transparent');
-        ctx.fillStyle = sunGlow;
-        ctx.fillRect(0, 0, width, height);
-        
-        // Quyosh
-        ctx.beginPath();
-        ctx.arc(sunX, sunY, 50, 0, Math.PI * 2);
-        const sunGradient = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, 50);
-        sunGradient.addColorStop(0, '#FFD700');
-        sunGradient.addColorStop(0.7, '#FFA500');
-        sunGradient.addColorStop(1, '#FF4500');
-        ctx.fillStyle = sunGradient;
-        ctx.fill();
-        
-        // Quyosh nurlari
-        ctx.strokeStyle = 'rgba(255, 215, 0, 0.6)';
-        ctx.lineWidth = 3;
-        for (let i = 0; i < 12; i++) {
-          const angle = (i / 12) * Math.PI * 2;
-          ctx.beginPath();
-          ctx.moveTo(sunX + Math.cos(angle) * 50, sunY + Math.sin(angle) * 50);
-          ctx.lineTo(sunX + Math.cos(angle) * 80, sunY + Math.sin(angle) * 80);
-          ctx.stroke();
-        }
-        
-        // Bulutlar (kunduzgi rejim uchun)
-        for (let i = 0; i < 5; i++) {
-          const cloudX = (time * 0.5 + i * 150) % (width + 200) - 100;
-          const cloudY = height * 0.2 + Math.sin(time * 0.02 + i) * 20;
-          
-          ctx.fillStyle = `rgba(255, 255, 255, ${0.6 + Math.sin(time * 0.03 + i) * 0.2})`;
-          
-          // Bulut chizish
-          ctx.beginPath();
-          ctx.arc(cloudX, cloudY, 20, 0, Math.PI * 2);
-          ctx.arc(cloudX + 25, cloudY - 10, 25, 0, Math.PI * 2);
-          ctx.arc(cloudX + 50, cloudY, 20, 0, Math.PI * 2);
-          ctx.arc(cloudX + 25, cloudY + 10, 20, 0, Math.PI * 2);
-          ctx.fill();
-        }
       }
       
-      // To'lqinlarni chizish
+      // Draw moon glow
+      const moonX = width * 0.85;
+      const moonY = height * 0.15;
+      const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
+      moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+      moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
+      moonGlow.addColorStop(1, 'transparent');
+      ctx.fillStyle = moonGlow;
+      ctx.fillRect(0, 0, width, height);
+      
+      // Draw moon
+      ctx.beginPath();
+      ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.fill();
+      
+      // Draw calm ocean waves
       waves.forEach((wave) => {
         ctx.beginPath();
         ctx.moveTo(0, height);
@@ -912,7 +475,7 @@ const HemisDashboard = () => {
         for (let x = 0; x <= width; x += 3) {
           let y = wave.y + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude;
           
-          // Ripple effekti
+          // Add ripple effect
           ripplesRef.current.forEach(ripple => {
             const dx = x - ripple.x / dpr;
             const dy = y - ripple.y / dpr;
@@ -930,46 +493,34 @@ const HemisDashboard = () => {
         ctx.lineTo(width, height);
         ctx.closePath();
         
-        // To'lqin ranglari
-        let waveGradient;
-        if (isNightMode) {
-          waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
-          waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
-          waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
-          waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
-        } else {
-          waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
-          waveGradient.addColorStop(0, `rgba(30, 144, 255, ${wave.alpha * 1.2})`);
-          waveGradient.addColorStop(0.5, `rgba(0, 191, 255, ${wave.alpha * 0.9})`);
-          waveGradient.addColorStop(1, `rgba(135, 206, 250, ${wave.alpha * 0.5})`);
-        }
-        
+        const waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
+        waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
+        waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
+        waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
         ctx.fillStyle = waveGradient;
         ctx.fill();
       });
       
-      // Ripple effektlari
+      // Update and draw ripples
       const activeRipples = [];
       ripplesRef.current.forEach(ripple => {
         ripple.radius += 3;
         ripple.strength *= 0.985;
         
         if (ripple.radius < ripple.maxRadius && ripple.strength > 0.05) {
-          // Ripple halqalari
+          // Draw multiple ripple rings
           for (let i = 0; i < 3; i++) {
             const ringRadius = ripple.radius - i * 40;
             if (ringRadius > 0) {
               ctx.beginPath();
               ctx.arc(ripple.x / dpr, ripple.y / dpr, ringRadius, 0, Math.PI * 2);
-              ctx.strokeStyle = isNightMode 
-                ? `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`
-                : `rgba(255, 255, 255, ${ripple.strength * 0.3 * (1 - i * 0.3)})`;
+              ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`;
               ctx.lineWidth = 2 - i * 0.5;
               ctx.stroke();
             }
           }
           
-          // Yorqin nuqtalar
+          // Add sparkle effect at ripple edge
           const sparkleCount = 8;
           for (let i = 0; i < sparkleCount; i++) {
             const angle = (i / sparkleCount) * Math.PI * 2 + time * 0.02;
@@ -978,9 +529,7 @@ const HemisDashboard = () => {
             
             ctx.beginPath();
             ctx.arc(sparkleX, sparkleY, 2 * ripple.strength, 0, Math.PI * 2);
-            ctx.fillStyle = isNightMode
-              ? `rgba(255, 255, 255, ${ripple.strength * 0.5})`
-              : `rgba(255, 255, 255, ${ripple.strength * 0.7})`;
+            ctx.fillStyle = `rgba(255, 255, 255, ${ripple.strength * 0.5})`;
             ctx.fill();
           }
           
@@ -1017,14 +566,9 @@ const HemisDashboard = () => {
       canvas.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('resize', setCanvasSize);
     };
-  }, [isNightMode]); // isNightMode o'zgarganda animatsiya qayta ishga tushadi
+  }, []);
   
-  // Rejimni o'zgartirish
-  const toggleDayNightMode = () => {
-    setIsNightMode(!isNightMode);
-  };
-  
-  // Markazda ripple qo'shish
+  // Hover effektini tekshirish uchun test funksiyasi
   const addRippleAtCenter = () => {
     if (canvasRef.current) {
       const rect = canvasRef.current.getBoundingClientRect();
@@ -1058,27 +602,16 @@ const HemisDashboard = () => {
             O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
           </div>
         </div>
-        
-        <div className="header-controls">
-          {/* <div className="lang-switch">
-            {languages.map(lang => (
-              <button
-                key={lang}
-                className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
-                onClick={() => setActiveLang(lang)}
-              >
-                {lang}
-              </button>
-            ))}
-          </div> */}
-          
-          <button 
-            className="theme-toggle-btn"
-            onClick={toggleDayNightMode}
-            title={isNightMode ? "Kunduzgi rejimga o'tish" : "Tungi rejimga o'tish"}
-          >
-            {isNightMode ? '☀️' : '🌙'}
-          </button>
+        <div className="lang-switch">
+          {/* {languages.map(lang => (
+            <button
+              key={lang}
+              className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
+              onClick={() => setActiveLang(lang)}
+            >
+              {lang}
+            </button>
+          ))} */}
         </div>
       </header>
       
@@ -1131,14 +664,481 @@ const HemisDashboard = () => {
       </main>      
       <footer>
         © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
-      </footer>
-      
-
+      </footer>     
     </div>
   );
 };
 
 export default HemisDashboard;
+
+// import React, { useEffect, useRef, useState } from 'react';
+
+// const HemisDashboard = () => {
+//   const [activeLang, setActiveLang] = useState('UZ');
+//   const [isNightMode, setIsNightMode] = useState(true); // true = tungi, false = kunduz
+//   const canvasRef = useRef(null);
+//   const containerRef = useRef(null);
+//   const animationRef = useRef(null);
+//   const ripplesRef = useRef([]);
+  
+//   const languages = ['UZ', 'РУ', 'EN'];
+  
+//   // Canvas animation
+//   useEffect(() => {
+//     const canvas = canvasRef.current;
+//     if (!canvas) return;
+    
+//     const ctx = canvas.getContext('2d');
+//     let waves = [];
+//     let time = 0;
+//     let sunPosition = 0;
+    
+//     // Canvas o'lchamlarini sozlash
+//     const setCanvasSize = () => {
+//       const dpr = window.devicePixelRatio || 1;
+//       const rect = canvas.getBoundingClientRect();
+      
+//       canvas.width = rect.width * dpr;
+//       canvas.height = rect.height * dpr;
+      
+//       canvas.style.width = `${rect.width}px`;
+//       canvas.style.height = `${rect.height}px`;
+      
+//       ctx.scale(dpr, dpr);
+      
+//       initWaves();
+//     };
+    
+//     const initWaves = () => {
+//       const rect = canvas.getBoundingClientRect();
+//       waves = [];
+//       for (let i = 0; i < 5; i++) {
+//         waves.push({
+//           y: rect.height * (0.5 + i * 0.1),
+//           amplitude: 20 + i * 10,
+//           frequency: 0.02 - i * 0.003,
+//           speed: 0.02 + i * 0.005,
+//           offset: i * 50,
+//           alpha: 0.08 - i * 0.012
+//         });
+//       }
+//     };
+    
+//     // Koordinatalarni to'g'ri olish
+//     const getCanvasCoordinates = (clientX, clientY) => {
+//       const rect = canvas.getBoundingClientRect();
+//       const dpr = window.devicePixelRatio || 1;
+      
+//       return {
+//         x: (clientX - rect.left) * dpr,
+//         y: (clientY - rect.top) * dpr
+//       };
+//     };
+    
+//     const handleClick = (e) => {
+//       const coords = getCanvasCoordinates(e.clientX, e.clientY);
+      
+//       ripplesRef.current.push({
+//         x: coords.x,
+//         y: coords.y,
+//         radius: 0,
+//         maxRadius: 400,
+//         strength: 1
+//       });
+//     };
+    
+//     const handleMouseMove = (e) => {
+//       if (Math.random() < 0.05) {
+//         const coords = getCanvasCoordinates(e.clientX, e.clientY);
+        
+//         ripplesRef.current.push({
+//           x: coords.x,
+//           y: coords.y,
+//           radius: 0,
+//           maxRadius: 150,
+//           strength: 0.3
+//         });
+//       }
+//     };
+    
+//     // Touch event uchun
+//     const handleTouchStart = (e) => {
+//       e.preventDefault();
+//       const touch = e.touches[0];
+//       const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+      
+//       ripplesRef.current.push({
+//         x: coords.x,
+//         y: coords.y,
+//         radius: 0,
+//         maxRadius: 400,
+//         strength: 1
+//       });
+//     };
+    
+//     const handleTouchMove = (e) => {
+//       e.preventDefault();
+//       if (Math.random() < 0.1) {
+//         const touch = e.touches[0];
+//         const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+        
+//         ripplesRef.current.push({
+//           x: coords.x,
+//           y: coords.y,
+//           radius: 0,
+//           maxRadius: 150,
+//           strength: 0.3
+//         });
+//       }
+//     };
+    
+//     const animate = () => {
+//       if (!ctx || !canvas) return;
+      
+//       const rect = canvas.getBoundingClientRect();
+//       const dpr = window.devicePixelRatio || 1;
+//       const width = rect.width;
+//       const height = rect.height;
+      
+//       // Clear canvas
+//       ctx.clearRect(0, 0, width * dpr, height * dpr);
+      
+//       // Fon ranglarini tanlash
+//       let gradient;
+//       if (isNightMode) {
+//         // Tungi fon
+//         gradient = ctx.createLinearGradient(0, 0, 0, height);
+//         gradient.addColorStop(0, '#0a1628');
+//         gradient.addColorStop(0.4, '#1a365d');
+//         gradient.addColorStop(0.7, '#1e4976');
+//         gradient.addColorStop(1, '#0c4a6e');
+//       } else {
+//         // Kunduzgi fon
+//         gradient = ctx.createLinearGradient(0, 0, 0, height);
+//         gradient.addColorStop(0, '#4facfe');
+//         gradient.addColorStop(0.4, '#00c6fb');
+//         gradient.addColorStop(0.7, '#1e90ff');
+//         gradient.addColorStop(1, '#1e3a8a');
+//       }
+      
+//       ctx.fillStyle = gradient;
+//       ctx.fillRect(0, 0, width, height);
+      
+//       if (isNightMode) {
+//         // Tungi rejim - yulduzlar va oy
+//         for (let i = 0; i < 50; i++) {
+//           const x = (i * 137.5) % width;
+//           const y = (i * 73.3) % (height * 0.4);
+//           const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
+//           ctx.beginPath();
+//           ctx.arc(x, y, 1, 0, Math.PI * 2);
+//           ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
+//           ctx.fill();
+//         }
+        
+//         // Oy uchun nur
+//         const moonX = width * 0.85;
+//         const moonY = height * 0.15;
+//         const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
+//         moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+//         moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
+//         moonGlow.addColorStop(1, 'transparent');
+//         ctx.fillStyle = moonGlow;
+//         ctx.fillRect(0, 0, width, height);
+        
+//         // Oy
+//         ctx.beginPath();
+//         ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
+//         ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+//         ctx.fill();
+//       } else {
+//         // Kunduzgi rejim - quyosh
+//         sunPosition = (sunPosition + 0.00000000002) % (Math.PI * 2);
+//         const sunX = width * 0.5 + Math.cos(sunPosition) * width * 0.35;
+//         const sunY = height * 0.25 + Math.sin(sunPosition) * height * 0.1;
+        
+//         // Quyosh nuri
+//         const sunGlow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, 200);
+//         sunGlow.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+//         sunGlow.addColorStop(0.3, 'rgba(255, 215, 0, 0.4)');
+//         sunGlow.addColorStop(0.6, 'rgba(255, 165, 0, 0.2)');
+//         sunGlow.addColorStop(1, 'transparent');
+//         ctx.fillStyle = sunGlow;
+//         ctx.fillRect(0, 0, width, height);
+        
+//         // Quyosh
+//         ctx.beginPath();
+//         ctx.arc(sunX, sunY, 50, 0, Math.PI * 2);
+//         const sunGradient = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, 50);
+//         sunGradient.addColorStop(0, '#FFD700');
+//         sunGradient.addColorStop(0.7, '#FFA500');
+//         sunGradient.addColorStop(1, '#FF4500');
+//         ctx.fillStyle = sunGradient;
+//         ctx.fill();
+        
+//         // Quyosh nurlari
+//         ctx.strokeStyle = 'rgba(255, 215, 0, 0.6)';
+//         ctx.lineWidth = 3;
+//         for (let i = 0; i < 12; i++) {
+//           const angle = (i / 12) * Math.PI * 2;
+//           ctx.beginPath();
+//           ctx.moveTo(sunX + Math.cos(angle) * 50, sunY + Math.sin(angle) * 50);
+//           ctx.lineTo(sunX + Math.cos(angle) * 80, sunY + Math.sin(angle) * 80);
+//           ctx.stroke();
+//         }
+        
+//         // Bulutlar (kunduzgi rejim uchun)
+//         for (let i = 0; i < 5; i++) {
+//           const cloudX = (time * 0.5 + i * 150) % (width + 200) - 100;
+//           const cloudY = height * 0.2 + Math.sin(time * 0.02 + i) * 20;
+          
+//           ctx.fillStyle = `rgba(255, 255, 255, ${0.6 + Math.sin(time * 0.03 + i) * 0.2})`;
+          
+//           // Bulut chizish
+//           ctx.beginPath();
+//           ctx.arc(cloudX, cloudY, 20, 0, Math.PI * 2);
+//           ctx.arc(cloudX + 25, cloudY - 10, 25, 0, Math.PI * 2);
+//           ctx.arc(cloudX + 50, cloudY, 20, 0, Math.PI * 2);
+//           ctx.arc(cloudX + 25, cloudY + 10, 20, 0, Math.PI * 2);
+//           ctx.fill();
+//         }
+//       }
+      
+//       // To'lqinlarni chizish
+//       waves.forEach((wave) => {
+//         ctx.beginPath();
+//         ctx.moveTo(0, height);
+        
+//         for (let x = 0; x <= width; x += 3) {
+//           let y = wave.y + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude;
+          
+//           // Ripple effekti
+//           ripplesRef.current.forEach(ripple => {
+//             const dx = x - ripple.x / dpr;
+//             const dy = y - ripple.y / dpr;
+//             const distance = Math.sqrt(dx * dx + dy * dy);
+            
+//             if (distance < ripple.maxRadius && distance > ripple.radius - 150) {
+//               const waveEffect = Math.sin((distance - ripple.radius) * 0.03) * ripple.strength * 30;
+//               y += waveEffect * (1 - distance / ripple.maxRadius);
+//             }
+//           });
+          
+//           ctx.lineTo(x, y);
+//         }
+        
+//         ctx.lineTo(width, height);
+//         ctx.closePath();
+        
+//         // To'lqin ranglari
+//         let waveGradient;
+//         if (isNightMode) {
+//           waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
+//           waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
+//           waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
+//           waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
+//         } else {
+//           waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
+//           waveGradient.addColorStop(0, `rgba(30, 144, 255, ${wave.alpha * 1.2})`);
+//           waveGradient.addColorStop(0.5, `rgba(0, 191, 255, ${wave.alpha * 0.9})`);
+//           waveGradient.addColorStop(1, `rgba(135, 206, 250, ${wave.alpha * 0.5})`);
+//         }
+        
+//         ctx.fillStyle = waveGradient;
+//         ctx.fill();
+//       });
+      
+//       // Ripple effektlari
+//       const activeRipples = [];
+//       ripplesRef.current.forEach(ripple => {
+//         ripple.radius += 3;
+//         ripple.strength *= 0.985;
+        
+//         if (ripple.radius < ripple.maxRadius && ripple.strength > 0.05) {
+//           // Ripple halqalari
+//           for (let i = 0; i < 3; i++) {
+//             const ringRadius = ripple.radius - i * 40;
+//             if (ringRadius > 0) {
+//               ctx.beginPath();
+//               ctx.arc(ripple.x / dpr, ripple.y / dpr, ringRadius, 0, Math.PI * 2);
+//               ctx.strokeStyle = isNightMode 
+//                 ? `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`
+//                 : `rgba(255, 255, 255, ${ripple.strength * 0.3 * (1 - i * 0.3)})`;
+//               ctx.lineWidth = 2 - i * 0.5;
+//               ctx.stroke();
+//             }
+//           }
+          
+//           // Yorqin nuqtalar
+//           const sparkleCount = 8;
+//           for (let i = 0; i < sparkleCount; i++) {
+//             const angle = (i / sparkleCount) * Math.PI * 2 + time * 0.02;
+//             const sparkleX = (ripple.x / dpr) + Math.cos(angle) * ripple.radius;
+//             const sparkleY = (ripple.y / dpr) + Math.sin(angle) * ripple.radius;
+            
+//             ctx.beginPath();
+//             ctx.arc(sparkleX, sparkleY, 2 * ripple.strength, 0, Math.PI * 2);
+//             ctx.fillStyle = isNightMode
+//               ? `rgba(255, 255, 255, ${ripple.strength * 0.5})`
+//               : `rgba(255, 255, 255, ${ripple.strength * 0.7})`;
+//             ctx.fill();
+//           }
+          
+//           activeRipples.push(ripple);
+//         }
+//       });
+      
+//       ripplesRef.current = activeRipples;
+//       time += 1;
+//       animationRef.current = requestAnimationFrame(animate);
+//     };
+    
+//     // Initialize
+//     setCanvasSize();
+    
+//     // Event listeners
+//     canvas.addEventListener('click', handleClick);
+//     canvas.addEventListener('mousemove', handleMouseMove);
+//     canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+//     canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+//     window.addEventListener('resize', setCanvasSize);
+    
+//     // Start animation
+//     animate();
+    
+//     // Cleanup
+//     return () => {
+//       if (animationRef.current) {
+//         cancelAnimationFrame(animationRef.current);
+//       }
+//       canvas.removeEventListener('click', handleClick);
+//       canvas.removeEventListener('mousemove', handleMouseMove);
+//       canvas.removeEventListener('touchstart', handleTouchStart);
+//       canvas.removeEventListener('touchmove', handleTouchMove);
+//       window.removeEventListener('resize', setCanvasSize);
+//     };
+//   }, [isNightMode]); // isNightMode o'zgarganda animatsiya qayta ishga tushadi
+  
+//   // Rejimni o'zgartirish
+//   const toggleDayNightMode = () => {
+//     setIsNightMode(!isNightMode);
+//   };
+  
+//   // Markazda ripple qo'shish
+//   const addRippleAtCenter = () => {
+//     if (canvasRef.current) {
+//       const rect = canvasRef.current.getBoundingClientRect();
+//       const dpr = window.devicePixelRatio || 1;
+      
+//       ripplesRef.current.push({
+//         x: (rect.width / 2) * dpr,
+//         y: (rect.height / 2) * dpr,
+//         radius: 0,
+//         maxRadius: 400,
+//         strength: 1
+//       });
+//     }
+//   };
+  
+//   const handleOneIDLogin = () => {
+//     alert('ONE ID orqali kirish amalga oshirilmoqda...');
+//   };
+  
+//   return (
+//     <div className="ocean-login" ref={containerRef}>
+//       <canvas 
+//         ref={canvasRef} 
+//         className="ocean-canvas"
+//       />
+      
+//       <header>
+//         <div className="logo-section">
+//           <div className="emblem">🏛️</div>
+//           <div className="ministry-name">
+//             O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
+//           </div>
+//         </div>
+        
+//         <div className="header-controls">
+//           {/* <div className="lang-switch">
+//             {languages.map(lang => (
+//               <button
+//                 key={lang}
+//                 className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
+//                 onClick={() => setActiveLang(lang)}
+//               >
+//                 {lang}
+//               </button>
+//             ))}
+//           </div> */}
+          
+//           <button 
+//             className="theme-toggle-btn"
+//             onClick={toggleDayNightMode}
+//             title={isNightMode ? "Kunduzgi rejimga o'tish" : "Tungi rejimga o'tish"}
+//           >
+//             {isNightMode ? '☀️' : '🌙'}
+//           </button>
+//         </div>
+//       </header>
+      
+//       <main>
+//         <div className="login-container">
+//           <h1 className="login-title">
+//             <span>EMIS</span>
+//           </h1>
+//           <p className="login-subtitle">
+//             Akademik litseylarda ta'lim jarayonlarini boshqarish tizimi
+//           </p>
+          
+//           <div className="login-card">
+//             <button className="oneid-btn" onClick={handleOneIDLogin}>
+//               <div className="oneid-logo">ONE ID</div>
+//               <div className="oneid-content">
+//                 <div className="oneid-title">ONE ID orqali kirish</div>
+//                 <div className="oneid-desc">Yagona identifikatsiya tizimi</div>
+//               </div>
+//               <div className="oneid-arrow">→</div>
+//             </button>
+            
+//             <div className="divider">
+//               <div className="divider-line"></div>
+//               <span className="divider-text">Yordam</span>
+//               <div className="divider-line"></div>
+//             </div>
+            
+//             <div className="help-links">
+//               <a href="#" className="help-link">❓ Qo'llanma</a>
+//               <a href="#" className="help-link">📞 Qo'llab-quvvatlash</a>
+//             </div>
+            
+//             <div className="features">
+//               <div className="feature">
+//                 <div className="feature-icon">🔒</div>
+//                 <span>Xavfsiz</span>
+//               </div>
+//               <div className="feature">
+//                 <div className="feature-icon">⚡</div>
+//                 <span>Tezkor</span>
+//               </div>
+//               <div className="feature">
+//                 <div className="feature-icon">🛡️</div>
+//                 <span>Himoyalangan</span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </main>      
+//       <footer>
+//         © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
+//       </footer>
+      
+
+//     </div>
+//   );
+// };
+
+// export default HemisDashboard;
 // ==============================================================================================================
 // ==============================================================================================================
 // ==============================================================================================================
