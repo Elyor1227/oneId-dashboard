@@ -298,378 +298,416 @@
 
 // export default HemisDashboard;
 
-import React, { useEffect, useRef, useState } from 'react';
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
 
-const HemisDashboard = () => {
-  const [activeLang, setActiveLang] = useState('UZ');
-  const canvasRef = useRef(null);
-  const containerRef = useRef(null);
-  const animationRef = useRef(null);
-  const ripplesRef = useRef([]);
-  
-  const languages = ['UZ', 'РУ', 'EN'];
-  
-  // Canvas animation
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    let waves = [];
-    let time = 0;
-    
-    // Canvas o'lchamlarini sozlash
-    const setCanvasSize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const rect = canvas.getBoundingClientRect();
-      
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      
-      canvas.style.width = `${rect.width}px`;
-      canvas.style.height = `${rect.height}px`;
-      
-      ctx.scale(dpr, dpr);
-      
-      initWaves();
-    };
-    
-    const initWaves = () => {
-      const rect = canvas.getBoundingClientRect();
-      waves = [];
-      for (let i = 0; i < 5; i++) {
-        waves.push({
-          y: rect.height * (0.5 + i * 0.1),
-          amplitude: 20 + i * 10,
-          frequency: 0.02 - i * 0.003,
-          speed: 0.02 + i * 0.005,
-          offset: i * 50,
-          alpha: 0.08 - i * 0.012
-        });
-      }
-    };
-    
-    // Koordinatalarni to'g'ri olish
-    const getCanvasCoordinates = (clientX, clientY) => {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      
-      return {
-        x: (clientX - rect.left) * dpr,
-        y: (clientY - rect.top) * dpr
-      };
-    };
-    
-    const handleClick = (e) => {
-      const coords = getCanvasCoordinates(e.clientX, e.clientY);
-      
-      console.log('Click at canvas:', coords.x, coords.y);
-      console.log('Canvas rect:', canvas.getBoundingClientRect());
-      
-      ripplesRef.current.push({
-        x: coords.x,
-        y: coords.y,
-        radius: 0,
-        maxRadius: 400,
-        strength: 1
-      });
-    };
-    
-    const handleMouseMove = (e) => {
-      if (Math.random() < 0.05) {
-        const coords = getCanvasCoordinates(e.clientX, e.clientY);
-        
-        ripplesRef.current.push({
-          x: coords.x,
-          y: coords.y,
-          radius: 0,
-          maxRadius: 150,
-          strength: 0.3
-        });
-      }
-    };
-    
-    // Touch event uchun
-    const handleTouchStart = (e) => {
-      e.preventDefault();
-      const touch = e.touches[0];
-      const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
-      
-      ripplesRef.current.push({
-        x: coords.x,
-        y: coords.y,
-        radius: 0,
-        maxRadius: 400,
-        strength: 1
-      });
-    };
-    
-    const handleTouchMove = (e) => {
-      e.preventDefault();
-      if (Math.random() < 0.1) {
-        const touch = e.touches[0];
-        const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
-        
-        ripplesRef.current.push({
-          x: coords.x,
-          y: coords.y,
-          radius: 0,
-          maxRadius: 150,
-          strength: 0.3
-        });
-      }
-    };
-    
-    const animate = () => {
-      if (!ctx || !canvas) return;
-      
-      const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      const width = rect.width;
-      const height = rect.height;
-      
-      // Clear canvas
-      ctx.clearRect(0, 0, width * dpr, height * dpr);
-      
-      // Draw gradient background
-      const gradient = ctx.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, '#0a1628');
-      gradient.addColorStop(0.4, '#1a365d');
-      gradient.addColorStop(0.7, '#1e4976');
-      gradient.addColorStop(1, '#0c4a6e');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-      
-      // Draw stars
-      for (let i = 0; i < 50; i++) {
-        const x = (i * 137.5) % width;
-        const y = (i * 73.3) % (height * 0.4);
-        const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
-        ctx.beginPath();
-        ctx.arc(x, y, 1, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
-        ctx.fill();
-      }
-      
-      // Draw moon glow
-      const moonX = width * 0.85;
-      const moonY = height * 0.15;
-      const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
-      moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
-      moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
-      moonGlow.addColorStop(1, 'transparent');
-      ctx.fillStyle = moonGlow;
-      ctx.fillRect(0, 0, width, height);
-      
-      // Draw moon
-      ctx.beginPath();
-      ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-      ctx.fill();
-      
-      // Draw calm ocean waves
-      waves.forEach((wave) => {
-        ctx.beginPath();
-        ctx.moveTo(0, height);
-        
-        for (let x = 0; x <= width; x += 3) {
-          let y = wave.y + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude;
-          
-          // Add ripple effect
-          ripplesRef.current.forEach(ripple => {
-            const dx = x - ripple.x / dpr;
-            const dy = y - ripple.y / dpr;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            
-            if (distance < ripple.maxRadius && distance > ripple.radius - 150) {
-              const waveEffect = Math.sin((distance - ripple.radius) * 0.03) * ripple.strength * 30;
-              y += waveEffect * (1 - distance / ripple.maxRadius);
-            }
-          });
-          
-          ctx.lineTo(x, y);
-        }
-        
-        ctx.lineTo(width, height);
-        ctx.closePath();
-        
-        const waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
-        waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
-        waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
-        waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
-        ctx.fillStyle = waveGradient;
-        ctx.fill();
-      });
-      
-      // Update and draw ripples
-      const activeRipples = [];
-      ripplesRef.current.forEach(ripple => {
-        ripple.radius += 3;
-        ripple.strength *= 0.985;
-        
-        if (ripple.radius < ripple.maxRadius && ripple.strength > 0.05) {
-          // Draw multiple ripple rings
-          for (let i = 0; i < 3; i++) {
-            const ringRadius = ripple.radius - i * 40;
-            if (ringRadius > 0) {
-              ctx.beginPath();
-              ctx.arc(ripple.x / dpr, ripple.y / dpr, ringRadius, 0, Math.PI * 2);
-              ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`;
-              ctx.lineWidth = 2 - i * 0.5;
-              ctx.stroke();
-            }
-          }
-          
-          // Add sparkle effect at ripple edge
-          const sparkleCount = 8;
-          for (let i = 0; i < sparkleCount; i++) {
-            const angle = (i / sparkleCount) * Math.PI * 2 + time * 0.02;
-            const sparkleX = (ripple.x / dpr) + Math.cos(angle) * ripple.radius;
-            const sparkleY = (ripple.y / dpr) + Math.sin(angle) * ripple.radius;
-            
-            ctx.beginPath();
-            ctx.arc(sparkleX, sparkleY, 2 * ripple.strength, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(255, 255, 255, ${ripple.strength * 0.5})`;
-            ctx.fill();
-          }
-          
-          activeRipples.push(ripple);
-        }
-      });
-      
-      ripplesRef.current = activeRipples;
-      time += 1;
-      animationRef.current = requestAnimationFrame(animate);
-    };
-    
-    // Initialize
-    setCanvasSize();
-    
-    // Event listeners
-    canvas.addEventListener('click', handleClick);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-    window.addEventListener('resize', setCanvasSize);
-    
-    // Start animation
-    animate();
-    
-    // Cleanup
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-      canvas.removeEventListener('click', handleClick);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('touchstart', handleTouchStart);
-      canvas.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('resize', setCanvasSize);
-    };
-  }, []);
-  
-  // Hover effektini tekshirish uchun test funksiyasi
-  const addRippleAtCenter = () => {
-    if (canvasRef.current) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      
-      ripplesRef.current.push({
-        x: (rect.width / 2) * dpr,
-        y: (rect.height / 2) * dpr,
-        radius: 0,
-        maxRadius: 400,
-        strength: 1
-      });
-    }
-  };
-  
-  const handleOneIDLogin = () => {
-    alert('ONE ID orqali kirish amalga oshirilmoqda...');
-  };
-  
-  return (
-    <div className="ocean-login" ref={containerRef}>
-      <canvas 
-        ref={canvasRef} 
-        className="ocean-canvas"
-      />
-      
-      <header>
-        <div className="logo-section">
-          <div className="emblem">🏛️</div>
-          <div className="ministry-name">
-            O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
-          </div>
-        </div>
-        <div className="lang-switch">
-          {/* {languages.map(lang => (
-            <button
-              key={lang}
-              className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
-              onClick={() => setActiveLang(lang)}
-            >
-              {lang}
-            </button>
-          ))} */}
-        </div>
-      </header>
-      
-      <main>
-        <div className="login-container">
-          <h1 className="login-title">
-            <span>EMIS</span>
-          </h1>
-          <p className="login-subtitle">
-            Akademik litseylarda ta'lim jarayonlarini boshqarish tizimi
-          </p>
-          
-          <div className="login-card">
-            <button className="oneid-btn" onClick={handleOneIDLogin}>
-              <div className="oneid-logo">ONE ID</div>
-              <div className="oneid-content">
-                <div className="oneid-title">ONE ID orqali kirish</div>
-                <div className="oneid-desc">Yagona identifikatsiya tizimi</div>
-              </div>
-              <div className="oneid-arrow">→</div>
-            </button>
-            
-            <div className="divider">
-              <div className="divider-line"></div>
-              <span className="divider-text">Yordam</span>
-              <div className="divider-line"></div>
-            </div>
-            
-            <div className="help-links">
-              <a href="#" className="help-link">❓ Qo'llanma</a>
-              <a href="#" className="help-link">📞 Qo'llab-quvvatlash</a>
-            </div>
-            
-            <div className="features">
-              <div className="feature">
-                <div className="feature-icon">🔒</div>
-                <span>Xavfsiz</span>
-              </div>
-              <div className="feature">
-                <div className="feature-icon">⚡</div>
-                <span>Tezkor</span>
-              </div>
-              <div className="feature">
-                <div className="feature-icon">🛡️</div>
-                <span>Himoyalangan</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>      
-      <footer>
-        © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
-      </footer>     
-    </div>
-  );
-};
+// import React, { useEffect, useRef, useState } from 'react';
 
-export default HemisDashboard;
+// const HemisDashboard = () => {
+//   const [activeLang, setActiveLang] = useState('UZ');
+//   const canvasRef = useRef(null);
+//   const containerRef = useRef(null);
+//   const animationRef = useRef(null);
+//   const ripplesRef = useRef([]);
+  
+//   const languages = ['UZ', 'РУ', 'EN'];
+  
+//   // Canvas animation
+//   useEffect(() => {
+//     const canvas = canvasRef.current;
+//     if (!canvas) return;
+    
+//     const ctx = canvas.getContext('2d');
+//     let waves = [];
+//     let time = 0;
+    
+//     // Canvas o'lchamlarini sozlash
+//     const setCanvasSize = () => {
+//       const dpr = window.devicePixelRatio || 1;
+//       const rect = canvas.getBoundingClientRect();
+      
+//       canvas.width = rect.width * dpr;
+//       canvas.height = rect.height * dpr;
+      
+//       canvas.style.width = `${rect.width}px`;
+//       canvas.style.height = `${rect.height}px`;
+      
+//       ctx.scale(dpr, dpr);
+      
+//       initWaves();
+//     };
+    
+//     const initWaves = () => {
+//       const rect = canvas.getBoundingClientRect();
+//       waves = [];
+//       for (let i = 0; i < 5; i++) {
+//         waves.push({
+//           y: rect.height * (0.5 + i * 0.1),
+//           amplitude: 20 + i * 10,
+//           frequency: 0.02 - i * 0.003,
+//           speed: 0.02 + i * 0.005,
+//           offset: i * 50,
+//           alpha: 0.08 - i * 0.012
+//         });
+//       }
+//     };
+    
+//     // Koordinatalarni to'g'ri olish
+//     const getCanvasCoordinates = (clientX, clientY) => {
+//       const rect = canvas.getBoundingClientRect();
+//       const dpr = window.devicePixelRatio || 1;
+      
+//       return {
+//         x: (clientX - rect.left) * dpr,
+//         y: (clientY - rect.top) * dpr
+//       };
+//     };
+    
+//     const handleClick = (e) => {
+//       const coords = getCanvasCoordinates(e.clientX, e.clientY);
+      
+//       console.log('Click at canvas:', coords.x, coords.y);
+//       console.log('Canvas rect:', canvas.getBoundingClientRect());
+      
+//       ripplesRef.current.push({
+//         x: coords.x,
+//         y: coords.y,
+//         radius: 0,
+//         maxRadius: 400,
+//         strength: 1
+//       });
+//     };
+    
+//     const handleMouseMove = (e) => {
+//       if (Math.random() < 0.05) {
+//         const coords = getCanvasCoordinates(e.clientX, e.clientY);
+        
+//         ripplesRef.current.push({
+//           x: coords.x,
+//           y: coords.y,
+//           radius: 0,
+//           maxRadius: 150,
+//           strength: 0.3
+//         });
+//       }
+//     };
+    
+//     // Touch event uchun
+//     const handleTouchStart = (e) => {
+//       e.preventDefault();
+//       const touch = e.touches[0];
+//       const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+      
+//       ripplesRef.current.push({
+//         x: coords.x,
+//         y: coords.y,
+//         radius: 0,
+//         maxRadius: 400,
+//         strength: 1
+//       });
+//     };
+    
+//     const handleTouchMove = (e) => {
+//       e.preventDefault();
+//       if (Math.random() < 0.1) {
+//         const touch = e.touches[0];
+//         const coords = getCanvasCoordinates(touch.clientX, touch.clientY);
+        
+//         ripplesRef.current.push({
+//           x: coords.x,
+//           y: coords.y,
+//           radius: 0,
+//           maxRadius: 150,
+//           strength: 0.3
+//         });
+//       }
+//     };
+    
+//     const animate = () => {
+//       if (!ctx || !canvas) return;
+      
+//       const rect = canvas.getBoundingClientRect();
+//       const dpr = window.devicePixelRatio || 1;
+//       const width = rect.width;
+//       const height = rect.height;
+      
+//       // Clear canvas
+//       ctx.clearRect(0, 0, width * dpr, height * dpr);
+      
+//       // Draw gradient background
+//       const gradient = ctx.createLinearGradient(0, 0, 0, height);
+//       gradient.addColorStop(0, '#0a1628');
+//       gradient.addColorStop(0.4, '#1a365d');
+//       gradient.addColorStop(0.7, '#1e4976');
+//       gradient.addColorStop(1, '#0c4a6e');
+//       ctx.fillStyle = gradient;
+//       ctx.fillRect(0, 0, width, height);
+      
+//       // Draw stars
+//       for (let i = 0; i < 50; i++) {
+//         const x = (i * 137.5) % width;
+//         const y = (i * 73.3) % (height * 0.4);
+//         const twinkle = 0.3 + Math.sin(time * 0.05 + i) * 0.2;
+//         ctx.beginPath();
+//         ctx.arc(x, y, 1, 0, Math.PI * 2);
+//         ctx.fillStyle = `rgba(255, 255, 255, ${twinkle})`;
+//         ctx.fill();
+//       }
+      
+//       // Draw moon glow
+//       const moonX = width * 0.85;
+//       const moonY = height * 0.15;
+//       const moonGlow = ctx.createRadialGradient(moonX, moonY, 0, moonX, moonY, 150);
+//       moonGlow.addColorStop(0, 'rgba(255, 255, 255, 0.15)');
+//       moonGlow.addColorStop(0.5, 'rgba(147, 197, 253, 0.05)');
+//       moonGlow.addColorStop(1, 'transparent');
+//       ctx.fillStyle = moonGlow;
+//       ctx.fillRect(0, 0, width, height);
+      
+//       // Draw moon
+//       ctx.beginPath();
+//       ctx.arc(moonX, moonY, 40, 0, Math.PI * 2);
+//       ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+//       ctx.fill();
+      
+//       // Draw calm ocean waves
+//       waves.forEach((wave) => {
+//         ctx.beginPath();
+//         ctx.moveTo(0, height);
+        
+//         for (let x = 0; x <= width; x += 3) {
+//           let y = wave.y + Math.sin(x * wave.frequency + time * wave.speed + wave.offset) * wave.amplitude;
+          
+//           // Add ripple effect
+//           ripplesRef.current.forEach(ripple => {
+//             const dx = x - ripple.x / dpr;
+//             const dy = y - ripple.y / dpr;
+//             const distance = Math.sqrt(dx * dx + dy * dy);
+            
+//             if (distance < ripple.maxRadius && distance > ripple.radius - 150) {
+//               const waveEffect = Math.sin((distance - ripple.radius) * 0.03) * ripple.strength * 30;
+//               y += waveEffect * (1 - distance / ripple.maxRadius);
+//             }
+//           });
+          
+//           ctx.lineTo(x, y);
+//         }
+        
+//         ctx.lineTo(width, height);
+//         ctx.closePath();
+        
+//         const waveGradient = ctx.createLinearGradient(0, wave.y - wave.amplitude, 0, height);
+//         waveGradient.addColorStop(0, `rgba(59, 130, 246, ${wave.alpha})`);
+//         waveGradient.addColorStop(0.5, `rgba(37, 99, 235, ${wave.alpha * 0.7})`);
+//         waveGradient.addColorStop(1, `rgba(6, 182, 212, ${wave.alpha * 0.3})`);
+//         ctx.fillStyle = waveGradient;
+//         ctx.fill();
+//       });
+      
+//       // Update and draw ripples
+//       const activeRipples = [];
+//       ripplesRef.current.forEach(ripple => {
+//         ripple.radius += 3;
+//         ripple.strength *= 0.985;
+        
+//         if (ripple.radius < ripple.maxRadius && ripple.strength > 0.05) {
+//           // Draw multiple ripple rings
+//           for (let i = 0; i < 3; i++) {
+//             const ringRadius = ripple.radius - i * 40;
+//             if (ringRadius > 0) {
+//               ctx.beginPath();
+//               ctx.arc(ripple.x / dpr, ripple.y / dpr, ringRadius, 0, Math.PI * 2);
+//               ctx.strokeStyle = `rgba(147, 197, 253, ${ripple.strength * 0.2 * (1 - i * 0.3)})`;
+//               ctx.lineWidth = 2 - i * 0.5;
+//               ctx.stroke();
+//             }
+//           }
+          
+//           // Add sparkle effect at ripple edge
+//           const sparkleCount = 8;
+//           for (let i = 0; i < sparkleCount; i++) {
+//             const angle = (i / sparkleCount) * Math.PI * 2 + time * 0.02;
+//             const sparkleX = (ripple.x / dpr) + Math.cos(angle) * ripple.radius;
+//             const sparkleY = (ripple.y / dpr) + Math.sin(angle) * ripple.radius;
+            
+//             ctx.beginPath();
+//             ctx.arc(sparkleX, sparkleY, 2 * ripple.strength, 0, Math.PI * 2);
+//             ctx.fillStyle = `rgba(255, 255, 255, ${ripple.strength * 0.5})`;
+//             ctx.fill();
+//           }
+          
+//           activeRipples.push(ripple);
+//         }
+//       });
+      
+//       ripplesRef.current = activeRipples;
+//       time += 1;
+//       animationRef.current = requestAnimationFrame(animate);
+//     };
+    
+//     // Initialize
+//     setCanvasSize();
+    
+//     // Event listeners
+//     canvas.addEventListener('click', handleClick);
+//     canvas.addEventListener('mousemove', handleMouseMove);
+//     canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+//     canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+//     window.addEventListener('resize', setCanvasSize);
+    
+//     // Start animation
+//     animate();
+    
+//     // Cleanup
+//     return () => {
+//       if (animationRef.current) {
+//         cancelAnimationFrame(animationRef.current);
+//       }
+//       canvas.removeEventListener('click', handleClick);
+//       canvas.removeEventListener('mousemove', handleMouseMove);
+//       canvas.removeEventListener('touchstart', handleTouchStart);
+//       canvas.removeEventListener('touchmove', handleTouchMove);
+//       window.removeEventListener('resize', setCanvasSize);
+//     };
+//   }, []);
+  
+//   // Hover effektini tekshirish uchun test funksiyasi
+//   const addRippleAtCenter = () => {
+//     if (canvasRef.current) {
+//       const rect = canvasRef.current.getBoundingClientRect();
+//       const dpr = window.devicePixelRatio || 1;
+      
+//       ripplesRef.current.push({
+//         x: (rect.width / 2) * dpr,
+//         y: (rect.height / 2) * dpr,
+//         radius: 0,
+//         maxRadius: 400,
+//         strength: 1
+//       });
+//     }
+//   };
+  
+//   const handleOneIDLogin = () => {
+//     alert('ONE ID orqali kirish amalga oshirilmoqda...');
+//   };
+  
+//   return (
+//     <div className="ocean-login" ref={containerRef}>
+//       <canvas 
+//         ref={canvasRef} 
+//         className="ocean-canvas"
+//       />
+      
+//       <header>
+//         <div className="logo-section">
+//           <div className="emblem">🏛️</div>
+//           <div className="ministry-name">
+//             O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
+//           </div>
+//         </div>
+//         <div className="lang-switch">
+//           {/* {languages.map(lang => (
+//             <button
+//               key={lang}
+//               className={`lang-btn ${activeLang === lang ? 'active' : ''}`}
+//               onClick={() => setActiveLang(lang)}
+//             >
+//               {lang}
+//             </button>
+//           ))} */}
+//         </div>
+//       </header>
+      
+//       <main>
+//         <div className="login-container">
+//           <h1 className="login-title">
+//             <span>EMIS</span>
+//           </h1>
+//           <p className="login-subtitle">
+//             Akademik litseylarda ta'lim jarayonlarini boshqarish tizimi
+//           </p>
+          
+//           <div className="login-card">
+//             <button className="oneid-btn" onClick={handleOneIDLogin}>
+//               <div className="oneid-logo">ONE ID</div>
+//               <div className="oneid-content">
+//                 <div className="oneid-title">ONE ID orqali kirish</div>
+//                 <div className="oneid-desc">Yagona identifikatsiya tizimi</div>
+//               </div>
+//               <div className="oneid-arrow">→</div>
+//             </button>
+            
+//             <div className="divider">
+//               <div className="divider-line"></div>
+//               <span className="divider-text">Yordam</span>
+//               <div className="divider-line"></div>
+//             </div>
+            
+//             <div className="help-links">
+//               <a href="#" className="help-link">❓ Qo'llanma</a>
+//               <a href="#" className="help-link">📞 Qo'llab-quvvatlash</a>
+//             </div>
+            
+//             <div className="features">
+//               <div className="feature">
+//                 <div className="feature-icon">🔒</div>
+//                 <span>Xavfsiz</span>
+//               </div>
+//               <div className="feature">
+//                 <div className="feature-icon">⚡</div>
+//                 <span>Tezkor</span>
+//               </div>
+//               <div className="feature">
+//                 <div className="feature-icon">🛡️</div>
+//                 <span>Himoyalangan</span>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </main>      
+//       <footer>
+//         © 2024 O'zbekiston Respublikasi Oliy ta'lim, fan va innovatsiyalar vazirligi
+//       </footer>     
+//     </div>
+//   );
+// };
+
+// export default HemisDashboard;
+
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
 
 // import React, { useEffect, useRef, useState } from 'react';
 
@@ -2205,3 +2243,1336 @@ export default HemisDashboard;
 //     fontSize: '12px',
 //   },
 // };
+
+
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+// ==============================================================================================================
+
+
+
+// import React, { useState } from 'react';
+// import { 
+//   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+//   PieChart, Pie, Cell, LineChart, Line, Area, AreaChart
+// } from 'recharts';
+// import { 
+//   Building2, Users, GraduationCap, Award, Menu, Home, 
+//   BarChart3, Settings, Bell, Search, TrendingUp, TrendingDown,
+//   BookOpen, School, Calendar, ChevronDown, MoreHorizontal
+// } from 'lucide-react';
+
+// // Mock data
+// const studentsData = { male: 12847, female: 11253, total: 24100 };
+// const teachersData = { male: 342, female: 1158, total: 1500 };
+
+// const studentsBySexData = [
+//   { name: 'Male', value: 12847, color: '#6366f1' },
+//   { name: 'Female', value: 11253, color: '#ec4899' }
+// ];
+
+// const teachersBySexData = [
+//   { name: 'Male', value: 342, color: '#6366f1' },
+//   { name: 'Female', value: 1158, color: '#ec4899' }
+// ];
+
+// const monthlyTrendData = [
+//   { month: 'Jan', students: 21500, teachers: 1420 },
+//   { month: 'Feb', students: 22100, teachers: 1435 },
+//   { month: 'Mar', students: 22400, teachers: 1450 },
+//   { month: 'Apr', students: 22900, teachers: 1460 },
+//   { month: 'May', students: 23200, teachers: 1475 },
+//   { month: 'Jun', students: 23600, teachers: 1485 },
+//   { month: 'Jul', students: 23800, teachers: 1490 },
+//   { month: 'Aug', students: 24100, teachers: 1500 }
+// ];
+
+// const topLyceumsData = [
+//   { name: 'Academic Lyceum #1', students: 2847, city: 'Tashkent' },
+//   { name: 'Presidential School', students: 2654, city: 'Tashkent' },
+//   { name: 'IT Lyceum', students: 2341, city: 'Samarkand' },
+//   { name: 'Science Lyceum', students: 2187, city: 'Bukhara' },
+//   { name: 'Technical Lyceum', students: 1956, city: 'Fergana' }
+// ];
+
+// const lyceumRankingData = [
+//   { name: 'Presidential School', avgGrade: 94.7, trend: '+2.3' },
+//   { name: 'IT Lyceum', avgGrade: 92.4, trend: '+1.8' },
+//   { name: 'Academic Lyceum #1', avgGrade: 91.2, trend: '+0.9' },
+//   { name: 'Science Lyceum', avgGrade: 89.8, trend: '+1.2' },
+//   { name: 'Technical Lyceum', avgGrade: 88.5, trend: '-0.4' },
+//   { name: 'Medical Lyceum', avgGrade: 87.9, trend: '+0.7' },
+//   { name: 'Economics Lyceum', avgGrade: 86.4, trend: '+1.1' },
+//   { name: 'Language Lyceum', avgGrade: 85.7, trend: '+0.5' }
+// ];
+
+// const specialitiesData = [
+//   { name: 'Natural Sciences', students: 5840, percent: 85 },
+//   { name: 'Mathematics & IT', students: 5120, percent: 75 },
+//   { name: 'Humanities', students: 4280, percent: 62 },
+//   { name: 'Medicine & Biology', students: 3650, percent: 53 },
+//   { name: 'Economics', students: 2890, percent: 42 },
+//   { name: 'Languages', students: 2320, percent: 34 }
+// ];
+
+// const enrollmentByMonth = [
+//   { month: '1', value: 320 },
+//   { month: '2', value: 480 },
+//   { month: '3', value: 650 },
+//   { month: '4', value: 720 },
+//   { month: '5', value: 890 },
+//   { month: '6', value: 950 },
+//   { month: '7', value: 1100 },
+//   { month: '8', value: 980 }
+// ];
+
+// // Circular Progress Component
+// const CircularProgress = ({ value, size = 120, strokeWidth = 8, label, sublabel }) => {
+//   const radius = (size - strokeWidth) / 2;
+//   const circumference = radius * 2 * Math.PI;
+//   const offset = circumference - (value / 100) * circumference;
+  
+//   return (
+//     <div className="relative" style={{ width: size, height: size }}>
+//       <svg width={size} height={size} className="transform -rotate-90">
+//         <circle
+//           cx={size / 2}
+//           cy={size / 2}
+//           r={radius}
+//           fill="none"
+//           stroke="rgba(255,255,255,0.1)"
+//           strokeWidth={strokeWidth}
+//         />
+//         <circle
+//           cx={size / 2}
+//           cy={size / 2}
+//           r={radius}
+//           fill="none"
+//           stroke="url(#gradient)"
+//           strokeWidth={strokeWidth}
+//           strokeDasharray={circumference}
+//           strokeDashoffset={offset}
+//           strokeLinecap="round"
+//         />
+//         <defs>
+//           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+//             <stop offset="0%" stopColor="#06b6d4" />
+//             <stop offset="100%" stopColor="#8b5cf6" />
+//           </linearGradient>
+//         </defs>
+//       </svg>
+//       <div className="absolute inset-0 flex flex-col items-center justify-center">
+//         <span className="text-3xl font-bold text-white">{value}</span>
+//         <span className="text-xs text-cyan-400">{sublabel}</span>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Stat Card Component
+// const StatCard = ({ title, value, subvalue, subtitle, icon: Icon, trend, trendValue, trendLabel }) => {
+//   const isPositive = trend === 'up';
+  
+//   return (
+//     <div className="bg-[#1e2642] rounded-2xl p-5 border border-white/5">
+//       <div className="flex items-center justify-between mb-3">
+//         <span className="text-slate-400 text-sm font-medium">{title}</span>
+//         <button className="text-slate-500 hover:text-slate-300 transition-colors">
+//           <MoreHorizontal size={16} />
+//         </button>
+//       </div>
+//       <div className="flex items-end gap-2">
+//         <span className="text-4xl font-bold text-white tracking-tight">{value}</span>
+//         {subvalue && <span className="text-lg text-slate-500 mb-1">{subvalue}</span>}
+//       </div>
+//       {trendValue && (
+//         <div className="flex items-center gap-2 mt-3">
+//           <div className={`flex items-center gap-1 ${isPositive ? 'text-emerald-400' : 'text-rose-400'}`}>
+//             {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+//             <span className="text-sm font-semibold">{trendValue}</span>
+//           </div>
+//           <span className="text-slate-500 text-xs">{trendLabel}</span>
+//         </div>
+//       )}
+//       {subtitle && <p className="text-slate-500 text-xs mt-2">{subtitle}</p>}
+//     </div>
+//   );
+// };
+
+// // Funnel Chart Component
+// const FunnelChart = ({ data, title }) => {
+//   const maxValue = Math.max(...data.map(d => d.students));
+  
+//   return (
+//     <div className="bg-[#1e2642] rounded-2xl p-5 border border-white/5">
+//       <div className="flex items-center justify-between mb-5">
+//         <h3 className="text-white font-semibold">{title}</h3>
+//         <button className="px-3 py-1 bg-yellow-500/20 text-yellow-400 text-xs font-semibold rounded-full">
+//           2024
+//         </button>
+//       </div>
+//       <div className="space-y-4">
+//         {data.map((item, index) => (
+//           <div key={index} className="flex items-center gap-4">
+//             <span className="text-slate-400 text-sm w-32 truncate">{item.name}</span>
+//             <div className="flex-1 h-8 bg-[#151a30] rounded-lg overflow-hidden relative">
+//               <div 
+//                 className="h-full bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-lg flex items-center justify-center transition-all duration-500"
+//                 style={{ width: `${(item.students / maxValue) * 100}%` }}
+//               >
+//                 <span className="text-slate-900 text-sm font-bold">{item.students.toLocaleString()}</span>
+//               </div>
+//             </div>
+//             <span className="text-slate-400 text-sm w-12 text-right">{item.percent}%</span>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Bar Chart Component for Enrollment
+// const EnrollmentChart = ({ data }) => {
+//   return (
+//     <div className="bg-[#1e2642] rounded-2xl p-5 border border-white/5">
+//       <div className="flex items-center justify-between mb-5">
+//         <div>
+//           <h3 className="text-white font-semibold">Enrollment Over Time</h3>
+//           <p className="text-slate-500 text-xs">Monthly new students</p>
+//         </div>
+//         <button className="px-3 py-1 bg-cyan-500/20 text-cyan-400 text-xs font-semibold rounded-full">
+//           2024
+//         </button>
+//       </div>
+//       <div className="h-48">
+//         <ResponsiveContainer width="100%" height="100%">
+//           <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+//             <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+//             <XAxis 
+//               dataKey="month" 
+//               axisLine={false} 
+//               tickLine={false} 
+//               tick={{ fill: '#64748b', fontSize: 12 }}
+//             />
+//             <YAxis 
+//               axisLine={false} 
+//               tickLine={false} 
+//               tick={{ fill: '#64748b', fontSize: 12 }}
+//               tickFormatter={(v) => v >= 1000 ? `${v/1000}K` : v}
+//             />
+//             <Tooltip 
+//               contentStyle={{ 
+//                 background: '#1e2642', 
+//                 border: '1px solid rgba(255,255,255,0.1)', 
+//                 borderRadius: '12px',
+//                 boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
+//               }}
+//               labelStyle={{ color: '#fff' }}
+//               itemStyle={{ color: '#06b6d4' }}
+//             />
+//             <Bar 
+//               dataKey="value" 
+//               fill="url(#barGradient)" 
+//               radius={[6, 6, 0, 0]}
+//               maxBarSize={40}
+//             />
+//             <defs>
+//               <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+//                 <stop offset="0%" stopColor="#06b6d4" />
+//                 <stop offset="100%" stopColor="#0891b2" />
+//               </linearGradient>
+//             </defs>
+//           </BarChart>
+//         </ResponsiveContainer>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Leaderboard Component
+// const Leaderboard = ({ data }) => {
+//   return (
+//     <div className="bg-[#1e2642] rounded-2xl border border-white/5 overflow-hidden">
+//       <div className="p-5 border-b border-white/5">
+//         <h3 className="text-white font-semibold">Lyceum Ranking by Average Grade</h3>
+//       </div>
+//       <div className="divide-y divide-white/5">
+//         {data.map((item, index) => (
+//           <div key={index} className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors">
+//             <div className="flex items-center gap-4">
+//               <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${
+//                 index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-slate-900' :
+//                 index === 1 ? 'bg-gradient-to-br from-slate-300 to-slate-400 text-slate-900' :
+//                 index === 2 ? 'bg-gradient-to-br from-orange-400 to-orange-500 text-slate-900' :
+//                 'bg-slate-700/50 text-slate-400'
+//               }`}>
+//                 {index + 1}
+//               </div>
+//               <span className="text-slate-300 text-sm font-medium">{item.name}</span>
+//             </div>
+//             <div className="flex items-center gap-4">
+//               <div className="w-24 h-2 bg-[#151a30] rounded-full overflow-hidden">
+//                 <div 
+//                   className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-purple-500"
+//                   style={{ width: `${item.avgGrade}%` }}
+//                 />
+//               </div>
+//               <span className="text-white font-bold w-12 text-right">{item.avgGrade}</span>
+//               <span className={`text-xs font-semibold px-2 py-1 rounded ${
+//                 item.trend.startsWith('+') ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
+//               }`}>
+//                 {item.trend}
+//               </span>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Donut Chart Component
+// const DonutChartWidget = ({ data, title, total }) => {
+//   return (
+//     <div className="bg-[#1e2642] rounded-2xl p-5 border border-white/5">
+//       <div className="flex items-center justify-between mb-4">
+//         <h3 className="text-white font-semibold">{title}</h3>
+//         <button className="text-slate-500 hover:text-slate-300">
+//           <MoreHorizontal size={16} />
+//         </button>
+//       </div>
+//       <div className="flex items-center gap-6">
+//         <div className="relative w-32 h-32">
+//           <ResponsiveContainer width="100%" height="100%">
+//             <PieChart>
+//               <Pie
+//                 data={data}
+//                 cx="50%"
+//                 cy="50%"
+//                 innerRadius={38}
+//                 outerRadius={55}
+//                 paddingAngle={4}
+//                 dataKey="value"
+//               >
+//                 {data.map((entry, index) => (
+//                   <Cell key={`cell-${index}`} fill={entry.color} />
+//                 ))}
+//               </Pie>
+//             </PieChart>
+//           </ResponsiveContainer>
+//           <div className="absolute inset-0 flex flex-col items-center justify-center">
+//             <span className="text-xl font-bold text-white">{total}</span>
+//             <span className="text-[10px] text-slate-500">TOTAL</span>
+//           </div>
+//         </div>
+//         <div className="flex-1 space-y-3">
+//           {data.map((item, index) => (
+//             <div key={index} className="flex items-center justify-between">
+//               <div className="flex items-center gap-2">
+//                 <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+//                 <span className="text-slate-400 text-sm">{item.name}</span>
+//               </div>
+//               <span className="text-white font-semibold">{item.value.toLocaleString()}</span>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// // Sidebar Component
+// const Sidebar = () => {
+//   const navItems = [
+//     { icon: Home, active: true },
+//     { icon: BarChart3 },
+//     { icon: Building2 },
+//     { icon: Users },
+//     { icon: GraduationCap },
+//     { icon: Award },
+//     { icon: BookOpen },
+//     { icon: Calendar },
+//     { icon: Settings },
+//   ];
+
+//   return (
+//     <aside className="fixed left-0 top-0 h-screen w-16 bg-[#151a30] flex flex-col items-center py-6 z-50">
+//       <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center mb-8">
+//         <School size={20} className="text-white" />
+//       </div>
+//       <nav className="flex-1 flex flex-col items-center gap-2">
+//         {navItems.map((item, index) => (
+//           <button
+//             key={index}
+//             className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+//               item.active 
+//                 ? 'bg-gradient-to-br from-cyan-500/20 to-purple-500/20 text-cyan-400' 
+//                 : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
+//             }`}
+//           >
+//             <item.icon size={20} />
+//           </button>
+//         ))}
+//       </nav>
+//     </aside>
+//   );
+// };
+
+// // Main Dashboard Component
+// export default function HemisDashboard() {
+//   const [activeTab, setActiveTab] = useState('OVERVIEW');
+//   const tabs = ['OVERVIEW', 'MONTHLY', 'REGIONS', 'TEACHERS', 'STUDENTS', 'REPORTS'];
+
+//   return (
+//     <div className="min-h-screen bg-[#0f1629]" style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
+//       <Sidebar />
+      
+//       <main className="ml-16">
+//         {/* Header */}
+//         <header className="sticky top-0 z-40 bg-[#0f1629]/90 backdrop-blur-xl border-b border-white/5">
+//           <div className="flex items-center justify-between px-6 py-4">
+//             <div className="flex items-center gap-6">
+//               <h1 className="text-white font-bold text-lg">DASHBOARD</h1>
+//               <div className="flex items-center gap-1 bg-[#1e2642] rounded-xl p-1">
+//                 {tabs.map((tab) => (
+//                   <button
+//                     key={tab}
+//                     onClick={() => setActiveTab(tab)}
+//                     className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+//                       activeTab === tab
+//                         ? 'bg-cyan-500 text-white'
+//                         : 'text-slate-400 hover:text-white'
+//                     }`}
+//                   >
+//                     {tab}
+//                   </button>
+//                 ))}
+//               </div>
+//             </div>
+            
+//             <div className="flex items-center gap-4">
+//               <div className="relative">
+//                 <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+//                 <input 
+//                   type="text"
+//                   placeholder="Type here to find..."
+//                   className="pl-9 pr-4 py-2 bg-[#1e2642] rounded-xl text-sm text-white placeholder-slate-500 w-56 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 border border-white/5"
+//                 />
+//               </div>
+//               <button className="relative p-2 bg-[#1e2642] rounded-xl text-slate-400 hover:text-white transition-colors border border-white/5">
+//                 <Bell size={18} />
+//                 <span className="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full" />
+//               </button>
+//               <div className="flex items-center gap-3 pl-4 border-l border-white/10">
+//                 <div className="w-9 h-9 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+//                   A
+//                 </div>
+//                 <div>
+//                   <p className="text-white text-sm font-medium">Admin User</p>
+//                 </div>
+//                 <ChevronDown size={16} className="text-slate-500" />
+//               </div>
+//             </div>
+//           </div>
+//         </header>
+
+//         {/* Dashboard Content */}
+//         <div className="p-6">
+//           {/* Main Chart + Event Card */}
+//           <div className="grid grid-cols-12 gap-6 mb-6">
+//             {/* Main Area Chart */}
+//             <div className="col-span-8 bg-[#1e2642] rounded-2xl p-5 border border-white/5">
+//               <div className="flex items-center justify-between mb-4">
+//                 <h3 className="text-white font-semibold">Student Growth Chart</h3>
+//                 <div className="flex items-center gap-2">
+//                   <button className="px-3 py-1.5 bg-cyan-500 text-white text-xs font-semibold rounded-lg">DETAILS</button>
+//                   <button className="px-3 py-1.5 bg-[#151a30] text-slate-400 text-xs font-semibold rounded-lg hover:text-white">MONTHLY</button>
+//                   <button className="px-3 py-1.5 bg-[#151a30] text-slate-400 text-xs font-semibold rounded-lg hover:text-white">YEARLY</button>
+//                 </div>
+//               </div>
+//               <div className="flex items-center gap-8">
+//                 <div className="flex-1 h-56">
+//                   <ResponsiveContainer width="100%" height="100%">
+//                     <AreaChart data={monthlyTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+//                       <defs>
+//                         <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+//                           <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.3} />
+//                           <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
+//                         </linearGradient>
+//                         <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+//                           <stop offset="0%" stopColor="#8b5cf6" />
+//                           <stop offset="100%" stopColor="#06b6d4" />
+//                         </linearGradient>
+//                       </defs>
+//                       <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+//                       <XAxis 
+//                         dataKey="month" 
+//                         axisLine={false} 
+//                         tickLine={false}
+//                         tick={{ fill: '#64748b', fontSize: 12 }}
+//                       />
+//                       <YAxis 
+//                         axisLine={false} 
+//                         tickLine={false}
+//                         tick={{ fill: '#64748b', fontSize: 12 }}
+//                         tickFormatter={(v) => `${v/1000}K`}
+//                       />
+//                       <Tooltip 
+//                         contentStyle={{ 
+//                           background: '#1e2642', 
+//                           border: '1px solid rgba(255,255,255,0.1)', 
+//                           borderRadius: '12px',
+//                           boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
+//                         }}
+//                         labelStyle={{ color: '#fff' }}
+//                       />
+//                       <Area
+//                         type="monotone"
+//                         dataKey="students"
+//                         stroke="url(#lineGradient)"
+//                         strokeWidth={3}
+//                         fill="url(#areaGradient)"
+//                       />
+//                     </AreaChart>
+//                   </ResponsiveContainer>
+//                 </div>
+//                 <div className="flex flex-col items-center gap-4">
+//                   <CircularProgress value={68} size={120} label="68.27" sublabel="PERCENT AVG" />
+//                   <button className="px-6 py-2 bg-cyan-500 text-white text-sm font-semibold rounded-xl hover:bg-cyan-400 transition-colors">
+//                     DETAILS
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+
+//             {/* Event/Info Card */}
+//             <div className="col-span-4 bg-gradient-to-br from-[#1e2642] to-[#252d4a] rounded-2xl overflow-hidden border border-white/5">
+//               <div className="p-5">
+//                 <div className="flex items-center justify-between mb-3">
+//                   <span className="text-slate-500 text-xs font-medium tracking-wider">ACADEMIC YEAR</span>
+//                   <div className="flex items-center gap-2">
+//                     <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+//                     <span className="text-emerald-400 text-xs">Active</span>
+//                   </div>
+//                 </div>
+//                 <p className="text-slate-400 text-xs mb-2">DECEMBER 09, 2024</p>
+//                 <h2 className="text-white text-2xl font-bold leading-tight mb-3">
+//                   2024-2025<br />
+//                   <span className="text-cyan-400">ACADEMIC YEAR</span>
+//                 </h2>
+//                 <p className="text-slate-400 text-sm mb-4">
+//                   Ministry of Higher Education,<br />Science and Innovation
+//                 </p>
+//               </div>
+//               <div className="h-32 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+//                 <div className="text-center">
+//                   <GraduationCap size={48} className="text-cyan-400 mx-auto mb-2" />
+//                   <span className="text-white text-sm font-medium">EduAnalytics Platform</span>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Stats Row */}
+//           <div className="grid grid-cols-4 gap-6 mb-6">
+//             <StatCard 
+//               title="Total Organizations"
+//               value="156"
+//               subvalue=""
+//               trend="up"
+//               trendValue="+12"
+//               trendLabel="new this year"
+//             />
+//             <StatCard 
+//               title="Total Teachers"
+//               value="1,500"
+//               subvalue=""
+//               trend="up"
+//               trendValue="+48"
+//               trendLabel="vs last month"
+//             />
+//             <StatCard 
+//               title="Total Students"
+//               value="24,100"
+//               subvalue=""
+//               trend="up"
+//               trendValue="+5.2%"
+//               trendLabel="growth rate"
+//             />
+//             <StatCard 
+//               title="Diplomas Issued"
+//               value="8,456"
+//               subvalue=""
+//               trend="up"
+//               trendValue="+324"
+//               trendLabel="this semester"
+//             />
+//           </div>
+
+//           {/* Charts Row */}
+//           <div className="grid grid-cols-2 gap-6 mb-6">
+//             <FunnelChart data={specialitiesData} title="Students by Speciality" />
+//             <EnrollmentChart data={enrollmentByMonth} />
+//           </div>
+
+//           {/* Bottom Row */}
+//           <div className="grid grid-cols-12 gap-6 mb-6">
+//             <div className="col-span-4">
+//               <DonutChartWidget 
+//                 data={studentsBySexData} 
+//                 title="Students by Sex" 
+//                 total="24.1K"
+//               />
+//             </div>
+//             <div className="col-span-4">
+//               <DonutChartWidget 
+//                 data={teachersBySexData} 
+//                 title="Teachers by Sex" 
+//                 total="1.5K"
+//               />
+//             </div>
+//             <div className="col-span-4 bg-[#1e2642] rounded-2xl p-5 border border-white/5">
+//               <h3 className="text-white font-semibold mb-4">Top Lyceums</h3>
+//               <div className="space-y-3">
+//                 {topLyceumsData.slice(0, 4).map((item, index) => (
+//                   <div key={index} className="flex items-center justify-between">
+//                     <div className="flex items-center gap-3">
+//                       <span className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold ${
+//                         index === 0 ? 'bg-yellow-500 text-slate-900' :
+//                         index === 1 ? 'bg-slate-400 text-slate-900' :
+//                         index === 2 ? 'bg-orange-500 text-slate-900' :
+//                         'bg-slate-700 text-slate-400'
+//                       }`}>
+//                         {index + 1}
+//                       </span>
+//                       <span className="text-slate-300 text-sm">{item.name}</span>
+//                     </div>
+//                     <span className="text-white font-semibold">{item.students.toLocaleString()}</span>
+//                   </div>
+//                 ))}
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Leaderboard */}
+//           <Leaderboard data={lyceumRankingData} />
+
+//           {/* Footer */}
+//           <footer className="text-center py-6 mt-8">
+//             <p className="text-slate-600 text-sm">
+//               © 2024 Ministry of Higher Education, Science and Innovation • EduAnalytics Platform v2.4
+//             </p>
+//           </footer>
+//         </div>
+//       </main>
+//     </div>
+//   );
+// }
+import React, { useState } from 'react';
+import { 
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell, Area, AreaChart
+} from 'recharts';
+import { 
+  Building2, Users, GraduationCap, Award, Home, 
+  BarChart3, Settings, Bell, Search, TrendingUp, TrendingDown,
+  BookOpen, School, Calendar, ChevronDown, MoreHorizontal,
+  Sun, Moon
+} from 'lucide-react';
+
+// Mock data
+const studentsData = { male: 12847, female: 11253, total: 24100 };
+const teachersData = { male: 342, female: 1158, total: 1500 };
+
+const studentsBySexData = [
+  { name: 'Male', value: 12847, color: '#6366f1' },
+  { name: 'Female', value: 11253, color: '#ec4899' }
+];
+
+const teachersBySexData = [
+  { name: 'Male', value: 342, color: '#6366f1' },
+  { name: 'Female', value: 1158, color: '#ec4899' }
+];
+
+const monthlyTrendData = [
+  { month: 'Jan', students: 21500, teachers: 1420 },
+  { month: 'Feb', students: 22100, teachers: 1435 },
+  { month: 'Mar', students: 22400, teachers: 1450 },
+  { month: 'Apr', students: 22900, teachers: 1460 },
+  { month: 'May', students: 23200, teachers: 1475 },
+  { month: 'Jun', students: 23600, teachers: 1485 },
+  { month: 'Jul', students: 23800, teachers: 1490 },
+  { month: 'Aug', students: 24100, teachers: 1500 }
+];
+
+const topLyceumsData = [
+  { name: 'Academic Lyceum #1', students: 2847, city: 'Tashkent' },
+  { name: 'Presidential School', students: 2654, city: 'Tashkent' },
+  { name: 'IT Lyceum', students: 2341, city: 'Samarkand' },
+  { name: 'Science Lyceum', students: 2187, city: 'Bukhara' },
+  { name: 'Technical Lyceum', students: 1956, city: 'Fergana' }
+];
+
+const lyceumRankingData = [
+  { name: 'Presidential School', avgGrade: 94.7, trend: '+2.3' },
+  { name: 'IT Lyceum', avgGrade: 92.4, trend: '+1.8' },
+  { name: 'Academic Lyceum #1', avgGrade: 91.2, trend: '+0.9' },
+  { name: 'Science Lyceum', avgGrade: 89.8, trend: '+1.2' },
+  { name: 'Technical Lyceum', avgGrade: 88.5, trend: '-0.4' },
+  { name: 'Medical Lyceum', avgGrade: 87.9, trend: '+0.7' },
+  { name: 'Economics Lyceum', avgGrade: 86.4, trend: '+1.1' },
+  { name: 'Language Lyceum', avgGrade: 85.7, trend: '+0.5' }
+];
+
+const specialitiesData = [
+  { name: 'Natural Sciences', students: 5840, percent: 85 },
+  { name: 'Mathematics & IT', students: 5120, percent: 75 },
+  { name: 'Humanities', students: 4280, percent: 62 },
+  { name: 'Medicine & Biology', students: 3650, percent: 53 },
+  { name: 'Economics', students: 2890, percent: 42 },
+  { name: 'Languages', students: 2320, percent: 34 }
+];
+
+const enrollmentByMonth = [
+  { month: '1', value: 320 },
+  { month: '2', value: 480 },
+  { month: '3', value: 650 },
+  { month: '4', value: 720 },
+  { month: '5', value: 890 },
+  { month: '6', value: 950 },
+  { month: '7', value: 1100 },
+  { month: '8', value: 980 }
+];
+
+// Theme configurations
+const themes = {
+  dark: {
+    bg: 'bg-[#0f1629]',
+    bgSecondary: 'bg-[#1e2642]',
+    bgTertiary: 'bg-[#151a30]',
+    text: 'text-white',
+    textSecondary: 'text-slate-400',
+    textMuted: 'text-slate-500',
+    border: 'border-white/5',
+    cardBg: '#1e2642',
+    chartBg: '#151a30',
+    gridStroke: 'rgba(255,255,255,0.05)',
+    tickColor: '#64748b',
+    hoverBg: 'hover:bg-white/5',
+    inputBg: 'bg-[#1e2642]',
+    sidebarBg: 'bg-[#151a30]',
+  },
+  light: {
+    bg: 'bg-slate-50',
+    bgSecondary: 'bg-white',
+    bgTertiary: 'bg-slate-100',
+    text: 'text-slate-800',
+    textSecondary: 'text-slate-600',
+    textMuted: 'text-slate-400',
+    border: 'border-slate-200',
+    cardBg: '#ffffff',
+    chartBg: '#f1f5f9',
+    gridStroke: 'rgba(0,0,0,0.06)',
+    tickColor: '#64748b',
+    hoverBg: 'hover:bg-slate-50',
+    inputBg: 'bg-slate-100',
+    sidebarBg: 'bg-slate-900',
+  }
+};
+
+// Theme Toggle Component
+const ThemeToggle = ({ isDark, onToggle }) => {
+  return (
+    <button
+      onClick={onToggle}
+      className={`flex w-16 h-8 rounded-full p-1 transition-all duration-300 ${
+        isDark ? 'bg-slate-700' : 'bg-cyan-100'
+      }`}
+    >
+      <div
+        className={`absolute w-6 h-6 rounded-full transition-all duration-300 flex items-center justify-center ${
+          isDark 
+            ? 'translate-x-8 bg-slate-900' 
+            : 'translate-x-0 bg-white shadow-md'
+        }`}
+      >
+        {isDark ? (
+          <Moon size={14} className="text-cyan-400" />
+        ) : (
+          <Sun size={14} className="text-amber-500" />
+        )}
+      </div>
+    </button>
+  );
+};
+
+// Circular Progress Component
+const CircularProgress = ({ value, size = 120, strokeWidth = 8, isDark }) => {
+  const radius = (size - strokeWidth) / 2;
+  const circumference = radius * 2 * Math.PI;
+  const offset = circumference - (value / 100) * circumference;
+  
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg width={size} height={size} className="transform -rotate-90">
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke={isDark ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.08)"}
+          strokeWidth={strokeWidth}
+        />
+        <circle
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          fill="none"
+          stroke="url(#circleGradient)"
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+        />
+        <defs>
+          <linearGradient id="circleGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#06b6d4" />
+            <stop offset="100%" stopColor="#8b5cf6" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-slate-800'}`}>{value}</span>
+        <span className="text-xs text-cyan-500">PERCENT</span>
+      </div>
+    </div>
+  );
+};
+
+// Stat Card Component
+const StatCard = ({ title, value, trend, trendValue, trendLabel, theme, isDark }) => {
+  const isPositive = trend === 'up';
+  
+  return (
+    <div className={`${theme.bgSecondary} rounded-2xl p-5 border ${theme.border} shadow-sm`}>
+      <div className="flex items-center justify-between mb-3">
+        <span className={`${theme.textSecondary} text-sm font-medium`}>{title}</span>
+        <button className={`${theme.textMuted} hover:${theme.textSecondary} transition-colors`}>
+          <MoreHorizontal size={16} />
+        </button>
+      </div>
+      <div className="flex items-end gap-2">
+        <span className={`text-4xl font-bold ${theme.text} tracking-tight`}>{value}</span>
+      </div>
+      {trendValue && (
+        <div className="flex items-center gap-2 mt-3">
+          <div className={`flex items-center gap-1 ${isPositive ? 'text-emerald-500' : 'text-rose-500'}`}>
+            {isPositive ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
+            <span className="text-sm font-semibold">{trendValue}</span>
+          </div>
+          <span className={`${theme.textMuted} text-xs`}>{trendLabel}</span>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// Funnel Chart Component
+const FunnelChart = ({ data, title, theme, isDark }) => {
+  const maxValue = Math.max(...data.map(d => d.students));
+  
+  return (
+    <div className={`${theme.bgSecondary} rounded-2xl p-5 border ${theme.border} shadow-sm`}>
+      <div className="flex items-center justify-between mb-5">
+        <h3 className={`${theme.text} font-semibold`}>{title}</h3>
+        <button className="px-3 py-1 bg-amber-500/20 text-amber-500 text-xs font-semibold rounded-full">
+          2024
+        </button>
+      </div>
+      <div className="space-y-4">
+        {data.map((item, index) => (
+          <div key={index} className="flex items-center gap-4">
+            <span className={`${theme.textSecondary} text-sm w-32 truncate`}>{item.name}</span>
+            <div className={`flex-1 h-8 ${theme.bgTertiary} rounded-lg overflow-hidden relative`}>
+              <div 
+                className="h-full bg-gradient-to-r from-amber-500 to-amber-400 rounded-lg flex items-center justify-center transition-all duration-500"
+                style={{ width: `${(item.students / maxValue) * 100}%` }}
+              >
+                <span className="text-slate-900 text-sm font-bold">{item.students.toLocaleString()}</span>
+              </div>
+            </div>
+            <span className={`${theme.textSecondary} text-sm w-12 text-right`}>{item.percent}%</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Bar Chart Component for Enrollment
+const EnrollmentChart = ({ data, theme, isDark }) => {
+  return (
+    <div className={`${theme.bgSecondary} rounded-2xl p-5 border ${theme.border} shadow-sm`}>
+      <div className="flex items-center justify-between mb-5">
+        <div>
+          <h3 className={`${theme.text} font-semibold`}>Enrollment Over Time</h3>
+          <p className={`${theme.textMuted} text-xs`}>Monthly new students</p>
+        </div>
+        <button className="px-3 py-1 bg-cyan-500/20 text-cyan-500 text-xs font-semibold rounded-full">
+          2024
+        </button>
+      </div>
+      <div className="h-48">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke={theme.gridStroke} vertical={false} />
+            <XAxis 
+              dataKey="month" 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{ fill: theme.tickColor, fontSize: 12 }}
+            />
+            <YAxis 
+              axisLine={false} 
+              tickLine={false} 
+              tick={{ fill: theme.tickColor, fontSize: 12 }}
+              tickFormatter={(v) => v >= 1000 ? `${v/1000}K` : v}
+            />
+            <Tooltip 
+              contentStyle={{ 
+                background: theme.cardBg, 
+                border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`, 
+                borderRadius: '12px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+              }}
+              labelStyle={{ color: isDark ? '#fff' : '#1e293b' }}
+              itemStyle={{ color: '#06b6d4' }}
+            />
+            <Bar 
+              dataKey="value" 
+              fill="url(#barGradient)" 
+              radius={[6, 6, 0, 0]}
+              maxBarSize={40}
+            />
+            <defs>
+              <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#06b6d4" />
+                <stop offset="100%" stopColor="#0891b2" />
+              </linearGradient>
+            </defs>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};
+
+// Leaderboard Component
+const Leaderboard = ({ data, theme, isDark }) => {
+  return (
+    <div className={`${theme.bgSecondary} rounded-2xl border ${theme.border} overflow-hidden shadow-sm`}>
+      <div className={`p-5 border-b ${theme.border}`}>
+        <h3 className={`${theme.text} font-semibold`}>Lyceum Ranking by Average Grade</h3>
+      </div>
+      <div className={`divide-y ${isDark ? 'divide-white/5' : 'divide-slate-100'}`}>
+        {data.map((item, index) => (
+          <div key={index} className={`flex items-center justify-between p-4 ${theme.hoverBg} transition-colors`}>
+            <div className="flex items-center gap-4">
+              <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm ${
+                index === 0 ? 'bg-gradient-to-br from-yellow-400 to-yellow-500 text-slate-900' :
+                index === 1 ? 'bg-gradient-to-br from-slate-300 to-slate-400 text-slate-900' :
+                index === 2 ? 'bg-gradient-to-br from-orange-400 to-orange-500 text-slate-900' :
+                isDark ? 'bg-slate-700/50 text-slate-400' : 'bg-slate-100 text-slate-500'
+              }`}>
+                {index + 1}
+              </div>
+              <span className={`${isDark ? 'text-slate-300' : 'text-slate-700'} text-sm font-medium`}>{item.name}</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className={`w-24 h-2 ${theme.bgTertiary} rounded-full overflow-hidden`}>
+                <div 
+                  className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-purple-500"
+                  style={{ width: `${item.avgGrade}%` }}
+                />
+              </div>
+              <span className={`${theme.text} font-bold w-12 text-right`}>{item.avgGrade}</span>
+              <span className={`text-xs font-semibold px-2 py-1 rounded ${
+                item.trend.startsWith('+') ? 'bg-emerald-500/20 text-emerald-500' : 'bg-rose-500/20 text-rose-500'
+              }`}>
+                {item.trend}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Donut Chart Component
+const DonutChartWidget = ({ data, title, total, theme, isDark }) => {
+  return (
+    <div className={`${theme.bgSecondary} rounded-2xl p-5 border ${theme.border} shadow-sm`}>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className={`${theme.text} font-semibold`}>{title}</h3>
+        <button className={`${theme.textMuted}`}>
+          <MoreHorizontal size={16} />
+        </button>
+      </div>
+      <div className="flex items-center gap-6">
+        <div className="relative w-32 h-32">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                innerRadius={38}
+                outerRadius={55}
+                paddingAngle={4}
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className={`text-xl font-bold ${theme.text}`}>{total}</span>
+            <span className={`text-[10px] ${theme.textMuted}`}>TOTAL</span>
+          </div>
+        </div>
+        <div className="flex-1 space-y-3">
+          {data.map((item, index) => (
+            <div key={index} className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                <span className={`${theme.textSecondary} text-sm`}>{item.name}</span>
+              </div>
+              <span className={`${theme.text} font-semibold`}>{item.value.toLocaleString()}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Sidebar Component
+const Sidebar = ({ isDark, setIsDark  }) => {
+  const navItems = [
+    { icon: Home, active: true },
+    { icon: BarChart3 },
+    { icon: Building2 },
+    { icon: Users },
+    { icon: GraduationCap },
+    { icon: Award },
+    { icon: BookOpen },
+    { icon: Calendar },
+    { icon: Settings },
+    { icon: isDark ? Sun : Moon, onClick: () => setIsDark(!isDark) }
+  ];
+
+  return (
+    <aside className={`fixed left-0 top-0 h-screen w-16 ${isDark ? 'bg-[#151a30]' : 'bg-slate-900'} flex flex-col items-center py-6 z-50`}>
+      <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-xl flex items-center justify-center mb-8 shadow-lg shadow-cyan-500/20">
+        <School size={20} className="text-white" />
+      </div>
+      <nav className="flex-1 flex flex-col items-center gap-2">
+        {navItems.map((item, index) => (
+          <button
+            key={index}
+            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+              item.active 
+                ? 'bg-gradient-to-br from-cyan-500/20 to-purple-500/20 text-cyan-400' 
+                : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
+            }`}
+          >
+            <item.icon size={20} />
+          </button>
+        ))}
+      </nav>
+    </aside>
+  );
+};
+
+// Main Dashboard Component
+export default function HemisDashboard() {
+  const [isDark, setIsDark] = useState(true);
+  const [activeTab, setActiveTab] = useState('OVERVIEW');
+  const tabs = ['OVERVIEW', 'MONTHLY', 'REGIONS', 'TEACHERS', 'STUDENTS', 'REPORTS'];
+  
+  const theme = isDark ? themes.dark : themes.light;
+
+  return (
+    <div className={`min-h-screen ${theme.bg} transition-colors duration-300`} style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
+      <Sidebar isDark={isDark} />
+      
+      <main className="ml-16">
+        {/* Header */}
+        <header className={`sticky top-0 z-40 ${isDark ? 'bg-[#0f1629]/90' : 'bg-white/90'} backdrop-blur-xl border-b ${theme.border}`}>
+          <div className="flex items-center justify-between px-6 py-4">
+            <div className="flex items-center gap-6">
+              <h1 className={`${theme.text} font-bold text-lg`}>DASHBOARD</h1>
+              <div className={`flex items-center gap-1 ${theme.bgSecondary} rounded-xl p-1 border ${theme.border}`}>
+                {tabs.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                      activeTab === tab
+                        ? 'bg-cyan-500 text-white shadow-lg shadow-cyan-500/20'
+                        : `${theme.textSecondary} hover:${theme.text}`
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              {/* Theme Toggle */}
+              <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+              
+              <div className="relative">
+                <Search size={16} className={`absolute left-3 top-1/2 -translate-y-1/2 ${theme.textMuted}`} />
+                <input 
+                  type="text"
+                  placeholder="Type here to find..."
+                  className={`pl-9 pr-4 py-2 ${theme.inputBg} rounded-xl text-sm ${theme.text} placeholder-slate-500 w-56 focus:outline-none focus:ring-2 focus:ring-cyan-500/30 border ${theme.border} transition-colors`}
+                />
+              </div>
+              <button className={`relative p-2 ${theme.bgSecondary} rounded-xl ${theme.textSecondary} hover:${theme.text} transition-colors border ${theme.border}`}>
+                <Bell size={18} />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full" />
+              </button>
+              <div className={`flex items-center gap-3 pl-4 border-l ${isDark ? 'border-white/10' : 'border-slate-200'}`}>
+                <div className="w-9 h-9 bg-gradient-to-br from-cyan-400 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-lg shadow-cyan-500/20">
+                  A
+                </div>
+                <div>
+                  <p className={`${theme.text} text-sm font-medium`}>Admin User</p>
+                </div>
+                <ChevronDown size={16} className={theme.textMuted} />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Dashboard Content */}
+        <div className="p-6">
+          {/* Main Chart + Event Card */}
+          <div className="grid grid-cols-12 gap-6 mb-6">
+            {/* Main Area Chart */}
+            <div className={`col-span-8 ${theme.bgSecondary} rounded-2xl p-5 border ${theme.border} shadow-sm`}>
+              <div className="flex items-center justify-between mb-4">
+                <h3 className={`${theme.text} font-semibold`}>Student Growth Chart</h3>
+                <div className="flex items-center gap-2">
+                  <button className="px-3 py-1.5 bg-cyan-500 text-white text-xs font-semibold rounded-lg shadow-lg shadow-cyan-500/20">DETAILS</button>
+                  <button className={`px-3 py-1.5 ${theme.bgTertiary} ${theme.textSecondary} text-xs font-semibold rounded-lg hover:${theme.text}`}>MONTHLY</button>
+                  <button className={`px-3 py-1.5 ${theme.bgTertiary} ${theme.textSecondary} text-xs font-semibold rounded-lg hover:${theme.text}`}>YEARLY</button>
+                </div>
+              </div>
+              <div className="flex items-center gap-8">
+                <div className="flex-1 h-56">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart data={monthlyTrendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                      <defs>
+                        <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.3} />
+                          <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
+                        </linearGradient>
+                        <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="#8b5cf6" />
+                          <stop offset="100%" stopColor="#06b6d4" />
+                        </linearGradient>
+                      </defs>
+                      <CartesianGrid strokeDasharray="3 3" stroke={theme.gridStroke} vertical={false} />
+                      <XAxis 
+                        dataKey="month" 
+                        axisLine={false} 
+                        tickLine={false}
+                        tick={{ fill: theme.tickColor, fontSize: 12 }}
+                      />
+                      <YAxis 
+                        axisLine={false} 
+                        tickLine={false}
+                        tick={{ fill: theme.tickColor, fontSize: 12 }}
+                        tickFormatter={(v) => `${v/1000}K`}
+                      />
+                      <Tooltip 
+                        contentStyle={{ 
+                          background: theme.cardBg, 
+                          border: `1px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`, 
+                          borderRadius: '12px',
+                          boxShadow: '0 20px 40px rgba(0,0,0,0.15)'
+                        }}
+                        labelStyle={{ color: isDark ? '#fff' : '#1e293b' }}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="students"
+                        stroke="url(#lineGradient)"
+                        strokeWidth={3}
+                        fill="url(#areaGradient)"
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+                <div className="flex flex-col items-center gap-4">
+                  <CircularProgress value={68} size={120} isDark={isDark} />
+                  <button className="px-6 py-2 bg-cyan-500 text-white text-sm font-semibold rounded-xl hover:bg-cyan-400 transition-colors shadow-lg shadow-cyan-500/20">
+                    DETAILS
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Event/Info Card */}
+            <div className={`col-span-4 ${isDark ? 'bg-gradient-to-br from-[#1e2642] to-[#252d4a]' : 'bg-gradient-to-br from-slate-800 to-slate-900'} rounded-2xl overflow-hidden border ${theme.border}`}>
+              <div className="p-5">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-slate-400 text-xs font-medium tracking-wider">ACADEMIC YEAR</span>
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                    <span className="text-emerald-400 text-xs">Active</span>
+                  </div>
+                </div>
+                <p className="text-slate-400 text-xs mb-2">DECEMBER 09, 2024</p>
+                <h2 className="text-white text-2xl font-bold leading-tight mb-3">
+                  2024-2025<br />
+                  <span className="text-cyan-400">ACADEMIC YEAR</span>
+                </h2>
+                <p className="text-slate-400 text-sm mb-4">
+                  Ministry of Higher Education,<br />Science and Innovation
+                </p>
+              </div>
+              <div className="h-32 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 flex items-center justify-center">
+                <div className="text-center">
+                  <GraduationCap size={48} className="text-cyan-400 mx-auto mb-2" />
+                  <span className="text-white text-sm font-medium">EduAnalytics Platform</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Row */}
+          <div className="grid grid-cols-4 gap-6 mb-6">
+            <StatCard 
+              title="Total Organizations"
+              value="156"
+              trend="up"
+              trendValue="+12"
+              trendLabel="new this year"
+              theme={theme}
+              isDark={isDark}
+            />
+            <StatCard 
+              title="Total Teachers"
+              value="1,500"
+              trend="up"
+              trendValue="+48"
+              trendLabel="vs last month"
+              theme={theme}
+              isDark={isDark}
+            />
+            <StatCard 
+              title="Total Students"
+              value="24,100"
+              trend="up"
+              trendValue="+5.2%"
+              trendLabel="growth rate"
+              theme={theme}
+              isDark={isDark}
+            />
+            <StatCard 
+              title="Diplomas Issued"
+              value="8,456"
+              trend="up"
+              trendValue="+324"
+              trendLabel="this semester"
+              theme={theme}
+              isDark={isDark}
+            />
+          </div>
+
+          {/* Charts Row */}
+          <div className="grid grid-cols-2 gap-6 mb-6">
+            <FunnelChart data={specialitiesData} title="Students by Speciality" theme={theme} isDark={isDark} />
+            <EnrollmentChart data={enrollmentByMonth} theme={theme} isDark={isDark} />
+          </div>
+
+          {/* Bottom Row */}
+          <div className="grid grid-cols-12 gap-6 mb-6">
+            <div className="col-span-4">
+              <DonutChartWidget 
+                data={studentsBySexData} 
+                title="Students by Sex" 
+                total="24.1K"
+                theme={theme}
+                isDark={isDark}
+              />
+            </div>
+            <div className="col-span-4">
+              <DonutChartWidget 
+                data={teachersBySexData} 
+                title="Teachers by Sex" 
+                total="1.5K"
+                theme={theme}
+                isDark={isDark}
+              />
+            </div>
+            <div className={`col-span-4 ${theme.bgSecondary} rounded-2xl p-5 border ${theme.border} shadow-sm`}>
+              <h3 className={`${theme.text} font-semibold mb-4`}>Top Lyceums</h3>
+              <div className="space-y-3">
+                {topLyceumsData.slice(0, 4).map((item, index) => (
+                  <div key={index} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className={`w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold ${
+                        index === 0 ? 'bg-yellow-500 text-slate-900' :
+                        index === 1 ? 'bg-slate-400 text-slate-900' :
+                        index === 2 ? 'bg-orange-500 text-slate-900' :
+                        isDark ? 'bg-slate-700 text-slate-400' : 'bg-slate-200 text-slate-600'
+                      }`}>
+                        {index + 1}
+                      </span>
+                      <span className={`${isDark ? 'text-slate-300' : 'text-slate-700'} text-sm`}>{item.name}</span>
+                    </div>
+                    <span className={`${theme.text} font-semibold`}>{item.students.toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Leaderboard */}
+          <Leaderboard data={lyceumRankingData} theme={theme} isDark={isDark} />
+
+          {/* Footer */}
+          <footer className="text-center py-6 mt-8">
+            <p className={`${theme.textMuted} text-sm`}>
+              © 2024 Ministry of Higher Education, Science and Innovation • EduAnalytics Platform v2.4
+            </p>
+          </footer>
+        </div>
+      </main>
+    </div>
+  );
+}
